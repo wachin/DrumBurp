@@ -23,7 +23,6 @@ Created on 7 Oct 2012
 '''
 import itertools
 import gzip
-import codecs
 import binascii
 import Data.DBErrors as DBErrors
 
@@ -151,14 +150,13 @@ class DataReader(object):
 
     def __enter__(self):
         try:
-            with gzip.open(self.filename, 'rb') as handle:
-                with codecs.getreader('utf-8')(handle) as reader:
-                    reader.read(50)
-            self._gzHandle = gzip.open(self.filename, 'rb')
-            self._reader = codecs.getreader('utf-8')(self._gzHandle)
-        except IOError:
+            with gzip.open(self.filename, 'rt', encoding='utf-8') as handle:
+                handle.read(50)
+            self._gzHandle = gzip.open(self.filename, 'rt', encoding='utf-8')
+            self._reader = self._gzHandle
+        except (IOError, OSError):
             self._gzHandle = None
-            self._reader = codecs.getreader('utf-8')(open(self.filename))
+            self._reader = open(self.filename, 'r', encoding='utf-8')
         return self._reader
 
     def __exit__(self, excType, excValue, traceback):
@@ -176,11 +174,11 @@ class DataWriter(object):
 
     def __enter__(self):
         if self.compressed:
-            self._gzHandle = gzip.open(self.filename, 'wb')
-            self._writer = codecs.getwriter('utf-8')(self._gzHandle)
+            self._gzHandle = gzip.open(self.filename, 'wt', encoding='utf-8')
+            self._writer = self._gzHandle
         else:
             self._gzHandle = None
-            self._writer = codecs.getwriter('utf-8')(open(self.filename, 'w'))
+            self._writer = open(self.filename, 'w', encoding='utf-8')
         return self._writer
 
     def __exit__(self, excType, excValue, traceback):
@@ -423,8 +421,7 @@ class FileStructureMetaClass(type):
                 cls.endTag = "END_" + cls.tag
 
 
-class FileStructure(AbstractFileStructureElement):
-    __metaclass__ = FileStructureMetaClass
+class FileStructure(AbstractFileStructureElement, metaclass=FileStructureMetaClass):
     targetClass = dict
     tag = None
     startTag = None

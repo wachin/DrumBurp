@@ -22,7 +22,7 @@ Created on 31 Jul 2010
 @author: Mike Thomas
 
 '''
-from io import StringIO
+from io import BytesIO, StringIO
 import os
 import shutil
 import webbrowser
@@ -967,7 +967,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if not self._canPlayback():
             return
         try:
-            midiBuffer = StringIO()
+            midiBuffer = BytesIO()
             DBMidi.exportMidi(self.scoreScene.score.iterMeasuresWithRepeats(),
                               self.scoreScene.score, midiBuffer)
         except Exception as exc:

@@ -57,7 +57,7 @@ def _decodeMidiName(name):
 from PyQt4.Qt import QThread
 import atexit
 import time
-from io import StringIO
+from io import BytesIO
 
 try:
     import pygame
@@ -258,17 +258,17 @@ class _midi(QObject):
             self._measureDetails.reverse()
             del self._midiOut
             self._midiOut = None
-            midi = StringIO()
+            midi = BytesIO()
             exportMidi(measureList, score, midi)
             midi.seek(0, 0)
             pygame.mixer.music.load(midi)
             pygame.mixer.music.play()
-            self._songStart = time.clock()
+            self._songStart = time.perf_counter()
             self._musicPlaying = True
         except:
             self.timer.timeout.emit()
             raise
-        self.timer.start(baseTime + 500)
+        self.timer.start(int(round(baseTime + 500)))
         self._measureTimer.start(0)
 
     def loopBars(self, measureIterator, score, loopCount=100):
@@ -308,13 +308,13 @@ class _midi(QObject):
             measureIndex, measureEnd = self._measureDetails.pop()
             if self._measureDetails:
                 nextMeasure = self._measureDetails[-1][0]
-            delay = (measureEnd - 1000 * (time.clock() - self._songStart))
+            delay = (measureEnd - 1000 * (time.perf_counter() - self._songStart))
         if measureIndex is not None:
             self.highlightMeasure.emit(measureIndex, nextMeasure)
         else:
             self.highlightMeasure.emit(-1, -1)
         if delay > 0:
-            self._measureTimer.start(delay)
+            self._measureTimer.start(int(round(delay)))
 
 
 _PLAYER = _midi()
@@ -355,6 +355,7 @@ def isMuted():
 
 
 def encodeSevenBitDelta(delta, midiData):
+    delta = int(round(delta))
     values = []
     lastByte = True
     if delta <= 0:
@@ -406,10 +407,13 @@ def _finishMidiData(midiData):
 
 class MidiObject(object):
     def __init__(self, eventTime):
-        self.time = eventTime
+        self.time = int(round(eventTime))
 
-    def __cmp__(self, other):
-        return cmp(self.time, other.time)
+    def _sortKey(self):
+        return (self.time, self.__class__.__name__)
+
+    def __lt__(self, other):
+        return self._sortKey() < other._sortKey()
 
     def write(self):
         raise NotImplementedError()
@@ -433,7 +437,7 @@ class MidiNote(MidiObject):
 
     def write(self):
         return [_PERCUSSION_NOTE_ON, self.headData.midiNote,
-                self.headData.midiVolume]
+                int(self.headData.midiVolume)]
 
 
 class MidiChoke(MidiObject):
@@ -486,16 +490,15 @@ def _calculateMidiTimes(measureIterator, score):
 
 
 def exportMidi(measureIterator, score, handle):
-    handle.write("MThd\x00\x00\x00\x06\x00\x00\x00\x01")
-    handle.write("%c" % chr((MIDITICKSPERBEAT >> 8) & 0xFF))
-    handle.write("%c" % chr((MIDITICKSPERBEAT >> 0) & 0xFF))
+    handle.write(b"MThd\x00\x00\x00\x06\x00\x00\x00\x01")
+    handle.write(bytes([(MIDITICKSPERBEAT >> 8) & 0xFF]))
+    handle.write(bytes([(MIDITICKSPERBEAT >> 0) & 0xFF]))
     notes, baseTime = _calculateMidiTimes(measureIterator, score)
     midiData = _makeMidiStart(score)
     midiData += _writeMidiNotes(notes, baseTime)
     midiData = _finishMidiData(midiData)
-    handle.write("MTrk")
-    for byte in midiData:
-        handle.write("%c" % byte)
+    handle.write(b"MTrk")
+    handle.write(bytes(midiData))
 
 
 def selectMidiDevice(dev):
@@ -521,12 +524,13 @@ def _initialize():
             pygame.midi.init()
             pygame.mixer.init(_FREQ, _BITSIZE, _CHANNELS, _NUMSAMPLES)
             pygame.mixer.music.set_volume(0.8)
+        _MIDI_INITIALIZED = True
         _PLAYER.initialize()
         HAS_MIDI = _HAS_PYGAME and _PLAYER.isGood()
     except Exception as exc:
         print("MIDI unavailable: %s" % exc)
         HAS_MIDI = False
-    _MIDI_INITIALIZED = True
+        _MIDI_INITIALIZED = True
     atexit.register(cleanup)
 
 

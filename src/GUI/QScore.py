@@ -28,6 +28,7 @@ import itertools
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtGui import QGraphicsItem
+from PyQt4.QtGui import QTransform
 
 from Data import DBErrors
 from Data.NotePosition import NotePosition
@@ -611,8 +612,11 @@ class QScore(QtGui.QGraphicsScene):
     def ignoreNextClick(self):
         self._ignoreNext = True
 
+    def itemAtPoint(self, point):
+        return self.itemAt(point, QTransform())
+
     def mousePressEvent(self, event):
-        item = self.itemAt(event.scenePos())
+        item = self.itemAtPoint(event.scenePos())
         if not isinstance(item, QMeasure):
             self.clearDragSelection()
         event.ignore()

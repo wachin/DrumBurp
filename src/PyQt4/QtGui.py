@@ -7,6 +7,7 @@ from PyQt5.QtCore import QStandardPaths
 
 _SRC_DIR = os.path.dirname(os.path.dirname(__file__))
 _QT5_QPIXMAP = QPixmap
+_QT5_QFILEDIALOG = QFileDialog
 
 def _resource_path(path):
     if not isinstance(path, str) or not path.startswith(":/"):
@@ -26,6 +27,17 @@ def QPixmap(*args):
     if args:
         args = (_resource_path(args[0]),) + args[1:]
     return _QT5_QPIXMAP(*args)
+
+class QFileDialog(_QT5_QFILEDIALOG):
+    @staticmethod
+    def getOpenFileName(*args, **kwargs):
+        result = _QT5_QFILEDIALOG.getOpenFileName(*args, **kwargs)
+        return result[0] if isinstance(result, tuple) else result
+
+    @staticmethod
+    def getSaveFileName(*args, **kwargs):
+        result = _QT5_QFILEDIALOG.getSaveFileName(*args, **kwargs)
+        return result[0] if isinstance(result, tuple) else result
 
 class QDesktopServices:
     DocumentsLocation = QStandardPaths.DocumentsLocation

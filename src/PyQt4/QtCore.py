@@ -16,6 +16,11 @@ def pyqtSignature(signature="", *args, **kwargs):
 
 _QT5_QSETTINGS = QSettings
 
+def _unwrap_variant(value):
+    if isinstance(value, _CompatVariant):
+        return _unwrap_variant(value.value)
+    return value
+
 class _CompatVariant:
     def __init__(self, value=None):
         self.value = value
@@ -53,18 +58,41 @@ class _CompatVariant:
         return self.toString()
 
     def __getattr__(self, name):
-        return getattr(self.value, name)
+        try:
+            value = object.__getattribute__(self, "value")
+        except AttributeError:
+            raise AttributeError(name)
+        return getattr(value, name)
 
 def QVariant(value=None):
     return _CompatVariant(value)
 
 class QSettings(_QT5_QSETTINGS):
+    def contains(self, key):
+        try:
+            return super(QSettings, self).contains(key)
+        except (RecursionError, SystemError, TypeError):
+            super(QSettings, self).remove(key)
+            return False
+
     def value(self, key, defaultValue=None, type=None):
+        defaultValue = _unwrap_variant(defaultValue)
         if type is None:
-            value = super(QSettings, self).value(key, defaultValue)
+            try:
+                value = super(QSettings, self).value(key, defaultValue)
+            except (RecursionError, SystemError, TypeError):
+                super(QSettings, self).remove(key)
+                value = defaultValue
         else:
-            value = super(QSettings, self).value(key, defaultValue, type=type)
+            try:
+                value = super(QSettings, self).value(key, defaultValue, type=type)
+            except (RecursionError, SystemError, TypeError):
+                super(QSettings, self).remove(key)
+                value = defaultValue
         return _CompatVariant(value)
+
+    def setValue(self, key, value):
+        return super(QSettings, self).setValue(key, _unwrap_variant(value))
 
 def SIGNAL(signature):
     return signature

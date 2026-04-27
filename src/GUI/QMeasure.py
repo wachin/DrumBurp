@@ -569,7 +569,7 @@ class QMeasure(QtGui.QGraphicsItem):
         self._qScore.sendFsmEvent(eventType(self, np, event.screenPos()))
 
     def mouseMoveEvent(self, event):
-        item = self._qScore.itemAt(event.scenePos())
+        item = self._qScore.itemAtPoint(event.scenePos())
         if item is self:
             point = self.mapFromScene(event.scenePos())
             if self._isOverNotes(self._getMouseLine(point)):
