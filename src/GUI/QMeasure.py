@@ -140,6 +140,18 @@ class QMeasure(QtGui.QGraphicsItem):
     def isSimile(self):
         return self._measure.simileDistance > 0
 
+    @staticmethod
+    def _drawLine(painter, x1, y1, x2, y2):
+        painter.drawLine(QtCore.QLineF(x1, y1, x2, y2))
+
+    @staticmethod
+    def _drawRect(painter, x, y, width, height):
+        painter.drawRect(QtCore.QRectF(x, y, width, height))
+
+    @staticmethod
+    def _drawText(painter, x, y, text):
+        painter.drawText(QtCore.QPointF(x, y), text)
+
     @_painterSaver
     def _paintNotes(self, painter, xValues):
         scheme = self._colourScheme()
@@ -190,9 +202,9 @@ class QMeasure(QtGui.QGraphicsItem):
                 else:
                     text = self._measure.noteAt(noteTime, lineIndex)
                 if text == DBConstants.EMPTY_NOTE:
-                    painter.drawLine(x + dot, lineHeight,
-                                     x + self._qScore.xSpacing - dot,
-                                     lineHeight)
+                    self._drawLine(painter, x + dot, lineHeight,
+                                   x + self._qScore.xSpacing - dot,
+                                   lineHeight)
                 else:
                     br = fontMetric.tightBoundingRect(text)
                     left = x + (self._qScore.xSpacing - br.width()) / 2
@@ -217,14 +229,14 @@ class QMeasure(QtGui.QGraphicsItem):
         scheme = self._colourScheme()
         # Highlight count
         scheme.noteHighlight.setPainter(painter)
-        painter.drawRect(x, countLine,
-                         self._qScore.xSpacing - 1,
-                         self._qScore.ySpacing - 1)
+        self._drawRect(painter, x, countLine,
+                       self._qScore.xSpacing - 1,
+                       self._qScore.ySpacing - 1)
         # Highlight notes column
         scheme.timeHighlight.setPainter(painter)
-        painter.drawRect(x, baseline,
-                         self._qScore.xSpacing - 1,
-                         self._notesBottom - self._notesTop - 1)
+        self._drawRect(painter, x, baseline,
+                       self._qScore.xSpacing - 1,
+                       self._notesBottom - self._notesTop - 1)
 
     @_painterSaver
     def _paintBeatCount(self, painter, xValues):
@@ -264,8 +276,10 @@ class QMeasure(QtGui.QGraphicsItem):
         altHeight = self.parentItem().alternateHeight()
         spacing = self._qScore.scale
         self._colourScheme().text.setPainter(painter)
-        painter.drawLine(0, self._base, self.width() - spacing * 2, self._base)
-        painter.drawLine(0, self._base, 0, self._notesTop - spacing * 2)
+        self._drawLine(painter, 0, self._base,
+                       self.width() - spacing * 2, self._base)
+        self._drawLine(painter, 0, self._base,
+                       0, self._notesTop - spacing * 2)
         font = painter.font()
         font.setItalic(True)
         painter.setFont(font)
@@ -276,7 +290,7 @@ class QMeasure(QtGui.QGraphicsItem):
         self._alternate.setSize(QtCore.QSizeF(textWidth, altHeight))
         bottomLeft = QtCore.QPointF(2 * spacing, self._repeatBottom - spacing)
         self._alternate.moveBottomLeft(bottomLeft)
-        painter.drawText(2 * spacing, self._repeatBottom - spacing, text)
+        self._drawText(painter, 2 * spacing, self._repeatBottom - spacing, text)
 
     @_painterSaver
     def _paintPlayingHighlight(self, painter):
@@ -287,8 +301,8 @@ class QMeasure(QtGui.QGraphicsItem):
             scheme.nextPlayingHighlight.setPainter(painter)
         else:
             return
-        painter.drawRect(-1, -1, self.width() + 1, self.height() + 1)
-        painter.drawRect(0, 0, self.width() - 1, self.height() - 1)
+        self._drawRect(painter, -1, -1, self.width() + 1, self.height() + 1)
+        self._drawRect(painter, 0, 0, self.width() - 1, self.height() - 1)
 
     @_painterSaver
     def _paintMeasureCount(self, painter):
@@ -296,7 +310,8 @@ class QMeasure(QtGui.QGraphicsItem):
         font = painter.font()
         font.setItalic(True)
         painter.setFont(font)
-        painter.drawText(1, self._base - 2, "%d" % (1 + self._measureIndex))
+        self._drawText(painter, 1, self._base - 2,
+                       "%d" % (1 + self._measureIndex))
 
     @_painterSaver
     def _paintDragHighlight(self, painter):
@@ -360,7 +375,8 @@ class QMeasure(QtGui.QGraphicsItem):
     @_painterSaver
     def _paintNewBpm(self, painter):
         text = "BPM = %d" % self._measure.newBpm
-        painter.drawText(1, self._bpmBase + self._props.bpmHeight() - 1, text)
+        self._drawText(painter, 1,
+                       self._bpmBase + self._props.bpmHeight() - 1, text)
         textWidth = QtGui.QFontMetrics(painter.font()).width(text)
         if self._bpmRect is None:
             self._bpmRect = QtCore.QRectF(0, 0, 0, 0)

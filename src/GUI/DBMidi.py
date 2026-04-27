@@ -515,15 +515,19 @@ def _initialize():
     global HAS_MIDI, _MIDI_INITIALIZED
     if _MIDI_INITIALIZED:
         return
-    if _HAS_PYGAME:
-        pygame.init()  # IGNORE:no-member
-        pygame.midi.init()
-        pygame.mixer.init(_FREQ, _BITSIZE, _CHANNELS, _NUMSAMPLES)
-        pygame.mixer.music.set_volume(0.8)
+    try:
+        if _HAS_PYGAME:
+            pygame.init()  # IGNORE:no-member
+            pygame.midi.init()
+            pygame.mixer.init(_FREQ, _BITSIZE, _CHANNELS, _NUMSAMPLES)
+            pygame.mixer.music.set_volume(0.8)
+        _PLAYER.initialize()
+        HAS_MIDI = _HAS_PYGAME and _PLAYER.isGood()
+    except Exception as exc:
+        print("MIDI unavailable: %s" % exc)
+        HAS_MIDI = False
     _MIDI_INITIALIZED = True
-    _PLAYER.initialize()
     atexit.register(cleanup)
-    HAS_MIDI = _HAS_PYGAME and _PLAYER.isGood()
 
 
 class MidiInit(QThread):

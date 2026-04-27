@@ -134,12 +134,20 @@ class BarLinePainter(object):
                  dummyScale):
         raise NotImplementedError()
 
+    @staticmethod
+    def _drawLine(painter, x1, y1, x2, y2):
+        painter.drawLine(QtCore.QLineF(x1, y1, x2, y2))
+
+    @staticmethod
+    def _drawRect(painter, x, y, width, height):
+        painter.drawRect(QtCore.QRectF(x, y, width, height))
+
     @classmethod
     def _drawThickLine(cls, painter, xCenter, height, colour, scale):
         painter.setPen(QtCore.Qt.NoPen)
         painter.setBrush(colour)
-        painter.drawRect(xCenter - cls.THICK_LINE_OFFSET * scale, 0,
-                         cls.THICK_LINE_WIDTH * scale, height + 1)
+        cls._drawRect(painter, xCenter - cls.THICK_LINE_OFFSET * scale, 0,
+                      cls.THICK_LINE_WIDTH * scale, height + 1)
 
     @classmethod
     def _drawDot(cls, painter, x, y, colour, scale):
@@ -152,15 +160,15 @@ class BarLinePainter(object):
     def _drawExtraLineBefore(cls, painter, xCenter, height, colour, scale):
         painter.setPen(QtCore.Qt.SolidLine)
         painter.setPen(QtGui.QPen(colour))
-        painter.drawLine(xCenter - cls.EXTRA_LINE_OFFSET * scale, 0,
-                         xCenter - cls.EXTRA_LINE_OFFSET * scale, height)
+        x = xCenter - cls.EXTRA_LINE_OFFSET * scale
+        cls._drawLine(painter, x, 0, x, height)
 
     @classmethod
     def _drawExtraLineAfter(cls, painter, xCenter, height, colour, scale):
         painter.setPen(QtCore.Qt.SolidLine)
         painter.setPen(QtGui.QPen(colour))
-        painter.drawLine(xCenter + cls.EXTRA_LINE_OFFSET * scale, 0,
-                         xCenter + cls.EXTRA_LINE_OFFSET * scale, height)
+        x = xCenter + cls.EXTRA_LINE_OFFSET * scale
+        cls._drawLine(painter, x, 0, x, height)
 
     @classmethod
     def _drawRepeatBefore(cls, painter, xCenter, height, colour, scale):
@@ -187,7 +195,7 @@ class NormalBarLinePainter(BarLinePainter):
         painter.setPen(QtCore.Qt.SolidLine)
         painter.setPen(QtGui.QPen(colour))
         x = qMeasureLine.width() / 2
-        painter.drawLine(x, 0, x, qMeasureLine.height())
+        self._drawLine(painter, x, 0, x, qMeasureLine.height())
 
 
 class RepeatStartLinePainter(BarLinePainter):

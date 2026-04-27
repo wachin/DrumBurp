@@ -280,8 +280,8 @@ class QScore(QtGui.QGraphicsScene):
     dragHighlight = QtCore.pyqtSignal(bool)
     sceneFormatted = QtCore.pyqtSignal()
     playing = QtCore.pyqtSignal(bool)
-    currentHeadsChanged = QtCore.pyqtSignal(QtCore.QString)
-    statusMessageSet = QtCore.pyqtSignal(QtCore.QString)
+    currentHeadsChanged = QtCore.pyqtSignal(str)
+    statusMessageSet = QtCore.pyqtSignal(str)
     lilysizeChanged = QtCore.pyqtSignal(int)
     lilypagesChanged = QtCore.pyqtSignal(int)
     lilyFillChanged = QtCore.pyqtSignal(bool)
@@ -650,7 +650,7 @@ class QScore(QtGui.QGraphicsScene):
 
     def _highlightCurrentKeyHead(self):
         headText = self._shortcutMemo.getShortcutText(self._currentKey)
-        self.currentHeadsChanged.emit(QtCore.QString(headText))
+        self.currentHeadsChanged.emit(headText)
 
     def copyMeasures(self, np=None):
         if np is not None:
