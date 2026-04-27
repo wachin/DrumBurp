@@ -290,8 +290,17 @@ class _midi(QObject):
             if self._midiOut:
                 del self._midiOut
                 self._midiOut = None
-            pygame.mixer.music.stop()
-            self._midiOut = pygame.midi.Output(self._port, _LATENCY, _BUFSIZE)
+            try:
+                pygame.mixer.music.stop()
+            except Exception as exc:
+                print("MIDI playback stop failed: %s" % exc)
+            if self._port is not None and self._port != -1:
+                try:
+                    self._midiOut = pygame.midi.Output(self._port, _LATENCY,
+                                                       _BUFSIZE)
+                except Exception as exc:
+                    print("MIDI output unavailable: %s" % exc)
+                    self._midiOut = None
             self._musicPlaying = False
 
     def cleanup(self):

@@ -1,0 +1,18 @@
+
+Install Timidity:
+
+sudo apt-get install python3-pygame timgm6mb-soundfont timidity fluid-soundfont-gm
+
+Nota: El paquete "fluid-soundfont-gm" es necesario para timidity.
+
+and put under commnad line in a terminal:
+
+modprobe snd_seq
+
+then I put:
+
+timidity -iA -Os -B2,8 &
+
+Then launch it, and would by working fine
+
+
