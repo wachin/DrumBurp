@@ -234,7 +234,7 @@ class _midi(QObject):
         self._playMIDINow(measureList, score)
 
     def _playMIDINow(self, measureList, score):
-        if self.kit is None or self._midiOut is None:
+        if self.kit is None or self._mute:
             return
         baseTime = 0
         bpm = score.scoreData.bpm
@@ -256,7 +256,6 @@ class _midi(QObject):
                 baseTime += times[-1]
                 self._measureDetails.append((measureIndex, baseTime))
             self._measureDetails.reverse()
-            del self._midiOut
             self._midiOut = None
             midi = BytesIO()
             exportMidi(measureList, score, midi)
