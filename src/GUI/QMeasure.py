@@ -567,6 +567,7 @@ class QMeasure(QtGui.QGraphicsItem):
                 noteTime = self._getNoteTime(point)
                 np = self.makeNotePosition(noteTime, -1)
         self._qScore.sendFsmEvent(eventType(self, np, event.screenPos()))
+        event.accept()
 
     def mouseMoveEvent(self, event):
         item = self._qScore.itemAtPoint(event.scenePos())
@@ -576,6 +577,7 @@ class QMeasure(QtGui.QGraphicsItem):
                 np = self._getNotePosition(point)
                 np = self.makeNotePosition(*np)
                 self._qScore.sendFsmEvent(MouseMove(self, np))
+                event.accept()
         elif isinstance(item, QMeasure):
             item.mouseMoveEvent(event)
 
@@ -590,6 +592,7 @@ class QMeasure(QtGui.QGraphicsItem):
         elif self._isOverStickingBelow(point) and not self.isSimile():
             self.setSticking(point, False)
         self._qScore.sendFsmEvent(MouseRelease(self, np))
+        event.accept()
 
     def mouseDoubleClickEvent(self, event):
         point = self.mapFromScene(event.scenePos())
