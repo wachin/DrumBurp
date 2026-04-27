@@ -2221,7 +2221,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>ScoreView</class>
    <extends>QGraphicsView</extends>
-   <header>Widgets.ScoreView_plugin</header>
+   <header>Widgets.ScoreView</header>
   </customwidget>
  </customwidgets>
  <tabstops>

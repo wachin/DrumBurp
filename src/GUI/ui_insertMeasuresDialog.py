@@ -82,4 +82,4 @@ class Ui_InsertMeasuresDialog(object):
         self.afterButton.setText(QtGui.QApplication.translate("InsertMeasuresDialog", "After", None, QtGui.QApplication.UnicodeUTF8))
         self.measureTabs.setToolTip(QtGui.QApplication.translate("InsertMeasuresDialog", "Select the count to use for the new measures", None, QtGui.QApplication.UnicodeUTF8))
 
-from Widgets.measureTabs_plugin import measureTabs
+from Widgets.measureTabs import measureTabs

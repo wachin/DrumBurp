@@ -164,5 +164,3 @@ class Ui_InfoDialog(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">DrumBurp is issued under the </span><a href=\"http://www.gnu.org/licenses/gpl.html\"><span style=\" text-decoration: underline; color:#0000ff;\">GNU GPLv3</span></a><span style=\" font-size:8pt;\">.</span></p></body></html>", None))
         self.label_8.setText(_translate("InfoDialog", "Cost", None))
         self.label_9.setText(_translate("InfoDialog", "DrumBurp is free for private, non-commercial use. Donations to fund DrumBurp development & support are welcome: please see the website.", None))
-
-import DrumBurp_rc

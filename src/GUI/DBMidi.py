@@ -47,10 +47,17 @@ FLAM_TIME_CONSTANT = 32
 FLAM_VOLUME_CONSTANT = 2
 DRAG_TIME_CONSTANT = 96
 
+def _decodeMidiName(name):
+    if isinstance(name, bytes):
+        return name.decode("utf-8", "replace")
+    if name is None:
+        return None
+    return str(name)
+
 from PyQt4.Qt import QThread
 import atexit
 import time
-import StringIO
+from io import StringIO
 
 try:
     import pygame
@@ -65,6 +72,7 @@ try:
 
     def getDeviceInfo(deviceId):
         int_, name, isIn, isOut, isOpen = pygame.midi.get_device_info(deviceId)
+        name = _decodeMidiName(name)
         return name, isIn == 1, isOut == 1, isOpen == 1
 
     def cleanup():
@@ -94,6 +102,7 @@ class MidiDevice(object):
     def __init__(self, deviceId):
         self.deviceId = deviceId
         self.name, in_, self._isOutput, self._isOpen = getDeviceInfo(deviceId)
+        self.name = _decodeMidiName(self.name)
         self._isValid = self.name is not None
 
     def isValid(self):
@@ -112,7 +121,11 @@ _OUTPUT_DEVICES = []
 def refreshOutputDevices():
     while _OUTPUT_DEVICES:
         _OUTPUT_DEVICES.pop()
-    for devId in iterDeviceIds():
+    try:
+        deviceIds = iterDeviceIds()
+    except RuntimeError:
+        return
+    for devId in deviceIds:
         device = MidiDevice(devId)
         if device.isOutput():
             _OUTPUT_DEVICES.append(device)
@@ -245,7 +258,7 @@ class _midi(QObject):
             self._measureDetails.reverse()
             del self._midiOut
             self._midiOut = None
-            midi = StringIO.StringIO()
+            midi = StringIO()
             exportMidi(measureList, score, midi)
             midi.seek(0, 0)
             pygame.mixer.music.load(midi)

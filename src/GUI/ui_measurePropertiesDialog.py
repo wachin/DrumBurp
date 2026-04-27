@@ -54,4 +54,4 @@ class Ui_measurePropertiesDialog(object):
         measurePropertiesDialog.setWindowTitle(QtGui.QApplication.translate("measurePropertiesDialog", "Measure Properties", None, QtGui.QApplication.UnicodeUTF8))
         self.measureTabs.setToolTip(QtGui.QApplication.translate("measurePropertiesDialog", "Select the count for the measure", None, QtGui.QApplication.UnicodeUTF8))
 
-from Widgets.measureTabs_plugin import measureTabs
+from Widgets.measureTabs import measureTabs

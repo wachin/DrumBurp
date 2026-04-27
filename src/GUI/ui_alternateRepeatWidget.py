@@ -62,5 +62,3 @@ class Ui_AlternateWidget(object):
         self.rangeCheck.setToolTip(QtGui.QApplication.translate("AlternateWidget", "Range of repeat numbers?", None, QtGui.QApplication.UnicodeUTF8))
         self.rangeCheck.setText(QtGui.QApplication.translate("AlternateWidget", "Range?", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setToolTip(QtGui.QApplication.translate("AlternateWidget", "Delete this repeat", None, QtGui.QApplication.UnicodeUTF8))
-
-import DrumBurp_rc

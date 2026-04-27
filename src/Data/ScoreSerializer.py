@@ -23,8 +23,7 @@ Created on Jun 20, 2015
 '''
 
 import itertools
-from cStringIO import StringIO
-import codecs
+from io import StringIO
 from Data.fileStructures import dbfsv0, dbfsv1, dbfsv2
 from Data.DBErrors import DBVersionError, NoContent
 from Data import DBConstants
@@ -47,7 +46,7 @@ class ScoreSerializer(object):
         # Check the file format version
         handle, handleCopy = itertools.tee(handle)
         try:
-            firstline = handleCopy.next()
+            firstline = next(handleCopy)
         except StopIteration:
             raise NoContent()
         del handleCopy
@@ -59,7 +58,7 @@ class ScoreSerializer(object):
                     fileVersion = int(fileVersion[1])
             except (TypeError, ValueError):
                 fileVersion = DBConstants.DBFF_0
-            scoreIterator.next()
+            next(scoreIterator)
         else:
             fileVersion = DBConstants.DBFF_0
         if fileVersion > DBConstants.CURRENT_FILE_FORMAT:
@@ -72,13 +71,12 @@ class ScoreSerializer(object):
     @staticmethod
     def write(score, handle, version=DBConstants.CURRENT_FILE_FORMAT):
         scoreBuffer = StringIO()
-        scoreWriter = codecs.getwriter("utf-8")(scoreBuffer)
-        indenter = fileUtils.Indenter(scoreWriter)
+        indenter = fileUtils.Indenter(scoreBuffer)
         indenter(DBConstants.DB_FILE_FORMAT_STR, version)
         fileStructure = _FS_MAP.get(version,
                                     _FS_MAP[DBConstants.CURRENT_FILE_FORMAT])()
         fileStructure.write(score, indenter)
-        handle.write(scoreBuffer.getvalue().decode("utf-8"))
+        handle.write(scoreBuffer.getvalue())
 
     @classmethod
     def saveScore(cls, score, filename,

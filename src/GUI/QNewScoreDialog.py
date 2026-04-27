@@ -25,7 +25,7 @@ Created on 9 Jan 2011
 
 from PyQt4.QtGui import QDialog
 from PyQt4.QtCore import QSettings, QVariant
-from cStringIO import StringIO
+from io import StringIO
 from GUI.ui_newScoreDialog import Ui_newScoreDialog
 from GUI.QComplexCountDialog import QComplexCountDialog
 import Data.MeasureCount

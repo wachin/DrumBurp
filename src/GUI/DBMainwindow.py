@@ -22,7 +22,7 @@ Created on 31 Jul 2010
 @author: Mike Thomas
 
 '''
-from StringIO import StringIO
+from io import StringIO
 import os
 import shutil
 import webbrowser

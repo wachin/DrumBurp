@@ -842,6 +842,3 @@ class Ui_editKitDialog(object):
         self.lockedCheckBox.setToolTip(_translate("editKitDialog", "Lock this line", None))
         self.label.setToolTip(_translate("editKitDialog", "Lock this line", None))
         self.label.setText(_translate("editKitDialog", "The line for this drum will always be displayed, even if it contains no notes.", None))
-
-import buttons_rc
-import DrumBurp_rc

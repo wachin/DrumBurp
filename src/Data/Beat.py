@@ -43,8 +43,7 @@ class Beat(object):
         self._beatLength = float(self.numTicks) / self.ticksPerBeat
 
     def __iter__(self):
-        for unusedTickNum, count in itertools.izip(self.iterTicks(),
-                                                   self.counter):
+        for unusedTickNum, count in zip(self.iterTicks(), self.counter):
             yield count
 
     def count(self, beatNum):

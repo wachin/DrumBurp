@@ -24,10 +24,6 @@ Created on 31 Jul 2010
 import sys
 import optparse
 from PyQt4.QtGui import QApplication
-import GUI.DBMainwindow
-import GUI.DBIcons
-import GUI.DBFonts
-import GUI.DBStartupDialog
 from DBVersion import APPNAME, DB_VERSION
 
 
@@ -56,6 +52,10 @@ def main():
     app.setOrganizationName("Whatang Software")
     app.setOrganizationDomain("whatang.org")
     app.setApplicationName(APPNAME)
+    import GUI.DBFonts
+    import GUI.DBIcons
+    import GUI.DBMainwindow
+    import GUI.DBStartupDialog
     GUI.DBIcons.initialiseIcons()
     GUI.DBFonts.initialiseFonts()
     splash = GUI.DBStartupDialog.DBStartupDialog(DB_VERSION)

@@ -24,7 +24,7 @@ Created on 13 Oct 2012
 '''
 
 from PyQt4 import QtGui, QtCore
-from cStringIO import StringIO
+from io import StringIO
 from GUI.ui_defaultKitManager import Ui_DefaulKitManager
 from Data import DefaultKits, DrumKitFactory, DrumKitSerializer
 

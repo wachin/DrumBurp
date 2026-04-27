@@ -4,7 +4,7 @@ Created on Apr 9, 2016
 @author: mike_000
 '''
 import unittest
-import StringIO
+import io
 from Notation import lilypond
 from Data.DrumKitFactory import DrumKitFactory
 from Data.Counter import CounterRegistry
@@ -19,7 +19,7 @@ class TestCompoundSticking(unittest.TestCase):
         self.kit = DrumKitFactory.getNamedDefaultKit()
         self.lilykit = lilypond.LilyKit(self.kit)
         self.indenter = lilypond.LilyIndenter()
-        self.output = StringIO.StringIO()
+        self.output = io.StringIO()
         self.indenter.setHandle(self.output)
         self.measure = Measure()
         counter = _REG.getCounterByName("Triplets")

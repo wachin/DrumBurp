@@ -26,21 +26,12 @@ import unittest
 import glob
 import os
 import tempfile
-import codecs
-import cStringIO
+from io import StringIO
 from Data.ScoreSerializer import ScoreSerializer
 from Data.ScoreFactory import ScoreFactory
 from Data import DBConstants
 from Data import DBErrors
 from Data import fileUtils
-
-
-def StringIO(*args, **kwargs):  # IGNORE:invalid-name
-    "Utility function to wrap StringIO with utf-8 reading/writing"
-    handle = cStringIO.StringIO(*args, **kwargs)
-    return codecs.StreamReaderWriter(handle,
-                                     codecs.getreader('utf-8'),
-                                     codecs.getwriter('utf-8'))
 
 
 class TestScoreSerializerGeneral(unittest.TestCase):

@@ -22,7 +22,7 @@ Created on Dec 15, 2012
 @author: Mike Thomas
 '''
 
-from StringIO import StringIO
+from io import StringIO
 import time
 
 from Data.DBConstants import (REPEAT_EXTENDER, BARLINE, DRUM_ABBR_WIDTH,
@@ -255,8 +255,7 @@ class Exporter(object):
     def _exportStaff(self, staff, staffIndex):
         kit = self.score.drumKit
         kitSize = len(kit)
-        indices = range(0, kitSize)
-        indices.reverse()
+        indices = range(kitSize - 1, -1, -1)
         position = NotePosition(staffIndex=staffIndex)
         staffString = []
         bpmString = self._getBpmChanges(staff, position)

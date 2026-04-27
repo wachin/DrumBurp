@@ -30,7 +30,9 @@ from GUI.DBCommands import SetSectionTitleCommand
 
 class QSection(QGraphicsTextItem):
     def __init__(self, title, qScore=None, parent=None):
-        super(QSection, self).__init__(parent=parent, scene=qScore)
+        super(QSection, self).__init__(parent)
+        if qScore is not None and parent is None:
+            qScore.addItem(self)
         self.setDefaultTextColor(
             qScore.parent().colourScheme.text.borderColour)
         font = qScore.displayProperties.sectionFont

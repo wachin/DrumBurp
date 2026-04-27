@@ -32,7 +32,9 @@ class QGraphicsListData(QGraphicsItem):  # IGNORE:abstract-class-not-used
     _editName = ""
 
     def __init__(self, qScore, parent=None):
-        super(QGraphicsListData, self).__init__(parent=parent, scene=qScore)
+        super(QGraphicsListData, self).__init__(parent)
+        if parent is None:
+            qScore.addItem(self)
         self._qScore = qScore
         self._props = qScore.displayProperties
         self._rect = QRectF(0, 0, 0, 0)

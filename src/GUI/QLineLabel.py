@@ -27,8 +27,9 @@ from PyQt4 import QtGui, QtCore
 
 class QLineLabel(QtGui.QGraphicsItem):
     def __init__(self, drum, qScore, parent):
-        super(QLineLabel, self).__init__(parent=parent,
-                                         scene=qScore)
+        super(QLineLabel, self).__init__(parent)
+        if parent is None:
+            qScore.addItem(self)
         self._text = ""
         self._qScore = qScore
         self._props = qScore.displayProperties

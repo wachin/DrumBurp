@@ -1237,5 +1237,4 @@ class Ui_DrumBurpWindow(object):
         self.actionRefreshMidiDevices.setStatusTip(_translate("DrumBurpWindow", "Refresh MIDI device list", None))
         self.actionRefreshMidiDevices.setWhatsThis(_translate("DrumBurpWindow", "Refresh MIDI device list", None))
 
-from Widgets.ScoreView_plugin import ScoreView
-import DrumBurp_rc
+from Widgets.ScoreView import ScoreView

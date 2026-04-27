@@ -155,7 +155,7 @@
   <customwidget>
    <class>measureTabs</class>
    <extends>QWidget</extends>
-   <header>Widgets.measureTabs_plugin</header>
+   <header>Widgets.measureTabs</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

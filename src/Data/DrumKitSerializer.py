@@ -22,7 +22,7 @@ Created on Jun 20, 2015
 
 @author: Mike Thomas
 '''
-from cStringIO import StringIO
+from io import StringIO
 import itertools
 from Data import fileUtils
 from Data import DBConstants
@@ -38,7 +38,7 @@ class DrumKitSerializer(object):
     def read(cls, handle):
         # Check the file format version
         handle, handleCopy = itertools.tee(handle)
-        firstline = handleCopy.next()
+        firstline = next(handleCopy)
         del handleCopy
         kitIterator = fileUtils.dbFileIterator(handle)
         if firstline.startswith(DBConstants.DB_KIT_FILE_FORMAT_STR):
@@ -48,7 +48,7 @@ class DrumKitSerializer(object):
                     fileVersion = int(fileVersion[1])
             except (TypeError, ValueError):
                 fileVersion = DBConstants.KIT_FF_0
-            kitIterator.next()
+            next(kitIterator)
         else:
             fileVersion = DBConstants.KIT_FF_0
         if fileVersion > DBConstants.CURRENT_KIT_FORMAT:

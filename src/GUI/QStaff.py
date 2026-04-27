@@ -33,7 +33,8 @@ from Data.NotePosition import NotePosition
 
 class QStaff(QtGui.QGraphicsItemGroup):
     def __init__(self, staff, index, scene, qScore=None):
-        super(QStaff, self).__init__(scene=scene)
+        super(QStaff, self).__init__()
+        scene.addItem(self)
         self._qScore = qScore if qScore is not None else scene
         self._props = self._qScore.displayProperties
         self._staff = None

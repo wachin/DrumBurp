@@ -24,7 +24,7 @@ Created on Feb 28, 2015
 from PyQt4.QtCore import pyqtSignal, QTimeLine
 from PyQt4.QtGui import QMessageBox, QGraphicsScene, QPixmap
 import tempfile
-from StringIO import StringIO
+from io import StringIO
 import os.path
 import os
 import glob

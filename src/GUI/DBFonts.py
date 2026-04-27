@@ -22,26 +22,30 @@ Created on Jul 19, 2015
 @author: Mike Thomas
 '''
 
+import os
+
 from PyQt4.Qt import QFontDatabase, QFont
 import Data.FontOptions
 
+_FONT_DIR = os.path.join(os.path.dirname(__file__), "fonts")
+
 
 def initialiseFonts():
-    fonts = [("NotCourierSans", "ncs.otf"),
-             ('Inconsolata', 'inconsolata.otf'),
-             ('BPmono', 'bpmono.ttf'),
-             ('Liberation Mono', 'liberation.otf'),
-             ('Oxygen Mono', 'oxygen.otf'),
-             ('Open Sans', 'opensans.ttf'),
-             ('Montserrat', 'montserrat.ttf'),
-             ('Noto Sans', 'notosans.ttf'),
-             ('PT Sans', 'ptsans.ttf'),
-             ('Raleway', 'roboto.ttf'),
-             ('Roboto', 'raleway.ttf')]
+    fonts = [("NotCourierSans", "NotCourierSans.otf"),
+             ("Inconsolata", "Inconsolata.otf"),
+             ("BPmono", "BPmono.ttf"),
+             ("Liberation Mono", "LiberationMono-Regular.ttf"),
+             ("Oxygen Mono", "OxygenMono-Regular.otf"),
+             ("Open Sans", "OpenSans-Regular.ttf"),
+             ("Montserrat", "Montserrat-Regular.ttf"),
+             ("Noto Sans", "NotoSans-Regular.ttf"),
+             ("PT Sans", "PT_Sans-Web-Regular.ttf"),
+             ("Raleway", "Raleway-Regular.ttf"),
+             ("Roboto", "Roboto-Regular.ttf")]
     for fontName, fontFile in fonts:
-        if QFontDatabase.addApplicationFont(":/fonts/" + fontFile) == -1:
+        fontPath = os.path.join(_FONT_DIR, fontFile)
+        if QFontDatabase.addApplicationFont(fontPath) == -1:
             print(fontName)
         else:
             font = QFont(fontName)
-            Data.FontOptions.FontOptions.addFont(fontName, font)
             Data.FontOptions.FontOptions.addFont(fontName, font)

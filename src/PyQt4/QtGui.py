@@ -1,7 +1,31 @@
+import os
+
 from PyQt5.QtGui import *  # noqa
 from PyQt5.QtWidgets import *  # noqa
 from PyQt5.QtPrintSupport import *  # noqa
 from PyQt5.QtCore import QStandardPaths
+
+_SRC_DIR = os.path.dirname(os.path.dirname(__file__))
+_QT5_QPIXMAP = QPixmap
+
+def _resource_path(path):
+    if not isinstance(path, str) or not path.startswith(":/"):
+        return path
+    resource = path[2:]
+    if resource.startswith("Icons/Icons/"):
+        resource = "GUI/Icons/" + resource[len("Icons/Icons/"):]
+    elif resource.startswith("Icons/"):
+        resource = "GUI/" + resource
+    elif resource.startswith("buttons/GUI/"):
+        resource = resource[len("buttons/"):]
+    elif resource.startswith("heads/GUI/"):
+        resource = resource[len("heads/"):]
+    return os.path.join(_SRC_DIR, resource)
+
+def QPixmap(*args):
+    if args:
+        args = (_resource_path(args[0]),) + args[1:]
+    return _QT5_QPIXMAP(*args)
 
 class QDesktopServices:
     DocumentsLocation = QStandardPaths.DocumentsLocation
@@ -34,5 +58,19 @@ try:
     def _setMargin(self, margin):
         self.setContentsMargins(margin, margin, margin, margin)
     QLayout.setMargin = _setMargin
+except Exception:
+    pass
+
+try:
+    def _setAcceptsHoverEvents(self, enabled):
+        self.setAcceptHoverEvents(enabled)
+    QGraphicsItem.setAcceptsHoverEvents = _setAcceptsHoverEvents
+except Exception:
+    pass
+
+try:
+    def _setHandlesChildEvents(self, enabled):
+        self.setFiltersChildEvents(enabled)
+    QGraphicsItem.setHandlesChildEvents = _setHandlesChildEvents
 except Exception:
     pass

@@ -81,4 +81,4 @@ class Ui_newScoreDialog(object):
         self.measureTabs.setToolTip(QtGui.QApplication.translate("newScoreDialog", "The default measure count for the new score", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("newScoreDialog", "Drum kit", None, QtGui.QApplication.UnicodeUTF8))
 
-from Widgets.measureTabs_plugin import measureTabs
+from Widgets.measureTabs import measureTabs

@@ -85,7 +85,9 @@ class dbFileIterator(object):
             yield lineType, lineData
 
     def next(self):
-        return self._handle.next()
+        return next(self._handle)
+
+    __next__ = next
 
     def section(self, startLine, endLine, convertNone=None, readLines=None):
         return self._Section(self, startLine, endLine, convertNone, readLines)

@@ -38,7 +38,7 @@ import Data.ASCIISettings as ASCIISettings
 from Notation import AsciiExport
 import bisect
 import hashlib
-from StringIO import StringIO
+from io import StringIO
 
 
 class Score(object):
