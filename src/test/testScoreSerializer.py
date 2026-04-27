@@ -346,10 +346,10 @@ class TestScoreSerializerV0(unittest.TestCase):
         return data, written
 
     def testVersion0Files(self):
-        print "Version 0"
+        print("Version 0")
         fileglob = os.path.join("testdata", "v0", "*.brp")
         for testfile in glob.glob(fileglob):
-            print testfile
+            print(testfile)
             score = ScoreSerializer.loadScore(testfile)
             written = StringIO()
             ScoreSerializer.write(score, written, DBConstants.DBFF_0)
@@ -390,10 +390,10 @@ class TestScoreSerializerV0(unittest.TestCase):
 
 class TestScoreSerializerV1(unittest.TestCase):
     def testReadV0WriteV1ReadV1(self):
-        print "Read Version 0, Write Version 1"
+        print("Read Version 0, Write Version 1")
         fileglob = os.path.join("testdata", "v0", "*.brp")
         for testfile in glob.glob(fileglob):
-            print testfile
+            print(testfile)
             score = ScoreSerializer.loadScore(testfile)
             written = StringIO()
             ScoreSerializer.write(score, written, DBConstants.DBFF_1)
@@ -402,10 +402,10 @@ class TestScoreSerializerV1(unittest.TestCase):
             self.assertEqual(score.hashScore(), score2.hashScore())
 
     def testReadV1WriteV1(self):
-        print "Read Version 1, Write Version 1"
+        print("Read Version 1, Write Version 1")
         fileglob = os.path.join("testdata", "v1", "*.brp")
         for testfile in glob.glob(fileglob):
-            print testfile
+            print(testfile)
             score = ScoreSerializer.loadScore(testfile)
             written = StringIO()
             ScoreSerializer.write(score, written, DBConstants.DBFF_1)
@@ -417,7 +417,7 @@ class TestScoreSerializerV1(unittest.TestCase):
 class TestUnicode(unittest.TestCase):
     def testWriteUnicode(self):
         tmp = tempfile.NamedTemporaryFile(suffix=".brp",
-                                          prefix="unicode_test_v1",
+                                          prefix="str_test_v1",
                                           delete=False)
         try:
             tmp.close()

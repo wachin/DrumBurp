@@ -42,13 +42,13 @@ class _NoteDictionary(object):
         return len(self._noteTimes)
 
     def numNotes(self):
-        return sum(self._notesOnLine.itervalues())
+        return sum(self._notesOnLine.values())
 
     def iterTimes(self):
         return iter(self._noteTimes)
 
     def iterNotesAtTime(self, noteTime):
-        for index, head in self._notes[noteTime].iteritems():
+        for index, head in self._notes[noteTime].items():
             yield (NotePosition(noteTime=noteTime,
                                 drumIndex=index),
                    head)
@@ -56,7 +56,7 @@ class _NoteDictionary(object):
     def iterNotesAndHeads(self):
         for noteTime in self.iterTimes():
             drumDict = self._notes[noteTime]
-            for drumIndex, drumHead in drumDict.iteritems():
+            for drumIndex, drumHead in drumDict.items():
                 yield (NotePosition(noteTime=noteTime,
                                     drumIndex=drumIndex),
                        drumHead)
@@ -382,7 +382,7 @@ class Measure(object):
             oldDrumIndex = changes[newDrumIndex]
             if oldDrumIndex == -1:
                 continue
-            for noteTime, head in transposed[oldDrumIndex].iteritems():
+            for noteTime, head in transposed[oldDrumIndex].items():
                 if not newDrum.isAllowedHead(head):
                     head = newDrum.head
                 self.addNote(NotePosition(None, None,

@@ -83,11 +83,11 @@ class QLilypondPreview(QGraphicsScene):
         try:
             lyScore = LilypondScore(self.score)
             lyScore.write(lilyBuffer)
-        except LilypondProblem, exc:
+        except LilypondProblem as exc:
             QMessageBox.warning(self.parent(), "Lilypond impossible",
                                 "Cannot export Lilypond for this score: %s"
                                 % exc.__doc__)
-        except StandardError, exc:
+        except Exception as exc:
             QMessageBox.warning(self.parent(), "Export failed!",
                                 "Error generating Lilypond for this score: %s"
                                 % exc.__doc__)

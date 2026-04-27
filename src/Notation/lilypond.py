@@ -309,7 +309,7 @@ class LilyMeasure(object):
 
     def _calculateNoteDurations(self, noteTimes):
         durations = {}
-        for direction, timeList in noteTimes.iteritems():
+        for direction, timeList in noteTimes.items():
             durationDict = self._calculateEventDurations(timeList)
             durations[direction] = durationDict
         return durations
@@ -317,7 +317,7 @@ class LilyMeasure(object):
     def _getLilyNotesAndEffects(self, notes):
         lilyNotes = {}
         effects = {STEM_UP: {}, STEM_DOWN: {}}
-        for direction, timeList in notes.iteritems():
+        for direction, timeList in notes.items():
             lilyDict = {}
             effectsDict = collections.defaultdict(list)
             for notePos, head in timeList:
@@ -378,7 +378,7 @@ class LilyMeasure(object):
 
     def _buildVoices(self, noteTimes, durations, lilyNotes, effects):
         wholeRests = collections.defaultdict(dict)
-        for direction, timeList in noteTimes.iteritems():
+        for direction, timeList in noteTimes.items():
             lNotes = lilyNotes[direction]
             lEffects = effects[direction]
             voice = self._voices[direction]
@@ -424,9 +424,9 @@ class LilyMeasure(object):
         lilyNotes, effects = self._getLilyNotesAndEffects(notes)
         wholeRests = self._buildVoices(noteTimes, durations,
                                        lilyNotes, effects)
-        for direction, restTimes in wholeRests.iteritems():
+        for direction, restTimes in wholeRests.items():
             otherDirection = 1 - direction
-            for (rest, index) in restTimes.iteritems():
+            for (rest, index) in restTimes.items():
                 if (otherDirection not in wholeRests
                         or rest not in wholeRests[otherDirection]):
                     self._voices[direction][index] = "s4"
@@ -1074,7 +1074,7 @@ def findLilyPath():
 
 
 def _findWindowsLilyPath():
-    for drive in map(chr, xrange(0x41, 0x5a)):
+    for drive in map(chr, range(0x41, 0x5a)):
         if not os.path.exists(drive + ":"):
             continue
         for basepath in (drive + r":\Program Files\Lilypond",

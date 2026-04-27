@@ -124,10 +124,10 @@ class Indenter(object):
         self._level = max(0, self._level)
 
     def __call__(self, *args):
-        argString = " ".join(unicode(ar) for ar in args)
+        argString = " ".join(str(ar) for ar in args)
         if self._level != 0:
             argString = (self._indent * self._level) + argString
-        print >> self._handle, argString
+        print(argString, file=self._handle)
 
     def __enter__(self):
         self.increase()
@@ -321,7 +321,7 @@ class StringField(SimpleValueField):
         return data
 
     def _toString(self, value):
-        return unicode(value)
+        return str(value)
 
 
 class Base64StringField(SimpleValueField):
@@ -402,7 +402,7 @@ class FileStructureMetaClass(type):
         cls._fields = []
         cls._structures = []
         cls._orderedData = []
-        for attr, value in dct.iteritems():
+        for attr, value in dct.items():
             if isinstance(value, Field):
                 cls._fields.append(value)
                 cls._orderedData.append((value.structureId, attr, value))
@@ -474,7 +474,7 @@ class FileStructure(AbstractFileStructureElement):
         try:
             for lineType, lineData in iterator:
                 if debug:
-                    print lineType, lineData
+                    print(lineType, lineData)
                 if lineType in fieldDict:
                     field = fieldDict[lineType]
                     field.read(instance, lineData)
@@ -491,7 +491,7 @@ class FileStructure(AbstractFileStructureElement):
                 else:
                     raise DBErrors.UnrecognisedLine()
             return self.postProcessObject(instance)
-        except DBErrors.DbReadError, exc:
+        except DBErrors.DbReadError as exc:
             exc.setIterator(fileIterator)
             raise
 

@@ -73,7 +73,7 @@ class FakeQSettings(object):
 
 
 class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
-    exporterDone = pyqtSignal(unicode)
+    exporterDone = pyqtSignal(str)
 
     def __init__(self, parent=None, fakeStartup=False, filename=None):
         self._fakeStartup = fakeStartup
@@ -104,9 +104,9 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self.lilyPath = settings.value("LilypondPath").toString()
         if not self.lilyPath or not os.path.exists(self.lilyPath):
             self.lilyPath = findLilyPath()
-        self.recentFiles = [unicode(fname) for fname in
+        self.recentFiles = [str(fname) for fname in
                             settings.value("RecentFiles").toStringList()
-                            if os.path.exists(unicode(fname))]
+                            if os.path.exists(str(fname))]
         if filename is None:
             filename = (None
                         if len(self.recentFiles) == 0
@@ -497,7 +497,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self.lilyPagesBox.setValue(self.scoreScene.score.lilypages)
             self.lilyFillButton.setChecked(self.scoreScene.score.lilyFill)
             self._setLilyFormat(self.scoreScene.score.lilyFormat)
-            self.filename = unicode(fname)
+            self.filename = str(fname)
             self.updateStatus("Successfully loaded %s" % self.filename)
             self.addToRecentFiles()
             self.updateRecentFiles()
@@ -506,7 +506,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     def _getFileName(self):
         directory = self.filename
         if directory is None:
-            suggestion = unicode(self.scoreScene.title)
+            suggestion = str(self.scoreScene.title)
             if len(suggestion) == 0:
                 suggestion = "Untitled"
             suggestion = os.extsep.join([suggestion, "brp"])
@@ -514,7 +514,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 directory = os.path.dirname(self.recentFiles[-1])
             else:
                 home = QDesktopServices.HomeLocation
-                directory = unicode(QDesktopServices.storageLocation(home))
+                directory = str(QDesktopServices.storageLocation(home))
             directory = os.path.join(directory,
                                      suggestion)
         if os.path.splitext(directory)[-1] == os.extsep + 'brp':
@@ -526,7 +526,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                                             filter="DrumBurp files (*.brp)")
         if len(fname) == 0:
             return False
-        self.filename = unicode(fname)
+        self.filename = str(fname)
         return True
 
     def _checkForBackup(self):
@@ -557,8 +557,8 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 shutil.copyfile(self.filename, backup)
                 QMessageBox.warning(self, "Backup successful",
                                     "Old score backed up to " + backup)
-            except StandardError, exc:
-                msg = "Error backing up: %s" % unicode(exc)
+            except Exception as exc:
+                msg = "Error backing up: %s" % str(exc)
                 QMessageBox.warning(self, "Backup failed", msg)
                 return False
         elif reply == QMessageBox.Cancel:
@@ -655,7 +655,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if self.filename is None:
             home = QDesktopServices.HomeLocation
             fname = QDesktopServices.storageLocation(home)
-            fname = os.path.join(unicode(fname), 'Untitled.txt')
+            fname = os.path.join(str(fname), 'Untitled.txt')
         if os.path.splitext(fname)[-1] == '.brp':
             fname = os.path.splitext(fname)[0] + '.txt'
         fname = QFileDialog.getSaveFileName(parent=self,
@@ -666,14 +666,14 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             return
         try:
             exportedText = self._getTextExport()
-        except StandardError:
+        except Exception:
             QMessageBox.warning(self.parent(), "Text generation failed!",
                                 "Could not generate text tab for this score!")
             raise
         try:
             with open(fname, 'w') as txtHandle:
                 txtHandle.write(exportedText.encode('utf-8'))
-        except StandardError:
+        except Exception:
             QMessageBox.warning(self.parent(), "Export failed!",
                                 "Could not export to " + fname)
             raise
@@ -692,7 +692,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             exporter = AsciiExport.Exporter(self.scoreScene.score,
                                             self._asciiSettings)
             exporter.export(asciiBuffer)
-        except StandardError:
+        except Exception:
             self.textExportPreview.setPlainText("Failed to export text tab.")
             raise
         return asciiBuffer.getvalue()
@@ -702,7 +702,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self.textExportPreview.setPlainText(self._getTextExport())
             self.actionExportASCII.setEnabled(True)
             self.textExportButton.setEnabled(True)
-        except StandardError:
+        except Exception:
             self.textExportPreview.setPlainText("Failed to export text tab.")
             self.actionExportASCII.setEnabled(False)
             self.textExportButton.setEnabled(False)
@@ -742,7 +742,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             dialog.paintRequested.connect(updatePages)
             dialog.exec_()
             self.updateStatus("Exported to PDF %s" % outfileName)
-        except StandardError:
+        except Exception:
             QMessageBox.warning(self.parent(), "Export failed!",
                                 "Could not export PDF to " + outfileName)
 
@@ -753,11 +753,11 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         try:
             lyScore = LilypondScore(self.scoreScene.score)
             lyScore.write(lilyBuffer)
-        except LilypondProblem, exc:
+        except LilypondProblem as exc:
             QMessageBox.warning(self.parent(), "Lilypond impossible",
                                 "Cannot export Lilypond for this score: %s"
                                 % exc.__doc__)
-        except StandardError, exc:
+        except Exception as exc:
             QMessageBox.warning(self.parent(), "Export failed!",
                                 "Error generating Lilypond for this score: %s"
                                 % exc.__doc__)
@@ -771,7 +771,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 else:
                     outfileName = "Untitled.ly"
                     loc = QDesktopServices.HomeLocation
-                    home = unicode(QDesktopServices.storageLocation(loc))
+                    home = str(QDesktopServices.storageLocation(loc))
                     directory = os.path.join(home, outfileName)
                 caption = "Choose a Lilypond input file to write to"
                 fname = QFileDialog.getSaveFileName(parent=self,
@@ -780,7 +780,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                                                     filter="(*.ly)")
                 if len(fname) == 0:
                     return
-                fname = unicode(fname)
+                fname = str(fname)
                 if self._exporter is not None:
                     if self._exporter.isRunning():
                         QMessageBox.warning(self.parent(), "Still exporting",
@@ -794,7 +794,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                                                   self)
                 self.setLilypondControlsEnabled(False)
                 self._exporter.start()
-            except StandardError:
+            except Exception:
                 QMessageBox.warning(self.parent(), "Export failed!",
                                     "Could not export Lilypond")
                 raise
@@ -913,7 +913,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     def _canPlayback(self):
         try:
             unused = list(self.scoreScene.score.iterMeasuresWithRepeats())
-        except InconsistentRepeats, exc:
+        except InconsistentRepeats as exc:
             QMessageBox.warning(self, "Playback error",
                                 "There are inconsistent repeat markings.")
             position = self.scoreScene.score.measureIndexToPosition(exc[0])
@@ -970,14 +970,14 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             midiBuffer = StringIO()
             DBMidi.exportMidi(self.scoreScene.score.iterMeasuresWithRepeats(),
                               self.scoreScene.score, midiBuffer)
-        except StandardError, exc:
+        except Exception as exc:
             QMessageBox.warning(self.parent(), "Error generating MIDI!",
                                 "Failed to generate MIDI for this score: %s"
                                 % exc.__doc__)
             raise
         directory = self.filename
         if directory is None:
-            suggestion = unicode(self.scoreScene.title)
+            suggestion = str(self.scoreScene.title)
             if len(suggestion) == 0:
                 suggestion = "Untitled"
             suggestion = os.extsep.join([suggestion, "brp"])
@@ -985,7 +985,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 directory = os.path.dirname(self.recentFiles[-1])
             else:
                 home = QDesktopServices.HomeLocation
-                directory = unicode(QDesktopServices.storageLocation(home))
+                directory = str(QDesktopServices.storageLocation(home))
             directory = os.path.join(directory,
                                      suggestion)
         if os.path.splitext(directory)[-1] == os.extsep + 'brp':
@@ -1000,7 +1000,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         try:
             with open(fname, 'wb') as handle:
                 handle.write(midiBuffer.getvalue())
-        except StandardError:
+        except Exception:
             QMessageBox.warning(self.parent(), "File error",
                                 "Error writing MIDI to file %s" % fname)
 

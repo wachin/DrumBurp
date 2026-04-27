@@ -32,7 +32,7 @@ class QMetaData(QGraphicsListData):
     _editName = "score information."
 
     def _iterData(self):
-        line = unicode(self._qScore.title)
+        line = str(self._qScore.title)
         if self._qScore.artistVisible and self._qScore.artist:
             if line:
                 line += ", by " + self._qScore.artist
@@ -65,10 +65,10 @@ class QMetaData(QGraphicsListData):
         if dialog.exec_():
             changed = any((getattr(self._qScore, attribute) != value
                            for (attribute, value) in
-                           dialog.getValues().iteritems()))
+                           dialog.getValues().items()))
             if not changed:
                 return
             self._qScore.beginMacro("Set Score Information", False)
-            for attribute, value in dialog.getValues().iteritems():
+            for attribute, value in dialog.getValues().items():
                 setattr(self._qScore, attribute, value)
             self._qScore.endMacro()

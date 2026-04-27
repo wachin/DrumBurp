@@ -110,13 +110,13 @@ class BeatLengthFieldV0(NoWriteField):
 
 def startBarlineString(measure):
     return ",".join([name for name, value in
-                     Data.DBConstants.BAR_TYPES.iteritems()
+                     Data.DBConstants.BAR_TYPES.items()
                      if (measure.startBar & value) == value])
 
 
 def endBarlineString(measure):
     return ",".join([name for name, value in
-                     Data.DBConstants.BAR_TYPES.iteritems()
+                     Data.DBConstants.BAR_TYPES.items()
                      if (measure.endBar & value) == value])
 
 

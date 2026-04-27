@@ -61,7 +61,7 @@ try:
         return pygame.midi.get_default_output_id()
 
     def iterDeviceIds():
-        return xrange(pygame.midi.get_count())
+        return range(pygame.midi.get_count())
 
     def getDeviceInfo(deviceId):
         int_, name, isIn, isOut, isOpen = pygame.midi.get_device_info(deviceId)
@@ -387,7 +387,7 @@ def _writeMidiNotes(midiObjects, baseTime):
 
 def _finishMidiData(midiData):
     numBytes = len(midiData)
-    lenBytes = [((numBytes >> i) & 0xff) for i in xrange(24, -8, -8)]
+    lenBytes = [((numBytes >> i) & 0xff) for i in range(24, -8, -8)]
     return lenBytes + midiData
 
 
@@ -409,7 +409,7 @@ class MidiTempoChange(MidiObject):
 
     def write(self):
         msPerBeat = int(60000000 / self.bpm)
-        return [0xff, 0x51, 03, (msPerBeat >> 16) & 0xff,
+        return [0xff, 0x51, 0x03, (msPerBeat >> 16) & 0xff,
                 (msPerBeat >> 8) & 0xff, msPerBeat & 0xff]
 
 
@@ -522,7 +522,7 @@ def main():
     _initialize()
     refreshOutputDevices()
     for device in iterMidiDevices():
-        print device.name
+        print(device.name)
 
 
 if __name__ == "__main__":

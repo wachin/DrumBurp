@@ -48,11 +48,11 @@ class QNewScoreDialog(QDialog, Ui_newScoreDialog):
 
     def getValues(self):
         mc = self.measureTabs.getCounter()
-        kitName = unicode(self.kitCombobox.currentText())
+        kitName = str(self.kitCombobox.currentText())
         kitIndex = self.kitCombobox.currentIndex()
         isUserKit = self.kitCombobox.itemData(kitIndex).toBool()
         if isUserKit:
-            kitString = unicode(self._settings.value(kitName).toString())
+            kitString = str(self._settings.value(kitName).toString())
             handle = StringIO(kitString)
             kit = DrumKitSerializer.DrumKitSerializer.read(handle)
         else:

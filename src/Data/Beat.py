@@ -58,7 +58,7 @@ class Beat(object):
         return str(self.counter)
 
     def iterTicks(self):
-        return xrange(self.numTicks)
+        return range(self.numTicks)
 
     def numBeats(self):
         return self._beatLength

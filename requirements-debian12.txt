@@ -1,0 +1,3 @@
+# Debian 12 packages recommended:
+# sudo apt install python3-pyqt5 python3-pyqt5.qsci python3-pyqt5.qtopengl python3-pyqt5.qtprintsupport python3-pygame lilypond
+# pip packages are not required for normal use.

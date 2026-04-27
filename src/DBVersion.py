@@ -96,7 +96,7 @@ DB_VERSION, FULL_RELEASE = (DB_VERSION_STRING,
                             _is_full_release(DB_VERSION_STRING))
 
 if __name__ == "__main__":
-    print DB_VERSION, FULL_RELEASE
-    print getLatestVersion()
-    print versionStringToTuple(DB_VERSION)
-    print "'%s'" % str(doesNewerVersionExist())
+    print(DB_VERSION, FULL_RELEASE)
+    print(getLatestVersion())
+    print(versionStringToTuple(DB_VERSION))
+    print("'%s'" % str(doesNewerVersionExist()))
