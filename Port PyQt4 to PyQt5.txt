@@ -1,0 +1,10 @@
+
+Port PyQt4 to PyQt5
+For: Washington Indacochea Delgado
+
+20260328
+
+- Kit editor unlocked
+-
+
+

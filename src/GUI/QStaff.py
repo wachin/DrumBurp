@@ -23,7 +23,7 @@ Created on 4 Jan 2011
 
 '''
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 import itertools
 from GUI.QMeasure import QMeasure
 from GUI.QMeasureLine import QMeasureLine
@@ -31,7 +31,7 @@ from GUI.QLineLabel import QLineLabel
 from Data.NotePosition import NotePosition
 
 
-class QStaff(QtGui.QGraphicsItemGroup):
+class QStaff(QtGui.QGraphicsItem):
     def __init__(self, staff, index, scene, qScore=None):
         super(QStaff, self).__init__()
         scene.addItem(self)
@@ -48,6 +48,15 @@ class QStaff(QtGui.QGraphicsItemGroup):
         self._hasAlternate = False
         self._setStaff(staff)
         self.setHandlesChildEvents(False)
+
+    def boundingRect(self):
+        return QtCore.QRectF(0, 0, self._width, self._height)
+
+    def paint(self, painter, option, widget=None):
+        pass
+
+    def addToGroup(self, item):
+        item.setParentItem(self)
 
     def numLines(self):
         if self._props.emptyLinesVisible:
@@ -125,6 +134,7 @@ class QStaff(QtGui.QGraphicsItemGroup):
         self.addToGroup(qMeasureLine)
 
     def placeMeasures(self):
+        self.prepareGeometryChange()
         lineOffsets = self._qScore.lineOffsets
         xOffset = 0
         base = self.alternateHeight()
@@ -158,6 +168,7 @@ class QStaff(QtGui.QGraphicsItemGroup):
                            itertools.chain(self._measures, self._measureLines))
 
     def xSpacingChanged(self):
+        self.prepareGeometryChange()
         xOffset = self._lineLabels[0].cellWidth()
         for label in self._lineLabels:
             label.xSpacingChanged()
@@ -174,6 +185,7 @@ class QStaff(QtGui.QGraphicsItemGroup):
         self._width = xOffset + self._measureLines[-1].width()
 
     def ySpacingChanged(self):
+        self.prepareGeometryChange()
         lineOffsets = self._qScore.lineOffsets
         base = self.alternateHeight()
         if self.anyMeasureHasBpm():
