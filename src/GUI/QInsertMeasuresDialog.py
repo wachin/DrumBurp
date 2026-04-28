@@ -21,7 +21,7 @@ Created on 9 Jan 2011
 
 @author: Mike Thomas
 '''
-from PyQt4.QtGui import QDialog
+from PyQt5.QtWidgets import QDialog
 from GUI.ui_insertMeasuresDialog import Ui_InsertMeasuresDialog
 from GUI.QComplexCountDialog import QComplexCountDialog
 import Data.MeasureCount

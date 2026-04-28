@@ -22,7 +22,7 @@ Created on Jan 30, 2011
 @author: Mike
 '''
 
-from PyQt4.QtGui import QDialog
+from PyQt5.QtWidgets import QDialog
 from GUI.ui_repeatCountDialog import Ui_repeatCountDialog
 
 

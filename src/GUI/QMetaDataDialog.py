@@ -23,7 +23,7 @@ Created on 12 Mar 2011
 '''
 
 from GUI.ui_scorePropertiesDialog import Ui_ScoreDialog
-from PyQt4.QtGui import QDialog
+from PyQt5.QtWidgets import QDialog
 
 
 class QMetadataDialog(QDialog, Ui_ScoreDialog):

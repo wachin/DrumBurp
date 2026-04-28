@@ -25,8 +25,10 @@ Created on 26 Jan 2011
 import copy
 import os
 import string  # IGNORE:deprecated-module
-from PyQt4.QtGui import (QDialog, QRadioButton, QFileDialog, QDesktopServices,
-                         QMessageBox, QInputDialog, QColor, QDialogButtonBox)
+from PyQt5.QtCore import QStandardPaths
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import (QDialog, QRadioButton, QFileDialog, QMessageBox,
+                             QInputDialog, QDialogButtonBox)
 from GUI.ui_editKit import Ui_editKitDialog
 from GUI.QDefaultKitManager import QDefaultKitManager
 import GUI.DBMidi as DBMidi
@@ -46,6 +48,14 @@ def _itemDataToInt(value):
     if hasattr(value, "toInt"):
         return value.toInt()[0]
     return int(value)
+
+
+def _storageLocation(location):
+    path = QStandardPaths.writableLocation(location)
+    if path:
+        return path
+    paths = QStandardPaths.standardLocations(location)
+    return paths[0] if paths else ""
 
 
 def noSounds(method):
@@ -248,8 +258,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
     def _loadKit(self):
         directory = self._scoreDirectory
         if directory is None:
-            home = QDesktopServices.HomeLocation
-            directory = str(QDesktopServices.storageLocation(home))
+            directory = _storageLocation(QStandardPaths.HomeLocation)
         fname = QFileDialog.getOpenFileName(parent=self,
                                             caption="Load DrumBurp kit",
                                             directory=directory,
@@ -277,8 +286,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
     def _saveKit(self):
         directory = self._scoreDirectory
         if directory is None:
-            home = QDesktopServices.HomeLocation
-            directory = str(QDesktopServices.storageLocation(home))
+            directory = _storageLocation(QStandardPaths.HomeLocation)
         fname = QFileDialog.getSaveFileName(parent=self,
                                             caption="Save DrumBurp kit",
                                             directory=directory,
@@ -640,7 +648,7 @@ _MIDIDATA = [(35, "Acoustic Bass Drum"),
 
 
 def main():
-    from PyQt4.QtGui import QApplication
+    from PyQt5.QtWidgets import QApplication
     import sys
     app = QApplication(sys.argv)
     kit = DrumKitFactory.DrumKitFactory.getNamedDefaultKit()

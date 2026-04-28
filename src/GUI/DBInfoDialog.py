@@ -22,8 +22,8 @@ Created on 17 Apr 2011
 @author: Mike Thomas
 '''
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import pyqtSignature
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QDialog
 from GUI.ui_dbInfo import Ui_InfoDialog
 from GUI.DBLicense import DBLicenseDialog
 
@@ -37,7 +37,7 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         text += ' This is version %s.' % version
         self.copyrightLabel.setText(text)
 
-    @pyqtSignature("")
+    @pyqtSlot()
     def on_licenseButton_clicked(self):  # IGNORE:R0201
         dlg = DBLicenseDialog(self)
         dlg.exec_()

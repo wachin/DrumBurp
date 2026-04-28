@@ -23,7 +23,7 @@ Created on 17 Apr 2011
 
 '''
 
-from PyQt4.QtGui import QDialog
+from PyQt5.QtWidgets import QDialog
 from GUI.ui_dbLicense import Ui_dbLicense_dialog
 
 

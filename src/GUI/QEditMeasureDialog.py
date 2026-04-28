@@ -23,7 +23,7 @@ Created on 20 Jan 2011
 
 '''
 
-from PyQt4.QtGui import QDialog
+from PyQt5.QtWidgets import QDialog
 from GUI.ui_measurePropertiesDialog import Ui_measurePropertiesDialog
 from GUI.QComplexCountDialog import QComplexCountDialog
 import Data.MeasureCount

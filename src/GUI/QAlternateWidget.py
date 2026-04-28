@@ -23,7 +23,7 @@ Created on Feb 25, 2012
 '''
 
 from GUI.ui_alternateRepeatWidget import Ui_AlternateWidget
-from PyQt4.QtGui import QWidget
+from PyQt5.QtWidgets import QWidget
 
 
 class QAlternateWidget(QWidget, Ui_AlternateWidget):

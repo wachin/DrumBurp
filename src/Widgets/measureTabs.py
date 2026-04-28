@@ -23,8 +23,8 @@ Created on 17 Apr 2011
 
 '''
 import copy
-from PyQt4.QtGui import QWidget
-from PyQt4.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QWidget
 from .ui_measureTabs import Ui_measureTabs
 
 

@@ -23,8 +23,8 @@ Created on 9 Jan 2011
 
 '''
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import QSettings, QVariant
+from PyQt5.QtCore import QSettings
+from PyQt5.QtWidgets import QDialog
 from io import StringIO
 from GUI.ui_newScoreDialog import Ui_newScoreDialog
 from GUI.QComplexCountDialog import QComplexCountDialog
@@ -40,19 +40,19 @@ class QNewScoreDialog(QDialog, Ui_newScoreDialog):
         self.measureTabs.setup(counter, registry,
                                Data.MeasureCount, QComplexCountDialog)
         for name in DefaultKits.DEFAULT_KIT_NAMES:
-            self.kitCombobox.addItem(name, userData=QVariant(False))
+            self.kitCombobox.addItem(name, userData=False)
         self._settings = QSettings()
         self._settings.beginGroup("UserDefaultKits")
         for kitName in self._settings.allKeys():
-            self.kitCombobox.addItem(kitName, userData=QVariant(True))
+            self.kitCombobox.addItem(kitName, userData=True)
 
     def getValues(self):
         mc = self.measureTabs.getCounter()
         kitName = str(self.kitCombobox.currentText())
         kitIndex = self.kitCombobox.currentIndex()
-        isUserKit = self.kitCombobox.itemData(kitIndex).toBool()
+        isUserKit = bool(self.kitCombobox.itemData(kitIndex))
         if isUserKit:
-            kitString = str(self._settings.value(kitName).toString())
+            kitString = self._settings.value(kitName, "", type=str)
             handle = StringIO(kitString)
             kit = DrumKitSerializer.DrumKitSerializer.read(handle)
         else:

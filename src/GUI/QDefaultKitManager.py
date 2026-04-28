@@ -23,7 +23,7 @@ Created on 13 Oct 2012
 
 '''
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtWidgets
 from io import StringIO
 from GUI.ui_defaultKitManager import Ui_DefaulKitManager
 from Data import DefaultKits, DrumKitFactory, DrumKitSerializer
@@ -31,7 +31,7 @@ from Data import DefaultKits, DrumKitFactory, DrumKitSerializer
 _IS_USER_KIT = QtCore.Qt.UserRole
 
 
-class QDefaultKitManager(Ui_DefaulKitManager, QtGui.QDialog):
+class QDefaultKitManager(Ui_DefaulKitManager, QtWidgets.QDialog):
     def __init__(self, currentKit, parent=None):
         super(QDefaultKitManager, self).__init__(parent)
         self.setupUi(self)
@@ -47,20 +47,20 @@ class QDefaultKitManager(Ui_DefaulKitManager, QtGui.QDialog):
         self.defaultKitList.blockSignals(True)
         self.defaultKitList.clear()
         for kitName in DefaultKits.DEFAULT_KIT_NAMES:
-            item = QtGui.QListWidgetItem(kitName, self.defaultKitList)
+            item = QtWidgets.QListWidgetItem(kitName, self.defaultKitList)
             font = item.font()
             font.setItalic(True)
             item.setFont(font)
-            item.setData(_IS_USER_KIT, QtCore.QVariant(False))
+            item.setData(_IS_USER_KIT, False)
         for kitName in self._settings.allKeys():
-            item = QtGui.QListWidgetItem(kitName, self.defaultKitList)
-            item.setData(_IS_USER_KIT, QtCore.QVariant(True))
+            item = QtWidgets.QListWidgetItem(kitName, self.defaultKitList)
+            item.setData(_IS_USER_KIT, True)
         self.defaultKitList.blockSignals(False)
 
     def _checkButtons(self):
         item = self.defaultKitList.currentItem()
         if item:
-            isUser = item.data(_IS_USER_KIT).toBool()
+            isUser = bool(item.data(_IS_USER_KIT))
             self.openButton.setEnabled(True)
             self.overwriteButton.setEnabled(isUser)
             self.deleteButton.setEnabled(isUser)
@@ -69,11 +69,11 @@ class QDefaultKitManager(Ui_DefaulKitManager, QtGui.QDialog):
             self.overwriteButton.setEnabled(False)
             self.deleteButton.setEnabled(False)
 
-    @QtCore.pyqtSignature("")
+    @QtCore.pyqtSlot()
     def on_deleteButton_clicked(self):
         item = self.defaultKitList.currentItem()
         if item:
-            isUser = item.data(_IS_USER_KIT).toBool()
+            isUser = bool(item.data(_IS_USER_KIT))
             if isUser:
                 kitName = item.text()
                 self._settings.remove(kitName)
@@ -89,44 +89,43 @@ class QDefaultKitManager(Ui_DefaulKitManager, QtGui.QDialog):
         self._settings.setValue(name, handle.getvalue())
         self._populate()
 
-    @QtCore.pyqtSignature("")
+    @QtCore.pyqtSlot()
     def on_saveButton_clicked(self):
-        name, ok = QtGui.QInputDialog.getText(self, "Kit name",
-                                              "Enter a name for the "
-                                              "new default kit",
-                                              text="New kit")
+        name, ok = QtWidgets.QInputDialog.getText(self, "Kit name",
+                                                  "Enter a name for the "
+                                                  "new default kit",
+                                                  text="New kit")
         if not ok:
             return
         if self._settings.contains(name):
-            QtGui.QMessageBox.information(self,
-                                          "Duplicate kit name!",
-                                          "That kit name already exists.")
+            QtWidgets.QMessageBox.information(self,
+                                              "Duplicate kit name!",
+                                              "That kit name already exists.")
             return
         index = self.defaultKitList.currentRow()
         self._writeKit(name)
         self.defaultKitList.setCurrentRow(index)
 
-    @QtCore.pyqtSignature("")
+    @QtCore.pyqtSlot()
     def on_overwriteButton_clicked(self):
         item = self.defaultKitList.currentItem()
         if item:
             index = self.defaultKitList.currentRow()
-            isUser = item.data(_IS_USER_KIT).toBool()
+            isUser = bool(item.data(_IS_USER_KIT))
             if isUser:
                 kitName = str(item.text())
                 self._writeKit(kitName)
                 self.defaultKitList.setCurrentRow(index)
             else:
-                QtGui.QMessageBox.information(self,
-                                              "Default kit",
-                                              "Cannot overwrite default kits!")
+                QtWidgets.QMessageBox.information(
+                    self, "Default kit", "Cannot overwrite default kits!")
 
     def getKit(self):
         item = self.defaultKitList.currentItem()
-        isUser = item.data(_IS_USER_KIT).toBool()
+        isUser = bool(item.data(_IS_USER_KIT))
         kitName = str(item.text())
         if isUser:
-            kitString = str(self._settings.value(kitName).toString())
+            kitString = self._settings.value(kitName, "", type=str)
             handle = StringIO(kitString)
             return DrumKitSerializer.DrumKitSerializer.read(handle)
         else:
@@ -134,7 +133,7 @@ class QDefaultKitManager(Ui_DefaulKitManager, QtGui.QDialog):
 
 
 def main():
-    from PyQt4.QtGui import QApplication
+    from PyQt5.QtWidgets import QApplication
     import sys
     app = QApplication(sys.argv)
     app.setOrganizationName("Whatang Software")

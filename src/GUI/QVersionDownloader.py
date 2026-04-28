@@ -22,8 +22,8 @@ Created on Mar 31, 2013
 @author: Mike Thomas
 '''
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import QTimer
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QDialog
 from DBVersion import doesNewerVersionExist
 from GUI.ui_versionDownloader import Ui_VersionDownloader
 

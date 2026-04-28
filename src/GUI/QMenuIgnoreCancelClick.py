@@ -23,7 +23,7 @@ Created on 19 Jan 2011
 
 '''
 
-from PyQt4.QtGui import QMenu
+from PyQt5.QtWidgets import QMenu
 from functools import wraps
 from GUI.DBFSMEvents import MenuCancel, MenuSelect
 

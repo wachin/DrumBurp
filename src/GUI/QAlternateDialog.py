@@ -22,12 +22,12 @@ Created on 22 Feb 2011
 @author: Mike Thomas
 
 '''
-from PyQt4 import QtGui
+from PyQt5 import QtWidgets
 from GUI.ui_alternateRepeats import Ui_AlternateDialog
 from GUI.QAlternateWidget import QAlternateWidget
 
 
-class QAlternateDialog(QtGui.QDialog, Ui_AlternateDialog):
+class QAlternateDialog(QtWidgets.QDialog, Ui_AlternateDialog):
     def __init__(self, alternate, parent=None):
         super(QAlternateDialog, self).__init__(parent=parent)
         self.setupUi(self)
@@ -89,7 +89,7 @@ class QAlternateDialog(QtGui.QDialog, Ui_AlternateDialog):
 
 def main():
     import sys
-    from PyQt4.QtGui import QApplication
+    from PyQt5.QtWidgets import QApplication
     app = QApplication(sys.argv)
     dialog = QAlternateDialog("1,2-3, 4,5, 6,7-10")
     dialog.show()

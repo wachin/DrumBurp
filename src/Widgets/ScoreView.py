@@ -22,7 +22,7 @@ Created on 5 Dec 2010
 @author: Mike Thomas
 
 '''
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtWidgets
 
 
 class SmoothScroller(object):
@@ -65,7 +65,7 @@ class SmoothScroller(object):
         self._timeline = None
 
 
-class ScoreView(QtGui.QGraphicsView):
+class ScoreView(QtWidgets.QGraphicsView):
     def __init__(self, parent=None):
         super(ScoreView, self).__init__(parent)
         self._props = None
@@ -139,7 +139,7 @@ class ScoreView(QtGui.QGraphicsView):
         self.scene().startUp()
 
     def keyPressEvent(self, event):
-        if isinstance(self.scene().focusItem(), QtGui.QGraphicsTextItem):
+        if isinstance(self.scene().focusItem(), QtWidgets.QGraphicsTextItem):
             event.ignore()
             return super(ScoreView, self).keyPressEvent(event)
         if event.key() == QtCore.Qt.Key_Home:
@@ -158,14 +158,14 @@ class ScoreView(QtGui.QGraphicsView):
     def setTopLeft(self, left, top, timeInMs=250):
         self._scroller.scrollTo(left, top, timeInMs)
 
-    @QtCore.pyqtSlot(QtGui.QGraphicsItem)
+    @QtCore.pyqtSlot(QtWidgets.QGraphicsItem)
     def showItemAtTop(self, item, timeInMs=250, margins=20):
         itemRect = item.sceneBoundingRect()
         left = max(0, itemRect.right() + margins - self.viewport().width())
         top = max(0, itemRect.top() - margins)
         self.setTopLeft(left, top, timeInMs)
 
-    @QtCore.pyqtSlot(QtGui.QGraphicsItem, QtGui.QGraphicsItem)
+    @QtCore.pyqtSlot(QtWidgets.QGraphicsItem, QtWidgets.QGraphicsItem)
     def showTwoItems(self, primary, secondary, timeInMs=250, margins=20):
         primRect = primary.sceneBoundingRect()
         secRect = secondary.sceneBoundingRect()

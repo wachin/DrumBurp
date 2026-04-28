@@ -23,7 +23,7 @@ Created on 31 Jul 2010
 '''
 import sys
 import optparse
-from PyQt4.QtGui import QApplication
+from PyQt5.QtWidgets import QApplication
 from DBVersion import APPNAME, DB_VERSION
 
 
