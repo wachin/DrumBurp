@@ -27,7 +27,6 @@ import os
 import string  # IGNORE:deprecated-module
 from PyQt4.QtGui import (QDialog, QRadioButton, QFileDialog, QDesktopServices,
                          QMessageBox, QInputDialog, QColor, QDialogButtonBox)
-from PyQt4.QtCore import QVariant
 from GUI.ui_editKit import Ui_editKitDialog
 from GUI.QDefaultKitManager import QDefaultKitManager
 import GUI.DBMidi as DBMidi
@@ -41,6 +40,12 @@ _KIT_FILTER = "DrumBurp kits (*%s)" % _KIT_FILE_EXT
 
 _BAD_ABBR_COLOR = QColor("red")
 _GOOD_ABBR_COLOR = QColor("black")
+
+
+def _itemDataToInt(value):
+    if hasattr(value, "toInt"):
+        return value.toInt()[0]
+    return int(value)
 
 
 def noSounds(method):
@@ -115,11 +120,11 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         self._populate()
 
     def _initialize(self):
-        self.oldDrum.addItem("None", userData=QVariant(-1))
+        self.oldDrum.addItem("None", userData=-1)
         for drumIndex, drum in enumerate(reversed(self._initialKit)):
             drum = copy.deepcopy(drum)
             self._currentKit.append(drum)
-            self.oldDrum.addItem(drum.name, userData=QVariant(drumIndex))
+            self.oldDrum.addItem(drum.name, userData=drumIndex)
             self._oldLines[drum] = drumIndex
 
     @noSounds
@@ -309,10 +314,10 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
             if len(indices) > 1:
                 ok = False
                 for index in indices:
-                    self.kitTable.item(index).setTextColor(_BAD_ABBR_COLOR)
+                    self.kitTable.item(index).setForeground(_BAD_ABBR_COLOR)
             else:
                 for index in indices:
-                    self.kitTable.item(index).setTextColor(_GOOD_ABBR_COLOR)
+                    self.kitTable.item(index).setForeground(_GOOD_ABBR_COLOR)
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(ok)
         self.saveButton.setEnabled(ok)
         return ok
@@ -320,7 +325,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
     def _oldDrumChanged(self):
         drum = self._currentDrum
         newOldDrumIndex = self.oldDrum.currentIndex()
-        newOldDrumIndex = self.oldDrum.itemData(newOldDrumIndex).toInt()[0]
+        newOldDrumIndex = _itemDataToInt(self.oldDrum.itemData(newOldDrumIndex))
         self._oldLines[drum] = newOldDrumIndex
 
     @noSounds
@@ -365,7 +370,9 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         self._populateCurrentNoteHead()
         headData = self._currentHeadData
         self.volumeSlider.setValue(headData.midiVolume)
-        midiIndex = self.midiNoteCombo.findData(QVariant(headData.midiNote))
+        midiIndex = self.midiNoteCombo.findData(headData.midiNote)
+        if midiIndex < 0:
+            midiIndex = 0
         self.midiNoteCombo.setCurrentIndex(midiIndex)
         self._setMidiNote()
         self._setEffect(headData.effect)
@@ -473,7 +480,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
 
     def _setMidiNote(self):
         midiNote = self.midiNoteCombo.currentIndex()
-        midiNote = self.midiNoteCombo.itemData(midiNote).toInt()[0]
+        midiNote = _itemDataToInt(self.midiNoteCombo.itemData(midiNote))
         self._currentHeadData.midiNote = midiNote
 
     def _midiNoteChanged(self):
@@ -509,7 +516,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
 
     def _populateMidiCombo(self):
         for midiNote, midiName in _MIDIDATA:
-            self.midiNoteCombo.addItem(midiName, userData=QVariant(midiNote))
+            self.midiNoteCombo.addItem(midiName, userData=midiNote)
 
     def _checkNotationButtons(self):
         headData = self._currentHeadData

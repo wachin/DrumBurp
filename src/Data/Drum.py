@@ -101,6 +101,10 @@ class Drum(object):
             return False
         return self.name == other.name or self.abbr == other.abbr
 
+    # Python 2 kept these objects hashable even with __eq__ defined.  The GUI
+    # relies on Drum identity as dictionary/set keys while editing a kit.
+    __hash__ = object.__hash__
+
     def headData(self, head):
         if head is None:
             head = self.head

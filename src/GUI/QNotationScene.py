@@ -141,14 +141,14 @@ class QNotationScene(QGraphicsScene):
         offset = headData.notationLine - ZERO
         invisibleStart = 0
         if offset > 0:
-            invisibleStart = offset / 2
+            invisibleStart = offset // 2
             for i in range(invisibleStart):
                 self._linesAbove[i].setVisible(True)
         for i in range(invisibleStart, LINES_ABOVE):
             self._linesAbove[i].setVisible(False)
         invisibleStart = 0
         if offset <= -2 * NUM_LINES:
-            invisibleStart = (-offset) / 2 - NUM_LINES + 1
+            invisibleStart = (-offset) // 2 - NUM_LINES + 1
             for i in range(invisibleStart):
                 self._linesBelow[i].setVisible(True)
         for i in range(invisibleStart, LINES_BELOW):
