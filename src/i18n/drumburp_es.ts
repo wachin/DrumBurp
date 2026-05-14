@@ -496,12 +496,12 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <translation>Error al escribir MIDI en el archivo %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1284" />
+        <location filename="../GUI/DBMainwindow.py" line="1277" />
         <source>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</source>
         <translation>Lilypond es un programa para mostrar notacion musical. DrumBurp puede exportar archivos Lilypond y usar Lilypond para mostrar su partitura de bateria como partitura musical. Primero debe descargar e instalar Lilypond desde www.lilypond.org y configurar la ruta al programa lilypond en esta ventana.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1298" />
+        <location filename="../GUI/DBMainwindow.py" line="1291" />
         <source>Please select path to Lilypond executable</source>
         <translation>Seleccione la ruta al ejecutable de Lilypond</translation>
     </message>
@@ -521,12 +521,12 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <translation>Exportar a MIDI</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1261" />
+        <location filename="../GUI/DBMainwindow.py" line="1254" />
         <source>Failed to get latest version info from www.whatang.org</source>
         <translation>No se pudo obtener la informacion de la ultima version desde www.whatang.org</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1264" />
+        <location filename="../GUI/DBMainwindow.py" line="1257" />
         <source>Check successful: You have the latest version of DrumBurp</source>
         <translation>Verificacion exitosa: tiene la ultima version de DrumBurp</translation>
     </message>
@@ -545,6 +545,18 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <source>The language will change the next time DrumBurp starts.</source>
         <translation>El idioma cambiara la proxima vez que DrumBurp se inicie.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../GUI/DBMainwindow.py" line="1212" />
+        <source>%n Measure(s)</source>
+        <translation><numerusform>%n Compas</numerusform><numerusform>%n Compases</numerusform></translation></message>
+    <message numerus="yes">
+        <location filename="../GUI/DBMainwindow.py" line="1214" />
+        <source>%n Staff(s)</source>
+        <translation><numerusform>%n Pentagrama</numerusform><numerusform>%n Pentagramas</numerusform></translation></message>
+    <message numerus="yes">
+        <location filename="../GUI/DBMainwindow.py" line="1216" />
+        <source>%n Page(s)</source>
+        <translation><numerusform>%n Pagina</numerusform><numerusform>%n Paginas</numerusform></translation></message>
 </context>
 <context>
     <name>DrumBurpWindow</name>
@@ -2109,6 +2121,14 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>QGraphicsListData</name>
+    <message>
+        <location filename="../GUI/QGraphicsListData.py" line="97" />
+        <source>Double click to edit %s.</source>
+        <translation>Doble clic para editar %s.</translation>
+    </message>
+</context>
+<context>
     <name>QLilypondPreview</name>
     <message>
         <location filename="../GUI/QLilypondPreview.py" line="88" />
@@ -2162,6 +2182,57 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>QLineLabel</name>
+    <message>
+        <location filename="../GUI/QLineLabel.py" line="46" />
+        <source>Double click to edit kit information.</source>
+        <translation>Doble clic para editar la informacion del kit.</translation>
+    </message>
+</context>
+<context>
+    <name>QMeasure</name>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="502" />
+        <source>Click to rotate sticking.</source>
+        <translation>Clic para rotar la digitacion.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="506" />
+        <source>Right click for options.</source>
+        <translation>Clic derecho para opciones.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="508" />
+        <source>Click to toggle notes; middle click to toggle special noteheads; right click for options.</source>
+        <translation>Clic para activar/desactivar notas; clic central para cambiar cabeza de nota especial; clic derecho para opciones.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="514" />
+        <source>Right click for count options.</source>
+        <translation>Clic derecho para opciones de pulso.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="516" />
+        <source>Double click to edit measure count; right click for count options.</source>
+        <translation>Doble clic para editar el pulso del compas; clic derecho para opciones de pulso.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="520" />
+        <source>Double click to edit repeat count.</source>
+        <translation>Doble clic para editar el numero de repeticiones.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="523" />
+        <source>Double click to edit BPM change.</source>
+        <translation>Doble clic para editar el cambio de BPM.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="526" />
+        <source>Double click to edit alternate ending.</source>
+        <translation>Doble clic para editar el final alternativo.</translation>
+    </message>
+</context>
+<context>
     <name>QMeasureContextMenu</name>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="236" />
@@ -2197,36 +2268,49 @@ Continuar?</translation>
     </message>
 </context>
 <context>
+    <name>QMeasureLine</name>
+    <message>
+        <location filename="../GUI/QMeasureLine.py" line="118" />
+        <source>Right-click for barline options.</source>
+        <translation>Clic derecho para opciones de barra de compas.</translation>
+    </message>
+</context>
+<context>
     <name>QScore</name>
     <message>
-        <location filename="../GUI/QScore.py" line="763" />
+        <location filename="../GUI/QScore.py" line="764" />
         <source>Error loading DrumBurp file %s</source>
         <translation>Error al cargar el archivo DrumBurp %s</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="764" />
+        <location filename="../GUI/QScore.py" line="765" />
         <source>Score load error</source>
         <translation>Error al cargar la partitura</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="778" />
+        <location filename="../GUI/QScore.py" line="779" />
         <source>Error saving DrumBurp file: %s</source>
         <translation>Error al guardar el archivo DrumBurp: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="779" />
+        <location filename="../GUI/QScore.py" line="780" />
         <source>Score save error</source>
         <translation>Error al guardar la partitura</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="946" />
+        <location filename="../GUI/QScore.py" line="947" />
         <source>Apply kit changes?</source>
         <translation>Aplicar cambios al kit?</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="946" />
+        <location filename="../GUI/QScore.py" line="947" />
         <source>Editing the kit cannot be undone. Proceed?</source>
         <translation>La edicion del kit no se puede deshacer. Continuar?</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QScore.py" line="171" />
+        <source>Head (Shortcut): </source>
+        <translation>Cabeza (Atajo): </translation>
     </message>
 </context>
 <context>

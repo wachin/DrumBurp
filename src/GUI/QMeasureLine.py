@@ -115,7 +115,7 @@ class QMeasureLine(QtWidgets.QGraphicsItem):
             event.ignore()
 
     def hoverEnterEvent(self, event):
-        self._qScore.setStatusMessage("Right-click for barline options.")
+        self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasureLine", "Right-click for barline options."))
         event.accept()
 
     def hoverLeaveEvent(self, event):

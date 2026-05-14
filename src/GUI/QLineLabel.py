@@ -43,7 +43,7 @@ class QLineLabel(QtWidgets.QGraphicsItem):
         self.setAcceptHoverEvents(True)
 
     def hoverEnterEvent(self, event):
-        self._qScore.setStatusMessage("Double click to edit kit information.")
+        self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QLineLabel", "Double click to edit kit information."))
         event.accept()
 
     def hoverLeaveEvent(self, event):

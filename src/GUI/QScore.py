@@ -168,7 +168,8 @@ class _HeadShortcut(object):
                                     + self._keyString(head) + u"</span>")
                 else:
                     headText.append(self._keyString(head))
-            headText = "Head (Shortcut): " + u" ".join(headText)
+            headText = QtCore.QCoreApplication.translate(
+                "QScore", "Head (Shortcut): ") + u" ".join(headText)
         else:
             headText = ""
         return headText

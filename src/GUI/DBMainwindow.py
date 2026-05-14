@@ -1209,19 +1209,12 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     def sceneFormatted(self):
         if self.scoreScene:
             numMeasures = self.scoreScene.score.numMeasures()
-            measureText = "%d Measure" % numMeasures
-            if numMeasures > 1:
-                measureText += "s"
+            measureText = self.tr("%n Measure(s)", "", numMeasures)
             numStaffs = self.scoreScene.score.numStaffs()
-            staffText = "%d Staff" % numStaffs
-            if numStaffs > 1:
-                staffText += "s"
+            staffText = self.tr("%n Staff(s)", "", numStaffs)
             numPages = self.scoreScene.numPages(self._pageHeight)
-            pagetext = "%d Page" % numPages
-            if numPages > 1:
-                pagetext += "s"
-            self._infoBar.setText(
-                ", ".join([measureText, staffText, pagetext]))
+            pageText = self.tr("%n Page(s)", "", numPages)
+            self._infoBar.setText(", ".join([measureText, staffText, pageText]))
 
     def _setStatusFromScene(self, msg):
         self.statusbar.showMessage(msg)

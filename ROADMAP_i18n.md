@@ -3,7 +3,7 @@
 **Goal:** Full Qt Linguist support for all user-visible strings, starting with
 English (reference) and Spanish, with a clean path to add more languages.
 
-**Total strings:** 625 across 24 translation contexts (622 original + 3 from language menu)  
+**Total strings:** 640 across 28 translation contexts  
 **Languages:** English (built-in reference), Spanish (`es`)
 
 ---
@@ -114,9 +114,19 @@ English (reference) and Spanish, with a clean path to add more languages.
 - [x] Run `lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm`
 - [x] Run `lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm`
 - [x] Verified Spanish translator loads and translates strings correctly (automated test)
-- [ ] Full manual test: `LANGUAGE=es ./run-drumburp.sh` — open menus, dialogs, error messages
-- [ ] Fix any missing or broken strings found during manual test
-- [ ] Re-run `pylupdate5` + `lrelease` if fixes are needed
+- [x] Manual test run — crash fixed: `QGraphicsItem` subclasses (`QMeasure`,
+      `QMeasureLine`, `QLineLabel`, `QGraphicsListData`) cannot use `self.tr()`;
+      replaced with `QCoreApplication.translate(context, string)`
+- [x] Status bar strings wrapped and translated:
+      - `QMeasure` — 8 hover status messages
+      - `QMeasureLine` — barline options message
+      - `QLineLabel` — kit information message
+      - `QGraphicsListData` — edit item message
+      - `QScore._HeadShortcut` — "Head (Shortcut): " label
+      - `DBMainwindow.sceneFormatted` — Measure/Staff/Page counts with plural forms
+- [x] 640 strings total (625 + 15 new), 0 unfinished in both EN and ES
+- [ ] Further manual testing recommended: open score, hover over measures,
+      check all status bar messages appear in Spanish
 
 ---
 

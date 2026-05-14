@@ -499,32 +499,32 @@ class QMeasure(QtWidgets.QGraphicsItem):
             self.update()
         # Set status message and cursor
         if self._isOverStickingAbove(point) or self._isOverStickingBelow(point):
-            self._qScore.setStatusMessage("Click to rotate sticking.")
+            self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Click to rotate sticking."))
             self.setCursor(QtCore.Qt.PointingHandCursor)
         elif self._isOverNotes(lineIndex):
             if self.isSimile():
-                self._qScore.setStatusMessage("Right click for options.")
+                self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Right click for options."))
             else:
-                self._qScore.setStatusMessage("Click to toggle notes; "
+                self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Click to toggle notes; "
                                               "middle click to toggle special noteheads; "
-                                              "right click for options.")
+                                              "right click for options."))
             self.setCursor(QtCore.Qt.ArrowCursor)
         elif self._isOverCount(lineIndex):
             if self.isSimile():
-                self._qScore.setStatusMessage("Right click for count options.")
+                self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Right click for count options."))
             else:
-                self._qScore.setStatusMessage("Double click to edit measure count; "
-                                              "right click for count options.")
+                self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Double click to edit measure count; "
+                                              "right click for count options."))
             self.setCursor(QtCore.Qt.PointingHandCursor)
         elif self._isOverRepeatCount(point):
-            self._qScore.setStatusMessage("Double click to edit repeat count.")
+            self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Double click to edit repeat count."))
             self.setCursor(QtCore.Qt.PointingHandCursor)
         elif self._isOverBpmChange(point):
-            self._qScore.setStatusMessage("Double click to edit BPM change.")
+            self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Double click to edit BPM change."))
             self.setCursor(QtCore.Qt.PointingHandCursor)
         elif self._isOverAlternate(point):
-            self._qScore.setStatusMessage("Double click to edit "
-                                          "alternate ending.")
+            self._qScore.setStatusMessage(QtCore.QCoreApplication.translate("QMeasure", "Double click to edit "
+                                          "alternate ending."))
             self.setCursor(QtCore.Qt.PointingHandCursor)
         else:
             self._qScore.setStatusMessage()

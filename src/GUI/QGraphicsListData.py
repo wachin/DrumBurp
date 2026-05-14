@@ -24,7 +24,7 @@ Created on 13 Mar 2011
 '''
 
 
-from PyQt5.QtCore import QPoint, QRectF, QPointF, Qt
+from PyQt5.QtCore import QPoint, QRectF, QPointF, Qt, QCoreApplication
 from PyQt5.QtGui import QFontMetrics, QPen
 from PyQt5.QtWidgets import QGraphicsItem
 
@@ -94,7 +94,7 @@ class QGraphicsListData(QGraphicsItem):  # IGNORE:abstract-class-not-used
         super(QGraphicsListData, self).update()
 
     def hoverEnterEvent(self, event):
-        self._qScore.setStatusMessage("Double click to edit %s."
+        self._qScore.setStatusMessage(QCoreApplication.translate("QGraphicsListData", "Double click to edit %s.")
                                       % self._editName)
         event.accept()
 

@@ -496,12 +496,12 @@ Continue anyway? All unsaved changes will be lost!</translation>
         <translation>Error writing MIDI to file %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1284" />
+        <location filename="../GUI/DBMainwindow.py" line="1277" />
         <source>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</source>
         <translation>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1298" />
+        <location filename="../GUI/DBMainwindow.py" line="1291" />
         <source>Please select path to Lilypond executable</source>
         <translation>Please select path to Lilypond executable</translation>
     </message>
@@ -521,12 +521,12 @@ Continue anyway? All unsaved changes will be lost!</translation>
         <translation>Export to MIDI</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1261" />
+        <location filename="../GUI/DBMainwindow.py" line="1254" />
         <source>Failed to get latest version info from www.whatang.org</source>
         <translation>Failed to get latest version info from www.whatang.org</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1264" />
+        <location filename="../GUI/DBMainwindow.py" line="1257" />
         <source>Check successful: You have the latest version of DrumBurp</source>
         <translation>Check successful: You have the latest version of DrumBurp</translation>
     </message>
@@ -545,6 +545,18 @@ Continue anyway? All unsaved changes will be lost!</translation>
         <source>The language will change the next time DrumBurp starts.</source>
         <translation>The language will change the next time DrumBurp starts.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../GUI/DBMainwindow.py" line="1212" />
+        <source>%n Measure(s)</source>
+        <translation><numerusform>%n Measure</numerusform><numerusform>%n Measures</numerusform></translation></message>
+    <message numerus="yes">
+        <location filename="../GUI/DBMainwindow.py" line="1214" />
+        <source>%n Staff(s)</source>
+        <translation><numerusform>%n Staff</numerusform><numerusform>%n Staffs</numerusform></translation></message>
+    <message numerus="yes">
+        <location filename="../GUI/DBMainwindow.py" line="1216" />
+        <source>%n Page(s)</source>
+        <translation><numerusform>%n Page</numerusform><numerusform>%n Pages</numerusform></translation></message>
 </context>
 <context>
     <name>DrumBurpWindow</name>
@@ -2171,6 +2183,14 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>QGraphicsListData</name>
+    <message>
+        <location filename="../GUI/QGraphicsListData.py" line="97" />
+        <source>Double click to edit %s.</source>
+        <translation>Double click to edit %s.</translation>
+    </message>
+</context>
+<context>
     <name>QLilypondPreview</name>
     <message>
         <location filename="../GUI/QLilypondPreview.py" line="88" />
@@ -2224,6 +2244,57 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>QLineLabel</name>
+    <message>
+        <location filename="../GUI/QLineLabel.py" line="46" />
+        <source>Double click to edit kit information.</source>
+        <translation>Double click to edit kit information.</translation>
+    </message>
+</context>
+<context>
+    <name>QMeasure</name>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="502" />
+        <source>Click to rotate sticking.</source>
+        <translation>Click to rotate sticking.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="506" />
+        <source>Right click for options.</source>
+        <translation>Right click for options.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="508" />
+        <source>Click to toggle notes; middle click to toggle special noteheads; right click for options.</source>
+        <translation>Click to toggle notes; middle click to toggle special noteheads; right click for options.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="514" />
+        <source>Right click for count options.</source>
+        <translation>Right click for count options.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="516" />
+        <source>Double click to edit measure count; right click for count options.</source>
+        <translation>Double click to edit measure count; right click for count options.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="520" />
+        <source>Double click to edit repeat count.</source>
+        <translation>Double click to edit repeat count.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="523" />
+        <source>Double click to edit BPM change.</source>
+        <translation>Double click to edit BPM change.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasure.py" line="526" />
+        <source>Double click to edit alternate ending.</source>
+        <translation>Double click to edit alternate ending.</translation>
+    </message>
+</context>
+<context>
     <name>QMeasureContextMenu</name>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="236" />
@@ -2259,36 +2330,49 @@ Continue?</translation>
     </message>
 </context>
 <context>
+    <name>QMeasureLine</name>
+    <message>
+        <location filename="../GUI/QMeasureLine.py" line="118" />
+        <source>Right-click for barline options.</source>
+        <translation>Right-click for barline options.</translation>
+    </message>
+</context>
+<context>
     <name>QScore</name>
     <message>
-        <location filename="../GUI/QScore.py" line="763" />
+        <location filename="../GUI/QScore.py" line="764" />
         <source>Error loading DrumBurp file %s</source>
         <translation>Error loading DrumBurp file %s</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="764" />
+        <location filename="../GUI/QScore.py" line="765" />
         <source>Score load error</source>
         <translation>Score load error</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="778" />
+        <location filename="../GUI/QScore.py" line="779" />
         <source>Error saving DrumBurp file: %s</source>
         <translation>Error saving DrumBurp file: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="779" />
+        <location filename="../GUI/QScore.py" line="780" />
         <source>Score save error</source>
         <translation>Score save error</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="946" />
+        <location filename="../GUI/QScore.py" line="947" />
         <source>Apply kit changes?</source>
         <translation>Apply kit changes?</translation>
     </message>
     <message>
-        <location filename="../GUI/QScore.py" line="946" />
+        <location filename="../GUI/QScore.py" line="947" />
         <source>Editing the kit cannot be undone. Proceed?</source>
         <translation>Editing the kit cannot be undone. Proceed?</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QScore.py" line="171" />
+        <source>Head (Shortcut): </source>
+        <translation>Head (Shortcut): </translation>
     </message>
 </context>
 <context>
