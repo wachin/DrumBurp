@@ -12,9 +12,10 @@ DrumBurp internationalisation (i18n) loader.
 Call install_translator(app) once, right after creating QApplication,
 to load the correct .qm file for the current system locale.
 
-Translation files live in the same directory as this module:
-    src/i18n/drumburp_en.qm
-    src/i18n/drumburp_es.qm
+Translation files live in src/i18n/ (development) or in the i18n/
+subdirectory next to the frozen executable (PyInstaller builds):
+    drumburp_en.qm
+    drumburp_es.qm
     ...
 
 To force a specific language at runtime (useful for testing):
@@ -24,13 +25,24 @@ or:
 """
 
 import os
-from PyQt5.QtCore import QTranslator, QLocale, QCoreApplication
-
-# Directory that contains the .qm files (same folder as this file).
-_I18N_DIR = os.path.dirname(os.path.abspath(__file__))
+import sys
+from PyQt5.QtCore import QTranslator, QCoreApplication
 
 # The single translator instance — kept alive for the lifetime of the app.
 _translator = None
+
+
+def _i18n_dir():
+    """Return the directory that contains the .qm files.
+
+    Works both in development (src/i18n/) and when frozen by PyInstaller
+    (i18n/ next to the executable, bundled via --add-data).
+    """
+    if getattr(sys, 'frozen', False):
+        # PyInstaller sets sys._MEIPASS to the temp extraction directory.
+        return os.path.join(sys._MEIPASS, 'i18n')
+    # Development: same directory as this file.
+    return os.path.dirname(os.path.abspath(__file__))
 
 
 def install_translator(app, language=None):
@@ -41,7 +53,7 @@ def install_translator(app, language=None):
     is found for the requested language.
 
     Returns the language code that was actually loaded, or None if the
-    built-in strings are being used.
+    built-in English strings are being used.
     """
     global _translator
 
@@ -54,7 +66,7 @@ def install_translator(app, language=None):
     if not language or language == "en":
         return None  # English is the built-in language — nothing to load.
 
-    qm_path = os.path.join(_I18N_DIR, "drumburp_%s.qm" % language)
+    qm_path = os.path.join(_i18n_dir(), "drumburp_%s.qm" % language)
     if not os.path.exists(qm_path):
         return None  # No translation available — fall back to English.
 

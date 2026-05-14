@@ -3,273 +3,197 @@
 **Goal:** Full Qt Linguist support for all user-visible strings, starting with
 English (reference) and Spanish, with a clean path to add more languages.
 
-**Approach:** Phased — infrastructure first, then the heaviest files, then the
-long tail of smaller dialogs, then translation, then runtime polish.
-
-**Total strings extracted so far:** 612 (across 24 translation contexts)  
-**Languages planned:** English (built-in), Spanish (`es`)
+**Total strings:** 622 across 24 translation contexts  
+**Languages:** English (built-in reference), Spanish (`es`)
 
 ---
 
 ## Phase 0 — Infrastructure
 
 - [x] Create `src/i18n/` directory
-- [x] Create `src/i18n/i18n.py` — translation loader (`QTranslator` + `installTranslator`)
+- [x] Create `src/i18n/i18n.py` — translation loader
 - [x] Add `--language` CLI option to `src/DrumBurp.py`
-- [x] Add `LANGUAGE` environment variable support to `i18n.py`
+- [x] Add `LANGUAGE` environment variable support
 - [x] Install translator in `DrumBurp.py` before any UI is created
+- [x] `i18n.py` handles PyInstaller frozen builds (`sys._MEIPASS`)
 - [x] Create `drumburp.pro` — Qt project file for `pylupdate5`
 - [x] Run `pylupdate5 drumburp.pro` — generates `drumburp_en.ts` and `drumburp_es.ts`
-- [x] Verify `.ts` files contain all 612 strings from UI files and Python code
-- [ ] Add `lrelease` step to build scripts (`build/build_linux.sh`, `build/build_windows.ps1`)
-- [ ] Add `lrelease` step to GitHub Actions workflow (`.github/workflows/build.yml`)
-- [ ] Add `src/i18n/*.qm` to PyInstaller hidden data in build scripts
-- [ ] Write developer i18n section in `README.md` and `README_ES.md`
+- [x] English `.ts` filled (622 strings, all marked finished)
+- [x] Add `lrelease` step to `build/build_linux.sh`
+- [x] Add `lrelease` step to `build/build_windows.ps1`
+- [x] Add `.qm` files to PyInstaller `--add-data` in both build scripts
+- [x] Add `lrelease` + `qttools5-dev-tools` step to `.github/workflows/build.yml`
+- [x] Add i18n section to `README.md`
+- [x] Add i18n section to `README_ES.md`
 
 ---
 
-## Phase 1 — Wrap strings: heaviest files
+## Phase 1 — Wrap strings in Python code
 
-These three files account for **444 of 612 strings (72%)**.
+### Files completed
 
-### `src/GUI/DBMainwindow.py` — 240 strings in context `DrumBurpWindow` + `DrumBurp`
+- [x] `src/DrumBurp.py` — `--language` option, `install_translator()` call
+- [x] `src/GUI/DBMainwindow.py` — all QMessageBox, status, dialog, window title strings
+- [x] `src/GUI/DBInfoDialog.py` — window title, version text, port credit labels
+- [x] `src/GUI/DBStartupDialog.py` — welcome window title
+- [x] `src/GUI/QScore.py` — load/save errors, kit change confirmation
+- [x] `src/GUI/QMeasureContextMenu.py` — delete staff/section/measures confirmations
+- [x] `src/GUI/QLilypondPreview.py` — all build/export error messages
+- [x] `src/GUI/QDefaultKitManager.py` — kit name dialog, duplicate/overwrite errors
+- [x] `src/GUI/QEditKitDialog.py` — kit saved message
 
-- [x] Wrap `statusbar.showMessage(...)` calls with `self.tr()`
-- [x] Wrap all `QMessageBox` titles and messages with `self.tr()`
-- [x] Wrap `updateStatus(...)` string arguments with `self.tr()`
-- [x] Wrap `QFileDialog` caption and filter strings with `self.tr()`
-- [x] Wrap window title strings with `self.tr()`
-- [x] Wrap undo/redo dynamic text with `self.tr()`
-- [x] Wrap multi-line informational texts (update splash, backup dialog) with `self.tr()`
-- [x] Wrap Lilypond path dialog text with `self.tr()`
-- [ ] Wrap `checkLilypondPath()` full info message (currently partially done)
-- [ ] Wrap MIDI error messages in `_midiInitFinished()` and related methods
-- [ ] Wrap version check result messages
-- [ ] Re-run `pylupdate5` after all wrapping is complete
+### Files that need no wrapping (all strings in .ui files)
 
-### `src/GUI/QEditKitDialog.py` — 147 strings in context `editKitDialog`
-
-- [x] Wrap `QMessageBox` strings: "Kit saved", "Successfully saved drumkit"
-- [ ] Wrap remaining dialog labels set dynamically in Python code
-- [ ] Wrap `QFileDialog` captions
-- [ ] Wrap status/error messages in kit editing operations
-- [ ] Re-run `pylupdate5` after wrapping
-
-### `src/GUI/QScore.py` — 57 strings in context `DrumBurp`
-
-- [x] Wrap "Score load error" / "Error loading DrumBurp file %s"
-- [x] Wrap "Score save error" / "Error saving DrumBurp file: %s"
-- [x] Wrap "Apply kit changes?" dialog
-- [x] Wrap "Editing the kit cannot be undone. Proceed?"
-- [ ] Audit remaining strings (section titles, measure labels set in Python)
-- [ ] Re-run `pylupdate5` after wrapping
+- [x] `src/GUI/DBColourPicker.py` — no dynamic strings
+- [x] `src/GUI/QAlternateDialog.py` — no dynamic strings
+- [x] `src/GUI/QAlternateWidget.py` — no dynamic strings
+- [x] `src/GUI/QComplexCountDialog.py` — no dynamic strings
+- [x] `src/GUI/QInsertMeasuresDialog.py` — no dynamic strings
+- [x] `src/GUI/QRepeatCountDialog.py` — no dynamic strings
+- [x] `src/GUI/QVersionDownloader.py` — no dynamic strings
+- [x] `src/GUI/DBLicense.py` — no dynamic strings
+- [x] `src/GUI/QEditMeasureDialog.py` — no dynamic strings
+- [x] `src/GUI/QMetaDataDialog.py` — no dynamic strings
+- [x] `src/GUI/QNewScoreDialog.py` — no dynamic strings
+- [x] `src/Widgets/measureTabs.py` — no dynamic strings
 
 ---
 
-## Phase 2 — Wrap strings: medium dialogs
+## Phase 2 — Spanish translation: file by file
 
-These files have 19–57 strings each.
+622 strings total. **ALL DONE — 622/622 translated.**
 
-### `src/GUI/QMeasureContextMenu.py` — 6 strings in context `QMeasureContextMenu`
+### Group A — Tiny dialogs (≤ 6 strings each) — 47 strings total
 
-- [x] Wrap "Really delete this staff?" / "Delete Staff?"
-- [x] Wrap "Really delete this section?" / "Delete Section?"
-- [x] Wrap "This will delete all empty trailing measures.\nContinue?" / "Delete Empty Measures"
+- [x] `repeatCountDialog` (3 strings)
+- [x] `dbLicense_dialog` (3 strings)
+- [x] `dbStartup` (2 strings)
+- [x] `measurePropertiesDialog` (2 strings)
+- [x] `QEditKitDialog` (2 strings)
+- [x] `AlternateDialog` (4 strings)
+- [x] `AlternateWidget` (6 strings)
+- [x] `ColourPicker` (6 strings)
+- [x] `QMeasureContextMenu` (6 strings)
+- [x] `QScore` (6 strings)
+- [x] `QDefaultKitManager` (6 strings)
+- [x] `newScoreDialog` (6 strings)
 
-### `src/GUI/QLilypondPreview.py` — 10 strings in context `QLilypondPreview`
+### Group B — Small dialogs (9–19 strings each) — 87 strings total
 
-- [x] Wrap all `QMessageBox` titles and messages
-- [x] Wrap "Still previewing" / "Cannot preview now..."
-- [x] Wrap "Build failed!" and all sub-messages
+- [x] `InsertMeasuresDialog` (9 strings)
+- [x] `QLilypondPreview` (10 strings)
+- [x] `InfoDialog` (10 strings)
+- [x] `DBInfoDialog` (4 strings)
+- [x] `DBStartupDialog` (1 string)
+- [x] `VersionDownloader` (3 strings)
+- [x] `complexCountDialog` (14 strings)
+- [x] `measureTabs` (15 strings)
+- [x] `asciiDialog` (19 strings)
+- [x] `ScoreDialog` (19 strings)
 
-### `src/GUI/QDefaultKitManager.py` — 6 strings in context `QDefaultKitManager`
+### Group C — Medium dialogs — 34 strings total
 
-- [x] Wrap "Duplicate kit name!" / "That kit name already exists."
-- [x] Wrap "Kit name" / "Enter a name for the new default kit"
-- [x] Wrap "Default kit" / "Cannot overwrite default kits!"
+- [x] `DefaulKitManager` (17 strings)
 
-### `src/GUI/DBStartupDialog.py` — 2 strings in context `dbStartup`
+### Group D — Main application strings (62 strings)
 
-- [ ] Wrap `setWindowTitle("Welcome to DrumBurp v" + version)` with `self.tr()`
+- [x] `DrumBurp` (62 strings)
 
-### `src/GUI/DBInfoDialog.py` — 10 strings in context `InfoDialog`
+### Group E — Main window UI (240 strings)
 
-- [ ] Wrap port credit label text added dynamically in `_addPortCredit()`
-- [ ] Wrap "PyQt4 → PyQt5 Port" section title
+- [x] `DrumBurpWindow` (240 strings)
 
-### `src/GUI/QNewScoreDialog.py` — 6 strings in context `newScoreDialog`
+### Group F — Kit editor (147 strings)
 
-- [ ] Audit for any dynamically set strings not covered by the `.ui` file
-
-### `src/GUI/QComplexCountDialog.py` — 14 strings in context `complexCountDialog`
-
-- [ ] Audit for dynamically set strings
-
-### `src/Widgets/measureTabs.py` — 15 strings in context `measureTabs`
-
-- [ ] Audit for dynamically set strings not covered by the `.ui` file
-
----
-
-## Phase 3 — Wrap strings: small dialogs (long tail)
-
-Each of these has fewer than 10 strings. Most are fully covered by their `.ui`
-files and need no Python wrapping — just audit to confirm.
-
-| File | Context | Strings | Status |
-|------|---------|---------|--------|
-| `src/GUI/DBColourPicker.py` | `ColourPicker` | 6 | [ ] audit |
-| `src/GUI/QAlternateDialog.py` | `AlternateDialog` | 4 | [ ] audit |
-| `src/GUI/QAlternateWidget.py` | `AlternateWidget` | 6 | [ ] audit |
-| `src/GUI/QInsertMeasuresDialog.py` | `InsertMeasuresDialog` | 9 | [ ] audit |
-| `src/GUI/QRepeatCountDialog.py` | `repeatCountDialog` | 3 | [ ] audit |
-| `src/GUI/QVersionDownloader.py` | `VersionDownloader` | 3 | [ ] audit |
-| `src/GUI/DBLicense.py` | `dbLicense_dialog` | 3 | [ ] audit |
-| `src/GUI/QEditMeasureDialog.py` | `measurePropertiesDialog` | 2 | [ ] audit |
-| `src/GUI/QMetaDataDialog.py` | `ScoreDialog` | 19 | [ ] audit |
+- [x] `editKitDialog` (147 strings)
 
 ---
 
-## Phase 4 — English translation file (`drumburp_en.ts`)
+## Phase 3 — Compile and test
 
-The English `.ts` file is the **reference** file. Its translations should be
-identical to the source strings (or slightly improved for clarity). This is
-what translators use as the base.
-
-- [x] `drumburp_en.ts` generated by `pylupdate5`
-- [ ] Open `drumburp_en.ts` in Qt Linguist
-- [ ] Mark all 612 strings as "Accepted" (Ctrl+Enter on each, or use
-      Edit → Translation → Mark All as Accepted)
-- [ ] Save and run `lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm`
-- [ ] Verify `drumburp_en.qm` loads correctly with `--language en`
+- [x] Run `lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm`
+- [x] Run `lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm`
+- [x] Verified Spanish translator loads and translates strings correctly (automated test)
+- [ ] Full manual test: `LANGUAGE=es ./run-drumburp.sh` — open menus, dialogs, error messages
+- [ ] Fix any missing or broken strings found during manual test
+- [ ] Re-run `pylupdate5` + `lrelease` if fixes are needed
 
 ---
 
-## Phase 5 — Spanish translation (`drumburp_es.ts`)
+## Phase 4 — Build integration
 
-Work through the 612 strings in order of user impact.
-
-### 5a — Core UI (highest visibility, ~240 strings)
-
-Context: `DrumBurpWindow` — the main window toolbar, menus, panels.
-
-- [ ] Translate all menu names: File, Edit, Score, View, MIDI, Help
-- [ ] Translate all menu items: New, Open, Save, Save As, Print, Export...
-- [ ] Translate all toolbar tooltips and status tips
-- [ ] Translate all panel labels: Score Properties, Actions, Lilypond Output...
-- [ ] Translate all WhatsThis help texts
-
-### 5b — Dialogs (medium visibility, ~200 strings)
-
-Contexts: `editKitDialog`, `newScoreDialog`, `ScoreDialog`, `DefaulKitManager`,
-`complexCountDialog`, `measureTabs`, `asciiDialog`, `InsertMeasuresDialog`.
-
-- [ ] `editKitDialog` — 147 strings (kit editor: drum names, MIDI settings, note heads)
-- [ ] `newScoreDialog` — 6 strings (new score wizard)
-- [ ] `ScoreDialog` — 19 strings (score properties: title, artist, BPM, swing)
-- [ ] `DefaulKitManager` — 17 strings (default kit manager)
-- [ ] `complexCountDialog` — 14 strings (complex beat count editor)
-- [ ] `measureTabs` — 15 strings (measure count tabs widget)
-- [ ] `asciiDialog` — 19 strings (ASCII export options)
-- [ ] `InsertMeasuresDialog` — 9 strings (insert measures dialog)
-
-### 5c — Messages and small dialogs (~170 strings)
-
-Contexts: `DrumBurp`, `QLilypondPreview`, `QMeasureContextMenu`,
-`QDefaultKitManager`, `QScore`, `QEditKitDialog`, `InfoDialog`,
-`AlternateDialog`, `AlternateWidget`, `ColourPicker`, `repeatCountDialog`,
-`VersionDownloader`, `dbLicense_dialog`, `dbStartup`, `measurePropertiesDialog`.
-
-- [ ] All `QMessageBox` titles and messages (errors, warnings, confirmations)
-- [ ] All `QFileDialog` captions and filters
-- [ ] Status bar messages
-- [ ] Window titles set dynamically
-
-### 5d — Compile and test
-
-- [ ] Run `lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm`
-- [ ] Test with `LANGUAGE=es ./run-drumburp.sh`
-- [ ] Test with `./run-drumburp.sh --language es`
-- [ ] Verify all menus, dialogs and messages appear in Spanish
-- [ ] Fix any missing or broken strings, re-run `pylupdate5` + `lrelease`
+- [x] `build/build_linux.sh` — `lrelease` step + `--add-data` for `.qm` files
+- [x] `build/build_windows.ps1` — `lrelease` step + `--add-data` for `.qm` files
+- [x] `.github/workflows/build.yml` — `qttools5-dev-tools` installed + `lrelease` step
+- [x] `src/i18n/i18n.py` — handles PyInstaller frozen builds via `sys._MEIPASS`
 
 ---
 
-## Phase 6 — Runtime language switching (optional, future)
+## Phase 5 — Developer documentation
 
-- [ ] Add language selector to Preferences dialog
-- [ ] Save selected language to `QSettings`
-- [ ] Load language from `QSettings` on startup (before `install_translator`)
-- [ ] Allow switching language without restarting (requires `retranslateUi()` calls)
+- [x] Add i18n section to `README.md`
+- [x] Add i18n section to `README_ES.md`
 
 ---
 
-## Phase 7 — Additional languages (future)
+## Phase 6 — Future
 
-To add a new language (e.g. French `fr`):
-
-1. Add `src/i18n/drumburp_fr.ts` to `drumburp.pro` under `TRANSLATIONS`
-2. Run `pylupdate5 drumburp.pro` — creates the new `.ts` file
-3. Open `src/i18n/drumburp_fr.ts` in Qt Linguist and translate
-4. Run `lrelease src/i18n/drumburp_fr.ts -qm src/i18n/drumburp_fr.qm`
-5. Test with `LANGUAGE=fr ./run-drumburp.sh`
-
-Candidate languages: French (`fr`), German (`de`), Portuguese (`pt`),
-Italian (`it`), Japanese (`ja`).
+- [ ] Runtime language switching in Preferences dialog
+- [ ] French (`fr`), German (`de`), Portuguese (`pt`) translations
 
 ---
 
-## Quick reference — key commands
+## Quick reference
 
 ```bash
-# Extract/update strings from source code into .ts files
+# Extract/update strings from source into .ts files
 pylupdate5 drumburp.pro
 
-# Compile a .ts file into a binary .qm file
+# Compile .ts to binary .qm
 lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
 lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
 
-# Open Qt Linguist GUI to translate
+# Open Qt Linguist GUI
 linguist src/i18n/drumburp_es.ts
 
-# Test the program in Spanish
+# Test in Spanish
 LANGUAGE=es ./run-drumburp.sh
 ./run-drumburp.sh --language es
 
-# Test in English explicitly
-./run-drumburp.sh --language en
-
-# Count untranslated strings remaining
+# Count remaining untranslated strings
 grep -c 'type="unfinished"' src/i18n/drumburp_es.ts
 ```
 
 ---
 
-## File map
+## Progress
 
-```
-drumburp.pro                  Qt project file — lists all source and .ui files
-                              for pylupdate5
-
-src/i18n/
-  i18n.py                     Translation loader — call install_translator(app)
-  drumburp_en.ts              English reference .ts (source of truth)
-  drumburp_es.ts              Spanish .ts (work in progress)
-  drumburp_en.qm              Compiled English binary (generated by lrelease)
-  drumburp_es.qm              Compiled Spanish binary (generated by lrelease)
-```
-
----
-
-## Progress summary
-
-| Phase | Description | Status |
-|-------|-------------|--------|
-| 0 | Infrastructure (loader, .pro file, .ts generation) | 🟡 Mostly done — build integration pending |
-| 1 | Wrap strings: DBMainwindow, QEditKitDialog, QScore | 🟡 Partially done |
-| 2 | Wrap strings: medium dialogs | 🟡 Partially done |
-| 3 | Wrap strings: small dialogs (audit) | ⬜ Not started |
-| 4 | English .ts — mark all as accepted | ⬜ Not started |
-| 5 | Spanish translation (612 strings) | ⬜ Not started |
-| 6 | Runtime language switching | ⬜ Future |
-| 7 | Additional languages | ⬜ Future |
+| Group | Context | Strings | Status |
+|-------|---------|---------|--------|
+| A | repeatCountDialog | 3 | [x] |
+| A | dbLicense_dialog | 3 | [x] |
+| A | dbStartup | 2 | [x] |
+| A | measurePropertiesDialog | 2 | [x] |
+| A | QEditKitDialog | 2 | [x] |
+| A | AlternateDialog | 4 | [x] |
+| A | AlternateWidget | 6 | [x] |
+| A | ColourPicker | 6 | [x] |
+| A | QMeasureContextMenu | 6 | [x] |
+| A | QScore | 6 | [x] |
+| A | QDefaultKitManager | 6 | [x] |
+| A | newScoreDialog | 6 | [x] |
+| B | InsertMeasuresDialog | 9 | [x] |
+| B | QLilypondPreview | 10 | [x] |
+| B | InfoDialog | 10 | [x] |
+| B | DBInfoDialog | 4 | [x] |
+| B | DBStartupDialog | 1 | [x] |
+| B | VersionDownloader | 3 | [x] |
+| B | complexCountDialog | 14 | [x] |
+| B | measureTabs | 15 | [x] |
+| B | asciiDialog | 19 | [x] |
+| B | ScoreDialog | 19 | [x] |
+| C | DefaulKitManager | 17 | [x] |
+| D | DrumBurp | 62 | [x] |
+| E | DrumBurpWindow | 240 | [x] |
+| F | editKitDialog | 147 | [x] |
+| — | **Total** | **622** | **622 done ✓** |

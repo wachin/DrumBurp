@@ -567,7 +567,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if directory is None:
             suggestion = str(self.scoreScene.title)
             if len(suggestion) == 0:
-                suggestion = "Untitled"
+                suggestion = self.tr("Untitled")
             suggestion = os.extsep.join([suggestion, "brp"])
             if len(self.recentFiles) > 0:
                 directory = os.path.dirname(self.recentFiles[-1])
@@ -1027,7 +1027,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                               self.scoreScene.score, midiBuffer)
         except Exception as exc:
             QMessageBox.warning(self.parent(), self.tr("Error generating MIDI!"),
-                                "Failed to generate MIDI for this score: %s"
+                                self.tr("Failed to generate MIDI for this score: %s")
                                 % exc.__doc__)
             raise
         directory = self.filename
@@ -1044,7 +1044,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                                      suggestion)
         if os.path.splitext(directory)[-1] == os.extsep + 'brp':
             directory = os.path.splitext(directory)[0]
-        caption = "Export to MIDI"
+        caption = self.tr("Export to MIDI")
         fname = QFileDialog.getSaveFileName(parent=self,
                                             caption=caption,
                                             directory=directory,
@@ -1204,10 +1204,10 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             dialog.exec()
         elif newer is None:
             self.statusbar.showMessage(
-                "Failed to get latest version info from www.whatang.org", 5000)
+                self.tr("Failed to get latest version info from www.whatang.org"), 5000)
         else:
             self.statusbar.showMessage(
-                "Check successful: You have the latest version of DrumBurp", 5000)
+                self.tr("Check successful: You have the latest version of DrumBurp"), 5000)
 
     def _midiInitFinished(self):
         self._refreshMidiDevices()

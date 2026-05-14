@@ -156,3 +156,69 @@ Consulta el archivo `COPYING.txt` para el texto completo de la GPL.
 
 **Autor original:** Michael Thomas — drumburp@whatang.org  
 **Port a PyQt5:** Washington Indacochea Delgado — linuxfrontier@proton.me
+
+---
+
+## Internacionalizacion (i18n) — para desarrolladores
+
+DrumBurp soporta multiples idiomas mediante Qt Linguist y archivos `.qm` de traduccion.
+
+### Instalar las herramientas necesarias
+
+```bash
+sudo apt install pyqt5-dev-tools qttools5-dev-tools
+# incluye: pylupdate5, lrelease, linguist
+```
+
+### Archivos de traduccion
+
+```
+drumburp.pro              Archivo de proyecto Qt — lista todos los archivos fuente
+src/i18n/
+  i18n.py                 Cargador de traducciones (se llama al iniciar)
+  drumburp_en.ts          Referencia en ingles (fuente de verdad)
+  drumburp_es.ts          Traduccion al espanol
+  drumburp_en.qm          Binario compilado en ingles
+  drumburp_es.qm          Binario compilado en espanol
+```
+
+### Actualizar cadenas despues de editar el codigo fuente
+
+```bash
+# Re-extraer todas las cadenas de los archivos Python y .ui
+pylupdate5 drumburp.pro
+
+# Recompilar despues de traducir
+lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
+lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
+```
+
+### Traducir usando la interfaz grafica de Qt Linguist
+
+```bash
+linguist src/i18n/drumburp_es.ts
+```
+
+### Probar en un idioma especifico
+
+```bash
+# Espanol
+LANGUAGE=es ./run-drumburp.sh
+./run-drumburp.sh --language es
+
+# Ingles explicito
+./run-drumburp.sh --language en
+
+# Usar la configuracion regional del sistema
+./run-drumburp.sh
+```
+
+### Agregar un nuevo idioma (ejemplo: frances)
+
+1. Agregar `src/i18n/drumburp_fr.ts` a `drumburp.pro` bajo `TRANSLATIONS`
+2. Ejecutar `pylupdate5 drumburp.pro` — crea el nuevo archivo `.ts`
+3. Traducir con `linguist src/i18n/drumburp_fr.ts`
+4. Ejecutar `lrelease src/i18n/drumburp_fr.ts -qm src/i18n/drumburp_fr.qm`
+5. Probar con `LANGUAGE=fr ./run-drumburp.sh`
+
+Consulte `ROADMAP_i18n.md` para el plan completo de i18n y el progreso.

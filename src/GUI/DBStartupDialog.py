@@ -29,5 +29,5 @@ class DBStartupDialog(QDialog, Ui_dbStartup):
     def __init__(self, version, parent=None):
         super(DBStartupDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle("Welcome to DrumBurp v" + version)
+        self.setWindowTitle(self.tr("Welcome to DrumBurp v") + version)
         self.buttonBox.button(self.buttonBox.Ok).setFocus()

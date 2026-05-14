@@ -32,9 +32,9 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
     def __init__(self, version, parent=None):
         super(DBInfoDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle("DrumBurp v%s Information" % version)
+        self.setWindowTitle(self.tr("DrumBurp v%s Information") % version)
         text = str(self.copyrightLabel.text())
-        text += ' This is version %s.' % version
+        text += ' ' + self.tr("This is version %s.") % version
         self.copyrightLabel.setText(text)
         self._addPortCredit()
 
@@ -46,16 +46,17 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         bold = QFont()
         bold.setBold(True)
 
-        label_title = QLabel("PyQt4 \u2192 PyQt5 Port")
+        label_title = QLabel(self.tr("PyQt4 \u2192 PyQt5 Port"))
         label_title.setFont(bold)
         label_title.setAlignment(Qt.AlignCenter)
 
         label_info = QLabel(
             '<p style="font-size:8pt;">'
-            'Ported to Python\u00a03 and PyQt5 by '
-            'Washington Indacochea Delgado '
-            '(<a href="mailto:linuxfrontier@proton.me">'
-            'linuxfrontier@proton.me</a>).</p>'
+            + self.tr('Ported to Python\u00a03 and PyQt5 by '
+                      'Washington Indacochea Delgado '
+                      '(<a href="mailto:linuxfrontier@proton.me">'
+                      'linuxfrontier@proton.me</a>).')
+            + '</p>'
         )
         label_info.setTextFormat(Qt.RichText)
         label_info.setOpenExternalLinks(True)

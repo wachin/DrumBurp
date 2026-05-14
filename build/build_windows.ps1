@@ -19,12 +19,19 @@ if (!(Test-Path "$workspace_root\build\output" -PathType Container)) {
     New-Item -ItemType Directory -Force -Path "$workspace_root\build\output"
 }
 
+# Compile translation files
+Write-Output "Compiling translations..."
+& lrelease "$workspace_root\src\i18n\drumburp_en.ts" -qm "$workspace_root\src\i18n\drumburp_en.qm"
+& lrelease "$workspace_root\src\i18n\drumburp_es.ts" -qm "$workspace_root\src\i18n\drumburp_es.qm"
+
 & pyinstaller -w -D -y `
   --hidden-import=PyQt5.QtCore `
   --hidden-import=PyQt5.QtGui `
   --hidden-import=PyQt5.QtWidgets `
   --hidden-import=PyQt5.QtPrintSupport `
   --hidden-import=PyQt5.QtMultimedia `
+  "--add-data=$workspace_root\src\i18n\drumburp_en.qm;i18n" `
+  "--add-data=$workspace_root\src\i18n\drumburp_es.qm;i18n" `
   --distpath "$workspace_root\build\dist" `
   --specpath "$workspace_root\build\tmp" `
   --workpath "$workspace_root\build\tmp" `

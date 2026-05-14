@@ -28,10 +28,16 @@ jobs:
             python3-pyqt5 \
             python3-pyqt5.qtmultimedia \
             libqt5multimedia5-plugins \
-            libegl1
+            libegl1 \
+            qttools5-dev-tools
 
       - name: Install pip modules
         run: pip install -r build/requirements-linux.txt
+
+      - name: Compile translations
+        run: |
+          lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
+          lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
 
       - name: Run unit tests
         run: PYTHONPATH=src python3 -m unittest discover -s src/test
@@ -88,6 +94,12 @@ jobs:
 
       - name: Install pip modules
         run: pip install -r build/requirements-windows.txt
+
+      - name: Compile translations
+        run: |
+          python -m PyQt5.pyrcc_main --version 2>$null; true
+          lrelease src\i18n\drumburp_en.ts -qm src\i18n\drumburp_en.qm
+          lrelease src\i18n\drumburp_es.ts -qm src\i18n\drumburp_es.qm
 
       - name: Build
         run: .\build\build_windows.ps1

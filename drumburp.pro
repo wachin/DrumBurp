@@ -1,8 +1,7 @@
 SOURCES = src/DrumBurp.py \
           src/GUI/DBMainwindow.py \
           src/GUI/DBInfoDialog.py \
-          src/GUI/DBStartupDialog.py \
-          src/GUI/DBLicense.py \
+          src/GUI/DBStartupDialog.py \          src/GUI/DBLicense.py \
           src/GUI/DBColourPicker.py \
           src/GUI/DBCommands.py \
           src/GUI/DBFonts.py \

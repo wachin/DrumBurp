@@ -158,3 +158,69 @@ See the file `COPYING.txt` for the full text of the GNU GPL.
 
 **Original author:** Michael Thomas — drumburp@whatang.org  
 **PyQt5 port:** Washington Indacochea Delgado — linuxfrontier@proton.me
+
+---
+
+## Internationalization (i18n) — for developers
+
+DrumBurp supports multiple languages via Qt Linguist and `.qm` translation files.
+
+### Install required tools
+
+```bash
+sudo apt install pyqt5-dev-tools qttools5-dev-tools
+# provides: pylupdate5, lrelease, linguist
+```
+
+### Translation files
+
+```
+drumburp.pro              Qt project file — lists all source files for pylupdate5
+src/i18n/
+  i18n.py                 Translation loader (called at startup)
+  drumburp_en.ts          English reference (source of truth)
+  drumburp_es.ts          Spanish translation
+  drumburp_en.qm          Compiled English binary
+  drumburp_es.qm          Compiled Spanish binary
+```
+
+### Update strings after editing source code
+
+```bash
+# Re-extract all strings from Python and .ui files
+pylupdate5 drumburp.pro
+
+# Recompile after translating
+lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
+lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
+```
+
+### Translate using Qt Linguist GUI
+
+```bash
+linguist src/i18n/drumburp_es.ts
+```
+
+### Test in a specific language
+
+```bash
+# Spanish
+LANGUAGE=es ./run-drumburp.sh
+./run-drumburp.sh --language es
+
+# Force English explicitly
+./run-drumburp.sh --language en
+
+# Use system locale
+./run-drumburp.sh
+```
+
+### Add a new language (e.g. French)
+
+1. Add `src/i18n/drumburp_fr.ts` to `drumburp.pro` under `TRANSLATIONS`
+2. Run `pylupdate5 drumburp.pro` — creates the new `.ts` file
+3. Translate with `linguist src/i18n/drumburp_fr.ts`
+4. Run `lrelease src/i18n/drumburp_fr.ts -qm src/i18n/drumburp_fr.qm`
+5. Test with `LANGUAGE=fr ./run-drumburp.sh`
+
+See `ROADMAP_i18n.md` for the full i18n plan and progress.
