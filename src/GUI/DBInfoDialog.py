@@ -36,6 +36,40 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         text = str(self.copyrightLabel.text())
         text += ' This is version %s.' % version
         self.copyrightLabel.setText(text)
+        self._addPortCredit()
+
+    def _addPortCredit(self):
+        from PyQt5.QtWidgets import QLabel, QSizePolicy
+        from PyQt5.QtCore import Qt
+        from PyQt5.QtGui import QFont
+
+        bold = QFont()
+        bold.setBold(True)
+
+        label_title = QLabel("PyQt4 \u2192 PyQt5 Port")
+        label_title.setFont(bold)
+        label_title.setAlignment(Qt.AlignCenter)
+
+        label_info = QLabel(
+            '<p style="font-size:8pt;">'
+            'Ported to Python\u00a03 and PyQt5 by '
+            'Washington Indacochea Delgado '
+            '(<a href="mailto:linuxfrontier@proton.me">'
+            'linuxfrontier@proton.me</a>).</p>'
+        )
+        label_info.setTextFormat(Qt.RichText)
+        label_info.setOpenExternalLinks(True)
+        label_info.setWordWrap(True)
+        sp = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        label_info.setSizePolicy(sp)
+
+        # Insert before the button box row (row 10) — use row 10, shift box down
+        layout = self.gridLayout
+        # Find the button box row and move it one row down
+        layout.removeWidget(self.buttonBox)
+        layout.addWidget(label_title, 10, 0, 1, 1)
+        layout.addWidget(label_info,  10, 2, 1, 1)
+        layout.addWidget(self.buttonBox, 12, 0, 1, 3)
 
     @pyqtSlot()
     def on_licenseButton_clicked(self):  # IGNORE:R0201
