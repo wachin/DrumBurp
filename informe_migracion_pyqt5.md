@@ -3,6 +3,7 @@
 **Proyecto:** DrumBurp — editor de notacion de bateria en Python/PyQt  
 **Repositorio:** https://github.com/Whatang/DrumBurp  
 **Port realizado por:** Washington Indacochea Delgado  
+**Email de contacto:** linuxfrontier@proton.me  
 **Iniciado:** 2026-03-28  
 **Sistema de destino:** Debian 12 / UbuntuStudio, Python 3.11, PyQt5 5.15.x
 
@@ -34,10 +35,25 @@ build/                 # scripts de empaquetado
 Dependencias principales (ver `requirements-debian12.txt`):
 
 - Python 3.11+
-- PyQt5 5.15.x (`python3-pyqt5`)
-- pyqt5-dev-tools (`pyuic5`, `pyrcc5`) — necesario para regenerar UI y recursos
+- PyQt5 5.15.x — paquete `python3-pyqt5`
+- pyqt5-dev-tools — paquete `pyqt5-dev-tools` (incluye `pyuic5` y `pyrcc5`)
+  Instalacion: `sudo apt install pyqt5-dev-tools`
 - python3-pyqt5.qtmultimedia — para MIDI
 - lilypond 2.24.x — para exportacion de partitura (opcional)
+
+---
+
+## Estado general — MIGRACION COMPLETA
+
+La migracion de PyQt4 a PyQt5 esta completa. El programa:
+
+- [x] Arranca sin errores ni tracebacks
+- [x] Abre y edita archivos `.brp`
+- [x] Reproduce MIDI
+- [x] Exporta a PDF via LilyPond 2.24
+- [x] Exporta ASCII
+- [x] Imprime
+- [x] 373 tests unitarios pasan
 
 ---
 
@@ -68,6 +84,8 @@ Referencia rapida para cualquier editor que retome este trabajo:
 - [x] `QVariant` eliminado: se usan valores Python directamente.
 - [x] `.toInt()`, `.toBool()`, `.toString()`, `.toStringList()` reemplazados por
       conversiones Python o `QSettings.value(..., type=...)`.
+      Nota: los `hasattr(value, "toString")` que quedan en `_settingsValue` son
+      codigo defensivo para leer settings guardados con PyQt4 — no son un problema.
 - [x] `QDesktopServices.storageLocation()` → `QStandardPaths.writableLocation()`.
 - [x] `QtCore.SIGNAL(...)` / `QtCore.QObject.connect(...)` → `obj.signal.connect(slot)`.
 - [x] `@pyqtSignature(...)` eliminado y reemplazado por `@pyqtSlot(...)`.
@@ -80,9 +98,33 @@ Referencia rapida para cualquier editor que retome este trabajo:
 
 ---
 
+## Cambios Python 2 -> Python 3
+
+- [x] `NotePosition.__cmp__`/`cmp()` → `__eq__`/`__lt__`/`__le__`/`__gt__`/`__ge__`/`__hash__`
+      (`src/Data/NotePosition.py`).
+- [x] `MeasureCount.counterMaker`: division `/` → `//` para evitar float
+      (`src/Data/MeasureCount.py`).
+- [x] `MeasureCount.iterMidiTicks`/`iterTimesMs`: argumento `swing` hecho opcional
+      con default `0` (`src/Data/MeasureCount.py`).
+- [x] `Drum.checkShortcuts`: `set.pop()` → `min()` para orden deterministico
+      (`src/Data/Drum.py`).
+- [x] `fileUtils.Base64StringField`: codec Python 2 `str.encode('base64')` →
+      modulo `base64` de Python 3 (`src/Data/fileUtils.py`).
+- [x] `dbfsv0.startBarlineString`/`endBarlineString`: corregida logica de bitmask
+      para `NO_BAR` (valor 0 siempre pasaba `& 0 == 0`) (`src/Data/fileStructures/dbfsv0.py`).
+- [x] `DBMidi.py`: divisiones enteras en calculos MIDI corregidas:
+      - `midiVolume / FLAM_VOLUME_CONSTANT` → `//` (volumen MIDI debe ser entero)
+      - `MIDITICKSPERBEAT / FLAM_TIME_CONSTANT` → `//` (ticks deben ser enteros)
+      - `divisionTicks / 2` → `//` (offset de ticks debe ser entero)
+- [x] `Notation/lilypond.py`: divisiones enteras en calculos de duracion corregidas:
+      - `note / 2` y `restNote / 2` en comparaciones de ticks → `//`
+      - `headCount / 26` en generacion de nombres → `//` (argumento de `chr()`)
+
+---
+
 ## Archivos generados por pyuic4 → regenerados con pyuic5
 
-Comando usado: `pyuic5 archivo.ui -o ui_archivo.py`  
+Comando: `pyuic5 archivo.ui -o ui_archivo.py`  
 Estado: todos completados.
 
 - [x] `src/GUI/ui_DBComplextCountDialog.py`
@@ -113,15 +155,16 @@ Cambios aplicados en cada archivo:
 - [x] `QtCore.QObject.connect(... SIGNAL(...))` → `.connect`.
 - [x] `layout.setMargin(n)` → `layout.setContentsMargins(n, n, n, n)`.
 - [x] Imports a `DrumBurp_rc` y `buttons_rc` reactivados con recursos PyQt5 reales.
+- [x] Lineas huerfanas `QtGui.QPixmap = _CompatQPixmap` eliminadas de todos los archivos.
 
 ---
 
 ## Recursos QRC → regenerados con pyrcc5
 
-Paquete requerido: `pyqt5-dev-tools` (incluye `pyrcc5`).  
-Instalacion en Debian/Ubuntu: `sudo apt install pyqt5-dev-tools`
+Paquete requerido: `pyqt5-dev-tools`  
+Instalacion: `sudo apt install pyqt5-dev-tools`
 
-Comandos usados:
+Comandos:
 
 ```bash
 pyrcc5 src/GUI/DrumBurp.qrc    -o src/GUI/DrumBurp_rc.py
@@ -145,17 +188,14 @@ Mapa de recursos por archivo:
 | `QNotationScene.py` | `:/heads/` | `import buttons_rc` |
 
 Nota: `GUI/QtResourceCompat.py` fue el mecanismo temporal mientras los `*_rc.py`
-eran stubs no-op. Ya no se usa y puede eliminarse en una limpieza futura.
+eran stubs no-op. Ya no se usa — puede eliminarse en una limpieza futura.
 
 ---
 
 ## Capa temporal de compatibilidad src/PyQt4
 
-Esta carpeta contenia `__init__.py`, `QtCore.py` y `QtGui.py` que reexportaban
-PyQt5 con nombres PyQt4, permitiendo que el codigo original corriera sin cambios.
-
 - [x] Archivos `.py` de `src/PyQt4/` eliminados.
-- [x] Directorio `src/PyQt4/` eliminado completamente (incluido `__pycache__`).
+- [x] Directorio `src/PyQt4/` eliminado completamente.
 - [x] Ningun archivo en `src/`, `build/`, `.github/` ni `pylintrc` importa PyQt4.
 
 ---
@@ -223,6 +263,7 @@ PyQt5 con nombres PyQt4, permitiendo que el codigo original corriera sin cambios
 
 ### `src/GUI/DBMidi.py`
 - [x] `QThread`, `QObject`, `QTimer`, `pyqtSignal` en `QtCore`.
+- [x] Divisiones enteras en calculos de volumen y ticks MIDI corregidas (`/` → `//`).
 
 ### `src/GUI/LilypondExporter.py`
 - [x] `QThread` → `QtCore`; escritura UTF-8 corregida para Python 3.
@@ -239,8 +280,12 @@ PyQt5 con nombres PyQt4, permitiendo que el codigo original corriera sin cambios
 ### `src/GUI/DBIcons.py`
 - [x] `QIcon`, `QPixmap` → `QtGui`.
 
+### `src/GUI/DBInfoDialog.py`
+- [x] Seccion "Technologies" actualizada: Python 3 + PyQt5 (antes decia Python 2.7 + PyQt 4.8).
+- [x] Seccion "PyQt4 → PyQt5 Port" agregada con credito al portador.
+- [x] `exec_()` → `exec()`.
+
 ### Dialogos simples — todos completados
-- [x] `src/GUI/DBInfoDialog.py` — `exec_()` → `exec()`.
 - [x] `src/GUI/DBLicense.py`
 - [x] `src/GUI/DBStartupDialog.py`
 - [x] `src/GUI/QAlternateDialog.py` — `exec_()` → `exec()`.
@@ -276,6 +321,18 @@ PyQt5 con nombres PyQt4, permitiendo que el codigo original corriera sin cambios
 
 ---
 
+## Exportacion Lilypond — compatibilidad con LilyPond 2.24
+
+- [x] Version en encabezado actualizada de `2.18.2` a `2.24.0`.
+- [x] Articuladores de percusion en tabla `dbdrums`: `"open"`/`"stopped"` (strings
+      con comillas, invalidos en LilyPond 2.22+) → `open`/`stopped` (simbolos Scheme).
+- [x] Division entera en calculo de tuplets: `/` → `//`.
+- [x] `note / 2` y `restNote / 2` en comparaciones de ticks → `//`.
+- [x] `headCount / 26` en generacion de nombres de instrumento → `//`.
+- [x] Exportacion a PDF verificada con LilyPond 2.24.1: genera PDF sin errores.
+
+---
+
 ## Build, CI y configuracion
 
 - [x] `build/build_linux.sh` — hidden imports cambiados a modulos PyQt5.
@@ -290,55 +347,21 @@ PyQt5 con nombres PyQt4, permitiendo que el codigo original corriera sin cambios
 Comando: `PYTHONPATH=src python3 -m unittest discover -s src/test`  
 Resultado: **373 tests, todos OK**
 
-Bugs Python 2→3 corregidos en el codigo de la app:
-
-- [x] `NotePosition.__cmp__`/`cmp()` → `__eq__`/`__lt__`/`__le__`/`__gt__`/`__ge__`/`__hash__`
-      (`src/Data/NotePosition.py`).
-- [x] `MeasureCount.counterMaker`: division `/` → `//` para evitar float
-      (`src/Data/MeasureCount.py`).
-- [x] `MeasureCount.iterMidiTicks`/`iterTimesMs`: argumento `swing` hecho opcional
-      con default `0` (`src/Data/MeasureCount.py`).
-- [x] `Drum.checkShortcuts`: `set.pop()` → `min()` para orden deterministico
-      (`src/Data/Drum.py`).
-- [x] `fileUtils.Base64StringField`: codec Python 2 `str.encode('base64')` →
-      modulo `base64` de Python 3 (`src/Data/fileUtils.py`).
-- [x] `dbfsv0.startBarlineString`/`endBarlineString`: corregida logica de bitmask
-      para `NO_BAR` (valor 0 siempre pasaba `& 0 == 0`) (`src/Data/fileStructures/dbfsv0.py`).
-
-Bugs corregidos en los tests:
-
-- [x] `testCounter`: `testIter` actualizado de 11 a 23 counters (se agregaron
-      Quintuplets, Septuplets y 64ths al registro por defecto).
-- [x] `testScore`: comparaciones `range(...)` → `list(range(...))`.
-- [x] `testLilypond`: actualizado de `\times 2/3` a `\tuplet 3/2`; division entera corregida.
-- [x] `testdbfsv0`: orden de flags BARLINE actualizado para coincidir con dict `BAR_TYPES`.
+- [x] `testNotePosition.py` — `__cmp__`/`cmp()` → metodos de comparacion Python 3.
+- [x] `testMeasureCount.py` — division entera; `swing` opcional.
+- [x] `testCounter.py` — `testIter` actualizado a 23 counters.
+- [x] `testScore.py` — `range(...)` → `list(range(...))` en asserts.
+- [x] `testLilypond.py` — `\times 2/3` → `\tuplet 3/2`; division entera.
+- [x] `testdbfsv0.py` — logica bitmask `NO_BAR`; orden de flags BARLINE.
+- [x] `testdbfsv1.py` — `Base64StringField` migrado al modulo `base64`.
+- [x] `testDrum.py` — `checkShortcuts` usa `min()` para orden deterministico.
+- [x] `testAsciiExport.py` — pasa tras corregir `counterMaker`.
 
 ---
 
-## Exportacion Lilypond — compatibilidad con LilyPond 2.24
+## Verificacion final
 
-- [x] Version en encabezado actualizada de `2.18.2` a `2.24.0`
-      (`src/Notation/lilypond.py`).
-- [x] Articuladores de percusion en tabla `dbdrums` corregidos: `"open"` y
-      `"stopped"` (strings con comillas, invalidos en LilyPond 2.22+) →
-      `open` y `stopped` (simbolos Scheme sin comillas)
-      (`src/Notation/lilypond.py`, clase `LilyKit._EFFECTS`).
-- [x] Division entera en calculo de tuplets: `/` → `//` para evitar `3.0/2`
-      (`src/Notation/lilypond.py`).
-- [x] Exportacion a PDF verificada con LilyPond 2.24.1: genera PDF sin errores.
-
----
-
-## Pendientes
-
-- [ ] Eliminar `src/GUI/QtResourceCompat.py` — ya no se usa (todos los `*_rc.py`
-      son recursos PyQt5 reales). Conservarlo no causa errores pero es codigo muerto.
-- [ ] Validacion manual amplia de flujos de usuario: edicion de notas, reproduccion
-      MIDI, exportacion Lilypond desde la UI, impresion.
-
----
-
-## Comandos de verificacion
+Todos estos comandos deben ejecutarse sin errores ni advertencias:
 
 ```bash
 # Sin resultados = sin imports PyQt4
@@ -352,13 +375,29 @@ PYTHONPATH=src python3 -m unittest discover -s src/test
 
 # App arranca sin traceback
 ./run-drumburp.sh
+```
 
-# Regenerar recursos si se modifican los .qrc
+---
+
+## Pendientes menores (no bloquean el uso)
+
+- [ ] Eliminar `src/GUI/QtResourceCompat.py` — ya no se usa, es codigo muerto.
+- [ ] Validacion manual extendida: edicion de kits, exportacion MIDI, impresion
+      en papel fisico, apertura de archivos `.brp` de versiones antiguas.
+
+---
+
+## Comandos de mantenimiento
+
+Si se modifican archivos `.ui` o `.qrc`, regenerar con:
+
+```bash
+# Regenerar UI
+pyuic5 src/GUI/archivo.ui -o src/GUI/ui_archivo.py
+# Luego restaurar el import del _rc correspondiente segun la tabla de recursos.
+
+# Regenerar recursos
 pyrcc5 src/GUI/DrumBurp.qrc    -o src/GUI/DrumBurp_rc.py
 pyrcc5 src/buttons.qrc         -o src/buttons_rc.py
 pyrcc5 src/Widgets/buttons.qrc -o src/Widgets/buttons_rc.py
-
-# Regenerar UI si se modifican los .ui
-pyuic5 src/GUI/archivo.ui -o src/GUI/ui_archivo.py
-# Luego restaurar el import del _rc correspondiente segun la tabla de recursos.
 ```

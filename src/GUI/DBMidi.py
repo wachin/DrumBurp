@@ -199,7 +199,7 @@ class _midi(QObject):
         if headData.effect == "flam":
             self._midiOut.write([[[_PERCUSSION_NOTE_ON,
                                    headData.midiNote,
-                                   headData.midiVolume / FLAM_VOLUME_CONSTANT],
+                                   headData.midiVolume // FLAM_VOLUME_CONSTANT],
                                   when]])
             self._midiOut.write([[[_PERCUSSION_NOTE_ON,
                                    headData.midiNote,
@@ -481,15 +481,15 @@ def _calculateMidiTimes(measureIterator, score):
                                       1] - times[notePos.noteTime]
                 if headData.effect == "flam":
                     headCopy = copy.copy(headData)
-                    headCopy.midiVolume = headData.midiVolume / FLAM_VOLUME_CONSTANT
+                    headCopy.midiVolume = headData.midiVolume // FLAM_VOLUME_CONSTANT
                     measureNotes.append(
-                        MidiNote(noteTime - (MIDITICKSPERBEAT / FLAM_TIME_CONSTANT), headCopy))
+                        MidiNote(noteTime - (MIDITICKSPERBEAT // FLAM_TIME_CONSTANT), headCopy))
                 elif headData.effect == "drag":
                     measureNotes.append(
-                        MidiNote(noteTime + divisionTicks / 2, headData))
+                        MidiNote(noteTime + divisionTicks // 2, headData))
                 elif headData.effect == "choke":
                     measureNotes.append(
-                        MidiChoke(noteTime + divisionTicks / 2))
+                        MidiChoke(noteTime + divisionTicks // 2))
                 measureNotes.append(MidiNote(noteTime, headData))
         baseTime += times[-1]
         measureNotes.sort()

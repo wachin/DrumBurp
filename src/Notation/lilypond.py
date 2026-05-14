@@ -136,9 +136,9 @@ def makeLilyDuration(beat, ticks, tickNum):
     #equal = only dotted
     #more than = both
     dotted = False
-    if(ticks > 0 and ticks >= note / 2):
+    if(ticks > 0 and ticks >= note // 2):
         dotted = True
-        ticks -= note / 2
+        ticks -= note // 2
 
     #find note again but for the rest length
     restNote = None
@@ -150,9 +150,9 @@ def makeLilyDuration(beat, ticks, tickNum):
     #same but for dotted
     if not (restNote == None):
         restDotted = False
-        if(ticks > 0 and ticks >= restNote / 2):
+        if(ticks > 0 and ticks >= restNote // 2):
             restDotted = True
-            #ticks -= restNote / 2
+            #ticks -= restNote // 2
     
     #Setting everything
     finalNote = str(beat.counter.noteDirectory[noteCompound][note])
@@ -515,7 +515,7 @@ class LilyKit(object):
                     if headCount >= 0:
                         lily = chr(0x61 + headCount % 26)
                     elif headCount >= 26:
-                        lily = (chr(0x61 + headCount / 26)
+                        lily = (chr(0x61 + headCount // 26)
                                 + chr(0x61 + headCount % 26))
                     headCount += 1
                     lHead = sanAbbr + lily
