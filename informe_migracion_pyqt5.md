@@ -1,5 +1,9 @@
 # Informe de migracion PyQt4 -> PyQt5
 
+Port PyQt4 to PyQt5
+Por: Washington Indacochea Delgado
+Iniciado: 2026-03-28
+
 Este informe parte de `informe_pyqt4.txt`. El proyecto ya corre en Debian 12
 porque existe `src/PyQt4`, una capa de compatibilidad que reexporta PyQt5 con
 nombres de PyQt4. Eso es util para avanzar, pero no es una migracion completa:
