@@ -9,8 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.QtResourceCompat import QPixmap as _CompatQPixmap
-QtGui.QPixmap = _CompatQPixmap
+import GUI.DrumBurp_rc  # noqa: F401 — registra recursos :/Icons
+import buttons_rc  # noqa: F401 — registra recursos :/buttons y :/heads
 
 
 class Ui_editKitDialog(object):

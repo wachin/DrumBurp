@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.QtResourceCompat import QPixmap as _CompatQPixmap
 QtGui.QPixmap = _CompatQPixmap
 
 

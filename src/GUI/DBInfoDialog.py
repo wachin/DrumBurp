@@ -40,4 +40,4 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
     @pyqtSlot()
     def on_licenseButton_clicked(self):  # IGNORE:R0201
         dlg = DBLicenseDialog(self)
-        dlg.exec_()
+        dlg.exec()

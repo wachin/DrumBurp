@@ -281,7 +281,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
     def _manageDefaultKits(self):
         currentKit, unused_ = self.getNewKit()
         dialog = QDefaultKitManager(currentKit, self)
-        if dialog.exec_():
+        if dialog.exec():
             newKit = dialog.getKit()
             self._currentKit = list(reversed(newKit))
             self._oldLines.clear()
@@ -660,7 +660,7 @@ def main():
     kit = DrumKitFactory.DrumKitFactory.getNamedDefaultKit()
     dialog = QEditKitDialog(kit, [kit[0]])
     dialog.show()
-    app.exec_()
+    app.exec()
     if dialog.result():
         kitname, ok = QInputDialog.getText(None, "Enter new kit name",
                                            "Kit name")

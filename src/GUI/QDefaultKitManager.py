@@ -157,7 +157,7 @@ def main():
     oldkit = DrumKitFactory.DrumKitFactory.getNamedDefaultKit()
     dialog = QDefaultKitManager(oldkit)
     dialog.show()
-    app.exec_()
+    app.exec()
     if dialog.result():
         print(dialog.getKit())
 

@@ -60,12 +60,12 @@ def main():
     GUI.DBFonts.initialiseFonts()
     splash = GUI.DBStartupDialog.DBStartupDialog(DB_VERSION)
     app.setWindowIcon(GUI.DBIcons.getIcon("drumburp"))
-    splash.exec_()
+    splash.exec()
     mainWindow = GUI.DBMainwindow.DrumBurp(fakeStartup=opts.virgin,
                                            filename=filename)
     mainWindow.setWindowTitle("DrumBurp v" + DB_VERSION)
     mainWindow.show()
-    app.exec_()
+    app.exec()
 
 
 if __name__ == '__main__':

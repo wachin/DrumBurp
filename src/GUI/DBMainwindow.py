@@ -356,7 +356,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         neverAgain = splashUpdates.addButton("Do not show this again",
                                              QMessageBox.ActionRole)
         splashUpdates.setWindowTitle("Update Checks")
-        splashUpdates.exec_()
+        splashUpdates.exec()
         if splashUpdates.clickedButton() == neverAgain:
             settings.setValue("NoUpdateSplash", True)
             settings.sync()
@@ -656,7 +656,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             dialog = QNewScoreDialog(self,
                                      counter,
                                      registry)
-            if dialog.exec_():
+            if dialog.exec():
                 nMeasures, counter, kit = dialog.getValues()
                 self.scoreScene.newScore(kit,
                                          numMeasures=nMeasures,
@@ -776,7 +776,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         def updatePages(qprinter):
             self.scoreScene.printScore(qprinter, self.scoreView)
         dialog.paintRequested.connect(updatePages)
-        dialog.exec_()
+        dialog.exec()
 
     @pyqtSlot()
     def on_actionExportPDF_triggered(self):
@@ -796,7 +796,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             def updatePages(qprinter):
                 self.scoreScene.printScore(qprinter, self.scoreView)
             dialog.paintRequested.connect(updatePages)
-            dialog.exec_()
+            dialog.exec()
             self.updateStatus("Exported to PDF %s" % outfileName)
         except Exception:
             QMessageBox.warning(self.parent(), "Export failed!",
@@ -887,7 +887,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     @pyqtSlot()
     def on_actionAboutDrumBurp_triggered(self):
         dlg = DBInfoDialog(DB_VERSION, self)
-        dlg.exec_()
+        dlg.exec()
 
     @pyqtSlot()
     def on_actionOnlineManual_triggered(self):
@@ -915,7 +915,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         dlg = QEditMeasureDialog(counter, counter,
                                  self.songProperties.counterRegistry,
                                  self)
-        if dlg.exec_():
+        if dlg.exec():
             counter = dlg.getValues()
             self._beatChanged(counter)
 
@@ -1192,13 +1192,13 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     @pyqtSlot()
     def on_actionCheckForUpdates_triggered(self):
         dialog = QVersionDownloader(newer=None, parent=self)
-        dialog.exec_()
+        dialog.exec()
 
     def _finishedVersionCheck(self):
         newer = self._versionThread.newVersionInfo
         if newer:
             dialog = QVersionDownloader(newer=newer, parent=self)
-            dialog.exec_()
+            dialog.exec()
         elif newer is None:
             self.statusbar.showMessage(
                 "Failed to get latest version info from www.whatang.org", 5000)
@@ -1215,7 +1215,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     @pyqtSlot()
     def on_actionEditColours_triggered(self):
         dialog = DBColourPicker.DBColourPicker(self.colourScheme, self)
-        if not dialog.exec_():
+        if not dialog.exec():
             return
         self.colourScheme = dialog.getColourScheme()
         self.scoreView.update()

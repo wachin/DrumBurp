@@ -490,8 +490,8 @@ class LilyMeasure(object):
 class LilyKit(object):
     _HEADS = {"default": "()",
               "harmonic black": "harmonic-black"}
-    _EFFECTS = {"open": '"open"',
-                "stopped": '"stopped"'}
+    _EFFECTS = {"open": 'open',
+                "stopped": 'stopped'}
 
     def __init__(self, kit):
         self._kit = kit
@@ -624,7 +624,7 @@ class LilypondScore(object):
 
     def write(self, handle):
         self.indenter.setHandle(handle)
-        self.indenter(r'\version "2.18.2"')
+        self.indenter(r'\version "2.24.0"')
         with LILY_CONTEXT(self.indenter, r"\paper"):
             self._writePaper()
         with LILY_CONTEXT(self.indenter, r'\header'):

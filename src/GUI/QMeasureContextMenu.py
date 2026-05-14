@@ -214,7 +214,7 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
         insertDialog = QInsertMeasuresDialog(self._qScore.parent(),
                                              counter,
                                              self._props.counterRegistry)
-        if insertDialog.exec_():
+        if insertDialog.exec():
             nMeasures, counter, insertBefore = insertDialog.getValues()
             preserve = False
             if not insertBefore:

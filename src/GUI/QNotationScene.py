@@ -18,8 +18,9 @@
 # along with DrumBurp.  If not, see <http://www.gnu.org/licenses/>
 
 from PyQt5.QtWidgets import QGraphicsScene
+from PyQt5.QtGui import QPixmap
 from Data.DefaultKits import STEM_DOWN, STEM_UP
-from GUI.QtResourceCompat import QPixmap
+import buttons_rc  # noqa: F401 — registra recursos :/heads y :/buttons
 
 PIXELS_PER_LINE = 8
 LEFT = 10

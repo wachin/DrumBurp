@@ -312,7 +312,7 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
             colour = colourAttr.getInstance(self._currentScheme)
             currentColour = getattr(colour, colourType)
             colourDialog = QColorDialog(currentColour, self)
-            if colourDialog.exec_():
+            if colourDialog.exec():
                 selected = colourDialog.selectedColor()
                 if selected != currentColour:
                     self._styleButton(button, selected)
@@ -378,7 +378,7 @@ def main():
     scheme = ColourScheme()
     dialog = DBColourPicker(scheme)
     dialog.show()
-    app.exec_()
+    app.exec()
     if dialog.result():
         scheme = dialog.getColourScheme()
         for col in scheme.iterColours():

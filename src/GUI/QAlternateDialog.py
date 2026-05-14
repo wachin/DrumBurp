@@ -93,7 +93,7 @@ def main():
     app = QApplication(sys.argv)
     dialog = QAlternateDialog("1,2-3, 4,5, 6,7-10")
     dialog.show()
-    app.exec_()
+    app.exec()
     if dialog.result() == dialog.Accepted:
         print(dialog.getValue())
 

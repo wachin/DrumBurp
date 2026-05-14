@@ -940,7 +940,7 @@ class QScore(QtWidgets.QGraphicsScene):
         editDialog = QEditKitDialog(self.score.drumKit,
                                     emptyDrums,
                                     self.parent())
-        if not editDialog.exec_():
+        if not editDialog.exec():
             return
         kit, changes = editDialog.getNewKit()
         box = QtWidgets.QMessageBox.question(self.parent(),

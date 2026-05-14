@@ -62,7 +62,7 @@ class QMetaData(QGraphicsListData):
 
     def mouseDoubleClickEvent(self, event_):
         dialog = QMetadataDialog(self._qScore, self.scene().parent())
-        if dialog.exec_():
+        if dialog.exec():
             changed = any((getattr(self._qScore, attribute) != value
                            for (attribute, value) in
                            dialog.getValues().items()))
