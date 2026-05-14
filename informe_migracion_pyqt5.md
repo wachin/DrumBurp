@@ -7,6 +7,94 @@
 **Iniciado:** 2026-03-28  
 **Sistema de destino:** Debian 12 / UbuntuStudio, Python 3.11, PyQt5 5.15.x
 
+> Este documento reemplaza y absorbe el archivo `informe_pyqt4.txt`, que era
+> el punto de partida del trabajo: un volcado de todos los imports PyQt4
+> originales del proyecto. Ese archivo ya no es necesario.
+
+---
+
+## Punto de partida — imports PyQt4 originales
+
+El siguiente listado es el contenido original de `informe_pyqt4.txt`: todos los
+archivos que importaban PyQt4 antes de comenzar la migracion. Se conserva aqui
+como referencia historica para entender el alcance del trabajo realizado.
+
+```
+build/install_pyqt.ps1        from PyQt4 (instalador Windows)
+build/build_linux.sh          --hidden-import=PyQt4.QtGui
+.github/workflows/build.yml   Cache PyQt4 / Install PyQt4 / Import PyQt4
+pylintrc                      extension-pkg-whitelist=PyQt4
+
+src/DrumBurp.py               from PyQt4.QtGui import QApplication
+src/buttons_rc.py             from PyQt4 import QtCore
+src/PyQt4/__init__.py         capa de compatibilidad PyQt4->PyQt5
+src/PyQt4/QtCore.py           capa de compatibilidad PyQt4->PyQt5
+
+src/Widgets/ScoreView.py      from PyQt4 import QtGui, QtCore
+src/Widgets/ScoreView_plugin.py  from PyQt4.QtDesigner import QPyDesignerCustomWidgetPlugin
+src/Widgets/measureTabs.py    from PyQt4.QtGui import QWidget
+src/Widgets/measureTabs_plugin.py  from PyQt4.QtDesigner import QPyDesignerCustomWidgetPlugin
+src/Widgets/buttons_rc.py     from PyQt4 import QtCore
+src/Widgets/ui_measureTabs.py from PyQt4 import QtCore, QtGui
+
+src/GUI/DBColourPicker.py     from PyQt4.QtGui import ...; from PyQt4 import QtCore
+src/GUI/DBCommands.py         from PyQt4.QtGui import QUndoCommand
+src/GUI/DBFonts.py            from PyQt4.Qt import QFontDatabase, QFont
+src/GUI/DBFSM.py              from PyQt4 import QtCore
+src/GUI/DBIcons.py            from PyQt4 import QtGui
+src/GUI/DBInfoDialog.py       from PyQt4.QtGui import QDialog; from PyQt4.QtCore import pyqtSignature
+src/GUI/DBLicense.py          from PyQt4.QtGui import QDialog
+src/GUI/DBMainwindow.py       from PyQt4.QtCore import pyqtSignature, QSettings, QVariant, ...
+src/GUI/DBMidi.py             from PyQt4.Qt import QThread; from PyQt4.QtCore import QTimer, ...
+src/GUI/DBStartupDialog.py    from PyQt4.QtGui import QDialog
+src/GUI/DrumBurp_rc.py        from PyQt4 import QtCore
+src/GUI/LilypondExporter.py   from PyQt4.Qt import QThread
+src/GUI/QAlternateDialog.py   from PyQt4 import QtGui
+src/GUI/QAlternateWidget.py   from PyQt4.QtGui import QWidget
+src/GUI/QComplexCountDialog.py  from PyQt4.QtGui import QDialog, QListWidgetItem; QVariant, pyqtSignature
+src/GUI/QDefaultKitManager.py from PyQt4 import QtGui, QtCore
+src/GUI/QDisplayProperties.py from PyQt4.QtCore import QObject, pyqtSignal; from PyQt4.QtGui import ...
+src/GUI/QEditKitDialog.py     from PyQt4.QtGui import QDialog, QRadioButton, QFileDialog, ...
+src/GUI/QEditMeasureDialog.py from PyQt4.QtGui import QDialog
+src/GUI/QGraphicsListData.py  from PyQt4.QtGui import QGraphicsItem, QFontMetrics, QPen
+src/GUI/QInsertMeasuresDialog.py  from PyQt4.QtGui import QDialog
+src/GUI/QLilypondPreview.py   from PyQt4.QtCore import pyqtSignal, QTimeLine; from PyQt4.QtGui import ...
+src/GUI/QLineLabel.py         from PyQt4 import QtGui, QtCore
+src/GUI/QMeasure.py           from PyQt4 import QtGui, QtCore
+src/GUI/QMeasureContextMenu.py  from PyQt4 import QtGui
+src/GUI/QMeasureLine.py       from PyQt4 import QtGui, QtCore
+src/GUI/QMenuIgnoreCancelClick.py  from PyQt4.QtGui import QMenu
+src/GUI/QMetaDataDialog.py    from PyQt4.QtGui import QDialog
+src/GUI/QNewScoreDialog.py    from PyQt4.QtGui import QDialog; from PyQt4.QtCore import QSettings, QVariant
+src/GUI/QNotationScene.py     from PyQt4.QtGui import QGraphicsScene, QPixmap
+src/GUI/QRepeatCountDialog.py from PyQt4.QtGui import QDialog
+src/GUI/QScore.py             from PyQt4 import QtGui, QtCore; QGraphicsItem; QTransform
+src/GUI/QSection.py           from PyQt4.QtGui import QGraphicsTextItem, QTextCursor
+src/GUI/QStaff.py             from PyQt4 import QtGui, QtCore
+src/GUI/QVersionDownloader.py from PyQt4.QtGui import QDialog; from PyQt4.QtCore import QTimer
+
+src/GUI/ui_DBComplextCountDialog.py  from PyQt4 import QtCore, QtGui
+src/GUI/ui_alternateRepeatWidget.py  from PyQt4 import QtCore, QtGui
+src/GUI/ui_alternateRepeats.py       from PyQt4 import QtCore, QtGui
+src/GUI/ui_asciiDialog.py            from PyQt4 import QtCore, QtGui
+src/GUI/ui_dbColours.py              from PyQt4 import QtCore, QtGui
+src/GUI/ui_dbInfo.py                 from PyQt4 import QtCore, QtGui
+src/GUI/ui_dbLicense.py              from PyQt4 import QtCore, QtGui
+src/GUI/ui_dbStartup.py              from PyQt4 import QtCore, QtGui
+src/GUI/ui_defaultKitManager.py      from PyQt4 import QtCore, QtGui
+src/GUI/ui_drumburp.py               from PyQt4 import QtCore, QtGui
+src/GUI/ui_editKit.py                from PyQt4 import QtCore, QtGui
+src/GUI/ui_insertMeasuresDialog.py   from PyQt4 import QtCore, QtGui
+src/GUI/ui_measurePropertiesDialog.py  from PyQt4 import QtCore, QtGui
+src/GUI/ui_newScoreDialog.py         from PyQt4 import QtCore, QtGui
+src/GUI/ui_repeatCountDialog.py      from PyQt4 import QtCore, QtGui
+src/GUI/ui_scorePropertiesDialog.py  from PyQt4 import QtCore, QtGui
+src/GUI/ui_versionDownloader.py      from PyQt4 import QtCore, QtGui
+```
+
+Todos estos imports han sido migrados a PyQt5. Ver las secciones siguientes
+para el detalle de cada archivo.
+
 ---
 
 ## Contexto del proyecto
