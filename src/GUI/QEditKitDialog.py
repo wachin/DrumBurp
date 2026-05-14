@@ -103,22 +103,28 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         self.saveButton.clicked.connect(self._saveKit)
         self.drumName.textEdited.connect(self._drumNameEdited)
         self.drumAbbr.editingFinished.connect(self._drumAbbrEdited)
-        self.oldDrum.currentIndexChanged.connect(self._oldDrumChanged)
-        self.currentNoteHead.currentIndexChanged.connect(self._headEdited)
+        self.oldDrum.currentIndexChanged[int].connect(
+            lambda _index: self._oldDrumChanged())
+        self.currentNoteHead.currentIndexChanged[int].connect(
+            lambda _index: self._headEdited())
         self.noteHeadTable.currentRowChanged.connect(self._noteHeadChanged)
         self.addHeadButton.clicked.connect(self._addNoteHead)
         self.headUpButton.clicked.connect(self._moveNoteHeadUp)
         self.setDefaultHeadButton.clicked.connect(self._setDefaultHead)
         self.headDownButton.clicked.connect(self._moveNoteHeadDown)
         self.deleteHeadButton.clicked.connect(self._removeNoteHead)
-        self.noteHeadBox.currentIndexChanged.connect(self._notationHeadChanged)
-        self.effectBox.currentIndexChanged.connect(self._notationEffectChanged)
+        self.noteHeadBox.currentIndexChanged[int].connect(
+            lambda _index: self._notationHeadChanged())
+        self.effectBox.currentIndexChanged[int].connect(
+            lambda _index: self._notationEffectChanged())
         self.stemUpDownBox.stateChanged.connect(self._stemDirectionChanged)
         self.noteUpButton.clicked.connect(self._moveNotationUp)
         self.noteDownButton.clicked.connect(self._moveNotationDown)
-        self.shortcutCombo.currentIndexChanged.connect(self._shortcutEdited)
+        self.shortcutCombo.currentIndexChanged[int].connect(
+            lambda _index: self._shortcutEdited())
         self._populateMidiCombo()
-        self.midiNoteCombo.currentIndexChanged.connect(self._midiNoteChanged)
+        self.midiNoteCombo.currentIndexChanged[int].connect(
+            lambda _index: self._midiNoteChanged())
         self.volumeSlider.valueChanged.connect(self._midiVolumeChanged)
         for effect in self.effectsGroup.children():
             if isinstance(effect, QRadioButton):

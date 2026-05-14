@@ -123,7 +123,7 @@ class TestDefaultRegistry(unittest.TestCase):
     reg = Counter.CounterRegistry()
 
     def testIter(self):
-        self.assertEqual(len(list(self.reg)), 11)
+        self.assertEqual(len(list(self.reg)), 23)
 
     def testQuarters(self):
         names = [name for name, unusedCount in self.reg.countsByTicks(1)]

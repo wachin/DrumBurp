@@ -61,10 +61,43 @@ class NotePosition(object):
         np.measureIndex = None
         return np
 
-    def __cmp__(self, other):
+    def _key(self):
+        # None values sort before any integer (use -1 as sentinel for None)
+        def _v(x):
+            return (0, -1) if x is None else (1, x)
+        return (_v(self.staffIndex), _v(self.measureIndex),
+                _v(self.noteTime), _v(self.drumIndex))
+
+    def __eq__(self, other):
         if other is None:
-            return 1
-        return cmp((self.staffIndex, self.measureIndex,
-                    self.noteTime, self.drumIndex),
-                   (other.staffIndex, other.measureIndex,
-                    other.noteTime, other.drumIndex))
+            return False
+        if not isinstance(other, NotePosition):
+            return NotImplemented
+        return (self.staffIndex == other.staffIndex and
+                self.measureIndex == other.measureIndex and
+                self.noteTime == other.noteTime and
+                self.drumIndex == other.drumIndex)
+
+    def __lt__(self, other):
+        if other is None:
+            return False  # self > None, so self is not less than None
+        if not isinstance(other, NotePosition):
+            return NotImplemented
+        return self._key() < other._key()
+
+    def __le__(self, other):
+        return self == other or self < other
+
+    def __gt__(self, other):
+        if other is None:
+            return True  # self > None always
+        if not isinstance(other, NotePosition):
+            return NotImplemented
+        return self._key() > other._key()
+
+    def __ge__(self, other):
+        return self == other or self > other
+
+    def __hash__(self):
+        return hash((self.staffIndex, self.measureIndex,
+                     self.noteTime, self.drumIndex))

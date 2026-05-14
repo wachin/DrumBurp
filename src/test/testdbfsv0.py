@@ -559,8 +559,8 @@ class TestWriteMeasure(unittest.TestCase):
                           '    BEAT_END',
                           '  COUNT_INFO_END',
                           '  BARLINE NORMAL_BAR,REPEAT_START,NO_BAR',
-                          ('  BARLINE NORMAL_BAR,LINE_BREAK,NO_BAR,' +
-                           'SECTION_END,REPEAT_END'),
+                          ('  BARLINE NORMAL_BAR,REPEAT_END,SECTION_END,' +
+                           'LINE_BREAK,NO_BAR'),
                           '  REPEAT_COUNT 10',
                           '  ALTERNATE xxx',
                           '  SIMILE 2',

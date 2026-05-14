@@ -23,7 +23,7 @@ Created on 5 Jan 2011
 
 '''
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from Data.NotePosition import NotePosition
 from Data import DBConstants
@@ -48,7 +48,7 @@ def _painterSaver(method):
     return wrapper
 
 
-class QMeasure(QtGui.QGraphicsItem):
+class QMeasure(QtWidgets.QGraphicsItem):
     def __init__(self, index, qScore, measure, parent):
         super(QMeasure, self).__init__(parent)
         self._props = qScore.displayProperties
@@ -79,7 +79,7 @@ class QMeasure(QtGui.QGraphicsItem):
         self._potentialDrum = None
         self._potentialHead = None
         self._potentialSet = None
-        self.setAcceptsHoverEvents(True)
+        self.setAcceptHoverEvents(True)
         self._measure = measure
         self._displayCols = 0
         self._setDimensions()
@@ -177,7 +177,7 @@ class QMeasure(QtGui.QGraphicsItem):
             lineIndex = self.lineIndex(drumIndex)
             for noteTime, x in enumerate(xValues):
                 if self.isSimile():
-                    if drumIndex == numLines / 2:
+                    if drumIndex == numLines // 2:
                         text = simText[noteTime]
                     else:
                         text = " "
@@ -260,7 +260,7 @@ class QMeasure(QtGui.QGraphicsItem):
         spacing = self._qScore.scale
         self._colourScheme().text.setPainter(painter)
         repeatText = '%dx' % self._measure.repeatCount
-        textWidth = QtGui.QFontMetrics(painter.font()).width(repeatText)
+        textWidth = QtGui.QFontMetrics(painter.font()).horizontalAdvance(repeatText)
         textLocation = QtCore.QPointF(self.width() - textWidth - 2 * spacing,
                                       self._repeatBottom - spacing)
         painter.drawText(textLocation, repeatText)
@@ -286,7 +286,7 @@ class QMeasure(QtGui.QGraphicsItem):
         if self._alternate is None:
             self._alternate = QtCore.QRectF(0, 0, 0, 0)
         text = self._measure.alternateText
-        textWidth = QtGui.QFontMetrics(font).width(text)
+        textWidth = QtGui.QFontMetrics(font).horizontalAdvance(text)
         self._alternate.setSize(QtCore.QSizeF(textWidth, altHeight))
         bottomLeft = QtCore.QPointF(2 * spacing, self._repeatBottom - spacing)
         self._alternate.moveBottomLeft(bottomLeft)
@@ -377,7 +377,7 @@ class QMeasure(QtGui.QGraphicsItem):
         text = "BPM = %d" % self._measure.newBpm
         self._drawText(painter, 1,
                        self._bpmBase + self._props.bpmHeight() - 1, text)
-        textWidth = QtGui.QFontMetrics(painter.font()).width(text)
+        textWidth = QtGui.QFontMetrics(painter.font()).horizontalAdvance(text)
         if self._bpmRect is None:
             self._bpmRect = QtCore.QRectF(0, 0, 0, 0)
         self._bpmRect.setSize(QtCore.QSizeF(

@@ -23,7 +23,7 @@ Created on 17 Apr 2011
 
 '''
 
-from PyQt4.QtDesigner import QPyDesignerCustomWidgetPlugin
+from PyQt5.QtDesigner import QPyDesignerCustomWidgetPlugin
 from .measureTabs import measureTabs
 
 

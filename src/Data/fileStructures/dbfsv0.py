@@ -109,15 +109,25 @@ class BeatLengthFieldV0(NoWriteField):
 
 
 def startBarlineString(measure):
-    return ",".join([name for name, value in
-                     Data.DBConstants.BAR_TYPES.items()
-                     if (measure.startBar & value) == value])
+    parts = [name for name, value in
+             Data.DBConstants.BAR_TYPES.items()
+             if value != 0 and (measure.startBar & value) == value]
+    if not parts:
+        parts = [Data.DBConstants.NO_BAR]
+    else:
+        parts.append(Data.DBConstants.NO_BAR)
+    return ",".join(parts)
 
 
 def endBarlineString(measure):
-    return ",".join([name for name, value in
-                     Data.DBConstants.BAR_TYPES.items()
-                     if (measure.endBar & value) == value])
+    parts = [name for name, value in
+             Data.DBConstants.BAR_TYPES.items()
+             if value != 0 and (measure.endBar & value) == value]
+    if not parts:
+        parts = [Data.DBConstants.NO_BAR]
+    else:
+        parts.append(Data.DBConstants.NO_BAR)
+    return ",".join(parts)
 
 
 class BarlineReadFieldV0(NoWriteField):

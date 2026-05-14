@@ -22,10 +22,10 @@ Created on 19 Jan 2011
 @author: Mike Thomas
 '''
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class QLineLabel(QtGui.QGraphicsItem):
+class QLineLabel(QtWidgets.QGraphicsItem):
     def __init__(self, drum, qScore, parent):
         super(QLineLabel, self).__init__(parent)
         if parent is None:
@@ -40,7 +40,7 @@ class QLineLabel(QtGui.QGraphicsItem):
         self.setText(drum.abbr)
         self.setToolTip(drum.name)
         self.setCursor(QtCore.Qt.PointingHandCursor)
-        self.setAcceptsHoverEvents(True)
+        self.setAcceptHoverEvents(True)
 
     def hoverEnterEvent(self, event):
         self._qScore.setStatusMessage("Double click to edit kit information.")

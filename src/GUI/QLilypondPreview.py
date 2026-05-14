@@ -21,8 +21,9 @@ Created on Feb 28, 2015
 
 @author: mike_000
 '''
-from PyQt4.QtCore import pyqtSignal, QTimeLine
-from PyQt4.QtGui import QMessageBox, QGraphicsScene, QPixmap
+from PyQt5.QtCore import pyqtSignal, QTimeLine
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QMessageBox, QGraphicsScene
 import tempfile
 from io import StringIO
 import os.path

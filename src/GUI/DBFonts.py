@@ -24,7 +24,7 @@ Created on Jul 19, 2015
 
 import os
 
-from PyQt4.Qt import QFontDatabase, QFont
+from PyQt5.QtGui import QFontDatabase, QFont
 import Data.FontOptions
 
 _FONT_DIR = os.path.join(os.path.dirname(__file__), "fonts")

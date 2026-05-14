@@ -22,8 +22,8 @@ Created on 8 Jan 2011
 @author: Mike Thomas
 '''
 
-from PyQt4.QtCore import QObject, pyqtSignal
-from PyQt4.QtGui import QFontMetrics, QFont
+from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtGui import QFontMetrics, QFont
 
 from Data.ASCIISettings import ASCIISettings
 from Data.Counter import CounterRegistry

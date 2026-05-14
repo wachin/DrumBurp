@@ -17,8 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with DrumBurp.  If not, see <http://www.gnu.org/licenses/>
 
-from PyQt4.QtGui import QGraphicsScene, QPixmap
+from PyQt5.QtWidgets import QGraphicsScene
 from Data.DefaultKits import STEM_DOWN, STEM_UP
+from GUI.QtResourceCompat import QPixmap
 
 PIXELS_PER_LINE = 8
 LEFT = 10

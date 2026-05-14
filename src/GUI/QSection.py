@@ -23,8 +23,9 @@ Created on 26 Jan 2011
 
 '''
 
-from PyQt4.QtGui import QGraphicsTextItem, QTextCursor
-from PyQt4.QtCore import Qt
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QTextCursor
+from PyQt5.QtWidgets import QGraphicsTextItem
 from GUI.DBCommands import SetSectionTitleCommand
 
 

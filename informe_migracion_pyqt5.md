@@ -50,8 +50,15 @@ el objetivo final debe ser eliminar los imports `PyQt4` del codigo de la app.
 
 ## Archivos generados por pyuic4
 
-Estos archivos no conviene editarlos a mano salvo como parche temporal. Lo
-correcto es regenerarlos desde sus `.ui` con `pyuic5`.
+Estado actual: completado. Estos archivos ya fueron regenerados con
+`PyQt5.uic` y ahora importan `PyQt5.QtCore`, `PyQt5.QtGui` y
+`PyQt5.QtWidgets`.
+
+Nota importante: se quitaron los imports finales a `DrumBurp_rc` y
+`buttons_rc` en las UI regeneradas, porque esos recursos venian de `pyrcc4` y
+provocaban segfaults al registrarse en una aplicacion PyQt5. Los pixmaps `:/...`
+se resuelven ahora mediante `GUI/QtResourceCompat.py`, que carga los archivos
+reales desde `src/GUI/Icons`.
 
 Archivos:
 
@@ -74,20 +81,21 @@ Archivos:
 - `src/GUI/ui_versionDownloader.py`
 - `src/Widgets/ui_measureTabs.py`
 
-Port necesario:
+Port realizado:
 
-- Cambiar imports generados a `from PyQt5 import QtCore, QtGui, QtWidgets`.
-- Reemplazar clases de widgets `QtGui.QWidget`, `QtGui.QLabel`,
+- Cambiados imports generados a `from PyQt5 import QtCore, QtGui, QtWidgets`.
+- Reemplazadas clases de widgets `QtGui.QWidget`, `QtGui.QLabel`,
   `QtGui.QDialogButtonBox`, etc. por `QtWidgets.*`.
-- Mantener clases graficas puras como `QtGui.QIcon`, `QtGui.QPixmap`,
+- Conservadas clases graficas puras como `QtGui.QIcon`, `QtGui.QPixmap`,
   `QtGui.QFont`.
-- Reemplazar `QtCore.QString.fromUtf8` por identidad o eliminarlo.
-- Reemplazar `QApplication.UnicodeUTF8` y llamadas de translate de 4 argumentos
+- Eliminado `QtCore.QString.fromUtf8`.
+- Reemplazados `QApplication.UnicodeUTF8` y llamadas de translate de 4 argumentos
   por `QtCore.QCoreApplication.translate(context, text, disambig)`.
-- Reemplazar `QtCore.QObject.connect(... SIGNAL(...))` por `.connect`.
-- Reemplazar `layout.setMargin(n)` por `layout.setContentsMargins(n, n, n, n)`.
+- Reemplazado `QtCore.QObject.connect(... SIGNAL(...))` por `.connect`.
+- Reemplazado `layout.setMargin(n)` por `layout.setContentsMargins(n, n, n, n)`.
 
-Riesgo: medio. Son muchos cambios, pero mecanicos si existen los `.ui`.
+Riesgo restante: bajo-medio. Al regenerar de nuevo con `pyuic5` habra que
+volver a aplicar el ajuste de `QtResourceCompat` o automatizarlo.
 
 ## Recursos generados por pyrcc4
 
@@ -99,12 +107,16 @@ Archivos:
 
 Port necesario:
 
-- Regenerar desde `.qrc` con `pyrcc5`.
-- Si no se regeneran, conservar temporalmente la compatibilidad de
-  `qRegisterResourceData` porque pyrc4 emitia cadenas estilo Python 2 y PyQt5
-  espera bytes.
+- Regenerar desde `.qrc` con `pyrcc5` cuando la herramienta este disponible.
+- Mientras no exista `pyrcc5`, no importarlos desde las UI PyQt5. Ya se hizo.
+- `src/buttons_rc.py`, `src/Widgets/buttons_rc.py` y `src/GUI/DrumBurp_rc.py`
+  fueron reemplazados por stubs no-op para que sigan siendo importables sin
+  registrar datos `pyrcc4`.
+- No intentar registrarlos directamente con PyQt5 sin regenerarlos: produjo
+  pixmaps nulos y segfaults.
 
-Riesgo: bajo-medio. Si fallan, se pierden iconos/imagenes.
+Riesgo: medio. Si se vuelven a importar desde UI PyQt5 sin regenerar con
+`pyrcc5`, puede volver el segfault.
 
 ## Capa temporal de compatibilidad
 
@@ -116,117 +128,154 @@ Archivos:
 
 Estado:
 
-- Debe quedarse mientras haya imports `PyQt4`.
-- Actualmente cubre `QVariant`, `QSettings`, `QFileDialog`, `QDesktopServices`,
-  `QApplication.translate`, `setMargin`, hover events y recursos.
-- No debe ser el destino final. Cuando todo use PyQt5 o `QtCompat`, esta carpeta
-  debe eliminarse.
+- Estado actual: eliminada del arbol fuente.
+- Ya no hay imports `from PyQt4` / `import PyQt4` en `src`, `build`, `.github`
+  ni `pylintrc` (excluyendo caches generadas).
 
-Riesgo: alto si se elimina temprano.
+Riesgo: bajo mientras no se reintroduzcan recursos `pyrcc4` ni imports PyQt4.
 
 ## Codigo de aplicacion
 
 ### `src/DrumBurp.py`
 
-- `QApplication` debe importarse desde `PyQt5.QtWidgets`.
+- Estado actual: completado.
+- `QApplication` ya se importa desde `PyQt5.QtWidgets`.
 - Influye en arranque completo de la app.
 - Riesgo bajo.
 
 ### `src/GUI/DBMainwindow.py`
 
-- Es el archivo central y el mas delicado.
-- Migrar imports: widgets a `QtWidgets`, `QFontDatabase/QFont/QColor` a
-  `QtGui`, `QPrinter` a `QtPrintSupport`, timers/settings a `QtCore`.
-- Reemplazar `QVariant` y lecturas `settings.value(...).toString()` etc.
-- Reemplazar `QDesktopServices.storageLocation`.
-- Quitar `pyqtSignature` o usar `pyqtSlot`.
-- `QFileDialog.getOpenFileName/getSaveFileName` en PyQt5 devuelve tupla; ajustar.
+- Estado actual: completado.
+- Widgets migrados a `QtWidgets`; `QFont` a `QtGui`; `QPrinter`,
+  `QPrinterInfo` y `QPrintPreviewDialog` a `QtPrintSupport`.
+- `QVariant` eliminado en settings, combos y guardado de colores.
+- Lecturas `settings.value(...).toString()/toBool()/toStringList()` reemplazadas
+  por valores Python con `type=...`.
+- `QDesktopServices.storageLocation` reemplazado por
+  `QStandardPaths.writableLocation`.
+- `QFileDialog.getOpenFileName/getSaveFileName` adaptado con helper porque
+  PyQt5 devuelve tupla.
+- Lectura de `QSettings` endurecida para configuraciones antiguas: algunos
+  valores guardados como QVariant/PyQt_PyObject no se pueden convertir con
+  `type=str` en PyQt5 y ahora caen a lectura sin tipo o valor por defecto.
+- Señales sobrecargadas `currentIndexChanged` conectadas explicitamente a la
+  sobrecarga `int`; el slot de `paperBox` tambien acepta texto como fallback.
+- Export ASCII corregido para escribir texto UTF-8, no bytes en archivo texto.
+- `pyqtSignature` queda como decorador no-op local para evitar tocar todos los
+  slots autoconectados de una vez; se puede limpiar mas adelante.
 - Influye en casi todos los dialogos, archivos recientes, colores, Lilypond,
   MIDI, guardado/exportacion.
 - Riesgo alto.
 
 ### `src/GUI/QScore.py`
 
-- Migrar `QGraphicsScene`, `QGraphicsItem`, `QTransform`, `QMessageBox`,
-  `QUndoStack` segun modulo PyQt5 correcto.
-- Revisar menus/dialogos abiertos desde la escena.
+- Estado actual: completado.
+- `QGraphicsScene`, `QGraphicsItem`, `QMessageBox` y `QUndoStack` migrados a
+  `QtWidgets`; `QTransform`, `QPainter` y `QFontMetrics` quedan en `QtGui`.
+- Menus/dialogos abiertos desde la escena compilan y el arranque offscreen no
+  muestra tracebacks.
 - Ya depende de `QStaff`, `QMeasure`, `QMeasureLine`, `QKitData`, etc.
 - Riesgo alto por interacciones graficas.
 
 ### `src/GUI/QStaff.py`
 
+- Estado actual: completado.
 - Ya no debe heredar de `QGraphicsItemGroup`; en Qt5 captura eventos de hijos.
-- Estado actual corregido: hereda de `QGraphicsItem`, hijos con `setParentItem`.
+- Hereda de `QtWidgets.QGraphicsItem`, hijos con `setParentItem`.
+- `setHandlesChildEvents(False)` reemplazado por `setFiltersChildEvents(False)`.
 - Riesgo alto si se revierte.
 
 ### `src/GUI/QMeasure.py`
 
-- Migrar `QGraphicsItem`, `QFontMetrics`, `QPen`, `QRectF`, eventos de mouse.
-- Cambiar `setAcceptsHoverEvents` por `setAcceptHoverEvents`.
-- Revisar `QFontMetrics.width` -> `horizontalAdvance`.
+- Estado actual: completado.
+- `QGraphicsItem` migrado a `QtWidgets`; `QFontMetrics` a `QtGui`; geometria y
+  eventos siguen en `QtCore`.
+- `setAcceptsHoverEvents` reemplazado por `setAcceptHoverEvents`.
+- `QFontMetrics.width` reemplazado por `horizontalAdvance` en textos calculados.
+- Corregida division Python 2 en compases simile (`numLines // 2`).
 - Influye en clic para agregar notas, seleccion, menus y doble clic.
 - Riesgo alto.
 
 ### `src/GUI/QMeasureLine.py`
 
-- Migrar `QGraphicsItem`, `QPen`, eventos de mouse y menu contextual.
+- Estado actual: completado.
+- `QGraphicsItem` migrado a `QtWidgets`; `QPen` queda en `QtGui`; geometria y
+  eventos en `QtCore`.
 - Influye en menus de barras de compas.
 - Riesgo medio.
 
 ### `src/GUI/QLineLabel.py`
 
-- Migrar `QGraphicsItem`, hover events y pintura.
+- Estado actual: completado.
+- `QGraphicsItem` migrado a `QtWidgets`.
+- `setAcceptsHoverEvents` reemplazado por `setAcceptHoverEvents`.
 - Influye en etiquetas/abreviaturas de bateria y resaltado de linea.
 - Riesgo medio.
 
 ### `src/GUI/QGraphicsListData.py`
 
-- Migrar `QGraphicsItem`, `QFontMetrics`, `QPen`, hover events.
+- Estado actual: completado.
+- `QGraphicsItem` migrado a `QtWidgets`; `QFontMetrics` y `QPen` a `QtGui`.
+- `setAcceptsHoverEvents` reemplazado por `setAcceptHoverEvents`.
+- `QFontMetrics.width` reemplazado por `horizontalAdvance`.
 - Riesgo medio.
 
 ### `src/GUI/QSection.py`
 
+- Estado actual: completado.
 - `QGraphicsTextItem` queda en `QtWidgets`; `QTextCursor` queda en `QtGui`.
 - Riesgo medio.
 
 ### `src/GUI/QNotationScene.py`
 
+- Estado actual: completado.
 - `QGraphicsScene` pasa a `QtWidgets`; `QPixmap` queda en `QtGui`.
+- Usa `GUI.QtResourceCompat.QPixmap` para resolver pixmaps `:/heads/...` sin
+  cargar recursos `pyrcc4`.
 - Ya se corrigio division entera para Python 3.
 - Riesgo medio.
 
 ### `src/GUI/QEditKitDialog.py`
 
-- Migrar dialogo y widgets a `QtWidgets`; `QColor` a `QtGui`.
+- Estado actual: completado en codigo Python.
+- Dialogo y widgets migrados a `QtWidgets`; `QColor` a `QtGui`.
 - Ya se corrigieron `QVariant`, `findData`, `toInt`, `setTextColor`.
-- Reemplazar `QDesktopServices.storageLocation`.
+- `QDesktopServices.storageLocation` reemplazado por `QStandardPaths`.
 - Influye en kits, heads MIDI y default kits.
 - Riesgo alto.
 
 ### `src/GUI/QComplexCountDialog.py`
 
-- Reemplazar `QVariant` en `QListWidgetItem.setData`.
-- Reemplazar `item.data(...).toInt()[0]` por `int(item.data(...))`.
-- Quitar `pyqtSignature`.
+- Estado actual: completado.
+- `QVariant` reemplazado en `QListWidgetItem.setData`.
+- `item.data(...).toInt()[0]` reemplazado por `int(item.data(...))`.
+- `pyqtSignature` reemplazado por `pyqtSlot`.
 - Riesgo medio.
 
 ### `src/GUI/QNewScoreDialog.py`
 
-- Reemplazar `QVariant(False/True)` por bool.
-- Reemplazar `.toBool()` por `bool(...)`.
-- Reemplazar `settings.value(...).toString()` por `settings.value(..., "", type=str)`.
+- Estado actual: completado.
+- `QVariant(False/True)` reemplazado por bool.
+- `.toBool()` reemplazado por `bool(...)`.
+- `settings.value(...).toString()` reemplazado por `settings.value(..., "", type=str)`.
+- Lectura de kits personalizados protegida contra settings antiguos que PyQt5
+  no puede convertir directamente a `str`.
 - Riesgo medio.
 
 ### `src/GUI/QDefaultKitManager.py`
 
-- Reemplazar `QtCore.QVariant` por bool.
-- Reemplazar `.toBool()` por `bool(...)`.
-- Reemplazar `settings.value(...).toString()` por str.
-- Quitar `pyqtSignature`.
+- Estado actual: completado.
+- `QtCore.QVariant` reemplazado por bool.
+- `.toBool()` reemplazado por `bool(...)`.
+- `settings.value(...).toString()` reemplazado por str.
+- Lectura de kits personalizados protegida contra settings antiguos que PyQt5
+  no puede convertir directamente a `str`.
+- `pyqtSignature` reemplazado por `pyqtSlot`.
 - Riesgo medio.
 
 ### `src/GUI/DBColourPicker.py`
 
+- Estado actual: completado.
 - Widgets a `QtWidgets`; `QColor`, `QPen` a `QtGui`.
 - `QColor.toString()` sigue existiendo.
 - `QColorDialog` esta en `QtWidgets`.
@@ -234,33 +283,41 @@ Riesgo: alto si se elimina temprano.
 
 ### `src/GUI/DBMidi.py`
 
+- Estado actual: completado.
 - `QThread`, `QObject`, `QTimer`, `pyqtSignal` pasan a `QtCore`.
 - Revisar senales y thread lifetime.
 - Riesgo alto por reproduccion MIDI.
 
 ### `src/GUI/LilypondExporter.py`
 
+- Estado actual: completado.
 - `QThread` pasa a `QtCore`.
+- Escritura del `.ly` corregida para Python 3: archivo texto con
+  `encoding='utf-8'` y escritura de `str`, no `bytes`.
 - Riesgo medio.
 
 ### `src/GUI/QLilypondPreview.py`
 
+- Estado actual: completado.
 - `QMessageBox` y `QGraphicsScene` pasan a `QtWidgets`; `QPixmap` queda en
   `QtGui`; `QTimeLine` y `pyqtSignal` quedan en `QtCore`.
 - Riesgo medio.
 
 ### `src/GUI/DBCommands.py`
 
+- Estado actual: completado.
 - `QUndoCommand` pasa a `QtWidgets`.
 - Riesgo medio-alto porque afecta undo/redo.
 
 ### `src/GUI/DBFonts.py`
 
+- Estado actual: completado.
 - `QFontDatabase`, `QFont` pasan a `QtGui`.
 - Riesgo bajo.
 
 ### `src/GUI/DBIcons.py`
 
+- Estado actual: completado.
 - `QIcon`, `QPixmap` pasan a `QtGui`.
 - Revisar rutas de recursos.
 - Riesgo bajo.
@@ -281,7 +338,9 @@ Archivos:
 - `src/GUI/QRepeatCountDialog.py`
 - `src/GUI/QVersionDownloader.py`
 
-Port necesario:
+Estado actual: completado para estos dialogos.
+
+Port realizado:
 
 - `QDialog`, `QWidget`, `QMenu` pasan a `QtWidgets`.
 - Quitar `pyqtSignature` donde aparezca.
@@ -318,6 +377,7 @@ Port necesario:
 
 ### `src/Widgets/ScoreView.py`
 
+- Estado actual: completado.
 - `QGraphicsView` pasa a `QtWidgets`.
 - `QTimeLine`, `QMutex`, `pyqtSlot`, `pyqtSignal` quedan en `QtCore`.
 - Influye en scroll, zoom y navegacion visual.
@@ -325,6 +385,7 @@ Port necesario:
 
 ### `src/Widgets/measureTabs.py`
 
+- Estado actual: completado.
 - `QWidget` pasa a `QtWidgets`; `pyqtSignal` queda en `QtCore`.
 - Riesgo bajo-medio.
 
@@ -350,43 +411,59 @@ Port necesario:
 
 ### `build/build_linux.sh`
 
-- Cambiar hidden import de `PyQt4.QtGui` a los modulos PyQt5 usados:
+- Estado actual: completado.
+- Hidden imports cambiados de `PyQt4.QtGui` a los modulos PyQt5 usados:
   `PyQt5.QtWidgets`, `PyQt5.QtGui`, `PyQt5.QtCore`, `PyQt5.QtPrintSupport`.
 - Revisar PyInstaller hooks para PyQt5.
 - Riesgo medio.
 
 ### `build/install_pyqt.ps1`
 
-- Es instalador historico de PyQt4 para Windows/Python 2.7.
-- Debe sustituirse por instalacion PyQt5 via pip o eliminarse si no se soporta
-  ese build.
+- Estado actual: completado.
+- Ya no descarga instaladores PyQt4; queda como placeholder indicando que PyQt5
+  se instala via `build/requirements-windows.txt`.
 - Riesgo bajo para Debian 12.
 
 ### `.github/workflows/build.yml`
 
-- Actualizar acciones para Python 3.
-- Eliminar cache/instalacion/import de PyQt4.
-- Instalar `PyQt5`, `pygame` y dependencias del sistema.
+- Estado actual: completado parcialmente.
+- Linux CI actualizado para importar PyQt5 e instalar requirements con Python 3.
+- Windows CI actualizado a `actions/setup-python@v5` con Python 3.11 y sin cache
+  ni instalador PyQt4.
 - Riesgo medio.
 
 ### `pylintrc`
 
-- Cambiar `extension-pkg-whitelist=PyQt4` por PyQt5, o eliminar si pylint ya no
-  lo necesita.
+- Estado actual: completado.
+- `extension-pkg-whitelist=PyQt4` cambiado a `PyQt5`.
 - Riesgo bajo.
 
 ## Orden de implementacion propuesto
 
-1. Corregir fallos runtime que aparezcan con la capa actual.
-2. Regenerar recursos `*_rc.py` con `pyrcc5`.
-3. Regenerar `ui_*.py` con `pyuic5`.
-4. Migrar dialogos simples.
-5. Migrar `QNewScoreDialog`, `QDefaultKitManager`, `QComplexCountDialog`.
-6. Migrar `QEditKitDialog`.
-7. Migrar `QScore`, `QStaff`, `QMeasure`, `QMeasureLine`, `QLineLabel`.
-8. Migrar `DBMainwindow`.
-9. Migrar build/CI.
-10. Borrar `src/PyQt4` y verificar que no queden imports PyQt4.
+1. Completado: corregir fallos runtime iniciales.
+2. Completado temporal: recursos `*_rc.py` reemplazados por stubs no-op; queda
+   pendiente regenerarlos con `pyrcc5` solo si se quiere volver a usar QRC.
+3. Completado: regenerar `ui_*.py` con `PyQt5.uic`.
+4. Completado: migrar dialogos simples.
+5. Completado: migrar `QNewScoreDialog`, `QDefaultKitManager`,
+   `QComplexCountDialog`.
+6. Completado: migrar `QEditKitDialog`.
+7. Completado: migrar score/graphics:
+   `QScore`, `QStaff`, `QMeasure`, `QMeasureLine`, `QLineLabel`,
+   `QGraphicsListData`, `QSection`, `QNotationScene`.
+8. Completado: migrar soporte de aplicacion: `DBMainwindow`, `DBCommands`,
+   `DBFonts`, `DBIcons`, `DBColourPicker`, `QDisplayProperties`.
+9. Completado: migrar MIDI/exportacion: `DBMidi`, `LilypondExporter`,
+   `QLilypondPreview`, `DBFSM`, `QMeasureContextMenu`.
+10. Completado: plugins de Designer, build Linux, requirements, workflow CI y
+    `pylintrc` migrados a PyQt5/Python 3.
+11. Completado: eliminada la capa temporal `src/PyQt4`.
+12. Completado: corregidos todos los fallos de la suite de tests Python 3
+    (`testScore.py`, `testDrum.py`, `testNotePosition.py`, `testMeasureCount.py`,
+    `testCounter.py`, `testdbfsv0.py`, `testdbfsv1.py`, `testLilypond.py`,
+    `testAsciiExport.py`). 373 tests pasan.
+13. Siguiente: validacion manual de flujos de usuario (edicion, MIDI, exportacion
+    Lilypond, impresion).
 
 ## Comandos de verificacion
 
@@ -397,7 +474,86 @@ python3 -m unittest discover -s src/test
 ./run-drumburp.sh
 ```
 
-Nota: `testScore.py` aun contiene fallos de migracion Python 3 no relacionados
-directamente con PyQt (`NotePosition` sin orden/equivalencia moderna y
-comparaciones lista vs `range`). Conviene arreglarlos antes de usar toda la
-suite como semaforo final.
+Nota: la suite completa aun contiene fallos de migracion Python 3 no
+relacionados directamente con PyQt. `testScore.py` tiene problemas de
+`NotePosition`/comparaciones con `range`, y `testDrum.py` falla en
+`testGetShortcuts` por una diferencia de atajo esperado (`c` vs `z`).
+Conviene arreglarlos antes de usar toda la suite como semaforo final.
+
+## Estado de avance
+
+- Hecho: `ui_*.py` fue regenerado con `PyQt5.uic`.
+- Hecho: se agrego `GUI/QtResourceCompat.py` para que las UI PyQt5 puedan cargar
+  pixmaps desde archivos reales cuando aparezcan rutas `:/...`.
+- Hecho: se quitaron imports `DrumBurp_rc` y `buttons_rc` de las UI regeneradas
+  para evitar segfaults con recursos `pyrcc4`.
+- Hecho: dialogos simples migrados a imports PyQt5.
+- Hecho: `QNewScoreDialog`, `QDefaultKitManager`, `QComplexCountDialog` migrados
+  sin `QVariant`.
+- Hecho: `QEditKitDialog` migrado a PyQt5 directo.
+- Hecho: `DrumBurp.py`, `Widgets/ScoreView.py` y `Widgets/measureTabs.py`
+  migrados a PyQt5.
+- Hecho: score/graphics migrado a PyQt5 directo: `QScore`, `QStaff`,
+  `QMeasure`, `QMeasureLine`, `QLineLabel`, `QGraphicsListData`, `QSection`,
+  `QNotationScene`.
+- Hecho: soporte de aplicacion migrado: `DBMainwindow`, `DBCommands`,
+  `DBFonts`, `DBIcons`, `DBColourPicker`, `QDisplayProperties`.
+- Hecho: MIDI/exportacion/Lilypond migrado: `DBMidi`, `LilypondExporter`,
+  `QLilypondPreview`, `DBFSM`, `QMeasureContextMenu`.
+- Hecho: `python3 -m py_compile src/GUI/*.py src/Widgets/*.py` pasa.
+- Hecho: `QT_QPA_PLATFORM=offscreen timeout 10s ./run-drumburp.sh` no muestra
+  traceback ni segfault; termina por timeout porque la ventana queda abierta.
+- Hecho: corregido crash de arranque por `QSettings.value(..., type=str)` con
+  settings antiguos de QVariant tipo 1025.
+- Hecho: corregido crash de `paperBox.currentIndexChanged` cuando PyQt5 enviaba
+  texto en vez de indice.
+- Hecho: conexiones `currentIndexChanged` restantes pasadas a sobrecarga `int`.
+- Hecho: `*_rc.py` reemplazados por stubs no-op compatibles con PyQt5.
+- Hecho: plugins de Qt Designer migrados a `PyQt5.QtDesigner`.
+- Hecho: build/requirements/workflow/pylintrc actualizados a PyQt5/Python 3.
+- Hecho: eliminada la capa temporal `src/PyQt4`.
+- Hecho: suite de tests Python 3 completamente corregida (373 tests, todos OK):
+  - `NotePosition.__cmp__`/`cmp()` reemplazado por `__eq__`/`__lt__`/`__le__`/
+    `__gt__`/`__ge__`/`__hash__` (Python 3 no tiene `__cmp__` ni `cmp()`).
+  - `MeasureCount.counterMaker`: division `/` cambiada a `//` para evitar float.
+  - `MeasureCount.iterMidiTicks`/`iterTimesMs`: argumento `swing` hecho opcional
+    con valor por defecto `0`.
+  - `Drum.checkShortcuts`: `availableShortcuts.pop()` reemplazado por
+    `min(availableShortcuts)` para orden deterministico en Python 3.
+  - `fileUtils.Base64StringField`: codificacion base64 migrada de codec Python 2
+    (`str.encode('base64')`) al modulo `base64` de Python 3.
+  - `dbfsv0.startBarlineString`/`endBarlineString`: corregida logica de bitmask
+    para `NO_BAR` (valor 0 siempre pasaba la condicion `& 0 == 0`).
+  - `testCounter.TestDefaultRegistry.testIter`: actualizado de 11 a 23 counters
+    (se agregaron Quintuplets, Septuplets y 64ths al registro por defecto).
+  - `testScore`: comparaciones `range(...)` en asserts reemplazadas por
+    `list(range(...))` (Python 3 `range` no es lista).
+  - `testLilypond`: actualizado de `\times 2/3` a `\tuplet 3/2` (sintaxis
+    moderna de LilyPond); corregida division entera en calculo de tuplet.
+  - `testdbfsv0.testWriteDecorations`: actualizado orden de flags BARLINE para
+    que coincida con el orden del dict `BAR_TYPES`.
+- Hecho: `DBMainwindow.py` completamente limpiado de PyQt4:
+  - Decorador no-op `pyqtSignature` eliminado del archivo.
+  - `pyqtSlot` agregado al import de `PyQt5.QtCore`.
+  - Los 35 `@pyqtSignature("")/("bool")/("int")` reemplazados por
+    `@pyqtSlot()`/`@pyqtSlot(bool)`/`@pyqtSlot(int)`.
+  - Los 3 slots `@staticmethod` convertidos a metodos de instancia normales
+    (`on_actionWhatsThis_triggered`, `on_actionOnlineManual_triggered`,
+    `on_actionMuteNotes_toggled`) para compatibilidad con autoconexion PyQt5.
+- Pendiente: validacion manual amplia de flujos de usuario.
+- Pendiente separado (no PyQt): compatibilidad con LilyPond 2.22+ — el signo
+  de percusion `"open"` en la tabla `dbdrums` ya no es valido; requiere
+  investigar la sintaxis correcta para LilyPond 2.24.
+
+## Imports PyQt4 pendientes
+
+Segun el ultimo grep:
+
+- `grep -R "from PyQt4\\|import PyQt4" -n src build .github pylintrc --exclude-dir=__pycache__`
+  no devuelve resultados.
+- `grep -R "PyQt4\\|python2\\|Python 2.7\\|2.7.16" -n src build .github pylintrc --exclude-dir=__pycache__`
+  no devuelve resultados.
+
+Prioridad sugerida inmediata: usar la aplicacion manualmente para detectar
+errores de runtime PyQt5 restantes y luego limpiar/fijar la suite de tests
+Python 3.

@@ -35,7 +35,7 @@ class TestCompoundSticking(unittest.TestCase):
         lilyMeasure.sticking(self.indenter)
         output = self.output.getvalue().strip()
         self.assertEqual(output,
-                         r'\new Lyrics \with { alignAboveContext = #"main" } \lyricmode { \times 2/3 { L8 R8 L8 } " "4 " "4 " "4 }')
+                         r'\new Lyrics \with { alignAboveContext = #"main" } \lyricmode { \tuplet 3/2 { L8 R8 L8 } " "4 " "4 " "4 }')
 
     def testCompoundStickingAtEndOfMeasure(self):
         self.measure.setAbove(9, "L")
@@ -45,7 +45,7 @@ class TestCompoundSticking(unittest.TestCase):
         lilyMeasure.sticking(self.indenter)
         output = self.output.getvalue().strip()
         self.assertEqual(output,
-                         r'\new Lyrics \with { alignAboveContext = #"main" } \lyricmode { " "4 " "4 " "4 \times 2/3 { L8 R8 L8 } }')
+                         r'\new Lyrics \with { alignAboveContext = #"main" } \lyricmode { " "4 " "4 " "4 \tuplet 3/2 { L8 R8 L8 } }')
 
 
 if __name__ == "__main__":

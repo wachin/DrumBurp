@@ -22,9 +22,10 @@ Created on Feb 22, 2015
 @author: mike_000
 '''
 import copy
-from PyQt4.QtGui import (QDialog, QColor, QLabel, QPushButton,
-                         QComboBox, QColorDialog, QPen)
-from PyQt4 import QtCore
+from PyQt5 import QtCore
+from PyQt5.QtGui import QColor, QPen
+from PyQt5.QtWidgets import (QDialog, QLabel, QPushButton,
+                             QComboBox, QColorDialog)
 from GUI.ui_dbColours import Ui_ColourPicker
 
 STYLE_MAP = {"None": QtCore.Qt.NoPen,
@@ -336,7 +337,7 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
         def setLineStyle(newIndex):
             colour = colourAttr.getInstance(self._currentScheme)
             colour.borderStyle = STYLES[newIndex]
-        combo.currentIndexChanged.connect(setLineStyle)
+        combo.currentIndexChanged[int].connect(setLineStyle)
         self._lineSelectors.append((combo, colourAttr))
         return combo
 
@@ -371,7 +372,7 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
 
 
 def main():
-    from PyQt4.QtGui import QApplication
+    from PyQt5.QtWidgets import QApplication
     import sys
     app = QApplication(sys.argv)
     scheme = ColourScheme()

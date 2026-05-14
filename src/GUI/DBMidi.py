@@ -54,7 +54,7 @@ def _decodeMidiName(name):
         return None
     return str(name)
 
-from PyQt4.Qt import QThread
+from PyQt5.QtCore import QThread
 import atexit
 import time
 from io import BytesIO
@@ -135,7 +135,7 @@ def iterMidiDevices():
     return iter(_OUTPUT_DEVICES)
 
 
-from PyQt4.QtCore import QTimer, pyqtSignal, QObject
+from PyQt5.QtCore import QTimer, pyqtSignal, QObject
 from Data.DBConstants import MIDITICKSPERBEAT
 
 

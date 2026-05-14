@@ -167,14 +167,15 @@ class Drum(object):
         availableShortcuts = set('abcdefghijklmnopqrstuvwxyz')
         for head, data in self._headData.items():
             if data.shortcut:
-                availableShortcuts.remove(data.shortcut)
+                availableShortcuts.discard(data.shortcut)
         for head, data in self._headData.items():
             if not data.shortcut:
                 if head in availableShortcuts:
                     data.shortcut = head
-                    availableShortcuts.remove(head)
+                    availableShortcuts.discard(head)
                 else:
-                    data.shortcut = availableShortcuts.pop()
+                    data.shortcut = min(availableShortcuts)
+                    availableShortcuts.discard(data.shortcut)
 
     def shortcutsAndNoteHeads(self):
         shortcuts = []

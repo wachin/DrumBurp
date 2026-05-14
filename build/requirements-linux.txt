@@ -1,3 +1,4 @@
 pyinstaller
-pygame==1.9.2
+PyQt5
+pygame
 pylint

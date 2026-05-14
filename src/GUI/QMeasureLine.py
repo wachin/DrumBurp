@@ -23,12 +23,12 @@ Created on 5 Jan 2011
 
 '''
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 from Data.NotePosition import NotePosition
 from GUI.DBFSMEvents import MeasureLineContext
 
 
-class QMeasureLine(QtGui.QGraphicsItem):
+class QMeasureLine(QtWidgets.QGraphicsItem):
     def __init__(self, qScore, lastMeasure, nextMeasure, index,
                  staffIndex, parent=None):
         super(QMeasureLine, self).__init__(parent)

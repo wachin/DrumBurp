@@ -26,9 +26,9 @@ Created on 4 Jan 2011
 import functools
 import itertools
 
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtGui import QGraphicsItem
-from PyQt4.QtGui import QTransform
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QTransform
+from PyQt5.QtWidgets import QGraphicsItem
 
 from Data import DBErrors
 from Data.NotePosition import NotePosition
@@ -222,7 +222,7 @@ def _metaDataProperty(varname):
     return property(fget=_getData, fset=_setData)
 
 
-class QScore(QtGui.QGraphicsScene):
+class QScore(QtWidgets.QGraphicsScene):
     def __init__(self, parent):
         super(QScore, self).__init__(parent)
         self._scale = 1
@@ -238,7 +238,7 @@ class QScore(QtGui.QGraphicsScene):
         self._nextMeasure = None
         self._dragSelection = DragSelection(self)
         self._saved = False
-        self._undoStack = QtGui.QUndoStack(self)
+        self._undoStack = QtWidgets.QUndoStack(self)
         self._inMacro = False
         self._macroCanReformat = False
         self._undoStack.canUndoChanged.connect(self.canUndoChanged)
@@ -761,9 +761,9 @@ class QScore(QtGui.QGraphicsScene):
         except DBErrors.DbReadError as exc:
             if not quiet:
                 msg = "Error loading DrumBurp file %s" % filename
-                QtGui.QMessageBox.warning(self.parent(),
-                                          "Score load error",
-                                          msg + "\n" + str(exc))
+                QtWidgets.QMessageBox.warning(self.parent(),
+                                              "Score load error",
+                                              msg + "\n" + str(exc))
             return False
         except Exception as exc:
             raise
@@ -776,9 +776,9 @@ class QScore(QtGui.QGraphicsScene):
             ScoreSerializer.saveScore(self._score, filename)
         except Exception as exc:
             msg = "Error saving DrumBurp file: %s" % str(exc)
-            QtGui.QMessageBox.warning(self.parent(),
-                                      "Score save error",
-                                      msg)
+            QtWidgets.QMessageBox.warning(self.parent(),
+                                          "Score save error",
+                                          msg)
             return False
         self._undoStack.setClean()
         self._saved = True
@@ -943,13 +943,13 @@ class QScore(QtGui.QGraphicsScene):
         if not editDialog.exec_():
             return
         kit, changes = editDialog.getNewKit()
-        box = QtGui.QMessageBox.question(self.parent(),
-                                         "Apply kit changes?",
-                                         "Editing the kit cannot be undone. "
-                                         "Proceed?",
-                                         buttons=(QtGui.QMessageBox.Yes
-                                                  | QtGui.QMessageBox.No))
-        if box == QtGui.QMessageBox.Yes:
+        box = QtWidgets.QMessageBox.question(self.parent(),
+                                             "Apply kit changes?",
+                                             "Editing the kit cannot be undone. "
+                                             "Proceed?",
+                                             buttons=(QtWidgets.QMessageBox.Yes
+                                                      | QtWidgets.QMessageBox.No))
+        if box == QtWidgets.QMessageBox.Yes:
             self.score.turnOffCallBacks()
             self.score.changeKit(kit, changes)
             DBMidi.setKit(kit)

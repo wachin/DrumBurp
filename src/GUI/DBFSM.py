@@ -33,7 +33,7 @@ from GUI.QEditMeasureDialog import QEditMeasureDialog
 from GUI.QRepeatCountDialog import QRepeatCountDialog
 from GUI.QAlternateDialog import QAlternateDialog
 import GUI.DBFSMEvents as Event
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 
 
 class DbState(State):
@@ -212,7 +212,7 @@ class RepeatingDragging(DbState):
         if self._lastNote is not None:
             totalTicks = self.qscore.score.tickDifference(self._lastNote,
                                                           self.firstNote)
-            numRepeats = totalTicks / self.interval
+            numRepeats = totalTicks // self.interval
             if numRepeats <= 0:
                 self.statusBar.showMessage("Must repeat note "
                                            "at least once!",

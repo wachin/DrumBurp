@@ -21,7 +21,7 @@ Created on 13 Feb 2011
 
 @author: Mike Thomas
 '''
-from PyQt4.QtGui import QUndoCommand
+from PyQt5.QtWidgets import QUndoCommand
 import functools
 import GUI.DBMidi as DBMidi
 from Data import DBConstants

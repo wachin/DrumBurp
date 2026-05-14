@@ -21,10 +21,22 @@ Created on Feb 28, 2015
 
 @author: mike_000
 '''
-from PyQt4.Qt import QThread
+from PyQt5.QtCore import QThread
 import subprocess
 import os
 import platform
+
+
+def _normalisePath(path):
+    if path is None:
+        return None
+    if isinstance(path, bytes):
+        return path.decode('utf-8', 'replace')
+    path = str(path)
+    if ((path.startswith("b'") and path.endswith("'")) or
+            (path.startswith('b"') and path.endswith('"'))):
+        return path[2:-1]
+    return path
 
 
 class LilypondExporter(QThread):
@@ -41,7 +53,7 @@ class LilypondExporter(QThread):
         self._outputPath = outputPath
         self._processedPath = self._calcProcessedPath(self._outputPath)
         self._onFinish = onFinish
-        self._lilypondPath = str(lilypondPath)
+        self._lilypondPath = _normalisePath(lilypondPath)
         self._format = self._toFormatString(lilyFormat)
         self._status = self.NOT_STARTED
         self.returnCode = 0
@@ -66,9 +78,9 @@ class LilypondExporter(QThread):
     def run(self):
         try:
             self._status = self.STARTED
-            with open(self._outputPath, 'w') as handle:
+            with open(self._outputPath, 'w', encoding='utf-8') as handle:
                 try:
-                    handle.write(self.lilyString.encode('utf-8'))
+                    handle.write(self.lilyString)
                 except:
                     self._status = self.ERROR_IN_WRITING_LY
                     raise
@@ -83,12 +95,17 @@ class LilypondExporter(QThread):
                 env = os.environ
                 env['LILYPOND_GC_YIELD'] = '100'
                 kwargs['env'] = env
-                returnCode = subprocess.call([self._lilypondPath,
-                                              '-s',
-                                              '-o', self._processedPath,
-                                              '-f', self._format,
-                                              self._outputPath],
-                                             **kwargs)
+                try:
+                    returnCode = subprocess.call([self._lilypondPath,
+                                                  '-s',
+                                                  '-o', self._processedPath,
+                                                  '-f', self._format,
+                                                  self._outputPath],
+                                                 **kwargs)
+                except OSError:
+                    self._status = self.ERROR_IN_RUNNING_LY
+                    self.returnCode = -1
+                    return
                 self.returnCode = returnCode
                 if returnCode == 0:
                     self._status = self.SUCCESS

@@ -54,7 +54,8 @@ class measureTabs(QWidget, Ui_measureTabs):
         self._currentCount = copy.copy(measureCount)
         self._mcMaker = mcMaker
         self._complexDialog = complexDialog
-        self.beatCountComboBox.currentIndexChanged.connect(self.preview)
+        self.beatCountComboBox.currentIndexChanged[int].connect(
+            lambda _index: self.preview())
         self.beatsSpinBox.valueChanged.connect(self.preview)
         self._populateCombo(self.beatCountComboBox)
         self.complexEditButton.clicked.connect(self._editComplex)

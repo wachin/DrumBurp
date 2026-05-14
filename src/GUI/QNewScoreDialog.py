@@ -32,6 +32,21 @@ import Data.MeasureCount
 from Data import DefaultKits, DrumKitFactory, DrumKitSerializer
 
 
+def _settingsString(settings, key, default=""):
+    try:
+        value = settings.value(key, default, type=str)
+    except (TypeError, RuntimeError, SystemError):
+        try:
+            value = settings.value(key, default)
+        except (TypeError, RuntimeError, SystemError):
+            return default
+    if value is None:
+        return default
+    if hasattr(value, "toString"):
+        return value.toString()
+    return str(value)
+
+
 class QNewScoreDialog(QDialog, Ui_newScoreDialog):
     def __init__(self, parent=None,
                  counter=None, registry=None):
@@ -52,7 +67,7 @@ class QNewScoreDialog(QDialog, Ui_newScoreDialog):
         kitIndex = self.kitCombobox.currentIndex()
         isUserKit = bool(self.kitCombobox.itemData(kitIndex))
         if isUserKit:
-            kitString = self._settings.value(kitName, "", type=str)
+            kitString = _settingsString(self._settings, kitName)
             handle = StringIO(kitString)
             kit = DrumKitSerializer.DrumKitSerializer.read(handle)
         else:

@@ -23,7 +23,7 @@ Created on 4 Jan 2011
 
 '''
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtWidgets
 import itertools
 from GUI.QMeasure import QMeasure
 from GUI.QMeasureLine import QMeasureLine
@@ -31,7 +31,7 @@ from GUI.QLineLabel import QLineLabel
 from Data.NotePosition import NotePosition
 
 
-class QStaff(QtGui.QGraphicsItem):
+class QStaff(QtWidgets.QGraphicsItem):
     def __init__(self, staff, index, scene, qScore=None):
         super(QStaff, self).__init__()
         scene.addItem(self)
@@ -47,7 +47,7 @@ class QStaff(QtGui.QGraphicsItem):
         self._height = 0
         self._hasAlternate = False
         self._setStaff(staff)
-        self.setHandlesChildEvents(False)
+        self.setFiltersChildEvents(False)
 
     def boundingRect(self):
         return QtCore.QRectF(0, 0, self._width, self._height)

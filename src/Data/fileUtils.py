@@ -24,6 +24,7 @@ Created on 7 Oct 2012
 import itertools
 import gzip
 import binascii
+import base64
 import Data.DBErrors as DBErrors
 
 
@@ -327,7 +328,7 @@ class StringField(SimpleValueField):
 class Base64StringField(SimpleValueField):
     def _processData(self, data):
         try:
-            data = data.decode("base64").decode("utf8")
+            data = base64.b64decode(data.encode('ascii')).decode('utf8')
         except binascii.Error:
             raise DBErrors.BadBase64()
         except UnicodeError:
@@ -335,7 +336,7 @@ class Base64StringField(SimpleValueField):
         return data
 
     def _toString(self, value):
-        return value.encode('utf8').encode('base64').strip()
+        return base64.b64encode(value.encode('utf8')).decode('ascii').strip()
 
 
 class IntegerField(SimpleValueField):

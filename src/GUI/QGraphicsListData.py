@@ -24,8 +24,9 @@ Created on 13 Mar 2011
 '''
 
 
-from PyQt4.QtGui import QGraphicsItem, QFontMetrics, QPen
-from PyQt4.QtCore import QPoint, QRectF, QPointF, Qt
+from PyQt5.QtCore import QPoint, QRectF, QPointF, Qt
+from PyQt5.QtGui import QFontMetrics, QPen
+from PyQt5.QtWidgets import QGraphicsItem
 
 
 class QGraphicsListData(QGraphicsItem):  # IGNORE:abstract-class-not-used
@@ -40,7 +41,7 @@ class QGraphicsListData(QGraphicsItem):  # IGNORE:abstract-class-not-used
         self._rect = QRectF(0, 0, 0, 0)
         self.setRect()
         self.setCursor(Qt.PointingHandCursor)
-        self.setAcceptsHoverEvents(True)
+        self.setAcceptHoverEvents(True)
 
     def _iterData(self):
         raise NotImplementedError()
@@ -59,7 +60,7 @@ class QGraphicsListData(QGraphicsItem):  # IGNORE:abstract-class-not-used
             fm = QFontMetrics(font)
         lineHeight = fm.height()
         height = lineHeight * self._dataLen() * 1.1
-        width = max(fm.width(data) for data in self._iterData()) + 10
+        width = max(fm.horizontalAdvance(data) for data in self._iterData()) + 10
         if height != self._rect.height() or width != self._rect.width():
             self.prepareGeometryChange()
             self._rect.setBottomRight(QPointF(width, height))

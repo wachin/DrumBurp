@@ -24,7 +24,7 @@ Created on 23 Jan 2011
 
 import os
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui
 
 _ICON_DIR = os.path.join(os.path.dirname(__file__), "Icons")
 

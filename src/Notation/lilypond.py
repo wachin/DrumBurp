@@ -210,12 +210,12 @@ class LilyDuration(object):
         baseNote = max(notesInTuplet)
         tupletNoteCount = 0
         for i in notesInTuplet:
-            tupletNoteCount += baseNote / i
+            tupletNoteCount += baseNote // i
         
         #nearest power of 2 (rounding down)
         tupletWholeNoteLength = 1<<int(log(tupletNoteCount,2)) 
             
-        self.compoundStart = r"\tuplet {0}/{1} {{".format(tupletNoteCount,tupletWholeNoteLength)
+        self.compoundStart = r"\tuplet {0}/{1} {{".format(int(tupletNoteCount), int(tupletWholeNoteLength))
 
     def setCompoundEnd(self):
         self._compoundEnd = True
@@ -1094,7 +1094,7 @@ def _findWindowsLilyPath():
 def _findLinuxLilyPath():
     try:
         path = subprocess.check_output(['which', 'lilypond'])
-        return path.strip()
+        return path.decode('utf-8', 'replace').strip()
     except subprocess.CalledProcessError:
         pass
     return None

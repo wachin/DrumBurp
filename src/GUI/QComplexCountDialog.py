@@ -40,7 +40,8 @@ class QComplexCountDialog(QDialog, Ui_complexCountDialog):
         for name, unusedCount in self._registry:
             self.countBox.addItem(name)
         self.beatList.currentItemChanged.connect(self._newBeatChosen)
-        self.countBox.currentIndexChanged.connect(self._beatChanged)
+        self.countBox.currentIndexChanged[int].connect(
+            lambda _index: self._beatChanged())
         self.numTicksSpinBox.valueChanged.connect(self.numTicksChanged)
         self._restoreDefault()
         restore = self.buttonBox.button(self.buttonBox.Reset)
