@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-QtGui.QPixmap = _CompatQPixmap
 
 
 class Ui_dbStartup(object):
