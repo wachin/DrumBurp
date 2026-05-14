@@ -1,6 +1,14 @@
+# Development dependencies for DrumBurp
+# Install with: pip install -r requirements-dev.txt
+#
+# Note: PyQt5 and pygame are system packages on Debian/Ubuntu.
+# Install them with apt:
+#   sudo apt install python3-pyqt5 python3-pygame python3-pyqt5.qtmultimedia pyqt5-dev-tools
+
 pylint
 versionflow>=0.3.6
-pygame==1.9.2
-pywin32==222
 pre-commit
 autopep8
+
+# Windows only
+pywin32; sys_platform == "win32"

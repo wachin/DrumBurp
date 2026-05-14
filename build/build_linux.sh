@@ -13,6 +13,7 @@ pyinstaller -w -F -y \
   --hidden-import=PyQt5.QtGui \
   --hidden-import=PyQt5.QtWidgets \
   --hidden-import=PyQt5.QtPrintSupport \
+  --hidden-import=PyQt5.QtMultimedia \
   --distpath "$workspace_root/build/dist" \
   --specpath "$workspace_root/build/tmp" \
   --workpath "$workspace_root/build/tmp" \
