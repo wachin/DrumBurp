@@ -6,6 +6,8 @@ jobs:
   build_linux:
     name: Linux Build
     runs-on: ubuntu-latest
+    # Run on any push except direct pushes to master (tags are not branches,
+    # so tag pushes always pass this condition and trigger the release job).
     if: github.ref != 'refs/heads/master'
     steps:
       - name: Checkout
@@ -42,6 +44,7 @@ jobs:
         with:
           name: db_linux
           path: "build/dist/DrumBurp"
+          retention-days: 7
 
   test_linux:
     needs: build_linux
@@ -56,7 +59,6 @@ jobs:
 
       - name: Test Linux binary
         run: |
-          ls db_linux
           chmod 770 db_linux/DrumBurp
           db_linux/DrumBurp --pyinstaller-test
 
@@ -81,17 +83,21 @@ jobs:
       - name: MSVC 2008 redistributable
         run: choco install vcredist2008
 
+      - name: Install NSIS
+        run: choco install nsis
+
       - name: Install pip modules
         run: pip install -r build/requirements-windows.txt
 
       - name: Build
-        run: build/build_windows.ps1
+        run: .\build\build_windows.ps1
 
       - name: Store Windows installer
         uses: actions/upload-artifact@v4
         with:
           name: db_windows
           path: "build/output/DrumBurp-${{ env.DB_VERSION }}.0-setup.exe"
+          retention-days: 7
 
   test_windows:
     needs: build_windows
@@ -118,56 +124,40 @@ jobs:
         run: cd %GITHUB_WORKSPACE%\installed\DrumBurp\ && .\DrumBurp.exe --pyinstaller-test
         shell: cmd
 
-  # ── Release ──────────────────────────────────────────────────────────────
+  # ── Release (only on version tags: v1.1.3, v2.0.0, etc.) ────────────────
   release:
     needs: [test_windows, test_linux]
     name: Release
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Get version number
-        run: echo "DB_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+        run: echo "DB_VERSION=$(echo ${{ github.ref_name }} | sed 's/^v//')" >> $GITHUB_ENV
 
-      - name: Create Release
-        id: this-release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
+      # Download the artifacts produced by the build jobs above.
+      # They are available because build/test jobs ran first (via needs:).
       - name: Get Windows installer
         uses: actions/download-artifact@v4
         with:
           name: db_windows
-
-      - name: Release Windows
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.this-release.outputs.upload_url }}
-          asset_path: "db_windows/DrumBurp-${{ env.DB_VERSION }}.0-setup.exe"
-          asset_name: "DrumBurp-${{ env.DB_VERSION }}-Windows-setup.exe"
-          asset_content_type: application/octet-stream
+          path: db_windows
 
       - name: Get Linux binary
         uses: actions/download-artifact@v4
         with:
           name: db_linux
+          path: db_linux
 
-      - name: Release Linux
-        uses: actions/upload-release-asset@v1
+      # softprops/action-gh-release is the maintained replacement for the
+      # deprecated actions/create-release + actions/upload-release-asset combo.
+      - name: Create GitHub Release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "DrumBurp ${{ env.DB_VERSION }}"
+          draft: false
+          prerelease: false
+          files: |
+            db_windows/DrumBurp-${{ env.DB_VERSION }}.0-setup.exe
+            db_linux/DrumBurp
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.this-release.outputs.upload_url }}
-          asset_path: db_linux/DrumBurp
-          asset_name: DrumBurp-${{ env.DB_VERSION }}-Linux-x64
-          asset_content_type: application/octet-stream
