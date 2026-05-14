@@ -32,7 +32,7 @@ from PyQt5.QtCore import QSettings, QTimer, QThread, pyqtSignal, pyqtSlot, Qt, \
 from PyQt5.QtGui import QFont
 from PyQt5.QtPrintSupport import QPrintPreviewDialog, QPrinterInfo, QPrinter
 from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QMessageBox,
-                             QWhatsThis, QLabel, QFrame, QAction)
+                             QWhatsThis, QLabel, QFrame, QAction, QActionGroup)
 
 from DBVersion import APPNAME, DB_VERSION, doesNewerVersionExist
 from Data import FontOptions
@@ -207,6 +207,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self._infoBar = QLabel()
         self.statusbar.addPermanentWidget(self._infoBar)
         self._initializeState()
+        self._buildLanguageMenu()
         self.setSections()
         self._versionThread = VersionCheckThread()
         self._versionThread.finished.connect(self._finishedVersionCheck)
@@ -874,6 +875,60 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         elif status == self._exporter.ERROR_IN_RUNNING_LY:
             QMessageBox.warning(self.parent(), "Export failed!",
                                 self.tr("Could not run Lilypond on %s") % fname)
+
+    # ── Language menu ────────────────────────────────────────────────────────
+
+    # Human-readable names for each language code.
+    _LANGUAGE_NAMES = {
+        "en": "English",
+        "es": "Español",
+        "fr": "Français",
+        "de": "Deutsch",
+        "pt": "Português",
+        "it": "Italiano",
+        "ja": "日本語",
+    }
+
+    def _buildLanguageMenu(self):
+        """Build the Language submenu under Help from available .qm files."""
+        import glob
+        from i18n.i18n import _i18n_dir
+
+        qm_files = sorted(glob.glob(os.path.join(_i18n_dir(), "drumburp_*.qm")))
+        if not qm_files:
+            return
+
+        # Read current saved language
+        settings = self._makeQSettings()
+        current_lang = _settingsValue(settings, "Language", "", str) or ""
+
+        lang_menu = self.menuHelp.addMenu(self.tr("Language"))
+        lang_group = QActionGroup(self)
+        lang_group.setExclusive(True)
+
+        import re
+        for qm in qm_files:
+            code = re.search(r"drumburp_(.+)\.qm", qm).group(1)
+            name = self._LANGUAGE_NAMES.get(code, code.upper())
+            action = QAction(name, self)
+            action.setCheckable(True)
+            action.setChecked(code == current_lang or
+                              (not current_lang and code == "en"))
+            action.setData(code)
+            action.triggered.connect(
+                lambda checked, c=code: self._selectLanguage(c))
+            lang_group.addAction(action)
+            lang_menu.addAction(action)
+
+    def _selectLanguage(self, lang_code):
+        """Save the chosen language and prompt the user to restart."""
+        settings = self._makeQSettings()
+        settings.setValue("Language", lang_code)
+        settings.sync()
+        QMessageBox.information(
+            self,
+            self.tr("Language changed"),
+            self.tr("The language will change the next time DrumBurp starts."))
 
     @pyqtSlot()
     def on_actionWhatsThis_triggered(self):

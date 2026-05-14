@@ -50,9 +50,19 @@ def main():
     app.setOrganizationDomain("whatang.org")
     app.setApplicationName(APPNAME)
 
+    # Determine language: CLI flag > QSettings > LANGUAGE env var > system locale.
+    # QSettings must be read after setOrganizationName/setApplicationName.
+    language = opts.language
+    if language is None:
+        from PyQt5.QtCore import QSettings
+        settings = QSettings()
+        saved = settings.value("Language", "", type=str)
+        if saved:
+            language = saved  # use the language saved via the Help > Language menu
+
     # Install translation before any UI is created.
     from i18n.i18n import install_translator
-    install_translator(app, language=opts.language)
+    install_translator(app, language=language)
     import GUI.DBFonts
     import GUI.DBIcons
     import GUI.DBMainwindow
