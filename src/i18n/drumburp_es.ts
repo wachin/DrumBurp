@@ -548,15 +548,27 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
     <message numerus="yes">
         <location filename="../GUI/DBMainwindow.py" line="1212" />
         <source>%n Measure(s)</source>
-        <translation><numerusform>%n Compas</numerusform><numerusform>%n Compases</numerusform></translation></message>
+        <translation>
+            <numerusform>%n Compas</numerusform>
+            <numerusform>%n Compases</numerusform>
+        </translation>
+    </message>
     <message numerus="yes">
         <location filename="../GUI/DBMainwindow.py" line="1214" />
         <source>%n Staff(s)</source>
-        <translation><numerusform>%n Pentagrama</numerusform><numerusform>%n Pentagramas</numerusform></translation></message>
+        <translation>
+            <numerusform>%n Pentagrama</numerusform>
+            <numerusform>%n Pentagramas</numerusform>
+        </translation>
+    </message>
     <message numerus="yes">
         <location filename="../GUI/DBMainwindow.py" line="1216" />
         <source>%n Page(s)</source>
-        <translation><numerusform>%n Pagina</numerusform><numerusform>%n Paginas</numerusform></translation></message>
+        <translation>
+            <numerusform>%n Pagina</numerusform>
+            <numerusform>%n Paginas</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>DrumBurpWindow</name>
@@ -2179,6 +2191,21 @@ p, li { white-space: pre-wrap; }
         <location filename="../GUI/QLilypondPreview.py" line="148" />
         <source>Lilypond had an error when trying to run on this score.</source>
         <translation>Lilypond tuvo un error al intentar procesar esta partitura.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QLilypondPreview.py" line="61" />
+        <source>No Preview</source>
+        <translation>Sin vista previa</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QLilypondPreview.py" line="183" />
+        <source>Preview</source>
+        <translation>Vista previa</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QLilypondPreview.py" line="139" />
+        <source>Refresh</source>
+        <translation>Actualizar</translation>
     </message>
 </context>
 <context>

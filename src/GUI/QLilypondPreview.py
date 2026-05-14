@@ -21,7 +21,7 @@ Created on Feb 28, 2015
 
 @author: mike_000
 '''
-from PyQt5.QtCore import pyqtSignal, QTimeLine
+from PyQt5.QtCore import pyqtSignal, QTimeLine, QCoreApplication
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMessageBox, QGraphicsScene
 import tempfile
@@ -58,12 +58,12 @@ class QLilypondPreview(QGraphicsScene):
         self._waitingTimer.setLoopCount(0)
         self._waitingTimer.setCurveShape(self._waitingTimer.LinearCurve)
         self._waitingTimer.frameChanged.connect(self._updateWaitingText)
-        self._noPreview = self.addText("No Preview")
+        self._noPreview = self.addText(QCoreApplication.translate("QLilypondPreview", "No Preview"))
         self._noPreview.setOpacity(0.6)
         self._noPreview.setVisible(False)
         self._noPreview.setFont(font)
         self._displayPage()
-        self.mainWindow.refreshLilypond.setText("Preview")
+        self.mainWindow.refreshLilypond.setText(QCoreApplication.translate("QLilypondPreview", "Preview"))
 
     def _updateWaitingText(self, frameVal):
         if frameVal < 5:
@@ -136,7 +136,7 @@ class QLilypondPreview(QGraphicsScene):
                 # Get pages of exported score & display them
                 self._readPages()
                 # Update button from 'Preview' to 'Refresh'
-                self.mainWindow.refreshLilypond.setText("Refresh")
+                self.mainWindow.refreshLilypond.setText(QCoreApplication.translate("QLilypondPreview", "Refresh"))
                 return
             elif status == self._exporter.WROTE_LY:
                 QMessageBox.warning(self.parent(), 'Build failed!',
@@ -180,7 +180,7 @@ class QLilypondPreview(QGraphicsScene):
 
     def setNoPreview(self):
         self._pages = []
-        self.mainWindow.refreshLilypond.setText("Preview")
+        self.mainWindow.refreshLilypond.setText(QCoreApplication.translate("QLilypondPreview", "Preview"))
         self._displayPage()
 
     def cleanup(self):
