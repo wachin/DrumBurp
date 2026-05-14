@@ -69,13 +69,14 @@ def readVersion(text):
 
 
 def getLatestVersion():
-    import urllib2
+    import urllib.request
     try:
-        versionUrl = urllib2.urlopen('http://github.com/Whatang/DrumBurp/raw/master/src/' + DB_VERSION_FILE,
-                                     timeout=10)
-        versionText = versionUrl.read()
+        versionUrl = urllib.request.urlopen(
+            'http://github.com/Whatang/DrumBurp/raw/master/src/' + DB_VERSION_FILE,
+            timeout=10)
+        versionText = versionUrl.read().decode('utf-8')
         return readVersion(versionText)
-    except urllib2.HTTPError:
+    except Exception:
         return (0, 0, 0)
 
 
