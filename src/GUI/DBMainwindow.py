@@ -949,7 +949,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     @pyqtSlot()
     def on_actionOnlineManual_triggered(self):
-        webbrowser.open_new_tab("www.whatang.org/drumburp-manual")
+        webbrowser.open_new_tab("https://github.com/wachin/DrumBurp/wiki")
 
     def _getPaperSize(self):
         try:
