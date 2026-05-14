@@ -106,16 +106,15 @@ class QDefaultKitManager(Ui_DefaulKitManager, QtWidgets.QDialog):
 
     @QtCore.pyqtSlot()
     def on_saveButton_clicked(self):
-        name, ok = QtWidgets.QInputDialog.getText(self, "Kit name",
-                                                  "Enter a name for the "
-                                                  "new default kit",
+        name, ok = QtWidgets.QInputDialog.getText(self, self.tr("Kit name"),
+                                                  self.tr("Enter a name for the new default kit"),
                                                   text="New kit")
         if not ok:
             return
         if self._settings.contains(name):
             QtWidgets.QMessageBox.information(self,
-                                              "Duplicate kit name!",
-                                              "That kit name already exists.")
+                                              self.tr("Duplicate kit name!"),
+                                              self.tr("That kit name already exists."))
             return
         index = self.defaultKitList.currentRow()
         self._writeKit(name)
@@ -133,7 +132,7 @@ class QDefaultKitManager(Ui_DefaulKitManager, QtWidgets.QDialog):
                 self.defaultKitList.setCurrentRow(index)
             else:
                 QtWidgets.QMessageBox.information(
-                    self, "Default kit", "Cannot overwrite default kits!")
+                    self, self.tr("Default kit"), self.tr("Cannot overwrite default kits!"))
 
     def getKit(self):
         item = self.defaultKitList.currentItem()

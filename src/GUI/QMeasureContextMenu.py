@@ -233,9 +233,9 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
 
     @QMenuIgnoreCancelClick.menuSelection
     def _deleteStaff(self):
-        msg = "Really delete this staff?"
+        msg = self.tr("Really delete this staff?")
         yesNo = QtWidgets.QMessageBox.question(self._qScore.parent(),
-                                               "Delete Staff?",
+                                               self.tr("Delete Staff?"),
                                                msg,
                                                QtWidgets.QMessageBox.Ok,
                                                QtWidgets.QMessageBox.Cancel)
@@ -253,9 +253,9 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
 
     @QMenuIgnoreCancelClick.menuSelection
     def _deleteSection(self):
-        msg = "Really delete this section?"
+        msg = self.tr("Really delete this section?")
         yesNo = QtWidgets.QMessageBox.question(self._qScore.parent(),
-                                               "Delete Section?",
+                                               self.tr("Delete Section?"),
                                                msg,
                                                QtWidgets.QMessageBox.Ok,
                                                QtWidgets.QMessageBox.Cancel)
@@ -279,9 +279,9 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
 
     @QMenuIgnoreCancelClick.menuSelection
     def _deleteEmptyMeasures(self):
-        msg = "This will delete all empty trailing measures.\nContinue?"
+        msg = self.tr("This will delete all empty trailing measures.\nContinue?")
         yesNo = QtWidgets.QMessageBox.question(self._qScore.parent(),
-                                               "Delete Empty Measures",
+                                               self.tr("Delete Empty Measures"),
                                                msg,
                                                QtWidgets.QMessageBox.Ok,
                                                QtWidgets.QMessageBox.Cancel)

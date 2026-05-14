@@ -85,20 +85,20 @@ class QLilypondPreview(QGraphicsScene):
             lyScore = LilypondScore(self.score)
             lyScore.write(lilyBuffer)
         except LilypondProblem as exc:
-            QMessageBox.warning(self.parent(), "Lilypond impossible",
-                                "Cannot export Lilypond for this score: %s"
+            QMessageBox.warning(self.parent(), self.tr("Lilypond impossible"),
+                                self.tr("Cannot export Lilypond for this score: %s")
                                 % exc.__doc__)
         except Exception as exc:
-            QMessageBox.warning(self.parent(), "Export failed!",
-                                "Error generating Lilypond for this score: %s"
+            QMessageBox.warning(self.parent(), self.tr("Export failed!"),
+                                self.tr("Error generating Lilypond for this score: %s")
                                 % exc.__doc__)
             raise
         fname = os.path.join(self._tempdir, 'db.ly')
         # Check exporter is not already running
         if self._exporter is not None:
             if self._exporter.isRunning():
-                QMessageBox.warning(self.parent(), "Still previewing",
-                                    "Cannot preview now - previous preview build is still in progress")
+                QMessageBox.warning(self.parent(), self.tr("Still previewing"),
+                                    self.tr("Cannot preview now - previous preview build is still in progress"))
                 return
         # Disable controls
         self._setLilypondControlsEnabled(False)
@@ -140,13 +140,13 @@ class QLilypondPreview(QGraphicsScene):
                 return
             elif status == self._exporter.WROTE_LY:
                 QMessageBox.warning(self.parent(), 'Build failed!',
-                                    "DrumBurp exported this score to Lilypond format but could not find a Lilypond executable to run.")
+                                    self.tr("DrumBurp exported this score to Lilypond format but could not find a Lilypond executable to run."))
             elif status == self._exporter.ERROR_IN_WRITING_LY:
-                QMessageBox.warning(self.parent(), "Build failed!",
-                                    "DrumBurp had a problem writing the Lilypond format to a temporary file.")
+                QMessageBox.warning(self.parent(), self.tr("Build failed!"),
+                                    self.tr("DrumBurp had a problem writing the Lilypond format to a temporary file."))
             elif status == self._exporter.ERROR_IN_RUNNING_LY:
                 QMessageBox.warning(self.parent(), "Build failed!",
-                                    "Lilypond had an error when trying to run on this score.")
+                                    self.tr("Lilypond had an error when trying to run on this score."))
             self.setNoPreview()
         finally:
             # Enable controls

@@ -32,13 +32,10 @@ def main():
     parser = optparse.OptionParser()
     parser.add_option('--virgin', action='store_true')
     parser.add_option('--pyinstaller-test', action='store_true')
+    parser.add_option('--language', dest='language', default=None,
+                      help='Force a specific UI language (e.g. es, fr, de)')
     opts, args = parser.parse_args()
     if opts.pyinstaller_test:
-        # This is just to test that the program can start properly after
-        # being frozen with PyInstaller. If PyInstaller has got something
-        # wrong then DB won't even get this far. This enables automated
-        # testing of the PyInstaller results. There is no need to ever
-        # run this manually.
         sys.exit(0)
     filename = None
     if len(args) > 0:
@@ -52,6 +49,10 @@ def main():
     app.setOrganizationName("Whatang Software")
     app.setOrganizationDomain("whatang.org")
     app.setApplicationName(APPNAME)
+
+    # Install translation before any UI is created.
+    from i18n.i18n import install_translator
+    install_translator(app, language=opts.language)
     import GUI.DBFonts
     import GUI.DBIcons
     import GUI.DBMainwindow

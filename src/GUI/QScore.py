@@ -760,9 +760,9 @@ class QScore(QtWidgets.QGraphicsScene):
             newScore = ScoreSerializer.loadScore(filename)
         except DBErrors.DbReadError as exc:
             if not quiet:
-                msg = "Error loading DrumBurp file %s" % filename
+                msg = self.tr("Error loading DrumBurp file %s") % filename
                 QtWidgets.QMessageBox.warning(self.parent(),
-                                              "Score load error",
+                                              self.tr("Score load error"),
                                               msg + "\n" + str(exc))
             return False
         except Exception as exc:
@@ -775,9 +775,9 @@ class QScore(QtWidgets.QGraphicsScene):
         try:
             ScoreSerializer.saveScore(self._score, filename)
         except Exception as exc:
-            msg = "Error saving DrumBurp file: %s" % str(exc)
+            msg = self.tr("Error saving DrumBurp file: %s") % str(exc)
             QtWidgets.QMessageBox.warning(self.parent(),
-                                          "Score save error",
+                                          self.tr("Score save error"),
                                           msg)
             return False
         self._undoStack.setClean()
@@ -944,9 +944,9 @@ class QScore(QtWidgets.QGraphicsScene):
             return
         kit, changes = editDialog.getNewKit()
         box = QtWidgets.QMessageBox.question(self.parent(),
-                                             "Apply kit changes?",
-                                             "Editing the kit cannot be undone. "
-                                             "Proceed?",
+                                             self.tr("Apply kit changes?"),
+                                             self.tr("Editing the kit cannot be undone. "
+                                             "Proceed?"),
                                              buttons=(QtWidgets.QMessageBox.Yes
                                                       | QtWidgets.QMessageBox.No))
         if box == QtWidgets.QMessageBox.Yes:

@@ -303,7 +303,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         newKit, unused = self.getNewKit()
         DrumKitSerializer.DrumKitSerializer.saveKit(newKit, fname)
         QMessageBox.information(
-            self, "Kit saved", "Successfully saved drumkit")
+            self, self.tr("Kit saved"), self.tr("Successfully saved drumkit"))
 
     def _drumNameEdited(self):
         self._currentDrum.name = str(self.drumName.text())
