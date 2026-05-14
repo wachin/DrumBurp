@@ -1,4 +1,45 @@
-# DrumBurp 1.1.3 — port a Python 3 / PyQt5
+# DrumBurp
+
+DrumBurp es una interfaz grafica simple para crear y editar notacion musical de bateria.
+
+El objetivo de DrumBurp es hacer que la experiencia de escribir musica para bateria sea
+lo mas rapida e intuitiva posible. La generalidad de muchos paquetes de notacion musical
+existentes implica una complejidad innecesaria a la hora de escribir notacion para bateria.
+Si bien estos paquetes pueden producir resultados hermosos y manejar todo lo que uno pudiera
+querer notificar, pueden ser lentos y pesados de usar. Al dejar en claro que el objetivo de
+DrumBurp se limita a escribir musica *unicamente* para bateria, se busca eliminar las
+dificultades que impone esa generalidad.
+
+DrumBurp nunca tendra un modo para gaitas.
+
+La filosofia fundamental de DrumBurp es la siguiente: ante la disyuntiva entre agregar
+funcionalidad/complejidad en un caso especifico, o mantener velocidad, simplicidad e
+interaccion intuitiva en el caso general, el caso general siempre gana. Simple, rapido
+y directo es mejor que complejo, lento e ingenioso.
+
+DrumBurp se centra en una representacion simple de la musica para bateria. Para cada nota
+que tocas, esencialmente le importa:
+
+- **Cual** tambor golpeas
+- **Cuando** lo golpeas
+- **Como** lo golpeas
+
+Estos tres datos son suficientes para escribir musica de bateria en notacion de tablatura.
+DrumBurp busca que el baterista pueda ingresar esa informacion a la computadora de la
+manera mas rapida y sencilla posible.
+
+DrumBurp almacena esta informacion en su propio formato en los archivos de partitura
+guardados. Sin embargo, puede exportar la tablatura como archivos de texto ASCII facilmente.
+Un objetivo a largo plazo de DrumBurp es poder generar notacion "real" de bateria tan
+estetica y legible como la producida por Lilypond o Nted.
+
+Las estructuras de datos fundamentales de DrumBurp raramente, si acaso alguna vez,
+cambiaran. La parte mas importante de DrumBurp es su interfaz con el usuario. Su objetivo
+para el usuario es: menos tiempo escribiendo, mas tiempo tocando.
+
+---
+
+## Este fork — port a Python 3 / PyQt5 (version 1.1.3)
 
 Fork de [DrumBurp](https://github.com/Whatang/DrumBurp) por Washington Indacochea Delgado.  
 Port completo de PyQt4/Python 2 a PyQt5/Python 3, probado en Debian 12 / MX Linux 23 / UbuntuStudio.
@@ -96,4 +137,22 @@ killall timidity
 - Ventana "Acerca de" actualizada con creditos del port
 - Version actualizada a 1.1.3
 
-Ver `informe_migracion_pyqt5.md` para el detalle tecnico completo.
+Ver `migration_report_pyqt5_ES.md` para el detalle tecnico completo.
+
+## Licencia
+
+DrumBurp es software libre: puedes redistribuirlo y/o modificarlo bajo los terminos
+de la Licencia Publica General GNU publicada por la Free Software Foundation, ya sea
+la version 3 de la Licencia, o (a tu eleccion) cualquier version posterior.
+
+Este programa se distribuye con la esperanza de que sea util, pero SIN NINGUNA GARANTIA;
+ni siquiera la garantia implicita de COMERCIABILIDAD o IDONEIDAD PARA UN PROPOSITO
+PARTICULAR. Consulta la Licencia Publica General GNU para mas detalles.
+
+Deberias haber recibido una copia de la Licencia Publica General GNU junto con este
+programa. Si no es asi, visita <https://www.gnu.org/licenses/>.
+
+Consulta el archivo `COPYING.txt` para el texto completo de la GPL.
+
+**Autor original:** Michael Thomas — drumburp@whatang.org  
+**Port a PyQt5:** Washington Indacochea Delgado — linuxfrontier@proton.me
