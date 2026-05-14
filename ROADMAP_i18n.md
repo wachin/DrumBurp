@@ -3,7 +3,7 @@
 **Goal:** Full Qt Linguist support for all user-visible strings, starting with
 English (reference) and Spanish, with a clean path to add more languages.
 
-**Total strings:** 622 across 24 translation contexts  
+**Total strings:** 625 across 24 translation contexts (622 original + 3 from language menu)  
 **Languages:** English (built-in reference), Spanish (`es`)
 
 ---
@@ -136,10 +136,26 @@ English (reference) and Spanish, with a clean path to add more languages.
 
 ---
 
-## Phase 6 — Future
+## Phase 6 — Runtime language switching
 
-- [ ] Runtime language switching in Preferences dialog
+- [x] `_buildLanguageMenu()` in `DBMainwindow.py` — builds `Help > Language`
+      submenu dynamically from available `.qm` files in `src/i18n/`
+- [x] `_selectLanguage()` in `DBMainwindow.py` — saves chosen language to
+      `QSettings` key `"Language"` and shows restart notice
+- [x] `DrumBurp.py` — reads `QSettings["Language"]` at startup (after
+      `setOrganizationName`) so saved preference takes effect before any UI
+- [x] Priority order: `--language` CLI flag > `QSettings` > `LANGUAGE` env var
+      > system locale
+- [x] `QActionGroup` used so only one language is checked at a time
+- [x] 3 new strings added (`Language`, `Language changed`, restart notice),
+      translated in both EN and ES, `.qm` files recompiled (625 strings total)
+
+---
+
+## Phase 7 — Future
+
 - [ ] French (`fr`), German (`de`), Portuguese (`pt`) translations
+      (add to `drumburp.pro`, run `pylupdate5`, translate, `lrelease`)
 
 ---
 
@@ -160,7 +176,7 @@ linguist src/i18n/drumburp_es.ts
 LANGUAGE=es ./run-drumburp.sh
 ./run-drumburp.sh --language es
 
-# Count remaining untranslated strings
+# Count remaining untranslated strings (should be 0)
 grep -c 'type="unfinished"' src/i18n/drumburp_es.ts
 ```
 
@@ -196,4 +212,4 @@ grep -c 'type="unfinished"' src/i18n/drumburp_es.ts
 | D | DrumBurp | 62 | [x] |
 | E | DrumBurpWindow | 240 | [x] |
 | F | editKitDialog | 147 | [x] |
-| — | **Total** | **622** | **622 done ✓** |
+| — | **Total** | **625** | **625 done ✓** |
