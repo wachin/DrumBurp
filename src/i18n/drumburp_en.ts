@@ -506,7 +506,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
         <translation>Please select path to Lilypond executable</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="571" />
+        <location filename="../GUI/DBMainwindow.py" line="1092" />
         <source>Untitled</source>
         <translation>Untitled</translation>
     </message>
@@ -2498,6 +2498,24 @@ Continue?</translation>
         <location filename="../GUI/scorePropertiesDialog.ui" line="210" />
         <source>Show/hide BPM</source>
         <translation>Show/hide BPM</translation>
+    </message>
+</context>
+<context>
+    <name>ScoreMetaData</name>
+    <message>
+        <location filename="../Data/ScoreMetaData.py" line="47" />
+        <source>Untitled</source>
+        <translation>Untitled</translation>
+    </message>
+    <message>
+        <location filename="../Data/ScoreMetaData.py" line="48" />
+        <source>Unknown</source>
+        <translation>Unknown</translation>
+    </message>
+    <message>
+        <location filename="../Data/ScoreMetaData.py" line="49" />
+        <source>Nobody</source>
+        <translation>Nobody</translation>
     </message>
 </context>
 <context>

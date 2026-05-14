@@ -506,7 +506,7 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <translation>Seleccione la ruta al ejecutable de Lilypond</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="571" />
+        <location filename="../GUI/DBMainwindow.py" line="1092" />
         <source>Untitled</source>
         <translation>Sin titulo</translation>
     </message>
@@ -2436,6 +2436,24 @@ Continuar?</translation>
         <location filename="../GUI/scorePropertiesDialog.ui" line="210" />
         <source>Show/hide BPM</source>
         <translation>Mostrar/ocultar BPM</translation>
+    </message>
+</context>
+<context>
+    <name>ScoreMetaData</name>
+    <message>
+        <location filename="../Data/ScoreMetaData.py" line="47" />
+        <source>Untitled</source>
+        <translation>Sin titulo</translation>
+    </message>
+    <message>
+        <location filename="../Data/ScoreMetaData.py" line="48" />
+        <source>Unknown</source>
+        <translation>Desconocido</translation>
+    </message>
+    <message>
+        <location filename="../Data/ScoreMetaData.py" line="49" />
+        <source>Nobody</source>
+        <translation>Nadie</translation>
     </message>
 </context>
 <context>

@@ -1089,7 +1089,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if directory is None:
             suggestion = str(self.scoreScene.title)
             if len(suggestion) == 0:
-                suggestion = "Untitled"
+                suggestion = self.tr("Untitled")
             suggestion = os.extsep.join([suggestion, "brp"])
             if len(self.recentFiles) > 0:
                 directory = os.path.dirname(self.recentFiles[-1])

@@ -42,6 +42,13 @@ class ScoreMetaData(object):
         self.swing = 0
 
     def makeEmpty(self):
-        self.title = "Untitled"
-        self.artist = "Unknown"
-        self.creator = "Nobody"
+        try:
+            from PyQt5.QtCore import QCoreApplication
+            self.title = QCoreApplication.translate("ScoreMetaData", "Untitled")
+            self.artist = QCoreApplication.translate("ScoreMetaData", "Unknown")
+            self.creator = QCoreApplication.translate("ScoreMetaData", "Nobody")
+        except ImportError:
+            # Fallback when running without Qt (e.g. unit tests)
+            self.title = "Untitled"
+            self.artist = "Unknown"
+            self.creator = "Nobody"
