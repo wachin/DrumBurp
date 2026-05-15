@@ -14,8 +14,10 @@ Edit them here, then copy the updated content to the wiki.
 | `Home.md` | https://github.com/wachin/DrumBurp/wiki |
 | `Getting-Started.md` | https://github.com/wachin/DrumBurp/wiki/Getting-Started |
 | `Score-Properties-and-Metadata.md` | https://github.com/wachin/DrumBurp/wiki/Score-Properties-and-Metadata |
+| `Drum-Kit-Editor.md` | https://github.com/wachin/DrumBurp/wiki/Drum-Kit-Editor |
 | `Lilypond-Export.md` | https://github.com/wachin/DrumBurp/wiki/Lilypond-Export |
 | `MIDI-Playback.md` | https://github.com/wachin/DrumBurp/wiki/MIDI-Playback |
+| `ASCII-Export.md` | https://github.com/wachin/DrumBurp/wiki/ASCII-Export |
 | `Keyboard-Shortcuts.md` | https://github.com/wachin/DrumBurp/wiki/Keyboard-Shortcuts |
 | `Internationalization.md` | https://github.com/wachin/DrumBurp/wiki/Internationalization |
 | `Building-from-Source.md` | https://github.com/wachin/DrumBurp/wiki/Building-from-Source |
@@ -54,7 +56,4 @@ git push
 
 ## Pages still to write
 
-These pages are listed in `Home.md` but not yet created:
-
-- [ ] Drum Kit Editor
-- [ ] ASCII Export
+All pages are now written. The wiki is complete.

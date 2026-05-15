@@ -165,9 +165,9 @@ English (reference) and Spanish, with a clean path to add more languages.
 ## Phase 7 — Future
 
 - [x] GitHub Wiki created and live at https://github.com/wachin/DrumBurp/wiki
-      — pages: Home, Getting Started, Score Properties, Lilypond Export,
-      MIDI Playback, Keyboard Shortcuts, Internationalization, Building from Source
-- [ ] Wiki pages still to write: Drum Kit Editor, ASCII Export
+      — all 8 pages written: Home, Getting Started, Score Properties,
+      Drum Kit Editor, Lilypond Export, MIDI Playback, ASCII Export,
+      Keyboard Shortcuts, Internationalization, Building from Source
 - [ ] French (`fr`), German (`de`), Portuguese (`pt`) translations
       (add to `drumburp.pro`, run `pylupdate5`, translate, `lrelease`)
 
