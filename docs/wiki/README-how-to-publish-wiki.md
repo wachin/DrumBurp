@@ -1,50 +1,60 @@
-# How to publish these files as a GitHub Wiki
+# GitHub Wiki — status and maintenance
 
-The files in this folder are the content for the DrumBurp GitHub Wiki.
-Each `.md` file becomes one wiki page.
+The wiki is live at: **https://github.com/wachin/DrumBurp/wiki**
 
-## Step 1 — Enable the Wiki on GitHub
+The files in this `docs/wiki/` folder are the source for the wiki pages.
+Edit them here, then copy the updated content to the wiki.
 
-1. Go to https://github.com/wachin/DrumBurp
-2. Click **Settings** (top right tab)
-3. Scroll down to **Features**
-4. Check **Wikis**
-5. Simply marking that is enough, is enabled.
+---
 
-## Step 2 — Create the first page
+## Wiki pages
 
-1. Go to https://github.com/wachin/DrumBurp/wiki
-2. Click **Create the first page**
-3. The page name must be **Home** (this is the wiki front page)
-4. Copy the content of `docs/wiki/Home.md` into the editor
-5. Click **Save Page**
+| File in docs/wiki/ | Wiki URL |
+|--------------------|----------|
+| `Home.md` | https://github.com/wachin/DrumBurp/wiki |
+| `Getting-Started.md` | https://github.com/wachin/DrumBurp/wiki/Getting-Started |
+| `Score-Properties-and-Metadata.md` | https://github.com/wachin/DrumBurp/wiki/Score-Properties-and-Metadata |
+| `Lilypond-Export.md` | https://github.com/wachin/DrumBurp/wiki/Lilypond-Export |
+| `MIDI-Playback.md` | https://github.com/wachin/DrumBurp/wiki/MIDI-Playback |
+| `Keyboard-Shortcuts.md` | https://github.com/wachin/DrumBurp/wiki/Keyboard-Shortcuts |
+| `Internationalization.md` | https://github.com/wachin/DrumBurp/wiki/Internationalization |
+| `Building-from-Source.md` | https://github.com/wachin/DrumBurp/wiki/Building-from-Source |
 
-## Step 3 — Add the remaining pages
+---
 
-For each file below, click **New Page** on the wiki, use the filename
-(without `.md`) as the page title, and paste the content:
+## Updating a wiki page
 
-|                File                |        Wiki page title        |
-| ---------------------------------- | ----------------------------- |
-| `Getting-Started.md`               | Getting Started               |
-| `Score-Properties-and-Metadata.md` | Score Properties and Metadata |
-| `Lilypond-Export.md`               | Lilypond Export               |
-| `MIDI-Playback.md`                 | MIDI Playback                 |
-| `Keyboard-Shortcuts.md`            | Keyboard Shortcuts            |
-| `Internationalization.md`          | Internationalization (i18n)   |
-| `Building-from-Source.md`          | Building from Source          |
+**Option A — Edit directly on GitHub:**
+1. Go to the wiki page URL above
+2. Click the **Edit** pencil icon
+3. Make your changes and save
 
-## Step 4 — Clone the wiki for easier editing (optional)
-
-GitHub Wikis are Git repositories. You can clone and push directly:
+**Option B — Clone the wiki repo (faster for multiple pages):**
 
 ```bash
 git clone https://github.com/wachin/DrumBurp.wiki.git
 cd DrumBurp.wiki
-# Copy files from docs/wiki/ here, then:
+
+# Copy updated files from docs/wiki/
+cp ../DrumBurp/docs/wiki/Getting-Started.md .
+
 git add .
-git commit -m "Add wiki pages"
+git commit -m "Update Getting Started page"
 git push
 ```
 
-This is the fastest way to publish all pages at once.
+---
+
+## Adding a new wiki page
+
+1. Add a new `.md` file to `docs/wiki/` in this repository
+2. Either create it on the GitHub wiki UI, or clone the wiki repo and push
+
+---
+
+## Pages still to write
+
+These pages are listed in `Home.md` but not yet created:
+
+- [ ] Drum Kit Editor
+- [ ] ASCII Export

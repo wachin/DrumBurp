@@ -44,6 +44,8 @@ para el usuario es: menos tiempo escribiendo, mas tiempo tocando.
 Fork de [DrumBurp](https://github.com/Whatang/DrumBurp) por Washington Indacochea Delgado.  
 Port completo de PyQt4/Python 2 a PyQt5/Python 3, probado en Debian 12 / MX Linux 23 / UbuntuStudio.
 
+📖 **[Manual completo → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**
+
 ## Instalar dependencias
 
 ```bash
@@ -138,6 +140,9 @@ killall timidity
 - Version actualizada a 1.1.3
 
 Ver `migration_report_pyqt5_ES.md` para el detalle tecnico completo.
+
+📖 **[Manual completo → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**  
+🐛 **[Reportar problemas](https://github.com/wachin/DrumBurp/issues)**
 
 ## Licencia
 
