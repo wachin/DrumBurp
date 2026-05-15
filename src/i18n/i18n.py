@@ -26,10 +26,11 @@ or:
 
 import os
 import sys
-from PyQt5.QtCore import QTranslator, QCoreApplication
+from PyQt5.QtCore import QTranslator, QCoreApplication, QLibraryInfo
 
-# The single translator instance — kept alive for the lifetime of the app.
+# The translator instances — kept alive for the lifetime of the app.
 _translator = None
+_qt_translator = None
 
 
 def _i18n_dir():
@@ -73,6 +74,15 @@ def install_translator(app, language=None):
     _translator = QTranslator(app)
     if _translator.load(qm_path):
         QCoreApplication.installTranslator(_translator)
+
+        # Also load Qt's own built-in translation for standard widgets
+        # (QDialogButtonBox buttons: OK, Cancel, etc.)
+        global _qt_translator
+        _qt_translator = QTranslator(app)
+        qt_qm = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+        if _qt_translator.load("qtbase_" + language, qt_qm):
+            QCoreApplication.installTranslator(_qt_translator)
+
         return language
 
     return None

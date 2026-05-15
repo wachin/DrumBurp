@@ -36,7 +36,24 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         text = str(self.copyrightLabel.text())
         text += ' ' + self.tr("This is version %s.") % version
         self.copyrightLabel.setText(text)
+        self._setTechnologiesText()
         self._addPortCredit()
+
+    def _setTechnologiesText(self):
+        """Set the Technologies label text so it is picked up by tr()."""
+        from PyQt5.QtCore import Qt
+        self.label_4.setTextFormat(Qt.RichText)
+        self.label_4.setOpenExternalLinks(True)
+        self.label_4.setWordWrap(True)
+        self.label_4.setText(
+            '<p style="font-size:8pt;">'
+            + self.tr(
+                'DrumBurp is built using '
+                '<a href="http://www.python.org">Python</a> 3, '
+                '<a href="http://www.riverbankcomputing.co.uk">PyQt</a> 5 '
+                'and <a href="http://www.pygame.org">PyGame</a>.')
+            + '</p>'
+        )
 
     def _addPortCredit(self):
         from PyQt5.QtWidgets import QLabel, QSizePolicy
@@ -46,13 +63,13 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         bold = QFont()
         bold.setBold(True)
 
-        label_title = QLabel(self.tr("PyQt4 \u2192 PyQt5 Port"))
+        label_title = QLabel(self.tr("PyQt4 -> PyQt5 Port"))
         label_title.setFont(bold)
         label_title.setAlignment(Qt.AlignCenter)
 
         label_info = QLabel(
             '<p style="font-size:8pt;">'
-            + self.tr('Ported to Python\u00a03 and PyQt5 by '
+            + self.tr('Ported to Python 3 and PyQt5 by '
                       'Washington Indacochea Delgado '
                       '(<a href="mailto:linuxfrontier@proton.me">'
                       'linuxfrontier@proton.me</a>).')
@@ -64,9 +81,7 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         sp = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         label_info.setSizePolicy(sp)
 
-        # Insert before the button box row (row 10) — use row 10, shift box down
         layout = self.gridLayout
-        # Find the button box row and move it one row down
         layout.removeWidget(self.buttonBox)
         layout.addWidget(label_title, 10, 0, 1, 1)
         layout.addWidget(label_info,  10, 2, 1, 1)

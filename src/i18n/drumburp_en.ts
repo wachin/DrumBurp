@@ -104,12 +104,27 @@
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="49" />
         <source>PyQt4 u2192 PyQt5 Port</source>
-        <translation>PyQt4 u2192 PyQt5 Port</translation>
+        <translation>PyQt4 -&gt; PyQt5 Port</translation>
     </message>
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="53" />
         <source>Ported to Pythonu00a03 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</source>
-        <translation>Ported to Pythonu00a03 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</translation>
+        <translation type="obsolete">Ported to Pythonu00a03 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBInfoDialog.py" line="48" />
+        <source>DrumBurp is built using &lt;a href="http://www.python.org"&gt;Python&lt;/a&gt; 3, &lt;a href="http://www.riverbankcomputing.co.uk"&gt;PyQt&lt;/a&gt; 5 and &lt;a href="http://www.pygame.org"&gt;PyGame&lt;/a&gt;.</source>
+        <translation>DrumBurp is built using &lt;a href="http://www.python.org"&gt;Python&lt;/a&gt; 3, &lt;a href="http://www.riverbankcomputing.co.uk"&gt;PyQt&lt;/a&gt; 5 and &lt;a href="http://www.pygame.org"&gt;PyGame&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBInfoDialog.py" line="66" />
+        <source>PyQt4 -&gt; PyQt5 Port</source>
+        <translation>PyQt4 -&gt; PyQt5 Port</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBInfoDialog.py" line="70" />
+        <source>Ported to Python 3 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</source>
+        <translation>Ported to Python 3 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</translation>
     </message>
 </context>
 <context>

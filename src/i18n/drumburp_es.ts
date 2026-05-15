@@ -94,7 +94,7 @@
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="35" />
         <source>DrumBurp v%s Information</source>
-        <translation>Informacion de DrumBurp v%s</translation>
+        <translation>Información de DrumBurp v%s</translation>
     </message>
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="37" />
@@ -109,7 +109,22 @@
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="53" />
         <source>Ported to Pythonu00a03 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</source>
-        <translation>Portado a Python 3 y PyQt5 por Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</translation>
+        <translation type="obsolete">Portado a Python 3 y PyQt5 por Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBInfoDialog.py" line="48" />
+        <source>DrumBurp is built using &lt;a href="http://www.python.org"&gt;Python&lt;/a&gt; 3, &lt;a href="http://www.riverbankcomputing.co.uk"&gt;PyQt&lt;/a&gt; 5 and &lt;a href="http://www.pygame.org"&gt;PyGame&lt;/a&gt;.</source>
+        <translation>DrumBurp está construido con &lt;a href="http://www.python.org"&gt;Python&lt;/a&gt; 3, &lt;a href="http://www.riverbankcomputing.co.uk"&gt;PyQt&lt;/a&gt; 5 y &lt;a href="http://www.pygame.org"&gt;PyGame&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBInfoDialog.py" line="66" />
+        <source>PyQt4 -&gt; PyQt5 Port</source>
+        <translation>Port de PyQt4 a PyQt5</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBInfoDialog.py" line="70" />
+        <source>Ported to Python 3 and PyQt5 by Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</source>
+        <translation>Portado a Python 3 y PyQt5 por Washington Indacochea Delgado (&lt;a href="mailto:linuxfrontier@proton.me"&gt;linuxfrontier@proton.me&lt;/a&gt;).</translation>
     </message>
 </context>
 <context>
