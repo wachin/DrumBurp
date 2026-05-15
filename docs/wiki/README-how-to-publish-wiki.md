@@ -9,7 +9,7 @@ Each `.md` file becomes one wiki page.
 2. Click **Settings** (top right tab)
 3. Scroll down to **Features**
 4. Check **Wikis**
-5. Click **Save**
+5. Simply marking that is enough, is enabled.
 
 ## Step 2 — Create the first page
 
@@ -24,15 +24,15 @@ Each `.md` file becomes one wiki page.
 For each file below, click **New Page** on the wiki, use the filename
 (without `.md`) as the page title, and paste the content:
 
-| File | Wiki page title |
-|------|----------------|
-| `Getting-Started.md` | Getting Started |
+|                File                |        Wiki page title        |
+| ---------------------------------- | ----------------------------- |
+| `Getting-Started.md`               | Getting Started               |
 | `Score-Properties-and-Metadata.md` | Score Properties and Metadata |
-| `Lilypond-Export.md` | Lilypond Export |
-| `MIDI-Playback.md` | MIDI Playback |
-| `Keyboard-Shortcuts.md` | Keyboard Shortcuts |
-| `Internationalization.md` | Internationalization (i18n) |
-| `Building-from-Source.md` | Building from Source |
+| `Lilypond-Export.md`               | Lilypond Export               |
+| `MIDI-Playback.md`                 | MIDI Playback                 |
+| `Keyboard-Shortcuts.md`            | Keyboard Shortcuts            |
+| `Internationalization.md`          | Internationalization (i18n)   |
+| `Building-from-Source.md`          | Building from Source          |
 
 ## Step 4 — Clone the wiki for easier editing (optional)
 
