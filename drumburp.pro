@@ -25,6 +25,7 @@ SOURCES = src/DrumBurp.py \
           src/GUI/QMeasureContextMenu.py \
           src/GUI/QMeasureLine.py \
           src/GUI/QMenuIgnoreCancelClick.py \
+          src/GUI/QMetaData.py \
           src/GUI/QMetaDataDialog.py \
           src/GUI/QNewScoreDialog.py \
           src/GUI/QNotationScene.py \

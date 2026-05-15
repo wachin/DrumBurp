@@ -26,6 +26,7 @@ from GUI.QMetaDataDialog import QMetadataDialog
 from GUI.QGraphicsListData import QGraphicsListData
 
 from Data.DBConstants import SWING_TO_TEXT
+from PyQt5.QtCore import QCoreApplication
 
 
 class QMetaData(QGraphicsListData):
@@ -35,19 +36,19 @@ class QMetaData(QGraphicsListData):
         line = str(self._qScore.title)
         if self._qScore.artistVisible and self._qScore.artist:
             if line:
-                line += ", by " + self._qScore.artist
+                line += QCoreApplication.translate("QMetaData", ", by ") + self._qScore.artist
             else:
                 line = self._qScore.artist
         if self._qScore.bpmVisible and self._qScore.bpm:
             if line:
-                line += " (%d bpm)" % self._qScore.bpm
+                line += QCoreApplication.translate("QMetaData", " (%d bpm)") % self._qScore.bpm
             else:
-                line += "%d bpm" % self._qScore.bpm
+                line += QCoreApplication.translate("QMetaData", "%d bpm") % self._qScore.bpm
         yield line
         if self._qScore.creatorVisible and self._qScore.creator:
-            yield "Tabbed by " + self._qScore.creator
+            yield QCoreApplication.translate("QMetaData", "Tabbed by ") + self._qScore.creator
         if self._qScore.swing:
-            yield "Swung " + SWING_TO_TEXT[self._qScore.swing]
+            yield QCoreApplication.translate("QMetaData", "Swung ") + SWING_TO_TEXT[self._qScore.swing]
 
     def _dataLen(self):
         total = 1

@@ -104,7 +104,7 @@
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="49" />
         <source>PyQt4 u2192 PyQt5 Port</source>
-        <translation>Port de PyQt4 a PyQt5</translation>
+        <translation type="obsolete">Port de PyQt4 a PyQt5</translation>
     </message>
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="53" />
@@ -2315,6 +2315,34 @@ Continuar?</translation>
         <location filename="../GUI/QMeasureLine.py" line="118" />
         <source>Right-click for barline options.</source>
         <translation>Clic derecho para opciones de barra de compas.</translation>
+    </message>
+</context>
+<context>
+    <name>QMetaData</name>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="39" />
+        <source>, by </source>
+        <translation>, por </translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="44" />
+        <source> (%d bpm)</source>
+        <translation> (%d bpm)</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="46" />
+        <source>%d bpm</source>
+        <translation>%d bpm</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="49" />
+        <source>Tabbed by </source>
+        <translation>Tablatura por </translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="51" />
+        <source>Swung </source>
+        <translation>Con swing </translation>
     </message>
 </context>
 <context>

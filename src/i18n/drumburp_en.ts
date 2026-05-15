@@ -104,7 +104,7 @@
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="49" />
         <source>PyQt4 u2192 PyQt5 Port</source>
-        <translation>PyQt4 -&gt; PyQt5 Port</translation>
+        <translation type="obsolete">PyQt4 -&gt; PyQt5 Port</translation>
     </message>
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="53" />
@@ -2377,6 +2377,34 @@ Continue?</translation>
         <location filename="../GUI/QMeasureLine.py" line="118" />
         <source>Right-click for barline options.</source>
         <translation>Right-click for barline options.</translation>
+    </message>
+</context>
+<context>
+    <name>QMetaData</name>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="39" />
+        <source>, by </source>
+        <translation>, by </translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="44" />
+        <source> (%d bpm)</source>
+        <translation> (%d bpm)</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="46" />
+        <source>%d bpm</source>
+        <translation>%d bpm</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="49" />
+        <source>Tabbed by </source>
+        <translation>Tabbed by </translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMetaData.py" line="51" />
+        <source>Swung </source>
+        <translation>Swung </translation>
     </message>
 </context>
 <context>

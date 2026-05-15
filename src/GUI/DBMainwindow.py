@@ -460,12 +460,12 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     def okToContinue(self):
         if self.scoreScene.dirty:
-            reply = QMessageBox.question(self,
-                                         self.tr("DrumBurp - Unsaved Changes"),
-                                         self.tr("Save unsaved changes?"),
-                                         QMessageBox.Yes,
-                                         QMessageBox.No,
-                                         QMessageBox.Cancel)
+            reply = QMessageBox.question(
+                self,
+                self.tr("DrumBurp - Unsaved Changes"),
+                self.tr("Save unsaved changes?"),
+                QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
+                QMessageBox.Cancel)
             if reply == QMessageBox.Cancel:
                 return False
             elif reply == QMessageBox.Yes:
@@ -478,7 +478,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                     failReply = QMessageBox.warning(self,
                                                     self.tr("Failed Save!"),
                                                     msg,
-                                                    QMessageBox.Yes,
+                                                    QMessageBox.Yes | QMessageBox.No,
                                                     QMessageBox.No)
                     return failReply == QMessageBox.Yes
         return True
