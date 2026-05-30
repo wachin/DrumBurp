@@ -1,0 +1,11 @@
+
+
+/Dev/DrumBurp/src/Data/DefaultKits.py
+/Dev/DrumBurp/src/Data/DrumKit.py
+/Dev/DrumBurp/src/Data/DrumKitFactory.py
+/Dev/DrumBurp/src/Data/DrumKitSerializer.py
+/Dev/DrumBurp/src/Data/fileUtils.py
+/Dev/DrumBurp/src/Data/FontOptions.py
+
+/Dev/DrumBurp/src/test/testdata/v1
+/Dev/DrumBurp/src/test/testdata/v0
