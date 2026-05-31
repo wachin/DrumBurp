@@ -141,7 +141,7 @@ La migracion de PyQt4 a PyQt5 esta completa. El programa:
 - [x] Exporta a PDF via LilyPond 2.24
 - [x] Exporta ASCII
 - [x] Imprime
-- [x] 373 tests unitarios pasan
+- [x] 374 tests unitarios pasan
 
 ---
 
@@ -276,7 +276,8 @@ Mapa de recursos por archivo:
 | `QNotationScene.py` | `:/heads/` | `import buttons_rc` |
 
 Nota: `GUI/QtResourceCompat.py` fue el mecanismo temporal mientras los `*_rc.py`
-eran stubs no-op. Ya no se usa — puede eliminarse en una limpieza futura.
+eran stubs no-op. Fue eliminado despues de restaurar los recursos reales con
+`pyrcc5` y confirmar que no quedaban referencias en el codigo fuente.
 
 ---
 
@@ -433,7 +434,7 @@ eran stubs no-op. Ya no se usa — puede eliminarse en una limpieza futura.
 ## Suite de tests Python 3 — todos corregidos
 
 Comando: `PYTHONPATH=src python3 -m unittest discover -s src/test`  
-Resultado: **373 tests, todos OK**
+Resultado: **374 tests, todos OK**
 
 - [x] `testNotePosition.py` — `__cmp__`/`cmp()` → metodos de comparacion Python 3.
 - [x] `testMeasureCount.py` — division entera; `swing` opcional.
@@ -458,7 +459,7 @@ grep -R "from PyQt4\|import PyQt4" -n src build .github pylintrc --exclude-dir=_
 # Sin errores = todo compila
 python3 -m py_compile $(find src -name '*.py' -not -path '*/__pycache__/*')
 
-# 373 tests OK
+# 374 tests OK
 PYTHONPATH=src python3 -m unittest discover -s src/test
 
 # App arranca sin traceback
@@ -467,11 +468,14 @@ PYTHONPATH=src python3 -m unittest discover -s src/test
 
 ---
 
-## Pendientes menores (no bloquean el uso)
+## Seguimiento menor (no bloquea el uso)
 
-- [ ] Eliminar `src/GUI/QtResourceCompat.py` — ya no se usa, es codigo muerto.
-- [ ] Validacion manual extendida: edicion de kits, exportacion MIDI, impresion
-      en papel fisico, apertura de archivos `.brp` de versiones antiguas.
+- [x] Eliminado `src/GUI/QtResourceCompat.py` — ya no se usa, era codigo muerto.
+- [x] La cobertura automatizada ahora carga y reserializa los fixtures `.brp`
+      en `src/test/testdata/v0` y `src/test/testdata/v1`.
+- [x] Agregada prueba automatizada basica de exportacion MIDI con un score real.
+- [ ] Sigue recomendada la validacion manual extendida: edicion de kits en la
+      GUI, escuchar exportacion/reproduccion MIDI, e impresion en papel fisico.
 
 ---
 

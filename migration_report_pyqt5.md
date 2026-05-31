@@ -141,7 +141,7 @@ The migration from PyQt4 to PyQt5 is complete. The program:
 - [x] Exports to PDF via LilyPond 2.24
 - [x] Exports ASCII
 - [x] Prints
-- [x] 373 unit tests pass
+- [x] 374 unit tests pass
 
 ---
 
@@ -276,7 +276,8 @@ Resource map by file:
 | `QNotationScene.py` | `:/heads/` | `import buttons_rc` |
 
 Note: `GUI/QtResourceCompat.py` was the temporary mechanism while the `*_rc.py`
-files were no-op stubs. It is no longer used and can be removed in a future cleanup.
+files were no-op stubs. It was removed after the real `pyrcc5` resources were
+restored and no source references remained.
 
 ---
 
@@ -433,7 +434,7 @@ files were no-op stubs. It is no longer used and can be removed in a future clea
 ## Python 3 test suite — all fixed
 
 Command: `PYTHONPATH=src python3 -m unittest discover -s src/test`  
-Result: **373 tests, all OK**
+Result: **374 tests, all OK**
 
 - [x] `testNotePosition.py` — `__cmp__`/`cmp()` → Python 3 comparison methods.
 - [x] `testMeasureCount.py` — integer division; `swing` made optional.
@@ -458,7 +459,7 @@ grep -R "from PyQt4\|import PyQt4" -n src build .github pylintrc --exclude-dir=_
 # No errors = everything compiles
 python3 -m py_compile $(find src -name '*.py' -not -path '*/__pycache__/*')
 
-# 373 tests OK
+# 374 tests OK
 PYTHONPATH=src python3 -m unittest discover -s src/test
 
 # App starts without traceback
@@ -467,11 +468,14 @@ PYTHONPATH=src python3 -m unittest discover -s src/test
 
 ---
 
-## Minor pending items (do not block usage)
+## Minor follow-up items (do not block usage)
 
-- [ ] Remove `src/GUI/QtResourceCompat.py` — no longer used, dead code.
-- [ ] Extended manual testing: kit editing, MIDI export, printing on physical
-      paper, opening `.brp` files from older versions.
+- [x] Removed `src/GUI/QtResourceCompat.py` — no longer used, dead code.
+- [x] Automated old-file coverage now loads and round-trips the `.brp` fixtures
+      in `src/test/testdata/v0` and `src/test/testdata/v1`.
+- [x] Automated MIDI export smoke test added for a real score fixture.
+- [ ] Extended manual testing still recommended: GUI kit editing, listening to
+      MIDI export/playback, and printing on physical paper.
 
 ---
 

@@ -34,6 +34,9 @@ from Data import DBErrors
 from Data import fileUtils
 
 
+TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
+
+
 class TestScoreSerializerGeneral(unittest.TestCase):
     def testReadTooHighVersionNumber(self):
         data = """DB_FILE_FORMAT 10000
@@ -295,8 +298,22 @@ class TestScoreSerializerV0(unittest.TestCase):
     class NoNoteheads(RuntimeError):
         pass
 
+    @staticmethod
+    def _normaliseBarline(line):
+        stripped = line.lstrip()
+        if not stripped.startswith("BARLINE "):
+            return None
+        indent = line[:len(line) - len(stripped)]
+        tokens = stripped[len("BARLINE "):].split(",")
+        tokens = [token for token in tokens if token != "NORMAL_BAR"]
+        return indent + "BARLINE " + ",".join(sorted(tokens))
+
     def _compareData(self, data, written):
         for line1, line2 in zip(data, written):
+            barline1 = self._normaliseBarline(line1)
+            barline2 = self._normaliseBarline(line2)
+            if barline1 is not None and barline1 == barline2:
+                continue
             try:
                 self.assertEqual(line1, line2)
             except AssertionError:
@@ -312,7 +329,7 @@ class TestScoreSerializerV0(unittest.TestCase):
                     raise self.NoLilyFill()
                 elif line2.startswith("  MEASURECOUNTSVISIBLE"):
                     raise self.MCounts()
-                elif "NORMAL_BAR," in line1:
+                elif "NORMAL_BAR," in line1 or "NORMAL_BAR," in line2:
                     raise self.Barline()
                 elif line1.lstrip().startswith("NOTEHEAD"):
                     raise self.ShortNoteHeads()
@@ -337,72 +354,76 @@ class TestScoreSerializerV0(unittest.TestCase):
         return data, written
 
     def testVersion0Files(self):
-        print("Version 0")
-        fileglob = os.path.join("testdata", "v0", "*.brp")
-        for testfile in glob.glob(fileglob):
-            print(testfile)
-            score = ScoreSerializer.loadScore(testfile)
-            written = StringIO()
-            ScoreSerializer.write(score, written, DBConstants.DBFF_0)
-            with fileUtils.DataReader(testfile) as reader:
-                data = reader.read().splitlines()
-            written = written.getvalue().splitlines()
-            while True:
-                try:
-                    self._compareData(data, written)
-                    break
-                except self.NoFF:
-                    written = written[1:]
-                except self.MCounts:
-                    written = [x for x in written
-                               if not x.lstrip().startswith("MEASURECOUNTSVISIBLE")]
-                except self.Barline:
-                    data = [x.replace('NORMAL_BAR,', '') for x in data]
-                except self.NoLilyFormat:
-                    written = [x for x in written
-                               if not x.lstrip().startswith("LILYFORMAT")]
-                except self.NoLilySize:
-                    written = [x for x in written
-                               if not x.lstrip().startswith("LILYSIZE")]
-                except self.NoLilyPages:
-                    written = [x for x in written
-                               if not x.lstrip().startswith("LILYPAGES")]
-                except self.NoLilyFill:
-                    written = [x for x in written
-                               if not x.lstrip().startswith("LILYFILL")]
-                except self.ShortNoteHeads:
-                    data, written = self._tidyShortNoteHeads(data, written)
-                except self.OldTriplets:
-                    data = [x.replace("|^ea|", "|^+a|") for x in data]
-                except self.NoNoteheads:
-                    written = [x for x in written if "NOTEHEAD" not in x]
-                    data = [x for x in data if "NOTEHEAD" not in x]
+        fileglob = os.path.join(TESTDATA_DIR, "v0", "*.brp")
+        testfiles = glob.glob(fileglob)
+        self.assertTrue(testfiles)
+        for testfile in testfiles:
+            with self.subTest(testfile=testfile):
+                score = ScoreSerializer.loadScore(testfile)
+                written = StringIO()
+                ScoreSerializer.write(score, written, DBConstants.DBFF_0)
+                with fileUtils.DataReader(testfile) as reader:
+                    data = reader.read().splitlines()
+                written = written.getvalue().splitlines()
+                while True:
+                    try:
+                        self._compareData(data, written)
+                        break
+                    except self.NoFF:
+                        written = written[1:]
+                    except self.MCounts:
+                        written = [x for x in written
+                                   if not x.lstrip().startswith("MEASURECOUNTSVISIBLE")]
+                    except self.Barline:
+                        data = [x.replace('NORMAL_BAR,', '') for x in data]
+                        written = [x.replace('NORMAL_BAR,', '') for x in written]
+                    except self.NoLilyFormat:
+                        written = [x for x in written
+                                   if not x.lstrip().startswith("LILYFORMAT")]
+                    except self.NoLilySize:
+                        written = [x for x in written
+                                   if not x.lstrip().startswith("LILYSIZE")]
+                    except self.NoLilyPages:
+                        written = [x for x in written
+                                   if not x.lstrip().startswith("LILYPAGES")]
+                    except self.NoLilyFill:
+                        written = [x for x in written
+                                   if not x.lstrip().startswith("LILYFILL")]
+                    except self.ShortNoteHeads:
+                        data, written = self._tidyShortNoteHeads(data, written)
+                    except self.OldTriplets:
+                        data = [x.replace("|^ea|", "|^+a|") for x in data]
+                    except self.NoNoteheads:
+                        written = [x for x in written if "NOTEHEAD" not in x]
+                        data = [x for x in data if "NOTEHEAD" not in x]
 
 
 class TestScoreSerializerV1(unittest.TestCase):
     def testReadV0WriteV1ReadV1(self):
-        print("Read Version 0, Write Version 1")
-        fileglob = os.path.join("testdata", "v0", "*.brp")
-        for testfile in glob.glob(fileglob):
-            print(testfile)
-            score = ScoreSerializer.loadScore(testfile)
-            written = StringIO()
-            ScoreSerializer.write(score, written, DBConstants.DBFF_1)
-            written.seek(0)
-            score2 = ScoreSerializer.read(written)
-            self.assertEqual(score.hashScore(), score2.hashScore())
+        fileglob = os.path.join(TESTDATA_DIR, "v0", "*.brp")
+        testfiles = glob.glob(fileglob)
+        self.assertTrue(testfiles)
+        for testfile in testfiles:
+            with self.subTest(testfile=testfile):
+                score = ScoreSerializer.loadScore(testfile)
+                written = StringIO()
+                ScoreSerializer.write(score, written, DBConstants.DBFF_1)
+                written.seek(0)
+                score2 = ScoreSerializer.read(written)
+                self.assertEqual(score.hashScore(), score2.hashScore())
 
     def testReadV1WriteV1(self):
-        print("Read Version 1, Write Version 1")
-        fileglob = os.path.join("testdata", "v1", "*.brp")
-        for testfile in glob.glob(fileglob):
-            print(testfile)
-            score = ScoreSerializer.loadScore(testfile)
-            written = StringIO()
-            ScoreSerializer.write(score, written, DBConstants.DBFF_1)
-            written.seek(0)
-            score2 = ScoreSerializer.read(written)
-            self.assertEqual(score.hashScore(), score2.hashScore())
+        fileglob = os.path.join(TESTDATA_DIR, "v1", "*.brp")
+        testfiles = glob.glob(fileglob)
+        self.assertTrue(testfiles)
+        for testfile in testfiles:
+            with self.subTest(testfile=testfile):
+                score = ScoreSerializer.loadScore(testfile)
+                written = StringIO()
+                ScoreSerializer.write(score, written, DBConstants.DBFF_1)
+                written.seek(0)
+                score2 = ScoreSerializer.read(written)
+                self.assertEqual(score.hashScore(), score2.hashScore())
 
 
 class TestUnicode(unittest.TestCase):
