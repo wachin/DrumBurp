@@ -115,7 +115,8 @@ python3 src/DrumBurp.py
 
 # Run on Windows 10
 
-These instructions assume Python is already installed and available on `PATH`.
+First of all you need to install Python [Python](https://www.python.org/downloads/) and during setup select install to `PATH`
+
 Open **PowerShell** in the repository root and install the Python packages with
 `py -m pip`:
 

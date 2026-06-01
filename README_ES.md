@@ -1,5 +1,8 @@
 # DrumBurp
 
+- Copyright (C) 2011-2019 Michael Thomas  
+- Python 3 / PyQt5 fork and modifications (C) 2024-2026 Washington Indacochea Delgado  
+
 DrumBurp es una interfaz grafica simple para crear y editar notacion musical de bateria.
 
 El objetivo de DrumBurp es hacer que la experiencia de escribir musica para bateria sea
@@ -95,8 +98,9 @@ python3 src/DrumBurp.py
 
 ## Ejecutar en Windows
 
-Estas instrucciones asumen que Python ya esta instalado en Windows y disponible
-en `PATH`. Abre **PowerShell** en la carpeta de DrumBurp e instala las
+En primer lugar, necesitas instalar Python [Python](https://www.python.org/downloads/) y durante la instalación selecciona instalar en `PATH`.
+
+. Abre **PowerShell** en la carpeta de DrumBurp e instala las
 dependencias:
 
 ```powershell
