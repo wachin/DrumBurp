@@ -60,7 +60,8 @@ This is normal for many Python programs: Python reads the program files and runs
 them directly. In practice, once Python and the required packages are installed,
 the DrumBurp folder works much like a portable program folder. You can launch it
 from the folder with `./run-drumburp.sh` on Linux, with
-`run-drumburp.bat` on Windows, or with the Python commands shown below.
+`run-drumburp.bat` on Windows, with `run-drumburp.command` on macOS, or with the
+Python commands shown below.
 
 What still has to be installed depends on the operating system:
 
@@ -188,6 +189,14 @@ Run DrumBurp:
 ```bash
 export PYTHONPATH="$PWD/src"
 python src/DrumBurp.py
+```
+
+After installing the dependencies, you can also launch DrumBurp by
+double-clicking `run-drumburp.command` in the repository folder. If macOS says
+the launcher is not executable, run this once from Terminal:
+
+```bash
+chmod +x run-drumburp.command
 ```
 
 Optional features:

@@ -57,7 +57,8 @@ programa y los ejecuta directamente. En la practica, cuando Python y las
 dependencias necesarias ya estan instaladas, la carpeta de DrumBurp funciona de
 forma parecida a un programa portable. Se puede iniciar desde la carpeta con
 `./run-drumburp.sh` en Linux, con `run-drumburp.bat` en Windows, o con los
-comandos de Python indicados mas abajo.
+`run-drumburp.command` en macOS, o con los comandos de Python indicados mas
+abajo.
 
 Lo que hay que instalar depende del sistema operativo:
 
@@ -111,6 +112,41 @@ O manualmente desde PowerShell:
 ```powershell
 $env:PYTHONPATH = "$PWD\src"
 py .\src\DrumBurp.py
+```
+
+## Ejecutar en macOS
+
+Estas instrucciones son para probar DrumBurp desde el codigo fuente en macOS.
+Instala primero Python, por ejemplo con Homebrew:
+
+```bash
+brew install python
+```
+
+Desde la carpeta de DrumBurp, crea un entorno virtual e instala las dependencias:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install PyQt5 PyQt5-sip pygame
+```
+
+Despues de instalar las dependencias, puedes iniciar DrumBurp haciendo doble clic
+en `run-drumburp.command`.
+
+Si macOS indica que el lanzador no es ejecutable, ejecuta esto una sola vez desde
+Terminal:
+
+```bash
+chmod +x run-drumburp.command
+```
+
+O manualmente desde Terminal:
+
+```bash
+export PYTHONPATH="$PWD/src"
+python src/DrumBurp.py
 ```
 
 ## Reproduccion MIDI
