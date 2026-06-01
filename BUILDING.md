@@ -1,254 +1,257 @@
-# Compilar DrumBurp
+# Building DrumBurp
 
-Este documento explica como crear ejecutables de DrumBurp para Linux, Windows y
-macOS usando GitHub Actions. Esta pensado para alguien que nunca ha usado GitHub
-Actions.
+This document explains how to build DrumBurp executables for Linux, Windows, and
+macOS with GitHub Actions. It is written for developers who are comfortable with
+source code, but who may be new to this repository's release workflow.
 
-## Resumen corto
+For the Spanish walkthrough, see `BUILDING_ES.md`.
 
-Si el repositorio esta en GitHub, si tiene el archivo
-`.github/workflows/build.yml`, y si GitHub Actions esta activado, GitHub puede
-compilar DrumBurp automaticamente en sus propios servidores.
+## Short Summary
 
-El workflow actual crea:
+If the repository is hosted on GitHub, contains
+`.github/workflows/build.yml`, and GitHub Actions is enabled, GitHub can build
+DrumBurp automatically on GitHub-hosted virtual machines.
 
-- **Linux:** un binario autocontenido llamado `DrumBurp`.
-- **Windows:** un instalador `.exe` creado con NSIS.
-- **macOS:** un archivo `.zip` que contiene `DrumBurp.app`.
+The current workflow builds:
 
-No necesitas tener Linux, Windows y macOS instalados en tu computadora local para
-crear esos archivos. GitHub usa maquinas virtuales llamadas **runners**:
+- **Linux:** a standalone PyInstaller binary named `DrumBurp`.
+- **Windows:** an `.exe` installer created with NSIS.
+- **macOS:** a `.zip` containing `DrumBurp.app`.
 
-- `ubuntu-latest` para Linux
-- `windows-latest` para Windows
-- `macos-15-intel` para macOS Intel/x64
+You do not need all three operating systems installed locally to produce these
+release files. GitHub uses hosted runners:
 
-Documentacion oficial de GitHub:
+- `ubuntu-latest` for Linux
+- `windows-latest` for Windows
+- `macos-15-intel` for macOS Intel/x64
+
+Useful official GitHub documentation:
 
 - GitHub-hosted runners: <https://docs.github.com/actions/reference/runners/github-hosted-runners>
-- Permisos de `GITHUB_TOKEN`: <https://docs.github.com/actions/security-for-github-actions/security-guides/automatic-token-authentication>
+- `GITHUB_TOKEN` permissions: <https://docs.github.com/actions/security-for-github-actions/security-guides/automatic-token-authentication>
 
-## Que archivos participan
+## Relevant Files
 
 ### `.github/workflows/build.yml`
 
-Es la receta principal de GitHub Actions. Le dice a GitHub:
+This is the main GitHub Actions workflow. It tells GitHub:
 
-1. En que sistemas operativos compilar.
-2. Que version de Python instalar.
-3. Que dependencias instalar.
-4. Que pruebas ejecutar.
-5. Que scripts de `build/` ejecutar.
-6. Que archivos guardar como artefactos.
-7. Que archivos subir a una Release cuando se empuja un tag.
+1. Which operating systems to build on.
+2. Which Python version to install.
+3. Which dependencies to install.
+4. Which tests to run.
+5. Which scripts in `build/` to execute.
+6. Which files to keep as temporary artifacts.
+7. Which files to upload to a GitHub Release when a version tag is pushed.
 
 ### `build/`
 
-Contiene los scripts usados por el workflow:
+The `build/` directory contains the scripts used by the workflow:
 
-- `build/build_linux.sh` crea el binario Linux con PyInstaller.
-- `build/build_windows.ps1` crea la carpeta Windows con PyInstaller y luego el
-  instalador `.exe` con NSIS.
-- `build/build_macos.sh` crea `DrumBurp.app` con PyInstaller y lo empaqueta en
-  un `.zip`.
-- `build/install_macos.sh` instala dependencias de build en macOS con Homebrew
-  y `pip`.
-- `build/requirements-linux.txt` lista paquetes Python para construir en Linux.
-- `build/requirements-windows.txt` lista paquetes Python para construir en
-  Windows.
-- `build/requirements-macos.txt` lista paquetes Python para construir en macOS.
-- `build/DrumBurp.nsi` es la receta del instalador Windows.
+- `build/build_linux.sh` builds the Linux binary with PyInstaller.
+- `build/build_windows.ps1` builds the Windows PyInstaller output and packages
+  it into an NSIS installer.
+- `build/build_macos.sh` builds `DrumBurp.app` with PyInstaller and packages it
+  into a `.zip`.
+- `build/install_linux.sh` installs local Linux build dependencies.
+- `build/install_windows.ps1` installs local Windows build dependencies.
+- `build/install_macos.sh` installs local macOS build dependencies.
+- `build/requirements-linux.txt` lists Python packages for Linux builds.
+- `build/requirements-windows.txt` lists Python packages for Windows builds.
+- `build/requirements-macos.txt` lists Python packages for macOS builds.
+- `build/DrumBurp.nsi` is the NSIS installer script for Windows.
 
 ### `.versionflow`
 
-Configura `versionflow`, la herramienta usada para mantener sincronizado el
-numero de version en:
+This configures `versionflow`, the helper used to keep the version number in
+sync across:
 
 - `VERSION`
 - `src/DBVersionNum.py`
 - `build/DrumBurp.nsi`
 
-El valor `current_version` debe coincidir con la version actual del proyecto.
+The `current_version` value should match the current project version.
 
-## Que ocurre cuando haces push
+## Push Behavior
 
-El workflow se ejecuta con `on: push`, es decir, cada vez que subes commits o
-tags al repositorio.
+The workflow runs on `push`, so it starts when commits or tags are pushed to
+GitHub.
 
-| Que subes a GitHub | Que hace Actions |
+| What you push | What GitHub Actions does |
 |---|---|
-| Un commit a una rama normal, por ejemplo `dev` | Compila y prueba Linux, Windows y macOS. Guarda los resultados como artefactos temporales. |
-| Un tag con formato `v1.1.3`, `v1.1.4`, etc. | Compila, prueba y crea una GitHub Release con los archivos adjuntos. |
-| Un commit directo a `master` | El workflow esta configurado para no compilar commits directos a `master`. |
+| A commit to a normal branch, for example `dev` | Builds and tests Linux, Windows, and macOS. Stores temporary artifacts. |
+| A tag like `v1.1.3` or `v1.1.4` | Builds, tests, and creates a GitHub Release with attached files. |
+| A direct commit to `master` | The workflow is configured to skip direct `master` branch pushes. |
 
-## Artefactos vs Releases
+## Artifacts vs Releases
 
-GitHub Actions usa dos conceptos parecidos pero distintos.
+GitHub Actions has two related but different output types.
 
-### Artefactos
+### Artifacts
 
-Son archivos temporales generados por una ejecucion del workflow. Sirven para
-probar o descargar una compilacion sin publicar una version oficial.
+Artifacts are temporary files produced by one workflow run. They are useful for
+testing a build before publishing an official version.
 
-En este proyecto los artefactos se guardan durante 7 dias:
+This repository stores artifacts for 7 days:
 
 - `db_linux`
 - `db_windows`
 - `db_macos`
 
-### Release
+### Releases
 
-Una Release es una publicacion oficial del proyecto en GitHub. Solo se crea
-cuando subes un tag que empieza con `v`, por ejemplo:
+A Release is an official GitHub publication. This workflow creates a Release
+only when a tag beginning with `v` is pushed, for example:
 
 ```bash
 git tag v1.1.3
 git push origin v1.1.3
 ```
 
-La Release adjunta estos archivos:
+The Release uploads:
 
 - `DrumBurp-1.1.3.0-setup.exe`
 - `DrumBurp`
 - `DrumBurp-1.1.3-macOS-x64.zip`
 
-El numero `1.1.3` cambia segun el contenido de `VERSION` o el tag publicado.
+The version number changes according to `VERSION` and the pushed tag.
 
-## Primer uso de GitHub Actions
+## First-Time GitHub Actions Setup
 
-### 1. Activar Actions en GitHub
+### 1. Enable Actions
 
-En tu repositorio de GitHub:
+In your GitHub repository:
 
-1. Abre la pagina del repositorio.
-2. Entra en **Actions**.
-3. Si GitHub muestra un boton para activar workflows, aceptalo.
+1. Open the repository page.
+2. Click **Actions**.
+3. If GitHub asks whether you want to enable workflows, approve it.
 
-### 2. Dar permiso para crear Releases
+### 2. Allow Release Creation
 
-El workflow ya incluye:
+The workflow already contains:
 
 ```yaml
 permissions:
   contents: write
 ```
 
-Eso permite que el token automatico de GitHub pueda crear Releases y subir
-archivos. Si aun asi falla con error 403, revisa en GitHub:
+That allows GitHub's automatic token to create Releases and upload assets. If
+the Release job still fails with a 403 error, check the repository settings:
 
 1. **Settings**
 2. **Actions**
 3. **General**
 4. **Workflow permissions**
-5. Selecciona **Read and write permissions**
-6. Guarda los cambios
+5. Select **Read and write permissions**
+6. Save the change
 
-### 3. Probar primero con una rama
+### 3. Test on a Branch First
 
-Antes de crear una Release oficial, conviene probar que todo compile en una rama
-normal:
+Before publishing an official Release, push a normal development branch:
 
 ```bash
 git push origin dev
 ```
 
-Luego abre:
+Then open:
 
 ```text
-https://github.com/TU_USUARIO/DrumBurp/actions
+https://github.com/YOUR_USER/DrumBurp/actions
 ```
 
-Haz clic en la ejecucion nueva y revisa que los jobs terminen en verde.
+Open the newest run and confirm that all jobs finish successfully.
 
-## Publicar una Release
+## Publishing a Release
 
-### 1. Actualizar la version
+### 1. Update the Version
 
-La version debe coincidir en estos archivos:
+The version must match in:
 
 - `VERSION`
 - `src/DBVersionNum.py`
 - `build/DrumBurp.nsi`
 - `.versionflow`
 
-La forma preferida es usar `versionflow` desde un entorno de desarrollo donde
-este instalado:
+The preferred approach is to use `versionflow` from a development environment
+where the development dependencies are installed:
 
 ```bash
 pip install -r requirements-dev.txt
 ```
 
-Si actualizas manualmente, verifica que todos los archivos queden con el mismo
-numero.
+If you update the version manually, verify that all files contain the same
+version number.
 
-### 2. Confirmar los cambios
+### 2. Commit the Version Change
 
-Ejemplo:
+Example:
 
 ```bash
 git add VERSION src/DBVersionNum.py build/DrumBurp.nsi .versionflow
 git commit -m "Bump version to 1.1.4"
 ```
 
-### 3. Crear el tag
+### 3. Create the Tag
 
-El tag debe empezar con `v`:
+The tag must start with `v`:
 
 ```bash
 git tag v1.1.4
 ```
 
-### 4. Subir la rama y el tag
+### 4. Push the Branch and Tag
 
 ```bash
 git push origin dev
 git push origin v1.1.4
 ```
 
-Cuando subes el tag, GitHub Actions compila Linux, Windows y macOS. Si las
-pruebas pasan, crea la Release y adjunta los ejecutables.
+Pushing the tag triggers the full build, test, and release flow. If all test
+jobs pass, GitHub creates the Release and uploads the executables.
 
-## Que hace cada job
+## Workflow Jobs
 
 ### `build_linux`
 
-Se ejecuta en `ubuntu-latest`.
+Runs on `ubuntu-latest`.
 
-1. Descarga el codigo.
-2. Instala Python 3.11.
-3. Instala herramientas de Qt necesarias para compilar traducciones.
-4. Instala dependencias Python desde `build/requirements-linux.txt`.
-5. Compila traducciones `.qm`.
-6. Ejecuta las pruebas unitarias.
-7. Ejecuta `build/build_linux.sh`.
-8. Sube el binario `build/dist/DrumBurp` como artefacto `db_linux`.
+1. Checks out the source code.
+2. Installs Python 3.11.
+3. Installs Qt tools needed to compile translations.
+4. Installs Python dependencies from `build/requirements-linux.txt`.
+5. Compiles `.qm` translation files.
+6. Runs the unit tests.
+7. Runs `build/build_linux.sh`.
+8. Uploads `build/dist/DrumBurp` as the `db_linux` artifact.
 
 ### `test_linux`
 
-Descarga `db_linux` y ejecuta:
+Downloads `db_linux` and runs:
 
 ```bash
 DrumBurp --pyinstaller-test
 ```
 
-Esto comprueba que el binario arranca lo suficiente como para importar sus
-modulos principales.
+This checks that the PyInstaller binary starts far enough to import the main
+application modules.
 
 ### `build_windows`
 
-Se ejecuta en `windows-latest`.
+Runs on `windows-latest`.
 
-1. Descarga el codigo.
-2. Instala Python 3.11 x64.
-3. Instala NSIS.
-4. Instala dependencias Python desde `build/requirements-windows.txt`.
-5. Compila traducciones `.qm`.
-6. Ejecuta `build/build_windows.ps1`.
-7. Sube el instalador como artefacto `db_windows`.
+1. Checks out the source code.
+2. Installs Python 3.11 x64.
+3. Installs the MSVC 2008 redistributable.
+4. Installs NSIS.
+5. Installs Python dependencies from `build/requirements-windows.txt`.
+6. Adds PyQt5's Qt tools directory to `PATH`.
+7. Compiles `.qm` translation files.
+8. Runs `build/build_windows.ps1`.
+9. Uploads the installer as the `db_windows` artifact.
 
 ### `test_windows`
 
-Descarga el instalador, lo instala silenciosamente y ejecuta:
+Downloads the installer, installs it silently, and runs:
 
 ```cmd
 DrumBurp.exe --pyinstaller-test
@@ -256,20 +259,20 @@ DrumBurp.exe --pyinstaller-test
 
 ### `build_macos`
 
-Se ejecuta en `macos-15-intel`.
+Runs on `macos-15-intel`.
 
-1. Descarga el codigo.
-2. Instala Python 3.11 x64.
-3. Instala `qt` con Homebrew para disponer de `lrelease`.
-4. Instala dependencias Python desde `build/requirements-macos.txt`.
-5. Compila traducciones `.qm`.
-6. Ejecuta las pruebas unitarias.
-7. Ejecuta `build/build_macos.sh`.
-8. Sube `DrumBurp-VERSION-macOS-x64.zip` como artefacto `db_macos`.
+1. Checks out the source code.
+2. Installs Python 3.11 x64.
+3. Installs Homebrew's `qt` package to provide `lrelease`.
+4. Installs Python dependencies from `build/requirements-macos.txt`.
+5. Compiles `.qm` translation files.
+6. Runs the unit tests.
+7. Runs `build/build_macos.sh`.
+8. Uploads `DrumBurp-VERSION-macOS-x64.zip` as the `db_macos` artifact.
 
 ### `test_macos`
 
-Descarga el `.zip`, lo descomprime y ejecuta:
+Downloads the `.zip`, extracts it, and runs:
 
 ```bash
 DrumBurp.app/Contents/MacOS/DrumBurp --pyinstaller-test
@@ -277,57 +280,55 @@ DrumBurp.app/Contents/MacOS/DrumBurp --pyinstaller-test
 
 ### `release`
 
-Solo se ejecuta cuando el push es un tag que empieza con `v`.
+Runs only when the pushed ref is a tag beginning with `v`.
 
-Descarga los tres artefactos y crea una Release con:
+It downloads all three artifacts and creates a GitHub Release with:
 
-- el instalador Windows
-- el binario Linux
-- el `.zip` de macOS
+- the Windows installer
+- the Linux binary
+- the macOS `.zip`
 
-## Limitaciones importantes
+## Important Limitations
 
-### macOS no esta firmado ni notarizado
+### macOS Is Not Signed or Notarized
 
-El archivo `DrumBurp.app` generado por GitHub Actions no esta firmado con una
-cuenta de Apple Developer y no esta notarizado por Apple.
+The `DrumBurp.app` generated by GitHub Actions is not signed with an Apple
+Developer certificate and is not notarized by Apple.
 
-Eso significa que macOS puede mostrar una advertencia de seguridad la primera
-vez que el usuario intente abrirlo. Para una distribucion mas profesional en
-macOS haria falta:
+That means macOS may show a security warning the first time a user opens it. A
+more polished macOS distribution would require:
 
-1. Una cuenta de Apple Developer.
-2. Certificados de firma.
-3. Guardar esos certificados como secretos de GitHub Actions.
-4. Firmar la app.
-5. Notarizarla con Apple.
+1. An Apple Developer account.
+2. Signing certificates.
+3. GitHub Actions secrets for those certificates.
+4. Code signing.
+5. Apple notarization.
 
-Eso no es necesario para comprobar que el build funciona, pero si es importante
-si quieres distribuir una app macOS con menos advertencias para usuarios finales.
+This is not required to prove that the build works, but it matters for a
+smoother end-user macOS release.
 
-### El build macOS actual es x64
+### The Current macOS Build Is x64
 
-El workflow usa `macos-15-intel`, por eso genera una app para macOS Intel/x64.
-En Macs Apple Silicon puede funcionar mediante Rosetta, pero no es un binario
-ARM nativo.
+The workflow uses `macos-15-intel`, so it creates an Intel/x64 macOS app. On
+Apple Silicon Macs it may run through Rosetta, but it is not a native ARM build.
 
-Se puede agregar otro job para Apple Silicon en el futuro usando un runner ARM
-de macOS y publicando otro zip, por ejemplo `macOS-arm64`.
+A future workflow can add an Apple Silicon job and publish a second archive,
+for example `macOS-arm64`.
 
-### Linux no genera un `.deb`
+### Linux Does Not Create a `.deb`
 
-El build Linux actual genera un binario autocontenido de PyInstaller. No crea un
-paquete `.deb`, `.rpm`, AppImage ni Flatpak.
+The Linux build creates a standalone PyInstaller binary. It does not currently
+create a `.deb`, `.rpm`, AppImage, or Flatpak.
 
-### Windows genera un instalador
+### Windows Creates an Installer
 
-Windows usa PyInstaller para crear la aplicacion y NSIS para crear un instalador
-`.exe`. Ese instalador crea accesos directos y desinstalador.
+Windows uses PyInstaller to create the application directory and NSIS to create
+an `.exe` installer. The installer creates shortcuts and an uninstaller.
 
-## Construir localmente
+## Local Builds
 
-GitHub Actions es lo recomendado para releases, pero tambien puedes construir en
-tu maquina.
+GitHub Actions is recommended for releases, but local builds are still useful
+for debugging.
 
 ### Linux
 
@@ -336,7 +337,7 @@ bash build/install_linux.sh
 bash build/build_linux.sh
 ```
 
-Salida esperada:
+Expected output:
 
 ```text
 build/dist/DrumBurp
@@ -344,14 +345,14 @@ build/dist/DrumBurp
 
 ### Windows
 
-En PowerShell:
+In PowerShell:
 
 ```powershell
 .\build\install_windows.ps1
 .\build\build_windows.ps1
 ```
 
-Salida esperada:
+Expected output:
 
 ```text
 build\output\DrumBurp-X.Y.Z.0-setup.exe
@@ -366,48 +367,47 @@ bash build/install_macos.sh
 bash build/build_macos.sh
 ```
 
-Salida esperada:
+Expected output:
 
 ```text
 build/output/DrumBurp-X.Y.Z-macOS-x64.zip
 ```
 
-## Solucion de problemas
+## Troubleshooting
 
-### No aparece la pestaña Actions
+### The Actions Tab Does Not Appear
 
-Revisa que el repositorio este en GitHub y que exista el archivo:
+Check that the repository is on GitHub and that this file exists:
 
 ```text
 .github/workflows/build.yml
 ```
 
-### El workflow no crea Release
+### The Workflow Does Not Create a Release
 
-Comprueba que empujaste un tag que empieza con `v`:
+Confirm that you pushed a tag beginning with `v`:
 
 ```bash
 git tag -l
 git push origin v1.1.4
 ```
 
-### Error 403 al crear la Release
+### Release Fails with a 403 Error
 
-Revisa los permisos de Actions en **Settings -> Actions -> General -> Workflow
-permissions** y usa **Read and write permissions**.
+Check **Settings -> Actions -> General -> Workflow permissions** and use
+**Read and write permissions**.
 
-### Falla `lrelease`
+### `lrelease` Fails
 
-`lrelease` compila las traducciones de Qt (`.ts` a `.qm`).
+`lrelease` compiles Qt translation files from `.ts` to `.qm`.
 
-- En Linux se instala con `qttools5-dev-tools`.
-- En macOS se instala con `brew install qt`.
-- En Windows normalmente viene disponible en el entorno preparado por PyQt5/Qt;
-  si falla, instala las herramientas de Qt o revisa que `lrelease.exe` este en
-  el `PATH`.
+- On Linux it comes from `qttools5-dev-tools`.
+- On macOS it comes from `brew install qt`.
+- On Windows it is usually found in PyQt5's Qt tools directory after installing
+  PyQt5 with `pip`.
 
-### Falla PyInstaller
+### PyInstaller Fails
 
-Revisa el log del job que fallo. PyInstaller suele fallar por una dependencia no
-incluida, un archivo de datos faltante o un import oculto. Los scripts de
-`build/` son el primer lugar donde ajustar esos detalles.
+Read the failed job log first. PyInstaller failures are usually caused by a
+missing dependency, missing data file, or hidden import. The scripts in `build/`
+are the first place to adjust those settings.
