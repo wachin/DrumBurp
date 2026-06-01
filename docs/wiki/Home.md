@@ -27,8 +27,7 @@ to Python 3 and PyQt5, maintained by Washington Indacochea Delgado.
 
 1. Install dependencies:
    ```bash
-   sudo apt install python3-pyqt5 python3-pygame python3-pyqt5.qtmultimedia \
-                    pyqt5-dev-tools lilypond fluid-soundfont-gm
+   sudo apt install python3-pyqt5 python3-pygame pyqt5-dev-tools lilypond
    ```
 2. Run:
    ```bash

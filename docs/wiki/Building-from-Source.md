@@ -7,12 +7,15 @@ git clone https://github.com/wachin/DrumBurp.git
 cd DrumBurp
 
 # Install dependencies
-sudo apt install python3-pyqt5 python3-pygame python3-pyqt5.qtmultimedia \
-                 pyqt5-dev-tools lilypond fluid-soundfont-gm
+sudo apt install python3-pyqt5 python3-pygame pyqt5-dev-tools lilypond
 
 # Run
 ./run-drumburp.sh
 ```
+
+`python3-pygame` provides DrumBurp's MIDI playback support. JACK, TiMidity,
+Qsynth, and other extra MIDI synthesizer stacks are not required for running
+from source.
 
 ---
 

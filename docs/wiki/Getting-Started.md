@@ -2,12 +2,14 @@
 
 ## Installation
 
-### Debian / Ubuntu / MX Linux / UbuntuStudio
+### Debian / Ubuntu / MX Linux
 
 ```bash
-sudo apt install python3-pyqt5 python3-pygame python3-pyqt5.qtmultimedia \
-                 pyqt5-dev-tools lilypond fluid-soundfont-gm
+sudo apt install python3-pyqt5 python3-pygame pyqt5-dev-tools lilypond
 ```
+
+`python3-pygame` is used for MIDI playback. JACK, TiMidity, Qsynth, and other
+extra MIDI synthesizer stacks are not required for a normal DrumBurp test run.
 
 ### Running the program
 

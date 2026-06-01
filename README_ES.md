@@ -42,21 +42,19 @@ para el usuario es: menos tiempo escribiendo, mas tiempo tocando.
 ## Este fork — port a Python 3 / PyQt5 (version 1.1.3)
 
 Fork de [DrumBurp](https://github.com/Whatang/DrumBurp) por Washington Indacochea Delgado.  
-Port completo de PyQt4/Python 2 a PyQt5/Python 3, probado en Debian 12 / MX Linux 23 / UbuntuStudio.
+Port completo de PyQt4/Python 2 a PyQt5/Python 3, probado en Debian 12 / MX Linux 23 / Ubuntu 26.04.
 
 📖 **[Manual completo → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**
 
 ## Instalar dependencias
 
 ```bash
-sudo apt install python3-pyqt5 python3-pygame python3-pyqt5.qtmultimedia \
-                 pyqt5-dev-tools lilypond fluid-soundfont-gm
+sudo apt install python3-pyqt5 python3-pygame pyqt5-dev-tools lilypond
 ```
 
-- `python3-pyqt5.qtmultimedia` — necesario para reproduccion MIDI
+- `python3-pygame` — necesario para reproduccion MIDI
 - `pyqt5-dev-tools` — incluye `pyuic5` y `pyrcc5` (solo si se regeneran archivos UI/QRC)
 - `lilypond` — opcional, para exportar/previsualizar partituras
-- `fluid-soundfont-gm` — fuente de sonido General MIDI (necesaria para MIDI)
 
 ## Ejecutar
 
@@ -71,62 +69,30 @@ export PYTHONPATH="$PWD/src"
 python3 src/DrumBurp.py
 ```
 
-## Reproduccion MIDI en Linux
+## Reproduccion MIDI
 
-Para que DrumBurp reproduzca sonido MIDI necesitas un sintetizador virtual activo.
-La forma recomendada depende de tu sistema operativo.
+DrumBurp reproduce sonido MIDI con `pygame`; no usa JACK, TiMidity ni
+QtMultimedia directamente.
 
-### Opcion recomendada — Qsynth con JACK (UbuntuStudio / AV Linux)
+Al iniciar, `src/GUI/DBMidi.py` importa `pygame` y `pygame.midi`, inicializa
+`pygame.midi` y `pygame.mixer`, y busca el dispositivo MIDI de salida por
+defecto. Las notas cortas de previsualizacion se envian a ese dispositivo con
+`pygame.midi.Output`.
 
-La manera mas comoda es usar un sistema operativo orientado a audio como:
+Para reproducir una partitura completa, DrumBurp genera primero un archivo MIDI
+en memoria con `exportMidi()`. Despues carga ese MIDI en memoria con
+`pygame.mixer.music.load()` y lo reproduce con `pygame.mixer.music.play()`.
+La exportacion a `.mid` usa el mismo generador MIDI interno, por lo que puede
+probarse aunque la salida de audio del sistema este en silencio.
 
-- **[Ubuntu Studio](https://ubuntustudio.org/)** — incluye JACK y Qsynth preconfigurados
-- **[AV Linux](https://www.bandshed.net/)** — otra excelente opcion para audio profesional en Linux
+Si DrumBurp arranca pero no suena:
 
-En estos sistemas basta con:
-
-1. Iniciar JACK (o que arranque automaticamente al login)
-2. Abrir **Qsynth** y cargar la fuente de sonido `FluidR3_GM.sf2`
-   (incluida en el paquete `fluid-soundfont-gm`, ruta tipica:
-   `/usr/share/sounds/sf2/FluidR3_GM.sf2`)
-3. Lanzar DrumBurp — detectara el sintetizador automaticamente
-
-### Opcion alternativa — TiMidity (cualquier distro Debian/Ubuntu)
-
-Si no tienes JACK disponible puedes usar TiMidity como sintetizador virtual:
-
-**1. Instalar:**
-
-```bash
-sudo apt install timidity fluid-soundfont-gm alsa-utils
-```
-
-**2. Cargar el modulo de secuenciador MIDI:**
-
-```bash
-modprobe snd_seq
-```
-
-**3. Arrancar TiMidity en modo servidor:**
-
-```bash
-timidity -iA -Os -B2,8 &
-```
-
-Esto inicia TiMidity en segundo plano escuchando en los puertos ALSA (tipicamente `128:0`).
-Puedes verificarlo con `aconnect -l`.
-
-**4. Lanzar DrumBurp** — ya detectara los puertos MIDI activos.
-
-**Para detener TiMidity cuando termines:**
-
-```bash
-killall timidity
-```
-
-> **Nota:** El comando `modprobe snd_seq` activa el secuenciador MIDI del kernel.
-> Sin el, los programas no pueden conectarse entre si para enviar notas MIDI.
-> En UbuntuStudio y AV Linux esto ya esta activo por defecto.
+- Revisa que el sistema tenga una salida de audio/MIDI activa.
+- Usa **MIDI → Refresh Device List** para volver a detectar dispositivos MIDI.
+- Prueba **File → Export MIDI** y abre el `.mid` resultante con otro reproductor
+  para confirmar que la generacion MIDI funciona.
+- JACK, Qsynth o TiMidity pueden servir como salidas MIDI adicionales en algunos
+  sistemas, pero no son requisitos de DrumBurp para una instalacion normal.
 
 ## Que se actualizo respecto al original
 
