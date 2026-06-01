@@ -59,8 +59,8 @@ folder. You do not need to compile it or build an installer first.
 This is normal for many Python programs: Python reads the program files and runs
 them directly. In practice, once Python and the required packages are installed,
 the DrumBurp folder works much like a portable program folder. You can launch it
-from the folder with `./run-drumburp.sh` on Linux, or with the Python commands
-shown below on Windows and macOS.
+from the folder with `./run-drumburp.sh` on Linux, with
+`run-drumburp.bat` on Windows, or with the Python commands shown below.
 
 What still has to be installed depends on the operating system:
 
@@ -137,7 +137,10 @@ usually enough:
 py -m pip install PyQt5 PyQt5-sip pygame
 ```
 
-Run DrumBurp from PowerShell:
+After installing the dependencies, you can launch DrumBurp by double-clicking
+`run-drumburp.bat` in the repository folder.
+
+Or run DrumBurp from PowerShell:
 
 ```powershell
 $env:PYTHONPATH = "$PWD\src"
