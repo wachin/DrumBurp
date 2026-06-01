@@ -1,8 +1,7 @@
 # DrumBurp
 
-Copyright (C) 2011-2019 Michael Thomas
-Python 3 / PyQt5 fork and modifications (C) 2024-2026 Washington Indacochea Delgado
-
+- Copyright (C) 2011-2019 Michael Thomas  
+- Python 3 / PyQt5 fork and modifications (C) 2024-2026 Washington Indacochea Delgado  
 
 DrumBurp is a simple GUI for creating and editing music notation for drum kit.
 
