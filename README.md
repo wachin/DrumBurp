@@ -72,6 +72,58 @@ export PYTHONPATH="$PWD/src"
 python3 src/DrumBurp.py
 ```
 
+## Run on Windows 10
+
+These instructions assume Python is already installed and available on `PATH`.
+Open **PowerShell** in the repository root and install the Python packages with
+`py -m pip`:
+
+```powershell
+py -m pip install --upgrade pip
+py -m pip install -r build\requirements-windows.txt
+```
+
+The Windows package names are:
+
+- `PyQt5` — Qt GUI bindings; includes Qt modules such as `QtWidgets`,
+  `QtPrintSupport` and `QtMultimedia`
+- `PyQt5-sip` — support package used by PyQt5
+- `pygame` — MIDI playback and MIDI export support
+- `pywin32` — Windows support package used by the build environment
+- `pyinstaller` — only needed to build a standalone `.exe`
+- `pylint` — only needed for development checks
+
+If you only want to test the program from source, this smaller install is
+usually enough:
+
+```powershell
+py -m pip install PyQt5 PyQt5-sip pygame
+```
+
+Run DrumBurp from PowerShell:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+py .\src\DrumBurp.py
+```
+
+To run the test suite on Windows:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+py -m unittest discover -s src\test
+```
+
+Optional features:
+
+- **LilyPond/PDF export:** install LilyPond for Windows from
+  `https://lilypond.org/`, then set the path to `lilypond.exe` inside
+  DrumBurp's Lilypond options.
+- **MIDI playback:** Windows normally provides a MIDI output device such as
+  Microsoft GS Wavetable Synth. If DrumBurp starts but MIDI is silent, check
+  that Windows has an active MIDI output device; MIDI export can still be tested
+  without extra system packages.
+
 ## MIDI playback on Linux
 
 For DrumBurp to produce MIDI sound you need an active virtual synthesiser.
