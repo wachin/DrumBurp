@@ -46,6 +46,29 @@ Port completo de PyQt4/Python 2 a PyQt5/Python 3, probado en Debian 12 / MX Linu
 
 📖 **[Manual completo → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**
 
+## Ejecutar desde el codigo fuente, explicado simple
+
+DrumBurp se puede usar con todas sus funciones directamente desde esta carpeta
+de codigo fuente. No es necesario compilar el programa ni crear un instalador
+antes de usarlo.
+
+Esto es normal en muchos programas hechos en Python: Python lee los archivos del
+programa y los ejecuta directamente. En la practica, cuando Python y las
+dependencias necesarias ya estan instaladas, la carpeta de DrumBurp funciona de
+forma parecida a un programa portable. Se puede iniciar desde la carpeta con
+`./run-drumburp.sh` en Linux, o con los comandos de Python indicados mas abajo en
+Windows y macOS.
+
+Lo que hay que instalar depende del sistema operativo:
+
+- **Linux:** Python 3 normalmente ya viene instalado, pero DrumBurp necesita los
+  paquetes PyQt5 y pygame indicados abajo.
+- **Windows:** primero hay que instalar Python, y despues instalar los paquetes
+  de Python con `pip`.
+- **macOS:** es mejor no depender del Python incluido por Apple; instala primero
+  una version actual de Python, por ejemplo con Homebrew, y despues instala los
+  paquetes de Python con `pip`.
+
 ## Instalar dependencias
 
 ```bash
