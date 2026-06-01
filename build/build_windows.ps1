@@ -19,17 +19,32 @@ if (!(Test-Path "$workspace_root\build\output" -PathType Container)) {
     New-Item -ItemType Directory -Force -Path "$workspace_root\build\output"
 }
 
+function Get-LRelease {
+    $command = Get-Command lrelease -ErrorAction SilentlyContinue
+    if ($command) {
+        return $command.Source
+    }
+
+    $pyqt_lrelease = & python -c "import pathlib, PyQt5; print(pathlib.Path(PyQt5.__file__).parent / 'Qt5' / 'bin' / 'lrelease.exe')" 2>$null
+    if ($LASTEXITCODE -eq 0 -and (Test-Path "$pyqt_lrelease")) {
+        return "$pyqt_lrelease"
+    }
+
+    throw "Could not find lrelease. Install Qt tools or make sure PyQt5 Qt5\bin is on PATH."
+}
+
+$lrelease = Get-LRelease
+
 # Compile translation files
 Write-Output "Compiling translations..."
-& lrelease "$workspace_root\src\i18n\drumburp_en.ts" -qm "$workspace_root\src\i18n\drumburp_en.qm"
-& lrelease "$workspace_root\src\i18n\drumburp_es.ts" -qm "$workspace_root\src\i18n\drumburp_es.qm"
+& $lrelease "$workspace_root\src\i18n\drumburp_en.ts" -qm "$workspace_root\src\i18n\drumburp_en.qm"
+& $lrelease "$workspace_root\src\i18n\drumburp_es.ts" -qm "$workspace_root\src\i18n\drumburp_es.qm"
 
 & pyinstaller -w -D -y `
   --hidden-import=PyQt5.QtCore `
   --hidden-import=PyQt5.QtGui `
   --hidden-import=PyQt5.QtWidgets `
   --hidden-import=PyQt5.QtPrintSupport `
-  --hidden-import=PyQt5.QtMultimedia `
   "--add-data=$workspace_root\src\i18n\drumburp_en.qm;i18n" `
   "--add-data=$workspace_root\src\i18n\drumburp_es.qm;i18n" `
   --distpath "$workspace_root\build\dist" `
@@ -43,4 +58,3 @@ Set-Location "$workspace_root\build\dist"
 & "C:\Program Files (x86)\NSIS\makensis.exe" "$workspace_root\build\dist\DrumBurp.nsi"
 Move-Item DrumBurp*setup.exe "$workspace_root\build\output"
 Set-Location "$workspace_root"
-

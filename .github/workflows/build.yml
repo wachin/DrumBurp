@@ -1,6 +1,9 @@
 name: Build DrumBurp
 on: push
 
+permissions:
+  contents: write
+
 jobs:
   # ── Linux ────────────────────────────────────────────────────────────────
   build_linux:
@@ -25,9 +28,6 @@ jobs:
         run: |
           sudo apt-get update -q
           sudo apt-get install -y \
-            python3-pyqt5 \
-            python3-pyqt5.qtmultimedia \
-            libqt5multimedia5-plugins \
             libegl1 \
             qttools5-dev-tools
 
@@ -95,9 +95,16 @@ jobs:
       - name: Install pip modules
         run: pip install -r build/requirements-windows.txt
 
+      - name: Add PyQt5 Qt tools to PATH
+        run: |
+          $qtBin = python -c "import pathlib, PyQt5; print(pathlib.Path(PyQt5.__file__).parent / 'Qt5' / 'bin')"
+          if (Test-Path "$qtBin") {
+            "$qtBin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+            $env:PATH = "$qtBin;$env:PATH"
+          }
+
       - name: Compile translations
         run: |
-          python -m PyQt5.pyrcc_main --version 2>$null; true
           lrelease src\i18n\drumburp_en.ts -qm src\i18n\drumburp_en.qm
           lrelease src\i18n\drumburp_es.ts -qm src\i18n\drumburp_es.qm
 
@@ -136,9 +143,76 @@ jobs:
         run: cd %GITHUB_WORKSPACE%\installed\DrumBurp\ && .\DrumBurp.exe --pyinstaller-test
         shell: cmd
 
+  # ── macOS ───────────────────────────────────────────────────────────────
+  build_macos:
+    name: macOS Build
+    runs-on: macos-15-intel
+    if: github.ref != 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version number
+        run: echo "DB_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+      - name: Python setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          architecture: "x64"
+
+      - name: Install Qt translation tools
+        run: |
+          brew install qt
+          echo "$(brew --prefix qt)/bin" >> "$GITHUB_PATH"
+
+      - name: Install pip modules
+        run: pip install -r build/requirements-macos.txt
+
+      - name: Compile translations
+        run: |
+          lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
+          lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
+
+      - name: Run unit tests
+        run: PYTHONPATH=src python3 -m unittest discover -s src/test
+
+      - name: Build
+        run: bash build/build_macos.sh
+
+      - name: Store macOS app
+        uses: actions/upload-artifact@v4
+        with:
+          name: db_macos
+          path: "build/output/DrumBurp-${{ env.DB_VERSION }}-macOS-x64.zip"
+          retention-days: 7
+
+  test_macos:
+    needs: build_macos
+    name: macOS Smoke Test
+    runs-on: macos-15-intel
+    if: github.ref != 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version number
+        run: echo "DB_VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+      - name: Get macOS app
+        uses: actions/download-artifact@v4
+        with:
+          name: db_macos
+          path: db_macos
+
+      - name: Test macOS app
+        run: |
+          unzip -q "db_macos/DrumBurp-${{ env.DB_VERSION }}-macOS-x64.zip" -d macos_app
+          "macos_app/DrumBurp.app/Contents/MacOS/DrumBurp" --pyinstaller-test
+
   # ── Release (only on version tags: v1.1.3, v2.0.0, etc.) ────────────────
   release:
-    needs: [test_windows, test_linux]
+    needs: [test_windows, test_linux, test_macos]
     name: Release
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
@@ -160,6 +234,12 @@ jobs:
           name: db_linux
           path: db_linux
 
+      - name: Get macOS app
+        uses: actions/download-artifact@v4
+        with:
+          name: db_macos
+          path: db_macos
+
       # softprops/action-gh-release is the maintained replacement for the
       # deprecated actions/create-release + actions/upload-release-asset combo.
       - name: Create GitHub Release and upload assets
@@ -171,5 +251,6 @@ jobs:
           files: |
             db_windows/DrumBurp-${{ env.DB_VERSION }}.0-setup.exe
             db_linux/DrumBurp
+            db_macos/DrumBurp-${{ env.DB_VERSION }}-macOS-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

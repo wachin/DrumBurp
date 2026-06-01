@@ -18,7 +18,6 @@ pyinstaller -w -F -y \
   --hidden-import=PyQt5.QtGui \
   --hidden-import=PyQt5.QtWidgets \
   --hidden-import=PyQt5.QtPrintSupport \
-  --hidden-import=PyQt5.QtMultimedia \
   --add-data "${workspace_root}/src/i18n/drumburp_en.qm:i18n" \
   --add-data "${workspace_root}/src/i18n/drumburp_es.qm:i18n" \
   --distpath "$workspace_root/build/dist" \

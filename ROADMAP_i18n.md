@@ -198,32 +198,33 @@ grep -c 'type="unfinished"' src/i18n/drumburp_es.ts
 
 ## Progress
 
-| Group | Context | Strings | Status |
-|-------|---------|---------|--------|
-| A | repeatCountDialog | 3 | [x] |
-| A | dbLicense_dialog | 3 | [x] |
-| A | dbStartup | 2 | [x] |
-| A | measurePropertiesDialog | 2 | [x] |
-| A | QEditKitDialog | 2 | [x] |
-| A | AlternateDialog | 4 | [x] |
-| A | AlternateWidget | 6 | [x] |
-| A | ColourPicker | 6 | [x] |
-| A | QMeasureContextMenu | 6 | [x] |
-| A | QScore | 6 | [x] |
-| A | QDefaultKitManager | 6 | [x] |
-| A | newScoreDialog | 6 | [x] |
-| B | InsertMeasuresDialog | 9 | [x] |
-| B | QLilypondPreview | 10 | [x] |
-| B | InfoDialog | 10 | [x] |
-| B | DBInfoDialog | 4 | [x] |
-| B | DBStartupDialog | 1 | [x] |
-| B | VersionDownloader | 3 | [x] |
-| B | complexCountDialog | 14 | [x] |
-| B | measureTabs | 15 | [x] |
-| B | asciiDialog | 19 | [x] |
-| B | ScoreDialog | 19 | [x] |
-| C | DefaulKitManager | 17 | [x] |
-| D | DrumBurp | 62 | [x] |
-| E | DrumBurpWindow | 240 | [x] |
-| F | editKitDialog | 147 | [x] |
-| — | **Total** | **625** | **625 done ✓** |
+| Group |         Context         | Strings |     Status     |
+| ----- | ----------------------- | ------- | -------------- |
+| A     | repeatCountDialog       | 3       | [x]            |
+| A     | dbLicense_dialog        | 3       | [x]            |
+| A     | dbStartup               | 2       | [x]            |
+| A     | measurePropertiesDialog | 2       | [x]            |
+| A     | QEditKitDialog          | 2       | [x]            |
+| A     | AlternateDialog         | 4       | [x]            |
+| A     | AlternateWidget         | 6       | [x]            |
+| A     | ColourPicker            | 6       | [x]            |
+| A     | QMeasureContextMenu     | 6       | [x]            |
+| A     | QScore                  | 6       | [x]            |
+| A     | QDefaultKitManager      | 6       | [x]            |
+| A     | newScoreDialog          | 6       | [x]            |
+| B     | InsertMeasuresDialog    | 9       | [x]            |
+| B     | QLilypondPreview        | 10      | [x]            |
+| B     | InfoDialog              | 10      | [x]            |
+| B     | DBInfoDialog            | 4       | [x]            |
+| B     | DBStartupDialog         | 1       | [x]            |
+| B     | VersionDownloader       | 3       | [x]            |
+| B     | complexCountDialog      | 14      | [x]            |
+| B     | measureTabs             | 15      | [x]            |
+| B     | asciiDialog             | 19      | [x]            |
+| B     | ScoreDialog             | 19      | [x]            |
+| C     | DefaulKitManager        | 17      | [x]            |
+| D     | DrumBurp                | 62      | [x]            |
+| E     | DrumBurpWindow          | 240     | [x]            |
+| F     | editKitDialog           | 147     | [x]            |
+| —     | **Total**               | **625** | **625 done ✓** |
+
