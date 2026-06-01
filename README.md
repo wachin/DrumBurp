@@ -43,35 +43,52 @@ user is less time writing, more time drumming.
 ## This fork — port to Python 3 / PyQt5 (version 1.1.3)
 
 Fork of [DrumBurp](https://github.com/Whatang/DrumBurp) by Washington Indacochea Delgado.  
-Complete port from PyQt4/Python 2 to PyQt5/Python 3, tested on Debian 12 / MX Linux 23 / UbuntuStudio.
+Complete port from PyQt4/Python 2 to PyQt5/Python 3
+
+---
 
 📖 **[Full manual → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**
 
-## Install dependencies
+---
+
+# Run on Linux
+
+## Debian/Ubuntu tested in
+
+This program has been tested on:
+
+- Debian 12 
+- MX Linux 23
+- Ubuntu 26.04
+
+Install dependencies:
 
 ```bash
-sudo apt install python3-pyqt5 python3-pygame python3-pyqt5.qtmultimedia \
-                 pyqt5-dev-tools lilypond
+sudo apt install python3-pyqt5 python3-pygame pyqt5-dev-tools lilypond
 ```
 
-- `python3-pyqt5.qtmultimedia` — required for MIDI playback
+- `python3-pygame` — required for MIDI playback
 - `pyqt5-dev-tools` — includes `pyuic5` and `pyrcc5` (only needed if regenerating UI/QRC files)
 - `lilypond` — optional, for score export and preview
 
-## Run
+### Launch
+
+In the root folder:
 
 ```bash
 ./run-drumburp.sh
 ```
 
-Or manually:
+or by double-clicking, but make sure the file is marked as executable (by right-clicking and in the "Permissions" tab marking it as executable)
+
+Or run:
 
 ```bash
 export PYTHONPATH="$PWD/src"
 python3 src/DrumBurp.py
 ```
 
-## Run on Windows 10
+# Run on Windows 10
 
 These instructions assume Python is already installed and available on `PATH`.
 Open **PowerShell** in the repository root and install the Python packages with
@@ -87,7 +104,7 @@ The Windows package names are:
 - `PyQt5` — Qt GUI bindings; includes Qt modules such as `QtWidgets`,
   `QtPrintSupport` and `QtMultimedia`
 - `PyQt5-sip` — support package used by PyQt5
-- `pygame` — MIDI playback and MIDI export support
+- `pygame` — MIDI playback support
 - `pywin32` — Windows support package used by the build environment
 - `pyinstaller` — only needed to build a standalone `.exe`
 - `pylint` — only needed for development checks
@@ -123,10 +140,47 @@ Optional features:
   that Windows has an active MIDI output device; MIDI export can still be tested
   without extra system packages.
 
-## MIDI playback on Linux
+# Run on macOS
 
-For DrumBurp to produce MIDI sound you need an active virtual synthesiser.
-The recommended approach depends on your operating system.
+These instructions are intended for testing DrumBurp from source on macOS.
+Install Python first, for example with Homebrew:
+
+```bash
+brew install python
+```
+
+From the repository root, create a virtual environment and install the Python
+packages:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install PyQt5 PyQt5-sip pygame
+```
+
+Run DrumBurp:
+
+```bash
+export PYTHONPATH="$PWD/src"
+python src/DrumBurp.py
+```
+
+Optional features:
+
+- **LilyPond/PDF export:** install LilyPond for macOS from
+  `https://lilypond.org/`, then set the path to the `lilypond` executable
+  inside DrumBurp's Lilypond options.
+- **MIDI playback:** DrumBurp uses `pygame`, not JACK or TiMidity directly. If
+  DrumBurp starts but playback is silent, check that macOS has an available
+  MIDI/audio output device and try exporting a `.mid` file to verify that MIDI
+  generation is working.
+
+## MIDI playback
+
+DrumBurp produces MIDI sound with `pygame`. Short preview notes are sent through
+`pygame.midi` to the default MIDI output device. Full score playback is generated
+as a MIDI file in memory and played through `pygame.mixer.music`.
 
 ---
 
