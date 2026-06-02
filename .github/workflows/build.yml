@@ -1,5 +1,7 @@
 name: Build DrumBurp
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     # Run on any push except direct pushes to master (tags are not branches,
     # so tag pushes always pass this condition and trigger the release job).
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,7 +58,7 @@ jobs:
     needs: build_linux
     name: Linux Smoke Test
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Get Linux binary
         uses: actions/download-artifact@v4
@@ -72,7 +74,7 @@ jobs:
   build_windows:
     name: Windows Build
     runs-on: windows-latest
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -128,7 +130,7 @@ jobs:
     needs: build_windows
     name: Windows Smoke Test
     runs-on: windows-latest
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -153,7 +155,7 @@ jobs:
   build_macos:
     name: macOS Build
     runs-on: macos-15-intel
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -197,7 +199,7 @@ jobs:
     needs: build_macos
     name: macOS Smoke Test
     runs-on: macos-15-intel
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
