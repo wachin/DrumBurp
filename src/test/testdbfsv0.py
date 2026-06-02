@@ -181,7 +181,7 @@ class TestMeasureCount(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         count = dbfsv0.MeasureCountStructureV0().read(iterator)
-        self.assert_(count.isSimpleCount())
+        self.assertTrue(count.isSimpleCount())
         self.assertEqual(len(count), 16)
         self.assertEqual(count.countString(), "1e+a2e+a3e+a4e+a")
 
@@ -196,7 +196,7 @@ class TestMeasureCount(unittest.TestCase):
         iterator = fileUtils.dbFileIterator(handle)
         count = dbfsv0.MeasureCountStructureV0(
             startTag="DEFAULT_COUNT_INFO_START").read(iterator)
-        self.assert_(count.isSimpleCount())
+        self.assertTrue(count.isSimpleCount())
         self.assertEqual(len(count), 16)
         self.assertEqual(count.countString(), "1e+a2e+a3e+a4e+a")
 
@@ -330,8 +330,8 @@ class TestReadMeasure(unittest.TestCase):
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv0.MeasureStructureV0().read(iterator)
         self.assertEqual(measure.repeatCount, 6)
-        self.assert_(measure.isRepeatStart())
-        self.assert_(measure.isRepeatEnd())
+        self.assertTrue(measure.isRepeatStart())
+        self.assertTrue(measure.isRepeatEnd())
 
     def testReadAlternate(self):
         data = """
@@ -351,7 +351,7 @@ class TestReadMeasure(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv0.MeasureStructureV0().read(iterator)
-        self.assert_(measure.isRepeatEnd())
+        self.assertTrue(measure.isRepeatEnd())
         self.assertEqual(measure.alternateText, "2.")
 
     def testReadLineBreak(self):
@@ -378,7 +378,7 @@ class TestReadMeasure(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv0.MeasureStructureV0().read(iterator)
-        self.assert_(measure.isLineBreak())
+        self.assertTrue(measure.isLineBreak())
 
     def testReadSectionEnd(self):
         data = """
@@ -396,7 +396,7 @@ class TestReadMeasure(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv0.MeasureStructureV0().read(iterator)
-        self.assert_(measure.isSectionEnd())
+        self.assertTrue(measure.isSectionEnd())
 
     def testReadSimile(self):
         data = """

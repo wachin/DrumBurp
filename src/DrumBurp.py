@@ -22,24 +22,23 @@ Created on 31 Jul 2010
 @author: Mike Thomas
 '''
 import sys
-import optparse
+import argparse
 from PyQt5.QtWidgets import QApplication
 from DBVersion import APPNAME, DB_VERSION
 
 
 def main():
     import ctypes
-    parser = optparse.OptionParser()
-    parser.add_option('--virgin', action='store_true')
-    parser.add_option('--pyinstaller-test', action='store_true')
-    parser.add_option('--language', dest='language', default=None,
-                      help='Force a specific UI language (e.g. es, fr, de)')
-    opts, args = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--virgin', action='store_true')
+    parser.add_argument('--pyinstaller-test', action='store_true')
+    parser.add_argument('--language', dest='language', default=None,
+                        help='Force a specific UI language (e.g. es, fr, de)')
+    parser.add_argument('filename', nargs='?')
+    opts = parser.parse_args()
     if opts.pyinstaller_test:
         sys.exit(0)
-    filename = None
-    if len(args) > 0:
-        filename = args[0]
+    filename = opts.filename
     myappid = 'Whatang.DrumBurp'
     try:
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)

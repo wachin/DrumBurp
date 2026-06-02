@@ -227,7 +227,7 @@ class TestMeasureCount(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         count = dbfsv1.MeasureCountStructureV1().read(iterator)
-        self.assert_(count.isSimpleCount())
+        self.assertTrue(count.isSimpleCount())
         self.assertEqual(len(count), 16)
         self.assertEqual(count.countString(), "1e+a2e+a3e+a4e+a")
 
@@ -253,7 +253,7 @@ class TestMeasureCount(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         count = dbfsv1.DefaultMeasureCountStructureV1().read(iterator)
-        self.assert_(count.isSimpleCount())
+        self.assertTrue(count.isSimpleCount())
         self.assertEqual(len(count), 16)
         self.assertEqual(count.countString(), "1e+a2e+a3e+a4e+a")
 
@@ -403,8 +403,8 @@ class TestReadMeasure(unittest.TestCase):
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv1.MeasureStructureV1().read(iterator)
         self.assertEqual(measure.repeatCount, 6)
-        self.assert_(measure.isRepeatStart())
-        self.assert_(measure.isRepeatEnd())
+        self.assertTrue(measure.isRepeatStart())
+        self.assertTrue(measure.isRepeatEnd())
         self.assertFalse(measure.isSectionEnd())
         self.assertFalse(measure.isLineBreak())
         self.assertEqual(measure.newBpm, 0)
@@ -468,7 +468,7 @@ class TestReadMeasure(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv1.MeasureStructureV1().read(iterator)
-        self.assert_(measure.isLineBreak())
+        self.assertTrue(measure.isLineBreak())
 
     def testReadSectionEnd(self):
         data = """START_MEASURE
@@ -499,7 +499,7 @@ class TestReadMeasure(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv1.MeasureStructureV1().read(iterator)
-        self.assert_(measure.isSectionEnd())
+        self.assertTrue(measure.isSectionEnd())
 
     def testReadSimile(self):
         data = """START_MEASURE
@@ -565,9 +565,9 @@ class TestReadMeasure(unittest.TestCase):
         handle = StringIO(data)
         iterator = fileUtils.dbFileIterator(handle)
         measure = dbfsv1.MeasureStructureV1().read(iterator)
-        self.assert_(measure.showAbove)
+        self.assertTrue(measure.showAbove)
         self.assertEqual(measure.aboveText, " R      ")
-        self.assert_(measure.showBelow)
+        self.assertTrue(measure.showBelow)
         self.assertEqual(measure.belowText, "   F    ")
 
     def testReadNewBpm(self):
@@ -928,7 +928,7 @@ class TestDrum(unittest.TestCase):
         drum = dbfsv1.DrumStructureV1().read(iterator)
         self.assertEqual(drum.name, 'test')
         self.assertEqual(drum.abbr, 'td')
-        self.assert_(drum.locked)
+        self.assertTrue(drum.locked)
         self.assertEqual(drum.head, 'x')
         self.assertEqual(len(drum), 1)
         self.assertEqual(drum[0], 'x')

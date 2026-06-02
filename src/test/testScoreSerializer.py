@@ -246,27 +246,27 @@ class TestScoreSerializerV0(unittest.TestCase):
     def testReadNoFileFormatNumber(self):
         handle = StringIO(self.ff_zero_data)
         score = ScoreSerializer.read(handle)
-        self.assert_(score.lilyFill)
+        self.assertTrue(score.lilyFill)
         self.assertEqual(score.lilypages, 2)
         self.assertEqual(score.lilysize, 18)
         self.assertEqual(score.scoreData.title, "Sample")
         self.assertEqual(score.numSections(), 1)
         self.assertEqual(score.getSectionTitle(0), "A title")
         self.assertEqual(score.numMeasures(), 7)
-        self.assert_(score.drumKit[1].isAllowedHead('q'))
+        self.assertTrue(score.drumKit[1].isAllowedHead('q'))
 
     def testReadVersion0(self):
         handle = StringIO("""DB_FILE_FORMAT 0
         """ + self.ff_zero_data)
         score = ScoreSerializer.read(handle)
-        self.assert_(score.lilyFill)
+        self.assertTrue(score.lilyFill)
         self.assertEqual(score.lilypages, 2)
         self.assertEqual(score.lilysize, 18)
         self.assertEqual(score.scoreData.title, "Sample")
         self.assertEqual(score.numSections(), 1)
         self.assertEqual(score.getSectionTitle(0), "A title")
         self.assertEqual(score.numMeasures(), 7)
-        self.assert_(score.drumKit[1].isAllowedHead('q'))
+        self.assertTrue(score.drumKit[1].isAllowedHead('q'))
 
     class NoFF(RuntimeError):
         pass

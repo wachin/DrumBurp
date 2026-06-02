@@ -39,7 +39,7 @@ class TestSimple(unittest.TestCase):
         self.assertEqual(self.count.numBeats(), 4)
 
     def testIsSimple(self):
-        self.assert_(self.count.isSimpleCount())
+        self.assertTrue(self.count.isSimpleCount())
 
     def testCount(self):
         self.assertEqual(list(self.count.count()),
@@ -54,7 +54,7 @@ class TestSimple(unittest.TestCase):
 
     def testGetItem(self):
         beat = self.count[1]
-        self.assert_(isinstance(beat, Beat.Beat))
+        self.assertTrue(isinstance(beat, Beat.Beat))
         self.assertEqual(beat.numTicks, 4)
         self.assertEqual(beat.ticksPerBeat, 4)
         self.assertRaises(IndexError, self.count.__getitem__, 4)
@@ -135,7 +135,7 @@ class TestComplex(unittest.TestCase):
 
     def testGetItem(self):
         beat = self.count[1]
-        self.assert_(isinstance(beat, Beat.Beat))
+        self.assertTrue(isinstance(beat, Beat.Beat))
         self.assertEqual(beat.numTicks, 3)
         self.assertEqual(beat.ticksPerBeat, 3)
         self.assertRaises(IndexError, self.count.__getitem__, 4)
@@ -187,8 +187,8 @@ class TestComplex(unittest.TestCase):
 class TestCounterMaker(unittest.TestCase):
     def testMake(self):
         count = MeasureCount.counterMaker(4, 16)
-        self.assert_(isinstance(count, MeasureCount.MeasureCount))
-        self.assert_(count.isSimpleCount())
+        self.assertTrue(isinstance(count, MeasureCount.MeasureCount))
+        self.assertTrue(count.isSimpleCount())
         self.assertEqual(len(count), 16)
 
 

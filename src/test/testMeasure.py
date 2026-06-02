@@ -62,7 +62,7 @@ class TestMeasure(unittest.TestCase):
         self.assertFalse(self.measure.isRepeatStart())
 
     def testIsEmpty_True(self):
-        self.assert_(self.measure.isEmpty())
+        self.assertTrue(self.measure.isEmpty())
 
     def testIsEmpty_False(self):
         self.measure.addNote(NotePosition(noteTime=0, drumIndex=0), "o")
@@ -137,8 +137,8 @@ class TestMeasure(unittest.TestCase):
         self.assertFalse(self.measure.isSectionEnd())
         self.assertFalse(self.measure.isLineEnd())
         self.measure.setSectionEnd(True)
-        self.assert_(self.measure.isSectionEnd())
-        self.assert_(self.measure.isLineEnd())
+        self.assertTrue(self.measure.isSectionEnd())
+        self.assertTrue(self.measure.isLineEnd())
         self.measure.setSectionEnd(False)
         self.assertFalse(self.measure.isSectionEnd())
         self.assertFalse(self.measure.isLineEnd())
@@ -147,31 +147,31 @@ class TestMeasure(unittest.TestCase):
         self.measure.setRepeatEnd(True)
         self.assertFalse(self.measure.isSectionEnd())
         self.measure.setSectionEnd(True)
-        self.assert_(self.measure.isSectionEnd())
-        self.assert_(self.measure.isRepeatEnd())
+        self.assertTrue(self.measure.isSectionEnd())
+        self.assertTrue(self.measure.isRepeatEnd())
         self.measure.setSectionEnd(False)
         self.assertFalse(self.measure.isSectionEnd())
-        self.assert_(self.measure.isRepeatEnd())
+        self.assertTrue(self.measure.isRepeatEnd())
         self.measure.setRepeatEnd(False)
         self.assertFalse(self.measure.isSectionEnd())
         self.assertFalse(self.measure.isRepeatEnd())
 
     def testSetRepeatStart(self):
         self.measure.setRepeatStart(True)
-        self.assert_(self.measure.isRepeatStart())
+        self.assertTrue(self.measure.isRepeatStart())
         self.measure.setRepeatStart(False)
         self.assertFalse(self.measure.isRepeatStart())
 
     def testSetRepeatEnd_NotSectionEnd(self):
         self.measure.setRepeatEnd(True)
-        self.assert_(self.measure.isRepeatEnd())
+        self.assertTrue(self.measure.isRepeatEnd())
         self.measure.setRepeatEnd(False)
         self.assertFalse(self.measure.isRepeatEnd())
 
     def testSetRepeatEnd_IsSectionEnd(self):
         self.measure.setSectionEnd(True)
         self.measure.setRepeatEnd(True)
-        self.assert_(self.measure.isRepeatEnd())
+        self.assertTrue(self.measure.isRepeatEnd())
         self.measure.setRepeatEnd(False)
         self.assertFalse(self.measure.isRepeatEnd())
 
@@ -179,8 +179,8 @@ class TestMeasure(unittest.TestCase):
         self.assertFalse(self.measure.isLineBreak())
         self.assertFalse(self.measure.isLineEnd())
         self.measure.setLineBreak(True)
-        self.assert_(self.measure.isLineBreak())
-        self.assert_(self.measure.isLineEnd())
+        self.assertTrue(self.measure.isLineBreak())
+        self.assertTrue(self.measure.isLineEnd())
         self.measure.setLineBreak(False)
         self.assertFalse(self.measure.isLineBreak())
         self.assertFalse(self.measure.isLineEnd())
@@ -191,7 +191,7 @@ class TestMeasure(unittest.TestCase):
         self.assertEqual(self.measure.numNotes(), 2)
         self.assertFalse(self.measure.isEmpty())
         self.measure.clear()
-        self.assert_(self.measure.isEmpty())
+        self.assertTrue(self.measure.isEmpty())
 
     def testCopyPaste(self):
         self.measure.addNote(NotePosition(noteTime=0, drumIndex=0), "x")
@@ -301,9 +301,9 @@ class TestMeasure(unittest.TestCase):
         self.measure.addNote(NotePosition(noteTime=0, drumIndex=0), "a")
         self.measure.addNote(NotePosition(noteTime=2, drumIndex=2), "a")
         self.measure.addNote(NotePosition(noteTime=3, drumIndex=7), "a")
-        self.assert_(self.measure.lineIsVisible(0))
-        self.assert_(self.measure.lineIsVisible(2))
-        self.assert_(self.measure.lineIsVisible(7))
+        self.assertTrue(self.measure.lineIsVisible(0))
+        self.assertTrue(self.measure.lineIsVisible(2))
+        self.assertTrue(self.measure.lineIsVisible(7))
         self.assertFalse(self.measure.lineIsVisible(1))
         self.assertFalse(self.measure.lineIsVisible(3))
         self.assertFalse(self.measure.lineIsVisible(4))

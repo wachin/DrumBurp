@@ -142,36 +142,36 @@ class TestNotePosition(unittest.TestCase):
 
     def testCompare_None(self):
         np1 = NotePosition(1, 2, 3, 4)
-        self.assert_(np1 > None)
-        self.assert_(None < np1)
+        self.assertTrue(np1 > None)
+        self.assertTrue(None < np1)
 
     def testCompare_Equal(self):
         np1 = NotePosition(1, 2, 3, 4)
         np2 = NotePosition(1, 2, 3, 4)
-        self.assert_(np1 == np2)
+        self.assertTrue(np1 == np2)
 
     def testCompare_SameStaff_SameMeasure_SameTime_DifferentDrum(self):
         np1 = NotePosition(1, 2, 3, 4)
         np2 = NotePosition(1, 2, 3, 5)
-        self.assert_(np1 < np2)
+        self.assertTrue(np1 < np2)
         self.assertFalse(np2 <= np1)
 
     def testCompare_SameStaff_SameMeasure_DifferentTime(self):
         np1 = NotePosition(1, 2, 3, 4)
         np2 = NotePosition(1, 2, 4, 4)
-        self.assert_(np1 < np2)
+        self.assertTrue(np1 < np2)
         self.assertFalse(np2 <= np1)
 
     def testCompare_SameStaff_DifferentMeasure(self):
         np1 = NotePosition(1, 1, 3, 4)
         np2 = NotePosition(1, 2, 3, 4)
-        self.assert_(np1 < np2)
+        self.assertTrue(np1 < np2)
         self.assertFalse(np2 <= np1)
 
     def testCompare_DifferentStaff(self):
         np1 = NotePosition(1, 1, 3, 4)
         np2 = NotePosition(2, 1, 3, 4)
-        self.assert_(np1 < np2)
+        self.assertTrue(np1 < np2)
         self.assertFalse(np2 <= np1)
 
 

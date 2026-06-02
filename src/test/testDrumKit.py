@@ -37,7 +37,7 @@ class TestDrumKit(unittest.TestCase):
         self.assertEqual(len(DrumKitFactory.DrumKitFactory.emptyKit()), 0)
 
     def testLoadDefault(self):
-        self.assert_(len(self.kit) > 0)
+        self.assertTrue(len(self.kit) > 0)
 
     def testAddDrum(self):
         numDrums = len(self.kit)
@@ -57,7 +57,7 @@ class TestDrumKit(unittest.TestCase):
 
     def testDeleteDrumByName(self):
         numDrums = len(self.kit)
-        self.assert_(numDrums > 0)
+        self.assertTrue(numDrums > 0)
         drum = self.kit[0]
         self.kit.deleteDrum(name=drum.name)
         self.assertEqual(len(self.kit), numDrums - 1)
@@ -70,7 +70,7 @@ class TestDrumKit(unittest.TestCase):
 
     def testDeleteDrumByIndex(self):
         numDrums = len(self.kit)
-        self.assert_(numDrums > 0)
+        self.assertTrue(numDrums > 0)
         drum = self.kit[0]
         self.kit.deleteDrum(index=0)
         self.assertEqual(len(self.kit), numDrums - 1)

@@ -68,9 +68,9 @@ class TestDrum(unittest.TestCase):
     def testAddNoteHead(self):
         drum, defaultHead, newHead = self.makeDrum()
         self.assertEqual(len(drum), 3)
-        self.assert_(drum.isAllowedHead("x"))
-        self.assert_(drum.isAllowedHead("y"))
-        self.assert_(drum.isAllowedHead("z"))
+        self.assertTrue(drum.isAllowedHead("x"))
+        self.assertTrue(drum.isAllowedHead("y"))
+        self.assertTrue(drum.isAllowedHead("z"))
         self.assertFalse(drum.isAllowedHead("a"))
         self.assertEqual(drum.headData("x"), defaultHead)
         self.assertEqual(drum.headData("y"), newHead)
@@ -100,12 +100,12 @@ class TestDrum(unittest.TestCase):
 
     def testRenameHead(self):
         drum, first_, second_ = self.makeDrum()
-        self.assert_(drum.isAllowedHead("x"))
+        self.assertTrue(drum.isAllowedHead("x"))
         self.assertFalse(drum.isAllowedHead("a"))
         self.assertEqual(drum.head, "x")
         self.assertEqual(drum[0], "x")
         drum.renameHead("x", "a")
-        self.assert_(drum.isAllowedHead("a"))
+        self.assertTrue(drum.isAllowedHead("a"))
         self.assertFalse(drum.isAllowedHead("x"))
         self.assertEqual(drum.head, "a")
         self.assertEqual(drum[0], "a")
@@ -115,7 +115,7 @@ class TestDrum(unittest.TestCase):
 
     def testRemoveHead(self):
         drum, first_, second_ = self.makeDrum()
-        self.assert_(drum.isAllowedHead("y"))
+        self.assertTrue(drum.isAllowedHead("y"))
         self.assertEqual(len(drum), 3)
         drum.removeNoteHead("y")
         self.assertFalse(drum.isAllowedHead("y"))

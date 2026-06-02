@@ -44,14 +44,14 @@ class TestCounter(unittest.TestCase):
         self.assertRaises(ValueError, Counter.Counter, "^bcd", "^de")
 
     def testMatchExact(self):
-        self.assert_(self.counter.matchesExact("^bcd"))
+        self.assertTrue(self.counter.matchesExact("^bcd"))
         self.assertFalse(self.counter.matchesExact("^fgh"))
         self.assertFalse(self.counter.matchesExact("^xyz"))
 
     def testMatchAlternative(self):
         self.assertFalse(self.counter.matchesAlternative("^bcd"))
-        self.assert_(self.counter.matchesAlternative("^fgh"))
-        self.assert_(self.counter.matchesAlternative("^jkl"))
+        self.assertTrue(self.counter.matchesAlternative("^fgh"))
+        self.assertTrue(self.counter.matchesAlternative("^jkl"))
         self.assertFalse(self.counter.matchesAlternative("^xyz"))
 
 

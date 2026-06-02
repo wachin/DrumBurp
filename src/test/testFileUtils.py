@@ -64,7 +64,7 @@ class TestIndenter(unittest.TestCase):
         self.indenter.decrease()
         self.indenter("a", "b", "c")
         output = self.handle.getvalue().splitlines()
-        self.assert_(output,
+        self.assertTrue(output,
                      ["  a b c",
                       "    a b c",
                       "  a b c",
@@ -78,7 +78,7 @@ class TestIndenter(unittest.TestCase):
                 self.indenter("a", "b", "c")
         self.indenter("a", "b", "c")
         output = self.handle.getvalue().splitlines()
-        self.assert_(output,
+        self.assertTrue(output,
                      ["a b c",
                       "  a b c",
                       "    a b c",
