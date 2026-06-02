@@ -64,11 +64,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: db_linux
+          path: db_linux
 
       - name: Test Linux binary
         run: |
           chmod 770 db_linux/DrumBurp
-          db_linux/DrumBurp --pyinstaller-test
+          ./db_linux/DrumBurp --pyinstaller-test
 
   # ── Windows ──────────────────────────────────────────────────────────────
   build_windows:
@@ -142,14 +143,28 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: db_windows
+          path: db_windows
 
       - name: Install Windows exe
-        run: .\db_windows\DrumBurp-${{ env.DB_VERSION }}.0-setup.exe /S /D=%GITHUB_WORKSPACE%\installed
-        shell: cmd
+        shell: powershell
+        run: |
+          $installer = Resolve-Path ".\db_windows\DrumBurp-${env:DB_VERSION}.0-setup.exe"
+          $installDir = Join-Path $env:GITHUB_WORKSPACE "installed"
+          if (Test-Path $installDir) {
+            Remove-Item $installDir -Recurse -Force
+          }
+          $process = Start-Process -FilePath $installer -ArgumentList "/S", "/D=$installDir" -Wait -PassThru
+          if ($process.ExitCode -ne 0) {
+            exit $process.ExitCode
+          }
 
       - name: Test Windows exe
-        run: cd %GITHUB_WORKSPACE%\installed\DrumBurp\ && .\DrumBurp.exe --pyinstaller-test
-        shell: cmd
+        shell: powershell
+        run: |
+          & "$env:GITHUB_WORKSPACE\installed\DrumBurp\DrumBurp.exe" --pyinstaller-test
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
 
   # ── macOS ───────────────────────────────────────────────────────────────
   build_macos:
