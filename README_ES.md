@@ -108,6 +108,9 @@ py -m pip install --upgrade pip
 py -m pip install PyQt5 PyQt5-sip pygame
 ```
 
+En Windows, `pygame` queda como soporte de reserva, pero la reproduccion MIDI
+principal usa el backend nativo WinMM de Windows.
+
 Despues de instalar las dependencias, puedes iniciar DrumBurp haciendo doble clic
 en `run-drumburp.bat`.
 
@@ -117,6 +120,41 @@ O manualmente desde PowerShell:
 $env:PYTHONPATH = "$PWD\src"
 py .\src\DrumBurp.py
 ```
+
+### Reproduccion MIDI en Windows con VirtualMIDISynth
+
+Para obtener buen sonido MIDI en Windows, instala
+[CoolSoft VirtualMIDISynth](https://coolsoft.altervista.org/en/virtualmidisynth).
+VirtualMIDISynth crea una salida MIDI de Windows y se encarga de cargar los
+SoundFonts fuera de DrumBurp.
+
+Despues de instalar VirtualMIDISynth:
+
+1. Descarga uno o mas SoundFonts recomendados desde la pagina de
+   VirtualMIDISynth.
+2. Abre la ventana de configuracion de VirtualMIDISynth.
+3. En la pestana **Soundfonts**, haz clic en el boton **+**.
+4. Busca el archivo SoundFont que descargaste y agregalo.
+5. Activa solo el SoundFont que quieres usar. VirtualMIDISynth puede mostrar
+   varios SoundFonts, pero para una reproduccion predecible conviene usar solo
+   uno a la vez.
+
+Inicia DrumBurp desde la carpeta del repositorio:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+py .\src\DrumBurp.py
+```
+
+Luego elige:
+
+```text
+MIDI -> Select MIDI out -> VirtualMIDISynth #1
+```
+
+Con esta configuracion, DrumBurp reproduce correctamente la tablatura de
+bateria usando VirtualMIDISynth. DrumBurp no carga SoundFonts internamente;
+VirtualMIDISynth ya se encarga de eso.
 
 ## Ejecutar en macOS
 
@@ -155,24 +193,21 @@ python src/DrumBurp.py
 
 ## Reproduccion MIDI
 
-DrumBurp reproduce sonido MIDI con `pygame`; no usa JACK, TiMidity ni
-QtMultimedia directamente.
+DrumBurp reproduce sonido MIDI usando el backend nativo WinMM de Windows en
+Windows, y `pygame` en otros sistemas. En Windows, esto permite reproducir a
+traves de dispositivos MIDI como VirtualMIDISynth, Microsoft GS Wavetable Synth
+u otros puertos MIDI de Windows.
 
-Al iniciar, `src/GUI/DBMidi.py` importa `pygame` y `pygame.midi`, inicializa
-`pygame.midi` y `pygame.mixer`, y busca el dispositivo MIDI de salida por
-defecto. Las notas cortas de previsualizacion se envian a ese dispositivo con
-`pygame.midi.Output`.
-
-Para reproducir una partitura completa, DrumBurp genera primero un archivo MIDI
-en memoria con `exportMidi()`. Despues carga ese MIDI en memoria con
-`pygame.mixer.music.load()` y lo reproduce con `pygame.mixer.music.play()`.
-La exportacion a `.mid` usa el mismo generador MIDI interno, por lo que puede
-probarse aunque la salida de audio del sistema este en silencio.
+La exportacion a `.mid` usa el generador MIDI interno de DrumBurp, por lo que
+puede probarse aunque la salida de audio del sistema este en silencio.
 
 Si DrumBurp arranca pero no suena:
 
 - Revisa que el sistema tenga una salida de audio/MIDI activa.
-- Usa **MIDI → Refresh Device List** para volver a detectar dispositivos MIDI.
+- En Windows, instala VirtualMIDISynth y agrega un SoundFont en la pestana
+  **Soundfonts**.
+- Usa **MIDI -> Refresh Device List** para volver a detectar dispositivos MIDI.
+- En Windows, elige **MIDI -> Select MIDI out -> VirtualMIDISynth #1**.
 - Prueba **File → Export MIDI** y abre el `.mid` resultante con otro reproductor
   para confirmar que la generacion MIDI funciona.
 - JACK, Qsynth o TiMidity pueden servir como salidas MIDI adicionales en algunos
@@ -185,6 +220,8 @@ Si DrumBurp arranca pero no suena:
 - Archivos UI regenerados con `pyuic5`; recursos QRC regenerados con `pyrcc5`
 - Eliminada la capa de compatibilidad temporal `src/PyQt4/`
 - Exportacion a PDF via LilyPond 2.24 corregida
+- Reproduccion MIDI nativa en Windows mediante WinMM agregada, incluyendo
+  seleccion de dispositivos como VirtualMIDISynth
 - Divisiones enteras en calculos MIDI y Lilypond corregidas
 - Ventana "Acerca de" actualizada con creditos del port
 - Version actualizada a 1.1.3
