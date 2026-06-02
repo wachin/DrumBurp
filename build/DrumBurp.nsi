@@ -3,6 +3,11 @@
 #               Entirely Edited with NullSoft Scriptable Installation System
 #              by Vlasis K. Barkas aka Red Wine red_wine@freemail.gr Sep 2006
 ############################################################################################
+#
+# This script expects the PyInstaller output layout created by build_windows.ps1.
+# To compile it manually, first run build/build_windows.ps1 or copy this file to
+# build/dist together with COPYING.txt and the build/dist/DrumBurp directory, then
+# compile build/dist/DrumBurp.nsi from build/dist.
 
 !define APP_NAME "DrumBurp"
 !define COMP_NAME "Whatang"

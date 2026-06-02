@@ -592,6 +592,36 @@ If it exists but is not in `PATH`, add it temporarily:
 $env:PATH = "C:\Program Files (x86)\NSIS;$env:PATH"
 ```
 
+### Opening `build\DrumBurp.nsi` Directly Fails
+
+`build\DrumBurp.nsi` is not meant to be compiled directly from the `build`
+directory. It expects the PyInstaller output layout created by
+`build\build_windows.ps1`.
+
+The build script does this before running NSIS:
+
+- Copies `COPYING.txt` into `build\dist`.
+- Copies `build\DrumBurp.nsi` into `build\dist`.
+- Ensures `build\dist\DrumBurp` exists from the PyInstaller build.
+- Changes the working directory to `build\dist`.
+- Runs `makensis.exe build\dist\DrumBurp.nsi`.
+
+If the script is opened directly from NSIS as `build\DrumBurp.nsi`, NSIS may
+fail with:
+
+```text
+LicenseData: open failed "COPYING.txt"
+```
+
+That does not mean the installer is broken. To compile manually, first run the
+Windows build script, then open or compile:
+
+```text
+build\dist\DrumBurp.nsi
+```
+
+from the `build\dist` directory.
+
 ### GitHub Release Fails with 403
 
 Check in GitHub:
