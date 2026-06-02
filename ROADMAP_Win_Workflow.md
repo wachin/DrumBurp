@@ -29,7 +29,7 @@ At the end of this validation, the following should be confirmed:
 - [x] `build/build_windows.ps1` creates the installer.
 - [x] The installer can be installed silently.
 - [x] `DrumBurp.exe --pyinstaller-test` works.
-- [ ] GitHub Actions generates the `db_windows` artifact.
+- [x] GitHub Actions generates the `db_windows` artifact.
 - [ ] A `vX.Y.Z` tag can publish the installer in a GitHub Release.
 
 ## Completed: Windows MIDI Playback
@@ -392,12 +392,12 @@ $yamlCheck | python -
 - [x] Confirm workflow permissions allow the release job to create releases.
 - [ ] Push a normal branch, for example `dev`.
 - [ ] Open the run in the **Actions** tab.
-- [ ] Confirm that `build_windows` passes.
-- [ ] Confirm that `test_windows` passes.
-- [ ] Confirm that `build_linux` passes.
-- [ ] Confirm that `test_linux` passes.
-- [ ] Confirm that `build_macos` passes.
-- [ ] Confirm that `test_macos` passes.
+- [x] Confirm that `build_windows` passes.
+- [x] Confirm that `test_windows` passes.
+- [x] Confirm that `build_linux` passes.
+- [x] Confirm that `test_linux` passes.
+- [x] Confirm that `build_macos` passes.
+- [x] Confirm that `test_macos` passes.
 
 Push a normal branch before publishing a tag:
 
@@ -452,6 +452,25 @@ gh run list --workflow "Build DrumBurp" --limit 5
 gh run watch
 ```
 
+Confirmed manual validation:
+
+- [x] Manual `workflow_dispatch` run completed successfully on `master`.
+- [x] Run URL: `https://github.com/wachin/DrumBurp/actions/runs/26842100756`
+- [x] Windows Build passed.
+- [x] Windows Smoke Test installed the generated NSIS installer and ran
+  `DrumBurp.exe --pyinstaller-test`.
+- [x] Linux Build and Linux Smoke Test passed.
+- [x] macOS Build and macOS Smoke Test passed.
+- [x] Release job was skipped, as expected, because the run was not triggered by
+  a `vX.Y.Z` tag.
+
+The smoke test artifact paths were corrected so downloaded artifacts are
+extracted into the directories expected by the test commands:
+
+- `db_linux`
+- `db_windows`
+- `db_macos`
+
 ### GitHub Actions Windows Build Notes
 
 GitHub Actions can create the Windows `.exe` installer for a release when the
@@ -503,9 +522,9 @@ git ls-remote https://github.com/wachin/DrumBurp HEAD
 
 ## Step 10: Download the Windows Artifact
 
-- [ ] Download the `db_windows` artifact.
-- [ ] Confirm that it contains `DrumBurp-X.Y.Z.0-setup.exe`.
-- [ ] Test the downloaded installer the same way as in step 7.
+- [x] Download the `db_windows` artifact.
+- [x] Confirm that it contains `DrumBurp-X.Y.Z.0-setup.exe`.
+- [x] Test the downloaded installer the same way as in step 7.
 
 With GitHub CLI, replace `RUN_ID` with the real id:
 
@@ -519,6 +538,19 @@ This file should appear:
 ```text
 DrumBurp-X.Y.Z.0-setup.exe
 ```
+
+Confirmed artifact:
+
+```text
+C:\D\DrumBurp-Dev\DrumBurp\artifacts\db_windows\DrumBurp-1.1.3.0-setup.exe
+```
+
+The downloaded artifact was also tested by the GitHub Actions Windows Smoke
+Test in run `26842100756`, which installed the NSIS installer and ran
+`DrumBurp.exe --pyinstaller-test` successfully.
+
+The local `artifacts/` directory is ignored by Git because it only contains
+downloaded validation outputs.
 
 ## Step 11: Test a Real Release
 
@@ -649,6 +681,23 @@ permissions:
   contents: write
 ```
 
+### Downloaded Installer Fails to Start Locally with `0xc0000142`
+
+If a freshly downloaded GitHub Actions installer fails to start locally with
+`0xc0000142`, first check whether the same artifact passed the GitHub Actions
+Windows Smoke Test. If it did, the installer itself is probably valid and the
+local failure may be caused by sandbox restrictions, Windows blocking a
+downloaded executable, or local endpoint security.
+
+Try:
+
+```powershell
+Unblock-File .\artifacts\db_windows\DrumBurp-X.Y.Z.0-setup.exe
+```
+
+Then run the installer from a normal PowerShell terminal outside any restricted
+sandbox.
+
 ## Final Report
 
 At the end, report a summary with:
@@ -660,6 +709,6 @@ At the end, report a summary with:
 - [x] whether `build_windows.ps1` generated the installer
 - [x] exact path to the local installer
 - [x] result of `DrumBurp.exe --pyinstaller-test`
-- [ ] link to the GitHub Actions run
-- [ ] whether `db_windows` was downloaded and tested
+- [x] link to the GitHub Actions run
+- [x] whether `db_windows` was downloaded and tested
 - [x] any error with relevant logs
