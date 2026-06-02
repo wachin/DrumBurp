@@ -81,6 +81,34 @@ Install these before starting:
 - [ ] NSIS: `https://nsis.sourceforge.io/Download`
 - [ ] GitHub CLI (`gh`), optional but recommended: `https://cli.github.com/`
 
+What each requirement is used for:
+
+- Git for Windows provides the `git` command used to clone the repository,
+  inspect changes, create commits, switch branches, and push code to GitHub.
+- Python 3.11 x64 is the Python runtime used to install DrumBurp's dependencies,
+  run tests, and build the Windows executable with PyInstaller.
+- PowerShell 7 provides the `pwsh` command used to run and validate the Windows
+  build scripts in a modern, cross-platform PowerShell environment.
+- Chocolatey provides the `choco` command used by the Windows install script to
+  install external build tools such as NSIS and runtime dependencies.
+- NSIS provides `makensis.exe`, which packages the PyInstaller output into the
+  final Windows installer, for example `DrumBurp-X.Y.Z.0-setup.exe`.
+- GitHub CLI provides the `gh` command used to inspect GitHub Actions runs,
+  download build artifacts, inspect logs, and manage release-related GitHub
+  operations from the terminal.
+
+Git for Windows and GitHub CLI are different tools, and both are useful:
+
+- Git for Windows talks to the Git repository. It handles source control tasks
+  such as `git clone`, `git status`, `git commit`, `git pull`, and `git push`.
+- GitHub CLI talks to GitHub as a hosting platform. It handles GitHub-specific
+  tasks such as `gh run list`, `gh run watch`, `gh run download`, `gh release`,
+  `gh issue`, and `gh pr`.
+
+Install both because Git is required for normal repository work, while GitHub
+CLI is the most convenient way to validate GitHub Actions artifacts and releases
+without relying only on the browser.
+
 Useful commands:
 
 ```powershell
@@ -103,13 +131,9 @@ On Windows 10 and newer, `powershell.exe` is Windows PowerShell and `pwsh.exe`
 is PowerShell 7. The build validation uses `pwsh`, so install PowerShell 7
 separately even if Windows PowerShell is already present.
 
-On Windows 7, PowerShell 7 is not included with the operating system. Windows 7
-normally has an older Windows PowerShell version, and Windows PowerShell 5.1
-requires the Windows Management Framework 5.1 update. Modern PowerShell 7
-releases and GitHub Actions runners do not target Windows 7, so Windows 7 should
-be treated as a manual compatibility target, not as the recommended build
-machine. For building releases, use Windows 10/11 or a supported GitHub Actions
-Windows runner.
+This workflow is intended for Windows 10/11 development machines and supported
+GitHub Actions Windows runners. Older unsupported Windows versions are not part
+of this Windows build workflow.
 
 If Chocolatey is missing, install it from:
 
@@ -401,11 +425,9 @@ Windows job installs NSIS and has a working `lrelease` command. If the Actions
 log fails at `lrelease`, add an explicit install step for `qt5-tools` or install
 Qt tools through Chocolatey before compiling translations.
 
-Windows 7 is not a suitable GitHub Actions target. GitHub-hosted Windows
-runners are modern Windows Server images, and current self-hosted runner support
-targets modern Windows versions. Use Windows 10/11 or GitHub-hosted Windows
-runners for release builds, then test Windows 7 separately only if compatibility
-with old systems is still a project goal.
+Older unsupported Windows versions are not suitable GitHub Actions targets for
+this project. Use Windows 10/11 development machines or GitHub-hosted Windows
+runners for release builds.
 
 ## Step 10: Download the Windows Artifact
 
