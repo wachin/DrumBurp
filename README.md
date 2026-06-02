@@ -215,6 +215,34 @@ The same launcher can be used for a quick smoke test:
 .\run-drumburp.bat --pyinstaller-test
 ```
 
+### Windows build environment
+
+For release builds on Windows, use Python 3.11 x64 and install the build
+requirements:
+
+```powershell
+py -3.11 -m pip install --upgrade pip
+py -3.11 -m pip install -r build\requirements-windows.txt
+```
+
+The Windows installer build also requires PowerShell 7, Chocolatey, NSIS, Git
+for Windows, and GitHub CLI. See `ROADMAP_Win_Workflow.md` for the detailed
+Windows validation workflow.
+
+### Manual GitHub Actions validation
+
+If GitHub CLI is authenticated, the build workflow can be launched manually:
+
+```powershell
+gh workflow run "Build DrumBurp" --ref master
+gh run list --workflow "Build DrumBurp" --limit 5
+gh run watch
+```
+
+Manual runs validate the Windows, Linux, and macOS builds and smoke tests. The
+release job only publishes assets when the workflow is triggered by a version
+tag such as `v1.1.4`.
+
 Optional features:
 
 - **LilyPond/PDF export:** install LilyPond for Windows from

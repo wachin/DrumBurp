@@ -2224,42 +2224,6 @@ p, li { white-space: pre-wrap; }
    <header>Widgets.ScoreView</header>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>FitWindowButton</tabstop>
-  <tabstop>FitPageButton</tabstop>
-  <tabstop>PrintScoreButton</tabstop>
-  <tabstop>PrintPdfButton</tabstop>
-  <tabstop>sectionNavigator</tabstop>
-  <tabstop>paperBox</tabstop>
-  <tabstop>widthSpinBox</tabstop>
-  <tabstop>lineSpaceSlider</tabstop>
-  <tabstop>defaultMeasureButton</tabstop>
-  <tabstop>fontsButton</tabstop>
-  <tabstop>lilyPagesBox</tabstop>
-  <tabstop>lilypondSize</tabstop>
-  <tabstop>lilyFillButton</tabstop>
-  <tabstop>lilyPdfButton</tabstop>
-  <tabstop>lilyPsButton</tabstop>
-  <tabstop>lilyPngButton</tabstop>
-  <tabstop>lilypondPathButton</tabstop>
-  <tabstop>exportLilypondButton</tabstop>
-  <tabstop>lilyPreview</tabstop>
-  <tabstop>firstLilyPage</tabstop>
-  <tabstop>prevLilyPage</tabstop>
-  <tabstop>refreshLilypond</tabstop>
-  <tabstop>nextLilyPage</tabstop>
-  <tabstop>lastLilyPage</tabstop>
-  <tabstop>underlineCheck</tabstop>
-  <tabstop>sectionBracketsCheck</tabstop>
-  <tabstop>emptyLineBeforeSectionCheck</tabstop>
-  <tabstop>emptyLineAfterSectionCheck</tabstop>
-  <tabstop>textExportButton</tabstop>
-  <tabstop>textExportPreview</tabstop>
-  <tabstop>noteFontComboBox</tabstop>
-  <tabstop>sectionFontCombo</tabstop>
-  <tabstop>metadataFontCombo</tabstop>
- </tabstops>
  <resources>
   <include location="DrumBurp.qrc"/>
  </resources>

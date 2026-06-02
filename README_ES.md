@@ -229,6 +229,35 @@ Tambien se puede usar el lanzador para una prueba rapida:
 .\run-drumburp.bat --pyinstaller-test
 ```
 
+### Entorno de build en Windows
+
+Para builds de release en Windows, usa Python 3.11 x64 e instala los requisitos
+de build:
+
+```powershell
+py -3.11 -m pip install --upgrade pip
+py -3.11 -m pip install -r build\requirements-windows.txt
+```
+
+El build del instalador de Windows tambien requiere PowerShell 7, Chocolatey,
+NSIS, Git for Windows y GitHub CLI. Consulta `ROADMAP_Win_Workflow.md` para el
+flujo detallado de validacion en Windows.
+
+### Validacion manual de GitHub Actions
+
+Si GitHub CLI ya esta autenticado, se puede lanzar manualmente el workflow de
+build:
+
+```powershell
+gh workflow run "Build DrumBurp" --ref master
+gh run list --workflow "Build DrumBurp" --limit 5
+gh run watch
+```
+
+Las ejecuciones manuales validan los builds y smoke tests de Windows, Linux y
+macOS. El job de release solo publica assets cuando el workflow se ejecuta por
+un tag de version, por ejemplo `v1.1.4`.
+
 Si DrumBurp arranca pero no suena:
 
 - Revisa que el sistema tenga una salida de audio/MIDI activa.

@@ -6,7 +6,7 @@ completed.
 
 ## File Handling
 
-- [ ] Add manual validation notes for `File -> Recent Scores...`.
+- [x] Add manual validation notes for `File -> Recent Scores...`.
 - [ ] Confirm that only `.brp` score files are saved in `RecentFiles`.
 - [ ] Confirm that dragging a `.brp` file into DrumBurp opens the score.
 - [ ] Confirm that dragging unsupported files such as `.md`, `.txt`, `.pdf`, or
@@ -15,6 +15,20 @@ completed.
   safely.
 - [ ] Confirm that `LastScoreDirectory` remembers the last folder used to open
   or save a score.
+
+Manual validation notes:
+
+1. Open DrumBurp with `run-drumburp.bat`.
+2. Open a valid `.brp` score from `File -> Open`.
+3. Close and reopen DrumBurp.
+4. Confirm the score appears under `File -> Recent Scores...`.
+5. Drag the same `.brp` score into the DrumBurp window and confirm it opens.
+6. Drag unsupported files such as `.md`, `.txt`, `.pdf`, or an image into the
+   DrumBurp window and confirm they are ignored or rejected safely.
+7. Run `py .\src\DrumBurp.py README.md` and confirm DrumBurp does not load the
+   Markdown file as a score.
+8. Open a score from a different folder, then use `File -> Open` again and
+   confirm the file dialog starts from the last score folder.
 
 ## Windows Launcher
 
@@ -78,7 +92,22 @@ completed.
 - [ ] Confirm that the GitHub Release contains the Windows installer.
 - [ ] Confirm that the GitHub Release contains the Linux binary.
 - [ ] Confirm that the GitHub Release contains the macOS zip.
-- [ ] Document the release checklist in one place.
+- [x] Document the release checklist in one place.
+
+Release checklist:
+
+1. Confirm `master` is clean and pushed.
+2. Confirm the latest manual GitHub Actions build passes.
+3. Confirm local Windows validation still passes:
+   `run-drumburp.bat --pyinstaller-test`.
+4. Confirm local unit tests pass:
+   `py -m unittest discover -s src\test`.
+5. Create a version tag such as `v1.1.4`.
+6. Push the tag to GitHub.
+7. Confirm the tag-triggered workflow completes.
+8. Confirm the GitHub Release contains the Windows installer, Linux binary, and
+   macOS zip.
+9. Download the release assets and smoke-test them on the target platforms.
 
 ## MIDI
 
@@ -91,9 +120,9 @@ completed.
 
 ## Qt And UI Warnings
 
-- [ ] Investigate the startup warning:
+- [x] Investigate the startup warning:
   `QWidget::setTabOrder: 'first' and 'second' must be in the same window`.
-- [ ] Fix the Qt tab-order warning if it is caused by the `.ui` file.
+- [x] Fix the Qt tab-order warning if it is caused by the `.ui` file.
 - [ ] Check whether startup console warnings can be reduced without hiding real
   errors.
 
@@ -101,8 +130,8 @@ completed.
 
 - [x] Keep `README.md` and `README_ES.md` in sync for Windows launch
   instructions.
-- [ ] Document the VirtualMIDISynth setup clearly for Windows users.
+- [x] Document the VirtualMIDISynth setup clearly for Windows users.
 - [x] Document supported score file extensions.
-- [ ] Document the recommended build environment for Windows.
+- [x] Document the recommended build environment for Windows.
 - [x] Document how to run tests locally.
-- [ ] Document how to run the GitHub Actions workflow manually.
+- [x] Document how to run the GitHub Actions workflow manually.
