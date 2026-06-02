@@ -153,7 +153,7 @@ $env:PYTHONPATH = "$PWD\src"
 py .\src\DrumBurp.py
 ```
 
-### MIDI playback on Windows with VirtualMIDISynth
+## MIDI playback on Windows with VirtualMIDISynth
 
 For good MIDI sound on Windows, install
 [CoolSoft VirtualMIDISynth](https://coolsoft.altervista.org/en/virtualmidisynth).
