@@ -138,6 +138,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self._state = None
         self._asciiSettings = None
         self._printer = None
+        self._midiPlaybackEnabled = False
         self.setupUi(self)
         self.scoreScene = None
         self.paperBox.blockSignals(True)
@@ -212,7 +213,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self._versionThread = VersionCheckThread()
         self._versionThread.finished.connect(self._finishedVersionCheck)
         self.menuSelectMidiOut.setEnabled(False)
-        self.menuSelectMidiOut.menuAction().setVisible(False)
+        self.menuSelectMidiOut.menuAction().setVisible(True)
         self._midiInitThread = DBMidi.MidiInit(self)
         self._midiInitThread.finished.connect(self._midiInitFinished)
         QTimer.singleShot(0, lambda: self._startUp(erroredFiles))
@@ -230,8 +231,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         props.metadataFontChanged.connect(self._setMetadataFont)
         props.metadataFontSizeChanged.connect(self._setMetadataSize)
         scene.dirtySignal.connect(self.setWindowModified)
-        scene.dragHighlight.connect(self.actionLoopBars.setEnabled)
-        scene.dragHighlight.connect(self.actionPlayOnce.setEnabled)
+        scene.dragHighlight.connect(self._setMidiSelectionActionsEnabled)
         scene.dragHighlight.connect(self.actionCopyMeasures.setEnabled)
         scene.dragHighlight.connect(self.checkPasteMeasure)
         scene.dragHighlight.connect(self.actionClearMeasures.setEnabled)
@@ -298,8 +298,9 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self.actionFillPasteMeasures.setEnabled(False)
         self.actionClearMeasures.setEnabled(False)
         self.actionDeleteMeasures.setEnabled(False)
-        self.menu_MIDI.setEnabled(False)
-        self.MIDIToolBar.setEnabled(False)
+        self.menu_MIDI.setEnabled(True)
+        self.MIDIToolBar.setEnabled(True)
+        self._setMidiPlaybackEnabled(False)
         # Undo/redo
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
@@ -371,6 +372,18 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     def _setPaperSize(self, unusedIndex):
         self.scoreScene.setPaperSize(self.paperBox.currentText())
+
+    def _setMidiPlaybackEnabled(self, enabled):
+        self._midiPlaybackEnabled = enabled
+        self.actionPlayScore.setEnabled(enabled)
+        self.actionMuteNotes.setEnabled(enabled)
+        self._setMidiSelectionActionsEnabled(
+            self.scoreScene is not None and self.scoreScene.hasDragSelection())
+
+    def _setMidiSelectionActionsEnabled(self, hasSelection):
+        enabled = self._midiPlaybackEnabled and hasSelection
+        self.actionPlayOnce.setEnabled(enabled)
+        self.actionLoopBars.setEnabled(enabled)
 
     def _setFontCombo(self, font, fontCombo):
         if font is None:
@@ -1000,22 +1013,37 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     def _refreshMidiDevices(self):
         self.menuSelectMidiOut.clear()
-#         self.menuSelectMidiOut.addAction(self.actionRefreshMidiDevices)
-#         self.menuSelectMidiOut.addSeparator()
+        self.menuSelectMidiOut.addAction(self.actionRefreshMidiDevices)
+        self.menuSelectMidiOut.addSeparator()
         DBMidi.refreshOutputDevices()
         current = DBMidi.currentDevice()
+        hasDevices = False
         for device in DBMidi.iterMidiDevices():
+            hasDevices = True
             action = QAction(device.name, self.menuSelectMidiOut,
                              checkable=True)
             self.menuSelectMidiOut.addAction(action)
 
-            def selectDevice(unused, dev=device, act=action):
-                DBMidi.selectMidiDevice(dev)
-                for otherAction in self.menuSelectMidiOut.actions():
-                    otherAction.setChecked(False)
-                act.setChecked(True)
+            def selectDevice(unused, dev=device):
+                selected = DBMidi.selectMidiDevice(dev)
+                self._refreshMidiDevices()
+                self._setMidiPlaybackEnabled(DBMidi.HAS_MIDI)
+                if selected:
+                    self.statusbar.showMessage(
+                        self.tr("MIDI output: %s") % dev.name, 5000)
+                else:
+                    QMessageBox.warning(
+                        self, self.tr("MIDI output unavailable"),
+                        self.tr("Could not open MIDI output device:\n%s")
+                        % dev.name)
             action.triggered.connect(selectDevice)
             action.setChecked(device == current)
+        if not hasDevices:
+            action = QAction(self.tr("No MIDI output devices found"),
+                             self.menuSelectMidiOut)
+            action.setEnabled(False)
+            self.menuSelectMidiOut.addAction(action)
+        self.menuSelectMidiOut.setEnabled(True)
 
     @pyqtSlot()
     def on_actionRefreshMidiDevices_triggered(self):
@@ -1259,8 +1287,9 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     def _midiInitFinished(self):
         self._refreshMidiDevices()
-        self.menu_MIDI.setEnabled(DBMidi.HAS_MIDI)
-        self.MIDIToolBar.setEnabled(DBMidi.HAS_MIDI)
+        self.menu_MIDI.setEnabled(True)
+        self.MIDIToolBar.setEnabled(True)
+        self._setMidiPlaybackEnabled(DBMidi.HAS_MIDI)
         self.setEnabled(True)
 
     @pyqtSlot()

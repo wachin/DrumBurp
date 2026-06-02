@@ -130,7 +130,8 @@ The Windows package names are:
 - `PyQt5` — Qt GUI bindings; includes Qt modules such as `QtWidgets`,
   `QtPrintSupport` and `QtMultimedia`
 - `PyQt5-sip` — support package used by PyQt5
-- `pygame` — MIDI playback support
+- `pygame` — MIDI fallback support; Windows playback uses the native WinMM
+  backend
 - `pywin32` — Windows support package used by the build environment
 - `pyinstaller` — only needed to build a standalone `.exe`
 - `pylint` — only needed for development checks
@@ -152,6 +153,40 @@ $env:PYTHONPATH = "$PWD\src"
 py .\src\DrumBurp.py
 ```
 
+### MIDI playback on Windows with VirtualMIDISynth
+
+For good MIDI sound on Windows, install
+[CoolSoft VirtualMIDISynth](https://coolsoft.altervista.org/en/virtualmidisynth).
+VirtualMIDISynth provides a Windows MIDI output device and handles SoundFont
+loading outside DrumBurp.
+
+After installing VirtualMIDISynth:
+
+1. Download one or more of the recommended SoundFonts from the VirtualMIDISynth
+   website.
+2. Open the VirtualMIDISynth configuration window.
+3. On the **Soundfonts** tab, click the **+** button.
+4. Select the SoundFont file you downloaded and add it.
+5. Enable only the SoundFont you want to use. VirtualMIDISynth can list several
+   SoundFonts, but only one should be active at a time for predictable playback.
+
+Launch DrumBurp from the repository root:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+py .\src\DrumBurp.py
+```
+
+Then choose:
+
+```text
+MIDI -> Select MIDI out -> VirtualMIDISynth #1
+```
+
+DrumBurp uses the native Windows Multimedia API (`winmm`) on Windows, so
+VirtualMIDISynth should play drum tablature correctly without FluidSynth or any
+SoundFont loaded inside DrumBurp itself.
+
 To run the test suite on Windows:
 
 ```powershell
@@ -164,10 +199,9 @@ Optional features:
 - **LilyPond/PDF export:** install LilyPond for Windows from
   `https://lilypond.org/`, then set the path to `lilypond.exe` inside
   DrumBurp's Lilypond options.
-- **MIDI playback:** Windows normally provides a MIDI output device such as
-  Microsoft GS Wavetable Synth. If DrumBurp starts but MIDI is silent, check
-  that Windows has an active MIDI output device; MIDI export can still be tested
-  without extra system packages.
+- **MIDI playback:** VirtualMIDISynth is recommended. Windows may also provide
+  Microsoft GS Wavetable Synth or Microsoft MIDI Mapper, but VirtualMIDISynth
+  with a General MIDI SoundFont usually sounds better.
 
 # Run on macOS
 
@@ -215,9 +249,11 @@ Optional features:
 
 ## MIDI playback
 
-DrumBurp produces MIDI sound with `pygame`. Short preview notes are sent through
-`pygame.midi` to the default MIDI output device. Full score playback is generated
-as a MIDI file in memory and played through `pygame.mixer.music`.
+DrumBurp produces MIDI sound through the native Windows Multimedia API (`winmm`)
+on Windows and through `pygame` on other platforms. On Windows, this allows
+playback through MIDI output devices such as VirtualMIDISynth, Microsoft GS
+Wavetable Synth, or other Windows MIDI ports. DrumBurp does not load SoundFonts
+itself; external synths such as VirtualMIDISynth handle that.
 
 ---
 
@@ -228,6 +264,8 @@ as a MIDI file in memory and played through `pygame.mixer.music`.
 - UI files regenerated with `pyuic5`; QRC resources regenerated with `pyrcc5`
 - Temporary compatibility layer `src/PyQt4/` removed
 - PDF export via LilyPond 2.24 fixed
+- Native Windows MIDI playback via WinMM added, including selectable MIDI output
+  devices such as VirtualMIDISynth
 - Integer division in MIDI and Lilypond calculations fixed
 - About dialog updated with port credits
 - Version updated to 1.1.3

@@ -23,6 +23,9 @@ Created on 17 Sep 2011
 
 '''
 import copy
+import ctypes
+import platform
+from ctypes import wintypes
 
 HAS_MIDI = False
 _MIDI_INITIALIZED = False
@@ -46,6 +49,12 @@ _NUMSAMPLES = 4096  # number of samples
 FLAM_TIME_CONSTANT = 32
 FLAM_VOLUME_CONSTANT = 2
 DRAG_TIME_CONSTANT = 96
+_IS_WINDOWS = platform.system() == "Windows"
+_PYGAME_DRIVER = "pygame"
+_WINMM_DRIVER = "Windows MM"
+_SCHEDULER_INTERVAL_MS = 5
+_SCHEDULER_LOOKAHEAD_MS = 2
+
 
 def _decodeMidiName(name):
     if isinstance(name, bytes):
@@ -54,12 +63,13 @@ def _decodeMidiName(name):
         return None
     return str(name)
 
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import QThread, QTimer, pyqtSignal, QObject, Qt
 import atexit
 import time
-from io import BytesIO
 
 try:
+    if _IS_WINDOWS:
+        raise ImportError("Windows MIDI uses WinMM")
     import pygame
     import pygame.midi
     _HAS_PYGAME = True
@@ -98,10 +108,251 @@ except ImportError:
             _PLAYER.cleanup()
 
 
+_MAXPNAMELEN = 32
+_CALLBACK_NULL = 0
+_MMSYSERR_NOERROR = 0
+_MMSYSERR_STILLPLAYING = 65
+_MIDI_MAPPER = 0xFFFFFFFF
+
+
+class MIDIHDR(ctypes.Structure):
+    _fields_ = [
+        ("lpData", ctypes.c_char_p),
+        ("dwBufferLength", wintypes.DWORD),
+        ("dwBytesRecorded", wintypes.DWORD),
+        ("dwUser", ctypes.c_size_t),
+        ("dwFlags", wintypes.DWORD),
+        ("lpNext", ctypes.c_void_p),
+        ("reserved", ctypes.c_size_t),
+        ("dwOffset", wintypes.DWORD),
+        ("dwReserved", ctypes.c_size_t * 8),
+    ]
+
+
+class MIDIOUTCAPSW(ctypes.Structure):
+    _fields_ = [
+        ("wMid", wintypes.WORD),
+        ("wPid", wintypes.WORD),
+        ("vDriverVersion", wintypes.UINT),
+        ("szPname", wintypes.WCHAR * _MAXPNAMELEN),
+        ("wTechnology", wintypes.WORD),
+        ("wVoices", wintypes.WORD),
+        ("wNotes", wintypes.WORD),
+        ("wChannelMask", wintypes.WORD),
+        ("dwSupport", wintypes.DWORD),
+    ]
+
+
+class WinMMError(RuntimeError):
+    pass
+
+
+if _IS_WINDOWS:
+    _WINMM = ctypes.WinDLL("winmm")
+    _WINMM.midiOutGetNumDevs.restype = wintypes.UINT
+    _WINMM.midiOutGetDevCapsW.argtypes = [
+        ctypes.c_size_t, ctypes.POINTER(MIDIOUTCAPSW), wintypes.UINT]
+    _WINMM.midiOutGetDevCapsW.restype = wintypes.UINT
+    _WINMM.midiOutOpen.argtypes = [
+        ctypes.POINTER(ctypes.c_void_p), ctypes.c_size_t, ctypes.c_size_t,
+        ctypes.c_size_t, wintypes.DWORD]
+    _WINMM.midiOutOpen.restype = wintypes.UINT
+    _WINMM.midiOutShortMsg.argtypes = [ctypes.c_void_p, wintypes.DWORD]
+    _WINMM.midiOutShortMsg.restype = wintypes.UINT
+    _WINMM.midiOutPrepareHeader.argtypes = [
+        ctypes.c_void_p, ctypes.POINTER(MIDIHDR), wintypes.UINT]
+    _WINMM.midiOutPrepareHeader.restype = wintypes.UINT
+    _WINMM.midiOutLongMsg.argtypes = [
+        ctypes.c_void_p, ctypes.POINTER(MIDIHDR), wintypes.UINT]
+    _WINMM.midiOutLongMsg.restype = wintypes.UINT
+    _WINMM.midiOutUnprepareHeader.argtypes = [
+        ctypes.c_void_p, ctypes.POINTER(MIDIHDR), wintypes.UINT]
+    _WINMM.midiOutUnprepareHeader.restype = wintypes.UINT
+    _WINMM.midiOutReset.argtypes = [ctypes.c_void_p]
+    _WINMM.midiOutReset.restype = wintypes.UINT
+    _WINMM.midiOutClose.argtypes = [ctypes.c_void_p]
+    _WINMM.midiOutClose.restype = wintypes.UINT
+    _WINMM.midiOutGetErrorTextW.argtypes = [
+        wintypes.UINT, wintypes.LPWSTR, wintypes.UINT]
+    _WINMM.midiOutGetErrorTextW.restype = wintypes.UINT
+else:
+    _WINMM = None
+
+
+def _winmm_error_text(error):
+    if not _IS_WINDOWS:
+        return str(error)
+    buffer = ctypes.create_unicode_buffer(256)
+    result = _WINMM.midiOutGetErrorTextW(error, buffer, len(buffer))
+    if result == _MMSYSERR_NOERROR and buffer.value:
+        return buffer.value
+    return "WinMM error %s" % error
+
+
+def _check_winmm(error, action):
+    if error != _MMSYSERR_NOERROR:
+        raise WinMMError("%s: %s" % (action, _winmm_error_text(error)))
+
+
+def _winmm_device_name(deviceId):
+    caps = MIDIOUTCAPSW()
+    result = _WINMM.midiOutGetDevCapsW(
+        ctypes.c_size_t(deviceId), ctypes.byref(caps), ctypes.sizeof(caps))
+    if result != _MMSYSERR_NOERROR:
+        return None
+    return caps.szPname
+
+
+def list_winmm_output_ports():
+    if not _IS_WINDOWS:
+        return []
+    ports = []
+    mapperName = _winmm_device_name(_MIDI_MAPPER)
+    if mapperName:
+        ports.append(MidiDevice(_MIDI_MAPPER, mapperName, _WINMM_DRIVER))
+    for deviceId in range(_WINMM.midiOutGetNumDevs()):
+        name = _winmm_device_name(deviceId)
+        if name:
+            ports.append(MidiDevice(deviceId, name, _WINMM_DRIVER))
+    return ports
+
+
+class BackendManager(object):
+    @staticmethod
+    def output_drivers():
+        drivers = []
+        if _IS_WINDOWS:
+            drivers.append("winmm")
+            drivers.append(_WINMM_DRIVER)
+        if _HAS_PYGAME:
+            drivers.append(_PYGAME_DRIVER)
+        return drivers
+
+
+class MidiOutput(QObject):
+    supportsTimestamps = True
+
+    def open(self, deviceId):
+        raise NotImplementedError()
+
+    def close(self):
+        raise NotImplementedError()
+
+    def write(self, events):
+        raise NotImplementedError()
+
+    def abort(self):
+        self.close()
+
+
+class PygameOutput(MidiOutput):
+    supportsTimestamps = True
+
+    def __init__(self, parent=None):
+        super(PygameOutput, self).__init__(parent)
+        self._output = None
+
+    def open(self, deviceId):
+        self._output = pygame.midi.Output(deviceId, _LATENCY, _BUFSIZE)
+        self.write([[[_PERCUSSION_NOTE_ON, 38, 0], pygame.midi.time()]])
+
+    def close(self):
+        if self._output is not None:
+            try:
+                self._output.abort()
+            except Exception:
+                pass
+            try:
+                self._output.close()
+            except Exception:
+                pass
+            self._output = None
+
+    def write(self, events):
+        if self._output is None:
+            raise RuntimeError("MIDI output is not open")
+        self._output.write(events)
+
+
+class WinMMOutput(MidiOutput):
+    supportsTimestamps = False
+
+    def __init__(self, parent=None):
+        super(WinMMOutput, self).__init__(parent)
+        self._handle = ctypes.c_void_p()
+
+    def open(self, deviceId):
+        self.close()
+        result = _WINMM.midiOutOpen(
+            ctypes.byref(self._handle), ctypes.c_size_t(deviceId),
+            0, 0, _CALLBACK_NULL)
+        _check_winmm(result, "midiOutOpen")
+        self.send_short_message(_PERCUSSION_NOTE_ON, 38, 0)
+
+    def close(self):
+        if self._handle:
+            try:
+                _WINMM.midiOutReset(self._handle)
+            finally:
+                _WINMM.midiOutClose(self._handle)
+                self._handle = ctypes.c_void_p()
+
+    def abort(self):
+        if self._handle:
+            _WINMM.midiOutReset(self._handle)
+
+    def write(self, events):
+        for event in events:
+            message = event[0]
+            if len(message) == 1 and isinstance(message[0], (bytes, bytearray)):
+                self.send_sysex(message[0])
+            elif message and message[0] != 0xFF:
+                data1 = message[1] if len(message) > 1 else 0
+                data2 = message[2] if len(message) > 2 else 0
+                self.send_short_message(message[0], data1, data2)
+
+    def send_short_message(self, status, data1=0, data2=0):
+        if not self._handle:
+            raise WinMMError("MIDI output is not open")
+        packed = status | (data1 << 8) | (data2 << 16)
+        result = _WINMM.midiOutShortMsg(self._handle, packed)
+        _check_winmm(result, "midiOutShortMsg")
+
+    def send_sysex(self, data):
+        if not self._handle:
+            raise WinMMError("MIDI output is not open")
+        buffer = ctypes.create_string_buffer(bytes(data))
+        header = MIDIHDR()
+        header.lpData = ctypes.cast(buffer, ctypes.c_char_p)
+        header.dwBufferLength = len(data)
+        size = ctypes.sizeof(header)
+        _check_winmm(_WINMM.midiOutPrepareHeader(
+            self._handle, ctypes.byref(header), size), "midiOutPrepareHeader")
+        try:
+            _check_winmm(_WINMM.midiOutLongMsg(
+                self._handle, ctypes.byref(header), size), "midiOutLongMsg")
+            while True:
+                result = _WINMM.midiOutUnprepareHeader(
+                    self._handle, ctypes.byref(header), size)
+                if result != _MMSYSERR_STILLPLAYING:
+                    _check_winmm(result, "midiOutUnprepareHeader")
+                    break
+                time.sleep(0.01)
+        except Exception:
+            _WINMM.midiOutUnprepareHeader(self._handle, ctypes.byref(header), size)
+            raise
+
+
 class MidiDevice(object):
-    def __init__(self, deviceId):
+    def __init__(self, deviceId, name=None, driver=_PYGAME_DRIVER):
         self.deviceId = deviceId
-        self.name, in_, self._isOutput, self._isOpen = getDeviceInfo(deviceId)
+        self.driver = driver
+        if name is None:
+            self.name, in_, self._isOutput, self._isOpen = getDeviceInfo(deviceId)
+        else:
+            self.name = name
+            self._isOutput = True
+            self._isOpen = False
         self.name = _decodeMidiName(self.name)
         self._isValid = self.name is not None
 
@@ -112,6 +363,8 @@ class MidiDevice(object):
         return self._isOutput
 
     def isOpen(self):
+        if self.driver == _WINMM_DRIVER:
+            return False
         return getDeviceInfo(self.deviceId)[3]
 
 
@@ -121,6 +374,13 @@ _OUTPUT_DEVICES = []
 def refreshOutputDevices():
     while _OUTPUT_DEVICES:
         _OUTPUT_DEVICES.pop()
+    if _IS_WINDOWS:
+        _OUTPUT_DEVICES.extend(list_winmm_output_ports())
+        _OUTPUT_DEVICES.sort(
+            key=lambda dev: (0 if "VirtualMIDISynth" in dev.name else
+                             1 if dev.deviceId != _MIDI_MAPPER else 2,
+                             dev.name))
+        return
     try:
         deviceIds = iterDeviceIds()
     except RuntimeError:
@@ -135,7 +395,79 @@ def iterMidiDevices():
     return iter(_OUTPUT_DEVICES)
 
 
-from PyQt5.QtCore import QTimer, pyqtSignal, QObject
+def _candidateOutputIds(preferred=None, fallback=True):
+    if _IS_WINDOWS:
+        if not _OUTPUT_DEVICES:
+            refreshOutputDevices()
+        if preferred is not None:
+            yield preferred
+            if not fallback:
+                return
+        for dev in _OUTPUT_DEVICES:
+            if dev.deviceId != preferred:
+                yield dev.deviceId
+        return
+    if preferred is not None:
+        if preferred != -1:
+            yield preferred
+        if not fallback:
+            return
+    defaultId = getDefaultId()
+    if defaultId != -1 and defaultId != preferred:
+        yield defaultId
+    for devId in iterDeviceIds():
+        if devId in (preferred, defaultId):
+            continue
+        name, unusedIsIn, isOut, unusedIsOpen = getDeviceInfo(devId)
+        if isOut and name is not None:
+            yield devId
+
+
+def _openOutput(preferred=None, fallback=True):
+    for port in _candidateOutputIds(preferred, fallback):
+        midiOut = None
+        try:
+            if _IS_WINDOWS:
+                midiOut = WinMMOutput()
+            else:
+                midiOut = PygameOutput()
+            midiOut.open(port)
+            return port, midiOut
+        except Exception as exc:
+            name = _deviceName(port)
+            print("MIDI output unavailable on %s (%s): %s" %
+                  (port, name, exc))
+            _closeOutput(midiOut)
+    return -1, None
+
+
+def _deviceName(deviceId):
+    if _IS_WINDOWS:
+        name = _winmm_device_name(deviceId)
+        return name if name is not None else deviceId
+    name, unusedIsIn, unusedIsOut, unusedIsOpen = getDeviceInfo(deviceId)
+    return name
+
+
+def _closeOutput(midiOut):
+    if midiOut is None:
+        return
+    try:
+        midiOut.abort()
+    except Exception:
+        pass
+    try:
+        midiOut.close()
+    except Exception:
+        pass
+
+
+def _midi_time():
+    if _HAS_PYGAME and not _IS_WINDOWS:
+        return pygame.midi.time()
+    return int(round(time.perf_counter() * 1000))
+
+
 from Data.DBConstants import MIDITICKSPERBEAT
 
 
@@ -150,6 +482,12 @@ class _midi(QObject):
         self._measureTimer = QTimer()
         self._measureTimer.setSingleShot(True)
         self._measureTimer.timeout.connect(self._highlight)
+        self._playbackTimer = QTimer(self)
+        self._playbackTimer.setTimerType(Qt.PreciseTimer)
+        self._playbackTimer.timeout.connect(self._dispatchOutputEvents)
+        self._playbackEvents = []
+        self._playbackEventIndex = 0
+        self._playbackStartTime = 0
         self._songStart = None
         self._mute = False
         self._musicPlaying = False
@@ -158,18 +496,28 @@ class _midi(QObject):
     def initialize(self):
         if not _MIDI_INITIALIZED:
             raise RuntimeError("MIDI not initialized yet!")
-        if self._port is None:
-            self._port = getDefaultId()
-        if self._port != -1:
-            self._midiOut = pygame.midi.Output(self._port, _LATENCY, _BUFSIZE)
+        selectedPort = self._port
+        self._port = -1
+        self._midiOut = None
+        self._port, self._midiOut = _openOutput(
+            selectedPort, fallback=selectedPort is None)
 
     def setPort(self, port):
-        if self._midiOut:
-            self._midiOut.abort()
-            del self._midiOut
-            self._midiOut = None
-        self._port = port
-        self.initialize()
+        oldPort = self._port
+        oldMidiOut = self._midiOut
+        newPort, newMidiOut = _openOutput(port, fallback=False)
+        if newMidiOut is None:
+            _closeOutput(oldMidiOut)
+            if oldPort is not None and oldPort != -1:
+                self._port, self._midiOut = _openOutput(
+                    oldPort, fallback=True)
+            else:
+                self._port = oldPort
+                self._midiOut = None
+            return
+        self._port = newPort
+        self._midiOut = newMidiOut
+        _closeOutput(oldMidiOut)
 
     def port(self):
         return self._port
@@ -195,7 +543,7 @@ class _midi(QObject):
         if not self._midiOut:
             return
         if when is None:
-            when = pygame.midi.time()
+            when = _midi_time()
         if headData.effect == "flam":
             self._midiOut.write([[[_PERCUSSION_NOTE_ON,
                                    headData.midiNote,
@@ -234,7 +582,7 @@ class _midi(QObject):
         self._playMIDINow(measureList, score)
 
     def _playMIDINow(self, measureList, score):
-        if self.kit is None or self._mute:
+        if self.kit is None or self._mute or not self._midiOut:
             return
         baseTime = 0
         bpm = score.scoreData.bpm
@@ -256,19 +604,63 @@ class _midi(QObject):
                 baseTime += times[-1]
                 self._measureDetails.append((measureIndex, baseTime))
             self._measureDetails.reverse()
-            self._midiOut = None
-            midi = BytesIO()
-            exportMidi(measureList, score, midi)
-            midi.seek(0, 0)
-            pygame.mixer.music.load(midi)
-            pygame.mixer.music.play()
+            notes, unusedBaseTicks = _calculateMidiTimes(measureList, score)
+            startTime = _midi_time()
+            events = _makeOutputEvents(notes, startTime)
             self._songStart = time.perf_counter()
             self._musicPlaying = True
-        except:
+            if self._midiOut.supportsTimestamps:
+                self._midiOut.write(events)
+            else:
+                self._scheduleOutputEvents(events, startTime)
+        except Exception as exc:
+            global HAS_MIDI
+            print("MIDI playback failed: %s" % exc)
+            HAS_MIDI = False
+            self.cleanup()
             self.timer.timeout.emit()
-            raise
+            return
         self.timer.start(int(round(baseTime + 500)))
         self._measureTimer.start(0)
+
+    def _scheduleOutputEvents(self, events, startTime):
+        self._stopOutputScheduler()
+        self._playbackEvents = events
+        self._playbackEventIndex = 0
+        self._playbackStartTime = startTime
+        self._dispatchOutputEvents()
+        if self._playbackEventIndex < len(self._playbackEvents):
+            self._playbackTimer.start(_SCHEDULER_INTERVAL_MS)
+
+    def _dispatchOutputEvents(self):
+        if not self._musicPlaying or not self._midiOut:
+            self._stopOutputScheduler()
+            return
+        now = _midi_time()
+        dueTime = now + _SCHEDULER_LOOKAHEAD_MS
+        batch = []
+        while self._playbackEventIndex < len(self._playbackEvents):
+            event = self._playbackEvents[self._playbackEventIndex]
+            if event[1] > dueTime:
+                break
+            batch.append(event)
+            self._playbackEventIndex += 1
+        if batch:
+            try:
+                self._midiOut.write(batch)
+            except Exception as exc:
+                print("MIDI playback failed: %s" % exc)
+                self.cleanup()
+                self.timer.timeout.emit()
+                return
+        if self._playbackEventIndex >= len(self._playbackEvents):
+            self._playbackTimer.stop()
+
+    def _stopOutputScheduler(self):
+        self._playbackTimer.stop()
+        self._playbackEvents = []
+        self._playbackEventIndex = 0
+        self._playbackStartTime = 0
 
     def loopBars(self, measureIterator, score, loopCount=100):
         measureList = [(measure, measureIndex) for
@@ -285,27 +677,19 @@ class _midi(QObject):
             self.timer.stop()
             self._measureDetails = []
             self._measureTimer.stop()
+            self._stopOutputScheduler()
             self.highlightMeasure.emit(-1, -1)
             if self._midiOut:
-                del self._midiOut
+                _closeOutput(self._midiOut)
                 self._midiOut = None
-            try:
-                pygame.mixer.music.stop()
-            except Exception as exc:
-                print("MIDI playback stop failed: %s" % exc)
             if self._port is not None and self._port != -1:
-                try:
-                    self._midiOut = pygame.midi.Output(self._port, _LATENCY,
-                                                       _BUFSIZE)
-                except Exception as exc:
-                    print("MIDI output unavailable: %s" % exc)
-                    self._midiOut = None
+                self._port, self._midiOut = _openOutput(self._port)
             self._musicPlaying = False
 
     def cleanup(self):
+        self._stopOutputScheduler()
         if self._midiOut is not None:
-            self._midiOut.abort()
-            del self._midiOut
+            _closeOutput(self._midiOut)
             self._midiOut = None
 
     def _highlight(self):
@@ -453,6 +837,25 @@ class MidiChoke(MidiObject):
         return [_PERCUSSION_CHOKE, _CHOKE_MSG, _CHOKE_VELOCITY]
 
 
+def _makeOutputEvents(midiObjects, startTime):
+    events = []
+    bpm = 120
+    lastTick = 0
+    currentMs = 0.0
+    sortedObjects = sorted(
+        midiObjects,
+        key=lambda obj: (obj.time, 0 if isinstance(obj, MidiTempoChange) else 1))
+    for midiEvent in sortedObjects:
+        currentMs += ((midiEvent.time - lastTick) * 60000.0 /
+                      (bpm * MIDITICKSPERBEAT))
+        lastTick = midiEvent.time
+        if isinstance(midiEvent, MidiTempoChange):
+            bpm = midiEvent.bpm
+        else:
+            events.append([midiEvent.write(), int(round(startTime + currentMs))])
+    return events
+
+
 def _calculateMidiTimes(measureIterator, score):
     notes = []
     baseTime = 1
@@ -510,9 +913,11 @@ def exportMidi(measureIterator, score, handle):
 
 
 def selectMidiDevice(dev):
+    global HAS_MIDI
     _PLAYER.cleanup()
     _PLAYER.setPort(dev.deviceId)
-    return _PLAYER.isGood()
+    HAS_MIDI = _PLAYER.isGood() if _IS_WINDOWS else _HAS_PYGAME and _PLAYER.isGood()
+    return HAS_MIDI and _PLAYER.port() == dev.deviceId
 
 
 def currentDevice():
@@ -527,14 +932,14 @@ def _initialize():
     if _MIDI_INITIALIZED:
         return
     try:
-        if _HAS_PYGAME:
+        if _HAS_PYGAME and not _IS_WINDOWS:
             pygame.init()  # IGNORE:no-member
             pygame.midi.init()
             pygame.mixer.init(_FREQ, _BITSIZE, _CHANNELS, _NUMSAMPLES)
             pygame.mixer.music.set_volume(0.8)
         _MIDI_INITIALIZED = True
         _PLAYER.initialize()
-        HAS_MIDI = _HAS_PYGAME and _PLAYER.isGood()
+        HAS_MIDI = _PLAYER.isGood() if _IS_WINDOWS else _HAS_PYGAME and _PLAYER.isGood()
     except Exception as exc:
         print("MIDI unavailable: %s" % exc)
         HAS_MIDI = False

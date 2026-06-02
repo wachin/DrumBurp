@@ -20,6 +20,10 @@ fully verify:
 
 At the end of this validation, the following should be confirmed:
 
+- [x] DrumBurp can run from source on Windows 10.
+- [x] Native Windows MIDI playback works through WinMM.
+- [x] `MIDI -> Select MIDI out` is visible and can select Windows MIDI devices.
+- [x] VirtualMIDISynth can be used as a Windows MIDI output device.
 - [ ] `pwsh` is installed and can run scripts.
 - [ ] `build/install_windows.ps1` installs the required tools.
 - [ ] `build/build_windows.ps1` creates the installer.
@@ -27,6 +31,44 @@ At the end of this validation, the following should be confirmed:
 - [ ] `DrumBurp.exe --pyinstaller-test` works.
 - [ ] GitHub Actions generates the `db_windows` artifact.
 - [ ] A `vX.Y.Z` tag can publish the installer in a GitHub Release.
+
+## Completed: Windows MIDI Playback
+
+DrumBurp now has native Windows MIDI playback through the Windows Multimedia
+API (`winmm`). This avoids the `pygame`/PortMidi problem where devices such as
+VirtualMIDISynth may appear in the device list but fail with `PortMidi: Host
+error` or `midi Output not open`.
+
+Confirmed behavior:
+
+- [x] `BackendManager.output_drivers()` includes `winmm` and `Windows MM` on Windows.
+- [x] `list_winmm_output_ports()` enumerates Windows MIDI output devices.
+- [x] The MIDI menu shows devices such as `VirtualMIDISynth #1`,
+  `Microsoft GS Wavetable Synth`, and `Microsoft MIDI Mapper`.
+- [x] `VirtualMIDISynth #1` is preferred automatically when present.
+- [x] Full score playback uses the selected WinMM output device.
+- [x] Playback was tested with VirtualMIDISynth and the FluidR3 GM SoundFont.
+- [x] Drum tablature playback sounds correct on tested `.brp` files.
+
+Recommended Windows MIDI setup:
+
+1. Install VirtualMIDISynth from `https://coolsoft.altervista.org/en/virtualmidisynth`.
+2. Download one or more recommended SoundFonts from the same website.
+3. Open VirtualMIDISynth settings.
+4. On the **Soundfonts** tab, click **+** and add the SoundFont file.
+5. Keep only one SoundFont active at a time for predictable playback.
+6. Launch DrumBurp from the repository root:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+py .\src\DrumBurp.py
+```
+
+7. In DrumBurp choose:
+
+```text
+MIDI -> Select MIDI out -> VirtualMIDISynth #1
+```
 
 ## Windows Requirements
 
