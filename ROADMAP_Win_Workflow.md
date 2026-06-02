@@ -74,12 +74,12 @@ MIDI -> Select MIDI out -> VirtualMIDISynth #1
 
 Install these before starting:
 
-- [ ] Git for Windows
-- [ ] Python 3.11 x64
+- [ ] Git for Windows: `https://git-scm.com/download/win`
+- [ ] Python 3.11 x64: `https://www.python.org/downloads/`
 - [ ] PowerShell 7 (`pwsh`): `https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows`
 - [ ] Chocolatey: `https://chocolatey.org/install`
 - [ ] NSIS: `https://nsis.sourceforge.io/Download`
-- [ ] GitHub CLI (`gh`), optional but recommended
+- [ ] GitHub CLI (`gh`), optional but recommended: `https://cli.github.com/`
 
 Useful commands:
 
