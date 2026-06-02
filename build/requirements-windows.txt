@@ -1,6 +1,7 @@
 pyinstaller
 PyQt5
 PyQt5-sip
+qt5-tools
 pygame
 pylint
 pywin32

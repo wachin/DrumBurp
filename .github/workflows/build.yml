@@ -95,13 +95,19 @@ jobs:
       - name: Install pip modules
         run: pip install -r build/requirements-windows.txt
 
-      - name: Add PyQt5 Qt tools to PATH
+      - name: Add Qt translation tools to PATH
         run: |
-          $qtBin = python -c "import pathlib, PyQt5; print(pathlib.Path(PyQt5.__file__).parent / 'Qt5' / 'bin')"
-          if (Test-Path "$qtBin") {
-            "$qtBin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-            $env:PATH = "$qtBin;$env:PATH"
+          $qtBins = @(
+            python -c "import pathlib, PyQt5; print(pathlib.Path(PyQt5.__file__).parent / 'Qt5' / 'bin')" 2>$null
+            python -c "import importlib.util, pathlib; spec = importlib.util.find_spec('qt5_applications'); print(pathlib.Path(next(iter(spec.submodule_search_locations))) / 'Qt' / 'bin' if spec and spec.submodule_search_locations else '')" 2>$null
+          )
+          foreach ($qtBin in $qtBins) {
+            if ($qtBin -and (Test-Path "$qtBin")) {
+              "$qtBin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+              $env:PATH = "$qtBin;$env:PATH"
+            }
           }
+          lrelease -version
 
       - name: Compile translations
         run: |

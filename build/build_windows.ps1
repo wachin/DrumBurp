@@ -30,7 +30,12 @@ function Get-LRelease {
         return "$pyqt_lrelease"
     }
 
-    throw "Could not find lrelease. Install Qt tools or make sure PyQt5 Qt5\bin is on PATH."
+    $qt_tools_lrelease = & python -c "import importlib.util, pathlib; spec = importlib.util.find_spec('qt5_applications'); print(pathlib.Path(next(iter(spec.submodule_search_locations))) / 'Qt' / 'bin' / 'lrelease.exe' if spec and spec.submodule_search_locations else '')" 2>$null
+    if ($LASTEXITCODE -eq 0 -and (Test-Path "$qt_tools_lrelease")) {
+        return "$qt_tools_lrelease"
+    }
+
+    throw "Could not find lrelease. Install qt5-tools or make sure Qt tools are on PATH."
 }
 
 $lrelease = Get-LRelease
@@ -56,5 +61,5 @@ Copy-Item "$workspace_root\COPYING.txt" "$workspace_root\build\dist"
 Copy-Item "$workspace_root\build\DrumBurp.nsi" "$workspace_root\build\dist\"
 Set-Location "$workspace_root\build\dist"
 & "C:\Program Files (x86)\NSIS\makensis.exe" "$workspace_root\build\dist\DrumBurp.nsi"
-Move-Item DrumBurp*setup.exe "$workspace_root\build\output"
+Move-Item DrumBurp*setup.exe "$workspace_root\build\output" -Force
 Set-Location "$workspace_root"

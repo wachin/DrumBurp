@@ -5,6 +5,7 @@
 Thumbs.db
 .vs
 .vscode
+.venv-win-build/
 *.pyo
 build/dist
 build/tmp

@@ -76,8 +76,9 @@ Install these before starting:
 
 - [ ] Git for Windows
 - [ ] Python 3.11 x64
-- [ ] PowerShell 7 (`pwsh`)
-- [ ] Chocolatey
+- [ ] PowerShell 7 (`pwsh`): `https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows`
+- [ ] Chocolatey: `https://chocolatey.org/install`
+- [ ] NSIS: `https://nsis.sourceforge.io/Download`
 - [ ] GitHub CLI (`gh`), optional but recommended
 
 Useful commands:
@@ -88,6 +89,7 @@ python --version
 py -3 --version
 pwsh --version
 choco --version
+makensis /VERSION
 gh --version
 ```
 
@@ -95,6 +97,42 @@ If PowerShell 7 is missing:
 
 ```powershell
 winget install Microsoft.PowerShell
+```
+
+On Windows 10 and newer, `powershell.exe` is Windows PowerShell and `pwsh.exe`
+is PowerShell 7. The build validation uses `pwsh`, so install PowerShell 7
+separately even if Windows PowerShell is already present.
+
+On Windows 7, PowerShell 7 is not included with the operating system. Windows 7
+normally has an older Windows PowerShell version, and Windows PowerShell 5.1
+requires the Windows Management Framework 5.1 update. Modern PowerShell 7
+releases and GitHub Actions runners do not target Windows 7, so Windows 7 should
+be treated as a manual compatibility target, not as the recommended build
+machine. For building releases, use Windows 10/11 or a supported GitHub Actions
+Windows runner.
+
+If Chocolatey is missing, install it from:
+
+```text
+https://chocolatey.org/install
+```
+
+Then close and reopen PowerShell and verify:
+
+```powershell
+choco --version
+```
+
+If NSIS is missing, install it from:
+
+```text
+https://nsis.sourceforge.io/Download
+```
+
+The build script expects this executable:
+
+```text
+C:\Program Files (x86)\NSIS\makensis.exe
 ```
 
 If GitHub CLI is missing:
@@ -234,6 +272,16 @@ If `makensis` is not in `PATH`, check:
 Get-ChildItem "C:\Program Files*\NSIS\makensis.exe" -Recurse -ErrorAction SilentlyContinue
 ```
 
+If `lrelease` is missing after installing PyQt5, install Qt tools in the active
+environment:
+
+```powershell
+python -m pip install qt5-tools
+$qtBin = python -c "import pathlib, qt5_applications; print(pathlib.Path(qt5_applications.__file__).parent / 'Qt' / 'bin')"
+$env:PATH = "$qtBin;$env:PATH"
+lrelease -version
+```
+
 ## Step 6: Build Windows Locally
 
 - [ ] Run `build/build_windows.ps1`.
@@ -331,6 +379,33 @@ gh auth login
 gh run list --workflow "Build DrumBurp" --limit 5
 gh run watch
 ```
+
+### GitHub Actions Windows Build Notes
+
+GitHub Actions can create the Windows `.exe` installer for a release when the
+workflow runs on a supported Windows hosted runner and installs the same tools
+validated locally:
+
+- Python 3.11 x64
+- Chocolatey
+- NSIS
+- PyInstaller and the Windows Python requirements
+- Qt translation tools that provide `lrelease`
+
+Do not rely on a developer's local NSIS or Chocolatey installation for GitHub
+Actions. The workflow must install everything it needs inside the runner.
+
+The current workflow uses `windows-latest`, which is a supported GitHub-hosted
+Windows runner. It should be able to produce the Windows installer if the
+Windows job installs NSIS and has a working `lrelease` command. If the Actions
+log fails at `lrelease`, add an explicit install step for `qt5-tools` or install
+Qt tools through Chocolatey before compiling translations.
+
+Windows 7 is not a suitable GitHub Actions target. GitHub-hosted Windows
+runners are modern Windows Server images, and current self-hosted runner support
+targets modern Windows versions. Use Windows 10/11 or GitHub-hosted Windows
+runners for release builds, then test Windows 7 separately only if compatibility
+with old systems is still a project goal.
 
 ## Step 10: Download the Windows Artifact
 
