@@ -442,6 +442,16 @@ gh run list --workflow "Build DrumBurp" --limit 5
 gh run watch
 ```
 
+The workflow also supports manual validation through `workflow_dispatch`. This
+is useful when direct `git push` is temporarily blocked by a local Git for
+Windows HTTPS problem:
+
+```powershell
+gh workflow run "Build DrumBurp" --ref master
+gh run list --workflow "Build DrumBurp" --limit 5
+gh run watch
+```
+
 ### GitHub Actions Windows Build Notes
 
 GitHub Actions can create the Windows `.exe` installer for a release when the
