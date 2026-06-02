@@ -76,6 +76,12 @@ What still has to be installed depends on the operating system:
   version first, for example with Homebrew, then install the Python packages
   with `pip`.
 
+Recommended Python versions:
+
+- Use Python 3.11 x64 for release builds and PyInstaller packaging.
+- Python 3.13 is also tested for running from source and for the unit test
+  suite.
+
 # Run on Linux
 
 ## Debian/Ubuntu tested in

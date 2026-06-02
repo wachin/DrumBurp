@@ -31,20 +31,20 @@ completed.
   `self.assertTrue(...)`.
 - [x] Confirm the full unit test suite passes locally on Python 3.13.
 - [x] Add focused tests for valid and invalid score filename handling.
-- [ ] Add focused tests for recent score filtering.
+- [x] Add focused tests for recent score filtering.
 - [x] Add focused tests for last score directory persistence.
-- [ ] Decide whether GitHub Actions should run tests on both Python 3.11 and
+- [x] Decide whether GitHub Actions should run tests on both Python 3.11 and
   Python 3.13.
-- [ ] If Python 3.13 is officially supported, add it to the CI test matrix.
+- [x] If Python 3.13 is officially supported, add it to the CI test matrix.
 
 ## Python Modernization
 
 - [x] Replace deprecated `optparse` usage with `argparse`.
-- [ ] Review remaining code for deprecated Python APIs.
-- [ ] Review whether the project should officially support Python 3.11 only,
+- [x] Review remaining code for deprecated Python APIs.
+- [x] Review whether the project should officially support Python 3.11 only,
   Python 3.13 only, or both.
-- [ ] Document the recommended Python version for development.
-- [ ] Document the recommended Python version for release builds.
+- [x] Document the recommended Python version for development.
+- [x] Document the recommended Python version for release builds.
 
 ## Line Endings
 
@@ -52,7 +52,7 @@ completed.
 - [x] Prefer LF for source files such as `.py`, `.md`, `.yml`, `.yaml`, `.ui`,
   `.qrc`, and translation files.
 - [x] Prefer CRLF for Windows command files such as `.bat`, `.cmd`, and `.ps1`.
-- [ ] Re-normalize tracked files after adding `.gitattributes`.
+- [x] Re-normalize tracked files after adding `.gitattributes`.
 - [ ] Confirm that future commits no longer produce avoidable LF/CRLF warnings.
 
 ## GitHub Actions

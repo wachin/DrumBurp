@@ -73,6 +73,12 @@ Lo que hay que instalar depende del sistema operativo:
   una version actual de Python, por ejemplo con Homebrew, y despues instala los
   paquetes de Python con `pip`.
 
+Versiones de Python recomendadas:
+
+- Usa Python 3.11 x64 para builds de release y empaquetado con PyInstaller.
+- Python 3.13 tambien se prueba para ejecutar desde codigo fuente y para la
+  suite de pruebas.
+
 ## Instalar dependencias
 
 ```bash

@@ -7,6 +7,35 @@ permissions:
   contents: write
 
 jobs:
+  # ── Unit tests ───────────────────────────────────────────────────────────
+  unit_tests:
+    name: Unit Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install system Qt/audio deps
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y libegl1 qttools5-dev-tools
+
+      - name: Install pip modules
+        run: pip install -r build/requirements-linux.txt
+
+      - name: Run unit tests
+        run: PYTHONPATH=src python -m unittest discover -s src/test
+
   # ── Linux ────────────────────────────────────────────────────────────────
   build_linux:
     name: Linux Build

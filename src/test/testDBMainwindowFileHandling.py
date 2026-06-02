@@ -6,6 +6,22 @@ from unittest import mock
 from GUI.DBMainwindow import DrumBurp, _isScoreFilename
 
 
+class _FakeMenu(object):
+    def __init__(self):
+        self.actions = []
+
+    def clear(self):
+        self.actions = []
+
+    def addAction(self, name):
+        action = SimpleNamespace(
+            name=name,
+            setIcon=lambda icon: None,
+            triggered=SimpleNamespace(connect=lambda callback: None))
+        self.actions.append(action)
+        return action
+
+
 class TestScoreFilenameHandling(unittest.TestCase):
     def testScoreFilenameExtensions(self):
         self.assertTrue(_isScoreFilename("score.brp"))
@@ -25,6 +41,25 @@ class TestScoreFilenameHandling(unittest.TestCase):
             self.assertTrue(DrumBurp._isLoadableScore(fake, score))
             self.assertFalse(DrumBurp._isLoadableScore(fake, markdown))
             self.assertFalse(DrumBurp._isLoadableScore(fake, missing))
+
+
+class TestRecentScoreFiltering(unittest.TestCase):
+    def testUpdateRecentFilesKeepsOnlyExistingBrpFiles(self):
+        valid = os.path.join("scores", "valid.brp")
+        missing = os.path.join("scores", "missing.brp")
+        markdown = os.path.join("scores", "README.md")
+        fake = SimpleNamespace(
+            filename=None,
+            recentFiles=[valid, missing, markdown],
+            menuRecentScores=_FakeMenu())
+
+        with mock.patch("GUI.DBMainwindow.os.path.exists",
+                        side_effect=lambda path: path == valid):
+            DrumBurp.updateRecentFiles(fake)
+
+        self.assertEqual(fake.recentFiles, [valid])
+        self.assertEqual([action.name for action in fake.menuRecentScores.actions],
+                         [valid])
 
 
 class TestLastScoreDirectory(unittest.TestCase):
