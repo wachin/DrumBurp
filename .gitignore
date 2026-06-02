@@ -10,3 +10,4 @@ Thumbs.db
 build/dist
 build/tmp
 build/output
+artifacts/
