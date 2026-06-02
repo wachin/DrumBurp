@@ -115,6 +115,19 @@ def _normalisePath(path):
     return path
 
 
+_SCORE_EXTENSIONS = (".brp",)
+
+
+def _isScoreFilename(filename):
+    if filename is None:
+        return False
+    return os.path.splitext(str(filename))[1].lower() in _SCORE_EXTENSIONS
+
+
+def _scoreFileFilter(parent):
+    return parent.tr("DrumBurp files (*.brp)")
+
+
 class FakeQSettings(object):
     def value(self, key_, default=None, type=None):  # IGNORE:no-self-use,redefined-builtin
         return default
@@ -163,9 +176,17 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             _settingsValue(settings, "LilypondPath", "", str))
         if not self.lilyPath or not os.path.exists(self.lilyPath):
             self.lilyPath = _normalisePath(findLilyPath())
+        self.lastScoreDirectory = _normalisePath(
+            _settingsValue(settings, "LastScoreDirectory", "", str))
+        if (not self.lastScoreDirectory or
+                not os.path.isdir(self.lastScoreDirectory)):
+            self.lastScoreDirectory = None
         recentFiles = _settingsValue(settings, "RecentFiles", [], list) or []
         self.recentFiles = [str(fname) for fname in recentFiles
-                            if os.path.exists(str(fname))]
+                            if (_isScoreFilename(fname) and
+                                os.path.exists(str(fname)))]
+        if filename is not None and not _isScoreFilename(filename):
+            filename = None
         if filename is None:
             filename = (None
                         if len(self.recentFiles) == 0
@@ -214,6 +235,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self._versionThread.finished.connect(self._finishedVersionCheck)
         self.menuSelectMidiOut.setEnabled(False)
         self.menuSelectMidiOut.menuAction().setVisible(True)
+        self.setAcceptDrops(True)
         self._midiInitThread = DBMidi.MidiInit(self)
         self._midiInitThread.finished.connect(self._midiInitFinished)
         QTimer.singleShot(0, lambda: self._startUp(erroredFiles))
@@ -500,6 +522,8 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if self.okToContinue():
             settings = self._makeQSettings()
             settings.setValue("RecentFiles", self.recentFiles)
+            settings.setValue("LastScoreDirectory",
+                              self.lastScoreDirectory or _homeLocation())
             settings.setValue("Geometry", self.saveGeometry())
             settings.setValue("MainWindow/State", self.saveState())
             settings.setValue("CheckOnStartup",
@@ -549,21 +573,24 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if not self.okToContinue():
             return
         caption = self.tr("Choose a DrumBurp file to open")
-        directory = self.filename
-        if len(self.recentFiles) > 0:
-            directory = os.path.dirname(self.recentFiles[-1])
-        else:
-            directory = _homeLocation()
+        directory = self._scoreDialogDirectory()
         fname = QFileDialog.getOpenFileName(parent=self,
                                             caption=caption,
                                             directory=directory,
-                                            filter=self.tr("DrumBurp files (*.brp)"))
+                                            filter=_scoreFileFilter(self))
         fname = _dialogFilename(fname)
         if len(fname) == 0:
             return
         self._loadScore(fname)
 
     def _loadScore(self, fname):
+        fname = str(fname)
+        if not self._isLoadableScore(fname):
+            QMessageBox.warning(
+                self,
+                self.tr("Unsupported file type"),
+                self.tr("DrumBurp can only open .brp score files."))
+            return
         if self.scoreScene.loadScore(fname):
             self._beatChanged(self.scoreScene.defaultCount)
             self.lilypondSize.setValue(self.scoreScene.score.lilysize)
@@ -572,6 +599,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self._setLilyFormat(self.scoreScene.score.lilyFormat)
             self.filename = str(fname)
             self.updateStatus(self.tr("Successfully loaded %s") % self.filename)
+            self._rememberScoreDirectory(self.filename)
             self.addToRecentFiles()
             self.updateRecentFiles()
             self._lilyScene.setNoPreview()
@@ -583,10 +611,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             if len(suggestion) == 0:
                 suggestion = self.tr("Untitled")
             suggestion = os.extsep.join([suggestion, "brp"])
-            if len(self.recentFiles) > 0:
-                directory = os.path.dirname(self.recentFiles[-1])
-            else:
-                directory = _homeLocation()
+            directory = self._scoreDialogDirectory()
             directory = os.path.join(directory,
                                      suggestion)
         if os.path.splitext(directory)[-1] == os.extsep + 'brp':
@@ -595,11 +620,14 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         fname = QFileDialog.getSaveFileName(parent=self,
                                             caption=caption,
                                             directory=directory,
-                                            filter="DrumBurp files (*.brp)")
+                                            filter=_scoreFileFilter(self))
         fname = _dialogFilename(fname)
         if len(fname) == 0:
             return False
+        if not _isScoreFilename(fname):
+            fname = os.extsep.join([str(fname), "brp"])
         self.filename = str(fname)
+        self._rememberScoreDirectory(self.filename)
         return True
 
     def _checkForBackup(self):
@@ -643,11 +671,14 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if self.filename is None:
             if not self._getFileName():
                 return False
-            self.addToRecentFiles()
-            self.updateRecentFiles()
         elif not self._checkForBackup():
             return False
-        return self.scoreScene.saveScore(self.filename)
+        if self.scoreScene.saveScore(self.filename):
+            self._rememberScoreDirectory(self.filename)
+            self.addToRecentFiles()
+            self.updateRecentFiles()
+            return True
+        return False
 
     @pyqtSlot()
     def on_actionSave_triggered(self):
@@ -662,6 +693,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 return
             self.scoreScene.saveScore(self.filename)
             self.updateStatus("Successfully saved %s" % self.filename)
+            self._rememberScoreDirectory(self.filename)
             self.addToRecentFiles()
             self.updateRecentFiles()
 
@@ -684,7 +716,9 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 self.updateStatus(self.tr("Created a new blank score"))
 
     def addToRecentFiles(self):
-        if self.filename is not None:
+        if (self.filename is not None and
+                _isScoreFilename(self.filename) and
+                os.path.exists(self.filename)):
             if self.filename in self.recentFiles:
                 self.recentFiles.remove(self.filename)
             self.recentFiles.insert(0, self.filename)
@@ -693,6 +727,9 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     def updateRecentFiles(self):
         self.menuRecentScores.clear()
+        self.recentFiles = [fname for fname in self.recentFiles
+                            if (_isScoreFilename(fname) and
+                                os.path.exists(fname))]
         for fname in self.recentFiles:
             if fname != self.filename and os.path.exists(fname):
                 def openRecentFile(bool_, filename=fname):
@@ -702,6 +739,52 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 action = self.menuRecentScores.addAction(fname)
                 action.setIcon(DBIcons.getIcon("score"))
                 action.triggered.connect(openRecentFile)
+
+    def _isLoadableScore(self, filename):
+        return _isScoreFilename(filename) and os.path.exists(filename)
+
+    def _rememberScoreDirectory(self, filename):
+        if filename:
+            directory = os.path.dirname(os.path.abspath(str(filename)))
+            if os.path.isdir(directory):
+                self.lastScoreDirectory = directory
+
+    def _scoreDialogDirectory(self):
+        if self.filename:
+            directory = os.path.dirname(os.path.abspath(self.filename))
+            if os.path.isdir(directory):
+                return directory
+        if self.lastScoreDirectory and os.path.isdir(self.lastScoreDirectory):
+            return self.lastScoreDirectory
+        for fname in self.recentFiles:
+            directory = os.path.dirname(os.path.abspath(fname))
+            if os.path.isdir(directory):
+                return directory
+        return _homeLocation()
+
+    def _dropScoreFilename(self, event):
+        urls = event.mimeData().urls() if event.mimeData().hasUrls() else []
+        if len(urls) != 1 or not urls[0].isLocalFile():
+            return None
+        filename = urls[0].toLocalFile()
+        return filename if self._isLoadableScore(filename) else None
+
+    def dragEnterEvent(self, event):
+        if self._dropScoreFilename(event) is not None:
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        filename = self._dropScoreFilename(event)
+        if filename is None:
+            event.ignore()
+            return
+        if not self.okToContinue():
+            event.ignore()
+            return
+        self._loadScore(filename)
+        event.acceptProposedAction()
 
     def _beatChanged(self, counter):
         if counter != self.scoreScene.defaultCount:
@@ -727,7 +810,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     def on_actionExportASCII_triggered(self):
         fname = self.filename
         if self.filename is None:
-            fname = os.path.join(_homeLocation(), 'Untitled.txt')
+            fname = os.path.join(self._scoreDialogDirectory(), 'Untitled.txt')
         if os.path.splitext(fname)[-1] == '.brp':
             fname = os.path.splitext(fname)[0] + '.txt'
         fname = QFileDialog.getSaveFileName(parent=self,
@@ -843,7 +926,8 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                     directory = os.path.abspath(outfileName)
                 else:
                     outfileName = "Untitled.ly"
-                    directory = os.path.join(_homeLocation(), outfileName)
+                    directory = os.path.join(self._scoreDialogDirectory(),
+                                             outfileName)
                 caption = self.tr("Choose a Lilypond input file to write to")
                 fname = QFileDialog.getSaveFileName(parent=self,
                                                     caption=caption,
@@ -1119,10 +1203,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             if len(suggestion) == 0:
                 suggestion = self.tr("Untitled")
             suggestion = os.extsep.join([suggestion, "brp"])
-            if len(self.recentFiles) > 0:
-                directory = os.path.dirname(self.recentFiles[-1])
-            else:
-                directory = _homeLocation()
+            directory = self._scoreDialogDirectory()
             directory = os.path.join(directory,
                                      suggestion)
         if os.path.splitext(directory)[-1] == os.extsep + 'brp':
