@@ -213,6 +213,26 @@ Windows, y `pygame` en otros sistemas. En Windows, esto permite reproducir a
 traves de dispositivos MIDI como VirtualMIDISynth, Microsoft GS Wavetable Synth
 u otros puertos MIDI de Windows.
 
+### MIDI en Linux con JACK o un sintetizador con SoundFont
+
+En Linux, DrumBurp envia MIDI al backend/dispositivo MIDI disponible en vez de
+cargar SoundFonts internamente. Si el equipo no tiene un sintetizador MIDI de
+hardware o software ya conectado, usa un sintetizador externo como Qsynth,
+FluidSynth, TiMidity u otro destino MIDI JACK/ALSA.
+
+Flujo tipico con JACK/SoundFont:
+
+1. Inicia JACK si tu configuracion de audio lo usa.
+2. Inicia Qsynth o FluidSynth y carga un SoundFont General MIDI.
+3. Abre DrumBurp.
+4. Usa `MIDI -> Refresh Device List` si el sintetizador se inicio despues de
+   abrir DrumBurp.
+5. Elige el sintetizador desde `MIDI -> Select MIDI out`.
+6. Reproduce la partitura.
+
+DrumBurp no administra archivos SoundFont internamente; el sintetizador externo
+se encarga de esa parte.
+
 La exportacion a `.mid` usa el generador MIDI interno de DrumBurp, por lo que
 puede probarse aunque la salida de audio del sistema este en silencio.
 

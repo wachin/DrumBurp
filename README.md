@@ -304,6 +304,25 @@ playback through MIDI output devices such as VirtualMIDISynth, Microsoft GS
 Wavetable Synth, or other Windows MIDI ports. DrumBurp does not load SoundFonts
 itself; external synths such as VirtualMIDISynth handle that.
 
+### Linux MIDI with JACK or a SoundFont synth
+
+On Linux, DrumBurp sends MIDI through the available MIDI backend instead of
+loading SoundFonts internally. If the computer does not have a hardware or
+software MIDI synth already connected, use an external synth such as Qsynth,
+FluidSynth, TiMidity, or another JACK/ALSA MIDI target.
+
+Typical JACK/SoundFont workflow:
+
+1. Start JACK if your audio setup uses it.
+2. Start Qsynth or FluidSynth and load a General MIDI SoundFont.
+3. Open DrumBurp.
+4. Use `MIDI -> Refresh Device List` if the synth was started after DrumBurp.
+5. Choose the synth from `MIDI -> Select MIDI out`.
+6. Play the score.
+
+DrumBurp does not manage SoundFont files itself; the external synth owns that
+part of the setup.
+
 ---
 
 ## What changed from the original

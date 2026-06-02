@@ -77,10 +77,10 @@ Manual validation notes:
 - [x] Confirm that Windows, Linux, and macOS smoke tests pass.
 - [x] Confirm that the Windows `db_windows` artifact is generated.
 - [ ] Download and test release artifacts after a tag-triggered release.
-- [ ] Review GitHub Actions Node.js 20 deprecation warnings.
-- [ ] Update GitHub Actions versions or configuration when Node.js 24 support is
+- [x] Review GitHub Actions Node.js 20 deprecation warnings.
+- [x] Update GitHub Actions versions or configuration when Node.js 24 support is
   required.
-- [ ] Decide whether `windows-latest` should be pinned to a specific Windows
+- [x] Decide whether `windows-latest` should be pinned to a specific Windows
   runner image.
 
 ## Windows Build And Release
@@ -116,7 +116,7 @@ Release checklist:
 - [x] Confirm `MIDI -> Select MIDI out` works on Windows.
 - [ ] Re-test MIDI output selection on Linux.
 - [ ] Re-test MIDI output selection on macOS if MIDI devices are available.
-- [ ] Document any JACK or soundfont workflow that Linux users may need.
+- [x] Document any JACK or soundfont workflow that Linux users may need.
 
 ## Qt And UI Warnings
 

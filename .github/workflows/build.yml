@@ -18,10 +18,10 @@ jobs:
         python-version: ["3.11", "3.13"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Python setup
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -45,13 +45,13 @@ jobs:
     if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get version number
         run: echo "DB_VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
       - name: Python setup
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -77,7 +77,7 @@ jobs:
         run: bash build/build_linux.sh
 
       - name: Store Linux binary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: db_linux
           path: "build/dist/DrumBurp"
@@ -90,7 +90,7 @@ jobs:
     if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Get Linux binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: db_linux
           path: db_linux
@@ -103,17 +103,17 @@ jobs:
   # ── Windows ──────────────────────────────────────────────────────────────
   build_windows:
     name: Windows Build
-    runs-on: windows-latest
+    runs-on: windows-2025
     if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get version number
         run: echo "DB_VERSION=$(cat VERSION)" >> $env:GITHUB_ENV
 
       - name: Python setup
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           architecture: "x64"
@@ -150,7 +150,7 @@ jobs:
         run: .\build\build_windows.ps1
 
       - name: Store Windows installer
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: db_windows
           path: "build/output/DrumBurp-${{ env.DB_VERSION }}.0-setup.exe"
@@ -159,17 +159,17 @@ jobs:
   test_windows:
     needs: build_windows
     name: Windows Smoke Test
-    runs-on: windows-latest
+    runs-on: windows-2025
     if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get version number
         run: echo "DB_VERSION=$(cat VERSION)" >> $env:GITHUB_ENV
 
       - name: Get installer
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: db_windows
           path: db_windows
@@ -202,13 +202,13 @@ jobs:
     if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get version number
         run: echo "DB_VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
       - name: Python setup
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           architecture: "x64"
@@ -233,7 +233,7 @@ jobs:
         run: bash build/build_macos.sh
 
       - name: Store macOS app
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: db_macos
           path: "build/output/DrumBurp-${{ env.DB_VERSION }}-macOS-x64.zip"
@@ -246,13 +246,13 @@ jobs:
     if: github.ref != 'refs/heads/master' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get version number
         run: echo "DB_VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
       - name: Get macOS app
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: db_macos
           path: db_macos
@@ -275,19 +275,19 @@ jobs:
       # Download the artifacts produced by the build jobs above.
       # They are available because build/test jobs ran first (via needs:).
       - name: Get Windows installer
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: db_windows
           path: db_windows
 
       - name: Get Linux binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: db_linux
           path: db_linux
 
       - name: Get macOS app
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: db_macos
           path: db_macos
