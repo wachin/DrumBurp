@@ -18,10 +18,10 @@ completed.
 
 ## Windows Launcher
 
-- [ ] Document `run-drumburp.bat` in `README.md`.
-- [ ] Document `run-drumburp.bat` in `README_ES.md`.
+- [x] Document `run-drumburp.bat` in `README.md`.
+- [x] Document `run-drumburp.bat` in `README_ES.md`.
 - [ ] Confirm that double-clicking `run-drumburp.bat` opens DrumBurp normally.
-- [ ] Confirm that `run-drumburp.bat --pyinstaller-test` exits with code `0`.
+- [x] Confirm that `run-drumburp.bat --pyinstaller-test` exits with code `0`.
 - [ ] Confirm that the launcher preserves normal settings and recent score
   behavior.
 
@@ -30,9 +30,9 @@ completed.
 - [x] Replace deprecated `self.assert_(...)` test calls with
   `self.assertTrue(...)`.
 - [x] Confirm the full unit test suite passes locally on Python 3.13.
-- [ ] Add focused tests for valid and invalid score filename handling.
+- [x] Add focused tests for valid and invalid score filename handling.
 - [ ] Add focused tests for recent score filtering.
-- [ ] Add focused tests for last score directory persistence.
+- [x] Add focused tests for last score directory persistence.
 - [ ] Decide whether GitHub Actions should run tests on both Python 3.11 and
   Python 3.13.
 - [ ] If Python 3.13 is officially supported, add it to the CI test matrix.
@@ -48,10 +48,10 @@ completed.
 
 ## Line Endings
 
-- [ ] Add a `.gitattributes` file to reduce LF/CRLF warning noise.
-- [ ] Prefer LF for source files such as `.py`, `.md`, `.yml`, `.yaml`, `.ui`,
+- [x] Add a `.gitattributes` file to reduce LF/CRLF warning noise.
+- [x] Prefer LF for source files such as `.py`, `.md`, `.yml`, `.yaml`, `.ui`,
   `.qrc`, and translation files.
-- [ ] Prefer CRLF for Windows command files such as `.bat`, `.cmd`, and `.ps1`.
+- [x] Prefer CRLF for Windows command files such as `.bat`, `.cmd`, and `.ps1`.
 - [ ] Re-normalize tracked files after adding `.gitattributes`.
 - [ ] Confirm that future commits no longer produce avoidable LF/CRLF warnings.
 
@@ -99,11 +99,10 @@ completed.
 
 ## Documentation
 
-- [ ] Keep `README.md` and `README_ES.md` in sync for Windows launch
+- [x] Keep `README.md` and `README_ES.md` in sync for Windows launch
   instructions.
 - [ ] Document the VirtualMIDISynth setup clearly for Windows users.
-- [ ] Document supported score file extensions.
+- [x] Document supported score file extensions.
 - [ ] Document the recommended build environment for Windows.
-- [ ] Document how to run tests locally.
+- [x] Document how to run tests locally.
 - [ ] Document how to run the GitHub Actions workflow manually.
-

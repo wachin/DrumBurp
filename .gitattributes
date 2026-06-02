@@ -1,0 +1,19 @@
+# Normalize text files to reduce cross-platform LF/CRLF noise.
+* text=auto
+
+# Source and documentation files should stay LF.
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ui text eol=lf
+*.qrc text eol=lf
+*.ts text eol=lf
+*.txt text eol=lf
+*.nsi text eol=lf
+
+# Windows launcher/build scripts should stay CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+

@@ -114,12 +114,21 @@ principal usa el backend nativo WinMM de Windows.
 Despues de instalar las dependencias, puedes iniciar DrumBurp haciendo doble clic
 en `run-drumburp.bat`.
 
+El lanzador de Windows configura `PYTHONPATH` automaticamente e inicia
+`src\DrumBurp.py` desde la carpeta del repositorio. Conserva la configuracion
+normal de DrumBurp, incluyendo `File -> Recent Scores...`, asi que puede usarse
+como lanzador habitual durante el desarrollo.
+
 O manualmente desde PowerShell:
 
 ```powershell
 $env:PYTHONPATH = "$PWD\src"
 py .\src\DrumBurp.py
 ```
+
+Los archivos de partitura de DrumBurp usan la extension `.brp`. El programa
+filtra los archivos recientes y los archivos arrastrados para que archivos no
+soportados como `.md`, `.txt`, `.pdf` o imagenes no se abran como partituras.
 
 ### Reproduccion MIDI en Windows con VirtualMIDISynth
 
@@ -200,6 +209,19 @@ u otros puertos MIDI de Windows.
 
 La exportacion a `.mid` usa el generador MIDI interno de DrumBurp, por lo que
 puede probarse aunque la salida de audio del sistema este en silencio.
+
+Para ejecutar la suite de pruebas en Windows:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+py -m unittest discover -s src\test
+```
+
+Tambien se puede usar el lanzador para una prueba rapida:
+
+```powershell
+.\run-drumburp.bat --pyinstaller-test
+```
 
 Si DrumBurp arranca pero no suena:
 

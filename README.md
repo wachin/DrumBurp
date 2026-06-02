@@ -146,12 +146,21 @@ py -m pip install PyQt5 PyQt5-sip pygame
 After installing the dependencies, you can launch DrumBurp by double-clicking
 `run-drumburp.bat` in the repository folder.
 
+The Windows launcher sets `PYTHONPATH` automatically and starts
+`src\DrumBurp.py` from the repository root. It preserves normal DrumBurp
+settings, including `File -> Recent Scores...`, so it can be used as the usual
+development launcher.
+
 Or run DrumBurp from PowerShell:
 
 ```powershell
 $env:PYTHONPATH = "$PWD\src"
 py .\src\DrumBurp.py
 ```
+
+DrumBurp score files use the `.brp` extension. The program filters recent
+scores and drag-and-drop input so unsupported files such as `.md`, `.txt`,
+`.pdf`, or images are not opened as scores.
 
 ## MIDI playback on Windows with VirtualMIDISynth
 
@@ -192,6 +201,12 @@ To run the test suite on Windows:
 ```powershell
 $env:PYTHONPATH = "$PWD\src"
 py -m unittest discover -s src\test
+```
+
+The same launcher can be used for a quick smoke test:
+
+```powershell
+.\run-drumburp.bat --pyinstaller-test
 ```
 
 Optional features:
