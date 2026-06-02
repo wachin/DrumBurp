@@ -24,11 +24,11 @@ At the end of this validation, the following should be confirmed:
 - [x] Native Windows MIDI playback works through WinMM.
 - [x] `MIDI -> Select MIDI out` is visible and can select Windows MIDI devices.
 - [x] VirtualMIDISynth can be used as a Windows MIDI output device.
-- [ ] `pwsh` is installed and can run scripts.
+- [x] `pwsh` is installed and can run scripts.
 - [ ] `build/install_windows.ps1` installs the required tools.
-- [ ] `build/build_windows.ps1` creates the installer.
-- [ ] The installer can be installed silently.
-- [ ] `DrumBurp.exe --pyinstaller-test` works.
+- [x] `build/build_windows.ps1` creates the installer.
+- [x] The installer can be installed silently.
+- [x] `DrumBurp.exe --pyinstaller-test` works.
 - [ ] GitHub Actions generates the `db_windows` artifact.
 - [ ] A `vX.Y.Z` tag can publish the installer in a GitHub Release.
 
@@ -74,12 +74,12 @@ MIDI -> Select MIDI out -> VirtualMIDISynth #1
 
 Install these before starting:
 
-- [ ] Git for Windows: `https://git-scm.com/download/win`
-- [ ] Python 3.11 x64: `https://www.python.org/downloads/`
-- [ ] PowerShell 7 (`pwsh`): `https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows`
-- [ ] Chocolatey: `https://chocolatey.org/install`
-- [ ] NSIS: `https://nsis.sourceforge.io/Download`
-- [ ] GitHub CLI (`gh`), optional but recommended: `https://cli.github.com/`
+- [x] Git for Windows: `https://git-scm.com/download/win`
+- [x] Python 3.11 x64: `https://www.python.org/downloads/`
+- [x] PowerShell 7 (`pwsh`): `https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows`
+- [x] Chocolatey: `https://chocolatey.org/install`
+- [x] NSIS: `https://nsis.sourceforge.io/Download`
+- [x] GitHub CLI (`gh`), optional but recommended: `https://cli.github.com/`
 
 What each requirement is used for:
 
@@ -108,6 +108,19 @@ Git for Windows and GitHub CLI are different tools, and both are useful:
 Install both because Git is required for normal repository work, while GitHub
 CLI is the most convenient way to validate GitHub Actions artifacts and releases
 without relying only on the browser.
+
+After installing the Windows requirements, restart the computer before
+continuing. This refreshes `PATH` so commands such as `choco`, `gh`, `pwsh`,
+and other newly installed tools are available in new terminals.
+
+After the restart, authenticate GitHub CLI before validating GitHub Actions:
+
+```powershell
+gh auth login
+```
+
+This is required before using commands such as `gh run list`, `gh run watch`,
+or `gh run download`.
 
 Useful commands:
 
@@ -180,9 +193,9 @@ DrumBurp.exe --pyinstaller-test. Do not delete unrelated changes.
 
 ## Step 1: Inspect Repository State
 
-- [ ] Run `git status --short`.
-- [ ] Run `git branch --show-current`.
-- [ ] Note unrelated changes without reverting them.
+- [x] Run `git status --short`.
+- [x] Run `git branch --show-current`.
+- [x] Note unrelated changes without reverting them.
 
 ```powershell
 git status --short
@@ -193,8 +206,8 @@ If there are unrelated changes, do not revert them. Just note them.
 
 ## Step 2: Confirm That pwsh Exists
 
-- [ ] Run `pwsh --version`.
-- [ ] Confirm that it prints a PowerShell 7.x version.
+- [x] Run `pwsh --version`.
+- [x] Confirm that it prints a PowerShell 7.x version.
 
 ```powershell
 pwsh --version
@@ -202,10 +215,10 @@ pwsh --version
 
 ## Step 3: Validate PowerShell Syntax
 
-- [ ] Parse `build/install_windows.ps1`.
-- [ ] Parse `build/build_windows.ps1`.
-- [ ] Parse `build/install_pyqt.ps1`.
-- [ ] Confirm there are no syntax errors.
+- [x] Parse `build/install_windows.ps1`.
+- [x] Parse `build/build_windows.ps1`.
+- [x] Parse `build/install_pyqt.ps1`.
+- [x] Confirm there are no syntax errors.
 
 This command parses the scripts without executing them:
 
@@ -250,10 +263,10 @@ OK: build/install_pyqt.ps1
 
 ## Step 4: Create a Clean Python Environment
 
-- [ ] Create `.venv-win-build`.
-- [ ] Activate `.venv-win-build`.
-- [ ] Upgrade `pip`.
-- [ ] If Windows blocks `Activate.ps1`, use `ExecutionPolicy Bypass` only for the current process.
+- [x] Create `.venv-win-build`.
+- [x] Activate `.venv-win-build`.
+- [x] Upgrade `pip`.
+- [x] If Windows blocks `Activate.ps1`, use `ExecutionPolicy Bypass` only for the current process.
 
 ```powershell
 py -3.11 -m venv .venv-win-build
@@ -270,11 +283,11 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ## Step 5: Install Build Dependencies
 
-- [ ] Run `build/install_windows.ps1`.
-- [ ] Confirm that `PyQt5` and `pygame` import correctly.
-- [ ] Confirm that `pyinstaller` responds.
-- [ ] Confirm that `makensis` responds.
-- [ ] If `makensis` is not in `PATH`, locate `makensis.exe`.
+- [ ] Run `build/install_windows.ps1` successfully from an elevated/admin PowerShell.
+- [x] Confirm that `PyQt5` and `pygame` import correctly.
+- [x] Confirm that `pyinstaller` responds.
+- [x] Confirm that `makensis` responds.
+- [x] If `makensis` is not in `PATH`, locate `makensis.exe`.
 
 Run PowerShell as administrator if Chocolatey requires it:
 
@@ -308,8 +321,8 @@ lrelease -version
 
 ## Step 6: Build Windows Locally
 
-- [ ] Run `build/build_windows.ps1`.
-- [ ] Confirm that `build\output\DrumBurp-X.Y.Z.0-setup.exe` is created.
+- [x] Run `build/build_windows.ps1`.
+- [x] Confirm that `build\output\DrumBurp-X.Y.Z.0-setup.exe` is created.
 
 ```powershell
 pwsh -NoProfile -ExecutionPolicy Bypass -File .\build\build_windows.ps1
@@ -329,9 +342,9 @@ Get-ChildItem .\build\output\*.exe
 
 ## Step 7: Test the Local Installer
 
-- [ ] Install the `.exe` into a temporary folder.
-- [ ] Run `DrumBurp.exe --pyinstaller-test`.
-- [ ] Confirm that the exit code is `0`.
+- [x] Install the `.exe` into a temporary folder.
+- [x] Run `DrumBurp.exe --pyinstaller-test`.
+- [x] Confirm that the exit code is `0`.
 
 Use a temporary folder so a real installation is not touched:
 
@@ -355,9 +368,9 @@ $LASTEXITCODE
 
 ## Step 8: Validate the Workflow YAML Locally
 
-- [ ] Install `PyYAML` if it is not installed.
-- [ ] Parse `.github/workflows/build.yml`.
-- [ ] Confirm that it prints `workflow yaml ok`.
+- [x] Install `PyYAML` if it is not installed.
+- [x] Parse `.github/workflows/build.yml`.
+- [x] Confirm that it prints `workflow yaml ok`.
 
 If Python has PyYAML installed:
 
@@ -375,6 +388,8 @@ $yamlCheck | python -
 
 ## Step 9: Test GitHub Actions on a Branch
 
+- [x] Confirm GitHub Actions is enabled on github.com.
+- [x] Confirm workflow permissions allow the release job to create releases.
 - [ ] Push a normal branch, for example `dev`.
 - [ ] Open the run in the **Actions** tab.
 - [ ] Confirm that `build_windows` passes.
@@ -389,6 +404,29 @@ Push a normal branch before publishing a tag:
 ```powershell
 git push origin dev
 ```
+
+### Enable GitHub Actions on github.com
+
+Before expecting the workflow to run, configure the repository on github.com:
+
+1. Open the repository in the browser.
+2. Go to **Settings**.
+3. Go to **Actions**.
+4. Open **General**.
+5. Under **Actions permissions**, select **Allow all actions and reusable workflows**.
+6. Under **Workflow permissions**, select **Read and write permissions**.
+7. Enable **Allow GitHub Actions to create and approve pull requests** only if
+   the project later needs workflows to create pull requests automatically.
+8. Click **Save**.
+
+The **Read and write permissions** setting is important because the release job
+uses `GITHUB_TOKEN` to create a GitHub Release and upload artifacts.
+
+Confirmed on github.com:
+
+- [x] **Actions permissions** is set to **Allow all actions and reusable workflows**.
+- [x] **Workflow permissions** is set to **Read and write permissions**.
+- [x] **Allow GitHub Actions to create and approve pull requests** is enabled.
 
 View the workflow on GitHub:
 
@@ -428,6 +466,30 @@ Qt tools through Chocolatey before compiling translations.
 Older unsupported Windows versions are not suitable GitHub Actions targets for
 this project. Use Windows 10/11 development machines or GitHub-hosted Windows
 runners for release builds.
+
+### Git for Windows HTTPS Crash
+
+If `git push`, `git pull`, or `git ls-remote` opens a Windows error dialog for
+`git-remote-https.exe`, update Git for Windows to the latest stable version from:
+
+```text
+https://git-scm.com/download/win
+```
+
+This is not caused by GitHub CLI or by the GitHub Actions workflow. It is the
+Git HTTPS transport crashing locally. Updating Git for Windows is the preferred
+fix. If the problem remains, try changing only this repository to the OpenSSL
+backend:
+
+```powershell
+git config --local http.sslBackend openssl
+```
+
+Then test:
+
+```powershell
+git ls-remote https://github.com/wachin/DrumBurp HEAD
+```
 
 ## Step 10: Download the Windows Artifact
 
@@ -551,13 +613,13 @@ permissions:
 
 At the end, report a summary with:
 
-- [ ] Windows version
-- [ ] `pwsh` version
-- [ ] Python version
-- [ ] whether the PowerShell scripts parsed correctly
-- [ ] whether `build_windows.ps1` generated the installer
-- [ ] exact path to the local installer
-- [ ] result of `DrumBurp.exe --pyinstaller-test`
+- [x] Windows version
+- [x] `pwsh` version
+- [x] Python version
+- [x] whether the PowerShell scripts parsed correctly
+- [x] whether `build_windows.ps1` generated the installer
+- [x] exact path to the local installer
+- [x] result of `DrumBurp.exe --pyinstaller-test`
 - [ ] link to the GitHub Actions run
 - [ ] whether `db_windows` was downloaded and tested
-- [ ] any error with relevant logs
+- [x] any error with relevant logs
