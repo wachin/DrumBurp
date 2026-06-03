@@ -118,6 +118,19 @@ Release checklist:
 - [ ] Re-test MIDI output selection on macOS if MIDI devices are available.
 - [x] Document any JACK or soundfont workflow that Linux users may need.
 
+## Internationalization
+
+- [x] Translate the measure context menu shown when right-clicking a tablature
+  measure.
+- [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new
+  translatable strings.
+- [x] Compile updated `drumburp_en.qm` and `drumburp_es.qm`.
+- [x] Confirm `drumburp_en.ts` and `drumburp_es.ts` have no unfinished
+  translations.
+- [ ] Manually review common Spanish UI paths before creating a release.
+- [ ] Review right-click menus for untranslated strings in other score areas.
+- [ ] Review dialog titles, warning messages, and MIDI messages in Spanish.
+
 ## Qt And UI Warnings
 
 - [x] Investigate the startup warning:

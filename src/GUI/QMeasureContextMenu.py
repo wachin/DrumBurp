@@ -62,21 +62,21 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
         self._setupInsertSection()
         self._setupDeleteSection()
         if self._alternate is not None:
-            self.addAction("Delete Alternate Ending",
+            self.addAction(self.tr("Delete Alternate Ending"),
                            self._deleteAlternate)
         else:
-            self.addAction("Add Alternate Ending",
+            self.addAction(self.tr("Add Alternate Ending"),
                            self._qmeasure.setAlternate)
         if self._draggedMeasures is None:
             if self._measure.simileDistance > 0:
-                self.addAction("Remove simile mark",
+                self.addAction(self.tr("Remove simile mark"),
                                self._toggleSimile)
             else:
-                self.addAction("Add simile mark",
+                self.addAction(self.tr("Add simile mark"),
                                self._toggleSimile)
         else:
             if self._hasSimile:
-                self.addAction("Remove simile marks",
+                self.addAction(self.tr("Remove simile marks"),
                                self._toggleSimile)
             elif (not any(measure.isSectionEnd() or measure.isRepeatEnd()
                           or measure.isLineBreak()
@@ -86,7 +86,7 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
                   not any(measure.isRepeatStart()
                           for measure, unusedIndex, unusedPos
                           in self._draggedMeasures[1:])):
-                self.addAction("Add %d bar simile mark"
+                self.addAction(self.tr("Add %d bar simile mark")
                                % len(self._draggedMeasures),
                                self._toggleSimile)
         if not self._hasSimile:
@@ -97,26 +97,26 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
         if self._measure.simileDistance > 0:
             return
         if self._noteText != DBConstants.EMPTY_NOTE:
-            actionText = "Repeat note"
+            actionText = self.tr("Repeat note")
             self.addAction(DBIcons.getIcon("repeat"),
                            actionText, self._repeatNote)
         self.addSeparator()
         if self._qScore.hasDragSelection():
             self.addAction(DBIcons.getIcon("copy"),
-                           "Copy Selected Measures",
+                           self.tr("Copy Selected Measures"),
                            self._copyMeasures)
             pasteAction = self.addAction(DBIcons.getIcon("paste"),
-                                         "Paste Over Selected Measures",
+                                         self.tr("Paste Over Selected Measures"),
                                          self._pasteMeasuresOver)
             fillAction = self.addAction(DBIcons.getIcon("paste"),
-                                        "Fill Paste Selected Measures",
+                                        self.tr("Fill Paste Selected Measures"),
                                         self._fillPaste)
             fillAction.setEnabled(len(self._qScore.measureClipboard) > 0)
         else:
-            self.addAction(DBIcons.getIcon("copy"), "Copy Measure",
+            self.addAction(DBIcons.getIcon("copy"), self.tr("Copy Measure"),
                            self._copyOneMeasure)
             pasteAction = self.addAction(DBIcons.getIcon("paste"),
-                                         "Insert Measures From Clipboard",
+                                         self.tr("Insert Measures From Clipboard"),
                                          self._insertOneMeasure)
         pasteAction.setEnabled(len(self._qScore.measureClipboard) > 0)
         self.addSeparator()
@@ -124,12 +124,14 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
     def _setupInsertSection(self):
         if self._hasSimile:
             return
-        actionText = "Insert Default Measure"
+        actionText = self.tr("Insert Default Measure")
         self.addAction(actionText, self._insertMeasureBefore)
-        insertMenu = self.addMenu("Insert...")
-        insertMenu.addAction("Default Measure After", self._insertMeasureAfter)
-        insertMenu.addAction("Other Measures...", self._insertOtherMeasures)
-        sectionCopyMenu = insertMenu.addMenu("Section Copy")
+        insertMenu = self.addMenu(self.tr("Insert..."))
+        insertMenu.addAction(self.tr("Default Measure After"),
+                             self._insertMeasureAfter)
+        insertMenu.addAction(self.tr("Other Measures..."),
+                             self._insertOtherMeasures)
+        sectionCopyMenu = insertMenu.addMenu(self.tr("Section Copy"))
         sectionCopyMenu.setEnabled(self._score.numSections() > 0)
         for si, sectionTitle in enumerate(self._score.iterSections()):
             copyIt = lambda i = si: self._copySection(i)
@@ -140,24 +142,24 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
         if not self._hasSimile:
             if self._qScore.hasDragSelection():
                 deleteAction = self.addAction(DBIcons.getIcon("delete"),
-                                              "Delete Selected Measures",
+                                              self.tr("Delete Selected Measures"),
                                               self._deleteMeasures)
                 deleteAction.setEnabled(self._score.numMeasures() >
                                         len(list(self._qScore.iterDragSelection())))
-                self.addAction("Clear Selected Measures",
+                self.addAction(self.tr("Clear Selected Measures"),
                                self._clearMeasures)
             else:
                 deleteAction = self.addAction(DBIcons.getIcon("delete"),
-                                              "Delete Measure",
+                                              self.tr("Delete Measure"),
                                               self._deleteOneMeasure)
                 deleteAction.setEnabled(self._score.numMeasures() > 1)
-                self.addAction("Clear Measure",
+                self.addAction(self.tr("Clear Measure"),
                                self._clearOneMeasure)
-        deleteMenu = self.addMenu("Delete...")
-        deleteSectionAction = deleteMenu.addAction("Section",
+        deleteMenu = self.addMenu(self.tr("Delete..."))
+        deleteSectionAction = deleteMenu.addAction(self.tr("Section"),
                                                    self._deleteSection)
         deleteSectionAction.setEnabled(self._score.numSections() > 1)
-        deleteEmptyAction = deleteMenu.addAction("Empty Trailing Measures",
+        deleteEmptyAction = deleteMenu.addAction(self.tr("Empty Trailing Measures"),
                                                  self._deleteEmptyMeasures)
         emptyPositions = self._score.trailingEmptyMeasures()
         deleteEmptyAction.setEnabled(self._score.numMeasures() > 1
@@ -166,13 +168,13 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
 
     def _setupStickingSection(self):
         self.addSeparator()
-        action = QtWidgets.QAction("Show Sticking Above", self,
+        action = QtWidgets.QAction(self.tr("Show Sticking Above"), self,
                                    checkable=True)
         action.setChecked(self._measure.showAbove)
         action.triggered.connect(lambda: self._showSticking(
             True, not self._measure.showAbove))
         self.addAction(action)
-        action = QtWidgets.QAction("Show Sticking Below", self,
+        action = QtWidgets.QAction(self.tr("Show Sticking Below"), self,
                                    checkable=True)
         action.setChecked(self._measure.showBelow)
         action.triggered.connect(lambda: self._showSticking(
@@ -181,10 +183,11 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
 
     def _setupBpmSection(self):
         self.addSeparator()
-        self.addAction("Set new BPM",
+        self.addAction(self.tr("Set new BPM"),
                        self._qmeasure.setNewBpm)
         if self._measure.newBpm != 0:
-            self.addAction("Delete BPM change", self._removeBpmChange)
+            self.addAction(self.tr("Delete BPM change"),
+                           self._removeBpmChange)
 
     def _repeatNote(self):
         self._qScore.sendFsmEvent(RepeatNotes(self._np))
