@@ -39,7 +39,7 @@ class QMeasureLineContextMenu(QMenuIgnoreCancelClick):
         if nextMeasure is not None:
             onOff = nextMeasure.isRepeatStart()
             setIt = lambda v = onOff: self._setRepeatStart(not v)
-            repeatStartAction = self.addAction("Repeat Start",
+            repeatStartAction = self.addAction(self.tr("Repeat Start"),
                                                setIt)
             repeatStartAction.setCheckable(True)
             repeatStartAction.setChecked(onOff)
@@ -49,21 +49,21 @@ class QMeasureLineContextMenu(QMenuIgnoreCancelClick):
             # Repeat End
             onOff = lastMeasure.isRepeatEnd()
             setIt = lambda v = onOff: self._setRepeatEnd(not v)
-            repeatEndAction = self.addAction("Repeat End",
+            repeatEndAction = self.addAction(self.tr("Repeat End"),
                                              setIt)
             repeatEndAction.setCheckable(True)
             repeatEndAction.setChecked(onOff)
             # Section Ending
             onOff = lastMeasure.isSectionEnd()
             setIt = lambda v = onOff: self._setSectionEnd(not v)
-            sectionEndAction = self.addAction("Section End",
+            sectionEndAction = self.addAction(self.tr("Section End"),
                                               setIt)
             sectionEndAction.setCheckable(True)
             sectionEndAction.setChecked(onOff)
             # Line break
             onOff = lastMeasure.isLineBreak()
             setIt = lambda v = onOff: self._setLineBreak(not v)
-            lineBreakAction = self.addAction("Line Break",
+            lineBreakAction = self.addAction(self.tr("Line Break"),
                                              setIt)
             lineBreakAction.setCheckable(True)
             lineBreakAction.setChecked(onOff)
@@ -74,7 +74,7 @@ class QMeasureLineContextMenu(QMenuIgnoreCancelClick):
                 lineBreakAction.setEnabled(False)
             self.addSeparator()
             # Repeat count
-            repeatCountAction = self.addAction("Set repeat count",
+            repeatCountAction = self.addAction(self.tr("Set repeat count"),
                                                self._setRepeatCount)
             repeatCountAction.setEnabled(lastMeasure.isRepeatEnd())
 

@@ -14,6 +14,7 @@ SOURCES = src/DrumBurp.py \
           src/GUI/QAlternateDialog.py \
           src/GUI/QAlternateWidget.py \
           src/GUI/QComplexCountDialog.py \
+          src/GUI/QCountContextMenu.py \
           src/GUI/QDefaultKitManager.py \
           src/GUI/QDisplayProperties.py \
           src/GUI/QEditKitDialog.py \
@@ -25,6 +26,7 @@ SOURCES = src/DrumBurp.py \
           src/GUI/QMeasure.py \
           src/GUI/QMeasureContextMenu.py \
           src/GUI/QMeasureLine.py \
+          src/GUI/QMeasureLineContextMenu.py \
           src/GUI/QMenuIgnoreCancelClick.py \
           src/GUI/QMetaData.py \
           src/GUI/QMetaDataDialog.py \

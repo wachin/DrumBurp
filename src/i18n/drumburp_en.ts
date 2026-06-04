@@ -2197,6 +2197,144 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>QCountContextMenu</name>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="45"/>
+        <source>Edit Measure Count</source>
+        <translation>Edit Measure Count</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="47"/>
+        <source>Measure Count</source>
+        <translation>Measure Count</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="51"/>
+        <source>Contract Count</source>
+        <translation>Contract Count</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="55"/>
+        <source>Contract All Counts</source>
+        <translation>Contract All Counts</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="65"/>
+        <source>Quarter Notes</source>
+        <translation>Quarter Notes</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="66"/>
+        <source>8ths</source>
+        <translation>8ths</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="67"/>
+        <source>Triplets</source>
+        <translation>Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="68"/>
+        <source>Quintuplets</source>
+        <translation>Quintuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="69"/>
+        <source>Septuplets</source>
+        <translation>Septuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="70"/>
+        <source>16ths</source>
+        <translation>16ths</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="71"/>
+        <source>Sparse 16ths</source>
+        <translation>Sparse 16ths</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="72"/>
+        <source>16th Triplets</source>
+        <translation>16th Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="73"/>
+        <source>Sparse 16th Triplets</source>
+        <translation>Sparse 16th Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="74"/>
+        <source>16th Quintuplets</source>
+        <translation>16th Quintuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="75"/>
+        <source>16th Septuplets</source>
+        <translation>16th Septuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="76"/>
+        <source>32nds</source>
+        <translation>32nds</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="77"/>
+        <source>Sparse 32nds</source>
+        <translation>Sparse 32nds</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="78"/>
+        <source>32nd Triplets</source>
+        <translation>32nd Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="79"/>
+        <source>Sparse 32nd Triplets</source>
+        <translation>Sparse 32nd Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="80"/>
+        <source>32nd Quintuplets</source>
+        <translation>32nd Quintuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="81"/>
+        <source>32nd Septuplets</source>
+        <translation>32nd Septuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="82"/>
+        <source>64ths</source>
+        <translation>64ths</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="83"/>
+        <source>Sparse 64ths</source>
+        <translation>Sparse 64ths</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="84"/>
+        <source>64th Triplets</source>
+        <translation>64th Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="85"/>
+        <source>Sparse 64th Triplets</source>
+        <translation>Sparse 64th Triplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="86"/>
+        <source>64th Quintuplets</source>
+        <translation>64th Quintuplets</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QCountContextMenu.py" line="87"/>
+        <source>64th Septuplets</source>
+        <translation>64th Septuplets</translation>
+    </message>
+</context>
+<context>
     <name>QDefaultKitManager</name>
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="109"/>
@@ -2550,6 +2688,34 @@ Continue?</translation>
         <location filename="../GUI/QMeasureLine.py" line="118"/>
         <source>Right-click for barline options.</source>
         <translation>Right-click for barline options.</translation>
+    </message>
+</context>
+<context>
+    <name>QMeasureLineContextMenu</name>
+    <message>
+        <location filename="../GUI/QMeasureLineContextMenu.py" line="42"/>
+        <source>Repeat Start</source>
+        <translation>Repeat Start</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasureLineContextMenu.py" line="52"/>
+        <source>Repeat End</source>
+        <translation>Repeat End</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasureLineContextMenu.py" line="59"/>
+        <source>Section End</source>
+        <translation>Section End</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasureLineContextMenu.py" line="66"/>
+        <source>Line Break</source>
+        <translation>Line Break</translation>
+    </message>
+    <message>
+        <location filename="../GUI/QMeasureLineContextMenu.py" line="77"/>
+        <source>Set repeat count</source>
+        <translation>Set repeat count</translation>
     </message>
 </context>
 <context>
@@ -5205,3 +5371,26 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 </TS>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

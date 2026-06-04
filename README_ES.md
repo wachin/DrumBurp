@@ -136,6 +136,35 @@ Los archivos de partitura de DrumBurp usan la extension `.brp`. El programa
 filtra los archivos recientes y los archivos arrastrados para que archivos no
 soportados como `.md`, `.txt`, `.pdf` o imagenes no se abran como partituras.
 
+### Pulso del compas y subdivisiones
+
+En el editor de tablaturas, los numeros y simbolos que aparecen debajo de los
+compases muestran el **pulso del compas**. Si haces clic derecho sobre esa linea
+aparece el menu **Pulso del compas**, que permite cambiar la subdivision ritmica
+del compas actual.
+
+Estas opciones no cambian que tambor suena. Cambian la rejilla de tiempo donde
+se pueden colocar las notas:
+
+- **Negras**: una posicion por pulso.
+- **Corcheas**: dos posiciones por pulso.
+- **Tresillos**: tres posiciones iguales por pulso.
+- **Semicorcheas**: cuatro posiciones por pulso.
+- **Fusas** y **Semifusas**: subdivisiones mas finas para ritmos rapidos.
+- **Quintillos** y **Septillos**: subdivisiones irregulares de cinco o siete
+  partes iguales.
+
+Las opciones que empiezan con **espaciadas** usan la misma subdivision interna,
+pero muestran una linea de conteo menos cargada visualmente. Esto ayuda cuando
+la tablatura se ve demasiado apretada.
+
+En la interfaz en español, estos nombres tecnicos se muestran con el nombre
+original en ingles y la traduccion entre parentesis, por ejemplo
+**Quarter Notes (Negras)** o
+**16th Triplets (Tresillos de semicorcheas)**. Esto ayuda a comparar DrumBurp
+con libros, tutoriales y materiales musicales que usan la terminologia en
+ingles.
+
 ### Reproduccion MIDI en Windows con VirtualMIDISynth
 
 Para obtener buen sonido MIDI en Windows, instala

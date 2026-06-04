@@ -122,13 +122,19 @@ Release checklist:
 
 - [x] Translate the measure context menu shown when right-clicking a tablature
   measure.
+- [x] Translate the measure-line context menu shown when right-clicking a
+  barline or row boundary (`Repeat End`, `Section End`, `Line Break`, and
+  repeat count actions).
+- [x] Translate the measure-count context menu and subdivision submenu shown
+  when right-clicking count text.
 - [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new
   translatable strings.
 - [x] Compile updated `drumburp_en.qm` and `drumburp_es.qm`.
 - [x] Confirm `drumburp_en.ts` and `drumburp_es.ts` have no unfinished
   translations.
 - [ ] Manually review common Spanish UI paths before creating a release.
-- [ ] Review right-click menus for untranslated strings in other score areas.
+- [ ] Continue reviewing right-click menus for untranslated strings in other
+  score areas.
 - [ ] Review dialog titles, warning messages, and MIDI messages in Spanish.
 
 ## Qt And UI Warnings

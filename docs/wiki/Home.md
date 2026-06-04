@@ -13,6 +13,7 @@ to Python 3 and PyQt5, maintained by Washington Indacochea Delgado.
 
 - [[Getting Started]]
 - [[Score Properties and Metadata]]
+- [[Measure Counts]]
 - [[Drum Kit Editor]]
 - [[Lilypond Export]]
 - [[MIDI Playback]]
