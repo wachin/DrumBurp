@@ -127,6 +127,8 @@ Release checklist:
   repeat count actions).
 - [x] Translate the measure-count context menu and subdivision submenu shown
   when right-clicking count text.
+- [x] Show bilingual translations for common section titles in the section
+  navigator without modifying the titles stored in `.brp` files.
 - [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new
   translatable strings.
 - [x] Compile updated `drumburp_en.qm` and `drumburp_es.qm`.

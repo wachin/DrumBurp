@@ -165,6 +165,23 @@ original en ingles y la traduccion entre parentesis, por ejemplo
 con libros, tutoriales y materiales musicales que usan la terminologia en
 ingles.
 
+### Navegador de secciones
+
+El navegador de secciones de la pestana **Editor de partituras**, dentro del
+grupo **Acciones**, muestra de forma bilingue los titulos estandar encontrados
+en una partitura:
+
+- **Intro (Introduccion)**
+- **Verse (Verso)**
+- **Chorus (Coro)**
+- **Bridge (Puente)**
+- **Outro (Final)**
+
+Tambien reconoce variantes numeradas como **Verse 1 (Verso 1)**. Esta
+traduccion es solamente visual dentro del navegador: DrumBurp conserva el
+titulo original almacenado en el archivo `.brp` y no modifica titulos
+personalizados.
+
 ### Reproduccion MIDI en Windows con VirtualMIDISynth
 
 Para obtener buen sonido MIDI en Windows, instala

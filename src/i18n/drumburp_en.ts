@@ -227,44 +227,44 @@
 <context>
     <name>DrumBurp</name>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="244"/>
+        <location filename="../GUI/DBMainwindow.py" line="268"/>
         <source>Initializing MIDI...</source>
         <translation>Initializing MIDI...</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="331"/>
+        <location filename="../GUI/DBMainwindow.py" line="355"/>
         <source>Undo %s</source>
         <translation>Undo %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="335"/>
+        <location filename="../GUI/DBMainwindow.py" line="359"/>
         <source>Redo %s</source>
         <translation>Redo %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="354"/>
+        <location filename="../GUI/DBMainwindow.py" line="378"/>
         <source>Welcome to %s v%s</source>
         <translation>Welcome to %s v%s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="360"/>
+        <location filename="../GUI/DBMainwindow.py" line="384"/>
         <source>Problem during startup</source>
         <translation>Problem during startup</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="360"/>
+        <location filename="../GUI/DBMainwindow.py" line="384"/>
         <source>Error opening files:
  %s</source>
         <translation>Error opening files:
  %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="370"/>
+        <location filename="../GUI/DBMainwindow.py" line="394"/>
         <source>&lt;b&gt;DrumBurp can check for updates.&lt;/b&gt;</source>
         <translation>&lt;b&gt;DrumBurp can check for updates.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="371"/>
+        <location filename="../GUI/DBMainwindow.py" line="395"/>
         <source>DrumBurp can automatically check for updates every time it starts, or you can manually check for a new version. Both options are available from the Help menu.
 
 When DrumBurp tries to check for an update it will try to access the internet. You may need to allow it access in order for the update check to work.</source>
@@ -273,37 +273,37 @@ When DrumBurp tries to check for an update it will try to access the internet. Y
 When DrumBurp tries to check for an update it will try to access the internet. You may need to allow it access in order for the update check to work.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="381"/>
+        <location filename="../GUI/DBMainwindow.py" line="405"/>
         <source>Do not show this again</source>
         <translation>Do not show this again</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="383"/>
+        <location filename="../GUI/DBMainwindow.py" line="407"/>
         <source>Update Checks</source>
         <translation>Update Checks</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="490"/>
+        <location filename="../GUI/DBMainwindow.py" line="514"/>
         <source>DrumBurp v%s - %s[*]</source>
         <translation>DrumBurp v%s - %s[*]</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="493"/>
+        <location filename="../GUI/DBMainwindow.py" line="517"/>
         <source>DrumBurp v%s - Untitled[*]</source>
         <translation>DrumBurp v%s - Untitled[*]</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="498"/>
+        <location filename="../GUI/DBMainwindow.py" line="522"/>
         <source>DrumBurp - Unsaved Changes</source>
         <translation>DrumBurp - Unsaved Changes</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="498"/>
+        <location filename="../GUI/DBMainwindow.py" line="522"/>
         <source>Save unsaved changes?</source>
         <translation>Save unsaved changes?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="508"/>
+        <location filename="../GUI/DBMainwindow.py" line="532"/>
         <source>DrumBurp could not save the file.
 
 Continue anyway? All unsaved changes will be lost!</source>
@@ -312,12 +312,12 @@ Continue anyway? All unsaved changes will be lost!</source>
 Continue anyway? All unsaved changes will be lost!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="513"/>
+        <location filename="../GUI/DBMainwindow.py" line="537"/>
         <source>Failed Save!</source>
         <translation>Failed Save!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="575"/>
+        <location filename="../GUI/DBMainwindow.py" line="599"/>
         <source>Choose a DrumBurp file to open</source>
         <translation>Choose a DrumBurp file to open</translation>
     </message>
@@ -327,242 +327,242 @@ Continue anyway? All unsaved changes will be lost!</translation>
         <translation type="obsolete">DrumBurp files (*.brp)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="601"/>
+        <location filename="../GUI/DBMainwindow.py" line="625"/>
         <source>Successfully loaded %s</source>
         <translation>Successfully loaded %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="619"/>
+        <location filename="../GUI/DBMainwindow.py" line="643"/>
         <source>Choose a DrumBurp file to save</source>
         <translation>Choose a DrumBurp file to save</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="641"/>
+        <location filename="../GUI/DBMainwindow.py" line="665"/>
         <source>Backup old file format?</source>
         <translation>Backup old file format?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="641"/>
+        <location filename="../GUI/DBMainwindow.py" line="665"/>
         <source>This score was loaded from an older file format. Would you like to make a backup of that file before overwriting?</source>
         <translation>This score was loaded from an older file format. Would you like to make a backup of that file before overwriting?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="660"/>
+        <location filename="../GUI/DBMainwindow.py" line="684"/>
         <source>Backup successful</source>
         <translation>Backup successful</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="660"/>
+        <location filename="../GUI/DBMainwindow.py" line="684"/>
         <source>Old score backed up to %s</source>
         <translation>Old score backed up to %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="663"/>
+        <location filename="../GUI/DBMainwindow.py" line="687"/>
         <source>Error backing up: %s</source>
         <translation>Error backing up: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="664"/>
+        <location filename="../GUI/DBMainwindow.py" line="688"/>
         <source>Backup failed</source>
         <translation>Backup failed</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="686"/>
+        <location filename="../GUI/DBMainwindow.py" line="710"/>
         <source>Successfully saved %s</source>
         <translation>Successfully saved %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="716"/>
+        <location filename="../GUI/DBMainwindow.py" line="740"/>
         <source>Created a new blank score</source>
         <translation>Created a new blank score</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="816"/>
+        <location filename="../GUI/DBMainwindow.py" line="840"/>
         <source>Select file to export text tab to</source>
         <translation>Select file to export text tab to</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="816"/>
+        <location filename="../GUI/DBMainwindow.py" line="840"/>
         <source>Text files (*.txt)</source>
         <translation>Text files (*.txt)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="826"/>
+        <location filename="../GUI/DBMainwindow.py" line="850"/>
         <source>Text generation failed!</source>
         <translation>Text generation failed!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="826"/>
+        <location filename="../GUI/DBMainwindow.py" line="850"/>
         <source>Could not generate text tab for this score!</source>
         <translation>Could not generate text tab for this score!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="833"/>
+        <location filename="../GUI/DBMainwindow.py" line="857"/>
         <source>Export failed!</source>
         <translation>Export failed!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="833"/>
+        <location filename="../GUI/DBMainwindow.py" line="857"/>
         <source>Could not export to %s</source>
         <translation>Could not export to %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="837"/>
+        <location filename="../GUI/DBMainwindow.py" line="861"/>
         <source>Successfully exported text tab to %s</source>
         <translation>Successfully exported text tab to %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="852"/>
+        <location filename="../GUI/DBMainwindow.py" line="876"/>
         <source>Failed to export text tab.</source>
         <translation>Failed to export text tab.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="900"/>
+        <location filename="../GUI/DBMainwindow.py" line="924"/>
         <source>Exported to PDF %s</source>
         <translation>Exported to PDF %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="902"/>
+        <location filename="../GUI/DBMainwindow.py" line="926"/>
         <source>Could not export PDF to %s</source>
         <translation>Could not export PDF to %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="913"/>
+        <location filename="../GUI/DBMainwindow.py" line="937"/>
         <source>Lilypond impossible</source>
         <translation>Lilypond impossible</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="913"/>
+        <location filename="../GUI/DBMainwindow.py" line="937"/>
         <source>Cannot export Lilypond for this score: %s</source>
         <translation>Cannot export Lilypond for this score: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="917"/>
+        <location filename="../GUI/DBMainwindow.py" line="941"/>
         <source>Error generating Lilypond for this score: %s</source>
         <translation>Error generating Lilypond for this score: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="931"/>
+        <location filename="../GUI/DBMainwindow.py" line="955"/>
         <source>Choose a Lilypond input file to write to</source>
         <translation>Choose a Lilypond input file to write to</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="942"/>
+        <location filename="../GUI/DBMainwindow.py" line="966"/>
         <source>Still exporting</source>
         <translation>Still exporting</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="942"/>
+        <location filename="../GUI/DBMainwindow.py" line="966"/>
         <source>Cannot export now - previous export is still in progress</source>
         <translation>Cannot export now - previous export is still in progress</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="954"/>
+        <location filename="../GUI/DBMainwindow.py" line="978"/>
         <source>Could not export Lilypond</source>
         <translation>Could not export Lilypond</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="966"/>
+        <location filename="../GUI/DBMainwindow.py" line="990"/>
         <source>Successfully ran Lilypond on %s</source>
         <translation>Successfully ran Lilypond on %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="968"/>
+        <location filename="../GUI/DBMainwindow.py" line="992"/>
         <source>Successfully exported Lilypond to %s</source>
         <translation>Successfully exported Lilypond to %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="970"/>
+        <location filename="../GUI/DBMainwindow.py" line="994"/>
         <source>Could not write Lilypond score to %s</source>
         <translation>Could not write Lilypond score to %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="973"/>
+        <location filename="../GUI/DBMainwindow.py" line="997"/>
         <source>Could not run Lilypond on %s</source>
         <translation>Could not run Lilypond on %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1140"/>
+        <location filename="../GUI/DBMainwindow.py" line="1165"/>
         <source>Playback error</source>
         <translation>Playback error</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1140"/>
+        <location filename="../GUI/DBMainwindow.py" line="1165"/>
         <source>There are inconsistent repeat markings.</source>
         <translation>There are inconsistent repeat markings.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1196"/>
+        <location filename="../GUI/DBMainwindow.py" line="1221"/>
         <source>Error generating MIDI!</source>
         <translation>Error generating MIDI!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1212"/>
+        <location filename="../GUI/DBMainwindow.py" line="1237"/>
         <source>DrumBurp files (*.mid)</source>
         <translation>DrumBurp files (*.mid)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1223"/>
+        <location filename="../GUI/DBMainwindow.py" line="1248"/>
         <source>File error</source>
         <translation>File error</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1223"/>
+        <location filename="../GUI/DBMainwindow.py" line="1248"/>
         <source>Error writing MIDI to file %s</source>
         <translation>Error writing MIDI to file %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1387"/>
+        <location filename="../GUI/DBMainwindow.py" line="1412"/>
         <source>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</source>
         <translation>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1401"/>
+        <location filename="../GUI/DBMainwindow.py" line="1426"/>
         <source>Please select path to Lilypond executable</source>
         <translation>Please select path to Lilypond executable</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1204"/>
+        <location filename="../GUI/DBMainwindow.py" line="1229"/>
         <source>Untitled</source>
         <translation>Untitled</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1196"/>
+        <location filename="../GUI/DBMainwindow.py" line="1221"/>
         <source>Failed to generate MIDI for this score: %s</source>
         <translation>Failed to generate MIDI for this score: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1211"/>
+        <location filename="../GUI/DBMainwindow.py" line="1236"/>
         <source>Export to MIDI</source>
         <translation>Export to MIDI</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1363"/>
+        <location filename="../GUI/DBMainwindow.py" line="1388"/>
         <source>Failed to get latest version info from www.whatang.org</source>
         <translation>Failed to get latest version info from www.whatang.org</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1366"/>
+        <location filename="../GUI/DBMainwindow.py" line="1391"/>
         <source>Check successful: You have the latest version of DrumBurp</source>
         <translation>Check successful: You have the latest version of DrumBurp</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1002"/>
+        <location filename="../GUI/DBMainwindow.py" line="1026"/>
         <source>Language</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1025"/>
+        <location filename="../GUI/DBMainwindow.py" line="1049"/>
         <source>Language changed</source>
         <translation>Language changed</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1025"/>
+        <location filename="../GUI/DBMainwindow.py" line="1049"/>
         <source>The language will change the next time DrumBurp starts.</source>
         <translation>The language will change the next time DrumBurp starts.</translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1321"/>
+        <location filename="../GUI/DBMainwindow.py" line="1346"/>
         <source>%n Measure(s)</source>
         <translation>
             <numerusform>%n Measure</numerusform>
@@ -570,7 +570,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1323"/>
+        <location filename="../GUI/DBMainwindow.py" line="1348"/>
         <source>%n Staff(s)</source>
         <translation>
             <numerusform>%n Staff</numerusform>
@@ -578,7 +578,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1325"/>
+        <location filename="../GUI/DBMainwindow.py" line="1350"/>
         <source>%n Page(s)</source>
         <translation>
             <numerusform>%n Page</numerusform>
@@ -586,36 +586,61 @@ Continue anyway? All unsaved changes will be lost!</translation>
         </translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="589"/>
+        <location filename="../GUI/DBMainwindow.py" line="613"/>
         <source>Unsupported file type</source>
         <translation>Unsupported file type</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="589"/>
+        <location filename="../GUI/DBMainwindow.py" line="613"/>
         <source>DrumBurp can only open .brp score files.</source>
         <translation>DrumBurp can only open .brp score files.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1116"/>
+        <location filename="../GUI/DBMainwindow.py" line="1141"/>
         <source>MIDI output: %s</source>
         <translation>MIDI output: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1119"/>
+        <location filename="../GUI/DBMainwindow.py" line="1144"/>
         <source>MIDI output unavailable</source>
         <translation>MIDI output unavailable</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1119"/>
+        <location filename="../GUI/DBMainwindow.py" line="1144"/>
         <source>Could not open MIDI output device:
 %s</source>
         <translation>Could not open MIDI output device:
 %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1126"/>
+        <location filename="../GUI/DBMainwindow.py" line="1151"/>
         <source>No MIDI output devices found</source>
         <translation>No MIDI output devices found</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBMainwindow.py" line="83"/>
+        <source>Intro</source>
+        <translation>Intro</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBMainwindow.py" line="84"/>
+        <source>Verse</source>
+        <translation>Verse</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBMainwindow.py" line="85"/>
+        <source>Chorus</source>
+        <translation>Chorus</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBMainwindow.py" line="86"/>
+        <source>Bridge</source>
+        <translation>Bridge</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBMainwindow.py" line="87"/>
+        <source>Outro</source>
+        <translation>Outro</translation>
     </message>
 </context>
 <context>
@@ -2199,137 +2224,137 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QCountContextMenu</name>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="45"/>
+        <location filename="../GUI/QCountContextMenu.py" line="46"/>
         <source>Edit Measure Count</source>
         <translation>Edit Measure Count</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="47"/>
+        <location filename="../GUI/QCountContextMenu.py" line="48"/>
         <source>Measure Count</source>
         <translation>Measure Count</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="51"/>
+        <location filename="../GUI/QCountContextMenu.py" line="52"/>
         <source>Contract Count</source>
         <translation>Contract Count</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="55"/>
+        <location filename="../GUI/QCountContextMenu.py" line="56"/>
         <source>Contract All Counts</source>
         <translation>Contract All Counts</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="65"/>
+        <location filename="../GUI/QCountContextMenu.py" line="66"/>
         <source>Quarter Notes</source>
         <translation>Quarter Notes</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="66"/>
+        <location filename="../GUI/QCountContextMenu.py" line="68"/>
         <source>8ths</source>
         <translation>8ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="67"/>
+        <location filename="../GUI/QCountContextMenu.py" line="70"/>
         <source>Triplets</source>
         <translation>Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="68"/>
+        <location filename="../GUI/QCountContextMenu.py" line="72"/>
         <source>Quintuplets</source>
         <translation>Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="69"/>
+        <location filename="../GUI/QCountContextMenu.py" line="74"/>
         <source>Septuplets</source>
         <translation>Septuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="70"/>
+        <location filename="../GUI/QCountContextMenu.py" line="76"/>
         <source>16ths</source>
         <translation>16ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="71"/>
+        <location filename="../GUI/QCountContextMenu.py" line="78"/>
         <source>Sparse 16ths</source>
         <translation>Sparse 16ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="72"/>
+        <location filename="../GUI/QCountContextMenu.py" line="80"/>
         <source>16th Triplets</source>
         <translation>16th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="73"/>
+        <location filename="../GUI/QCountContextMenu.py" line="82"/>
         <source>Sparse 16th Triplets</source>
         <translation>Sparse 16th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="74"/>
+        <location filename="../GUI/QCountContextMenu.py" line="84"/>
         <source>16th Quintuplets</source>
         <translation>16th Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="75"/>
+        <location filename="../GUI/QCountContextMenu.py" line="86"/>
         <source>16th Septuplets</source>
         <translation>16th Septuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="76"/>
+        <location filename="../GUI/QCountContextMenu.py" line="88"/>
         <source>32nds</source>
         <translation>32nds</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="77"/>
+        <location filename="../GUI/QCountContextMenu.py" line="90"/>
         <source>Sparse 32nds</source>
         <translation>Sparse 32nds</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="78"/>
+        <location filename="../GUI/QCountContextMenu.py" line="92"/>
         <source>32nd Triplets</source>
         <translation>32nd Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="79"/>
+        <location filename="../GUI/QCountContextMenu.py" line="94"/>
         <source>Sparse 32nd Triplets</source>
         <translation>Sparse 32nd Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="80"/>
+        <location filename="../GUI/QCountContextMenu.py" line="96"/>
         <source>32nd Quintuplets</source>
         <translation>32nd Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="81"/>
+        <location filename="../GUI/QCountContextMenu.py" line="98"/>
         <source>32nd Septuplets</source>
         <translation>32nd Septuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="82"/>
+        <location filename="../GUI/QCountContextMenu.py" line="100"/>
         <source>64ths</source>
         <translation>64ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="83"/>
+        <location filename="../GUI/QCountContextMenu.py" line="102"/>
         <source>Sparse 64ths</source>
         <translation>Sparse 64ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="84"/>
+        <location filename="../GUI/QCountContextMenu.py" line="104"/>
         <source>64th Triplets</source>
         <translation>64th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="85"/>
+        <location filename="../GUI/QCountContextMenu.py" line="106"/>
         <source>Sparse 64th Triplets</source>
         <translation>Sparse 64th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="86"/>
+        <location filename="../GUI/QCountContextMenu.py" line="108"/>
         <source>64th Quintuplets</source>
         <translation>64th Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="87"/>
+        <location filename="../GUI/QCountContextMenu.py" line="110"/>
         <source>64th Septuplets</source>
         <translation>64th Septuplets</translation>
     </message>
@@ -5347,7 +5372,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>parent</name>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="128"/>
+        <location filename="../GUI/DBMainwindow.py" line="152"/>
         <source>DrumBurp files (*.brp)</source>
         <translation>DrumBurp files (*.brp)</translation>
     </message>
@@ -5371,24 +5396,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 </TS>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
