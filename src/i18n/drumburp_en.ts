@@ -2244,117 +2244,117 @@ p, li { white-space: pre-wrap; }
         <translation>Contract All Counts</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="66"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="6"/>
         <source>Quarter Notes</source>
         <translation>Quarter Notes</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="68"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="8"/>
         <source>8ths</source>
         <translation>8ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="70"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="10"/>
         <source>Triplets</source>
         <translation>Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="72"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="12"/>
         <source>Quintuplets</source>
         <translation>Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="74"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="14"/>
         <source>Septuplets</source>
         <translation>Septuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="76"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="16"/>
         <source>16ths</source>
         <translation>16ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="78"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="18"/>
         <source>Sparse 16ths</source>
         <translation>Sparse 16ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="80"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="20"/>
         <source>16th Triplets</source>
         <translation>16th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="82"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="22"/>
         <source>Sparse 16th Triplets</source>
         <translation>Sparse 16th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="84"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="24"/>
         <source>16th Quintuplets</source>
         <translation>16th Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="86"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="26"/>
         <source>16th Septuplets</source>
         <translation>16th Septuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="88"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="28"/>
         <source>32nds</source>
         <translation>32nds</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="90"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="30"/>
         <source>Sparse 32nds</source>
         <translation>Sparse 32nds</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="92"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="32"/>
         <source>32nd Triplets</source>
         <translation>32nd Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="94"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="34"/>
         <source>Sparse 32nd Triplets</source>
         <translation>Sparse 32nd Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="96"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="36"/>
         <source>32nd Quintuplets</source>
         <translation>32nd Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="98"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="38"/>
         <source>32nd Septuplets</source>
         <translation>32nd Septuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="100"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="40"/>
         <source>64ths</source>
         <translation>64ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="102"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="42"/>
         <source>Sparse 64ths</source>
         <translation>Sparse 64ths</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="104"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="44"/>
         <source>64th Triplets</source>
         <translation>64th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="106"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="46"/>
         <source>Sparse 64th Triplets</source>
         <translation>Sparse 64th Triplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="108"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="48"/>
         <source>64th Quintuplets</source>
         <translation>64th Quintuplets</translation>
     </message>
     <message>
-        <location filename="../GUI/QCountContextMenu.py" line="110"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="50"/>
         <source>64th Septuplets</source>
         <translation>64th Septuplets</translation>
     </message>
@@ -5396,8 +5396,3 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 </TS>
-
-
-
-
-

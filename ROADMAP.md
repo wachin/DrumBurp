@@ -127,6 +127,10 @@ Release checklist:
   repeat count actions).
 - [x] Translate the measure-count context menu and subdivision submenu shown
   when right-clicking count text.
+- [x] Reuse bilingual count names in the simple-count and complex-count
+  selectors used when creating or editing scores.
+- [x] Widen the New Score dialog and count selector so bilingual rhythm names
+  are not truncated.
 - [x] Show bilingual translations for common section titles in the section
   navigator without modifying the titles stored in `.brp` files.
 - [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new

@@ -28,6 +28,7 @@ from PyQt5.QtWidgets import QDialog, QListWidgetItem
 
 from Data.Beat import Beat
 from Data.MeasureCount import MeasureCount
+from GUI.DBCounterDisplay import translatedCountName
 from GUI.ui_DBComplextCountDialog import Ui_complexCountDialog
 
 
@@ -38,7 +39,7 @@ class QComplexCountDialog(QDialog, Ui_complexCountDialog):
         self._default = measureCount
         self._registry = registry
         for name, unusedCount in self._registry:
-            self.countBox.addItem(name)
+            self.countBox.addItem(translatedCountName(name), name)
         self.beatList.currentItemChanged.connect(self._newBeatChosen)
         self.countBox.currentIndexChanged[int].connect(
             lambda _index: self._beatChanged())

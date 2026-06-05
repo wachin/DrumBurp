@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
-    <height>219</height>
+    <width>640</width>
+    <height>245</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -30,8 +30,8 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>415</width>
-       <height>111</height>
+       <width>580</width>
+       <height>125</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -79,26 +79,26 @@
        <item row="1" column="2">
         <widget class="QComboBox" name="beatCountComboBox">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>1</horstretch>
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>2</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>460</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>200</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
          <property name="baseSize">
           <size>
-           <width>200</width>
+           <width>460</width>
            <height>0</height>
           </size>
          </property>
@@ -264,8 +264,8 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>415</width>
-       <height>66</height>
+       <width>580</width>
+       <height>72</height>
       </size>
      </property>
      <property name="maximumSize">

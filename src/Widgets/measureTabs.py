@@ -25,6 +25,7 @@ Created on 17 Apr 2011
 import copy
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget
+from GUI.DBCounterDisplay import translatedCountName
 from .ui_measureTabs import Ui_measureTabs
 
 
@@ -68,7 +69,7 @@ class measureTabs(QWidget, Ui_measureTabs):
     def _populateCombo(self, combo):
         combo.clear()
         for (name, unusedCounter) in self._registry:
-            combo.addItem(name)
+            combo.addItem(translatedCountName(name), name)
 
     def _setCombo(self, combo, beatCount):
         setCounter = False

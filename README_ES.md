@@ -163,7 +163,9 @@ original en ingles y la traduccion entre parentesis, por ejemplo
 **Quarter Notes (Negras)** o
 **16th Triplets (Tresillos de semicorcheas)**. Esto ayuda a comparar DrumBurp
 con libros, tutoriales y materiales musicales que usan la terminologia en
-ingles.
+ingles. El formato bilingue se usa en el submenu **Pulso del compas**, en
+**Archivo -> Nuevo -> Pulso simple** y en el selector del editor de
+**Pulso complejo**.
 
 ### Navegador de secciones
 
