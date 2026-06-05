@@ -62,7 +62,7 @@
     <message>
         <location filename="../GUI/dbColours.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="obsolete">Dialog</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="161"/>
@@ -88,6 +88,79 @@
         <location filename="../GUI/dbColours.ui" line="209"/>
         <source>Border Colour</source>
         <translation>Border Colour</translation>
+    </message>
+    <message>
+        <location filename="../GUI/dbColours.ui" line="14"/>
+        <source>Edit Colours</source>
+        <translation>Edit Colours</translation>
+    </message>
+</context>
+<context>
+    <name>DBColourPicker</name>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="40"/>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="41"/>
+        <source>New notes</source>
+        <translation>New notes</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="43"/>
+        <source>Notes to delete</source>
+        <translation>Notes to delete</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="45"/>
+        <source>Note Highlight</source>
+        <translation>Note Highlight</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="47"/>
+        <source>Time Highlight</source>
+        <translation>Time Highlight</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="49"/>
+        <source>Selected Measure</source>
+        <translation>Selected Measure</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="51"/>
+        <source>Playing Highlight</source>
+        <translation>Playing Highlight</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="53"/>
+        <source>Next Playing Highlight</source>
+        <translation>Next Playing Highlight</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="55"/>
+        <source>Sticking Display</source>
+        <translation>Sticking Display</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="63"/>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="64"/>
+        <source>Dashed</source>
+        <translation>Dashed</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="66"/>
+        <source>Solid</source>
+        <translation>Solid</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="340"/>
+        <source>Transparent</source>
+        <translation>Transparent</translation>
     </message>
 </context>
 <context>
@@ -5396,3 +5469,17 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 </TS>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

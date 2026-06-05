@@ -35,6 +35,39 @@ STYLES = ["None", "Dashed", "Solid"]
 REVERSE_STYLE_MAP = dict((x, y) for (y, x) in STYLE_MAP.items())
 
 
+def _translatedColourName(name):
+    names = {
+        "Text": QtCore.QCoreApplication.translate("DBColourPicker", "Text"),
+        "New notes": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "New notes"),
+        "Notes to delete": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Notes to delete"),
+        "Note Highlight": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Note Highlight"),
+        "Time Highlight": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Time Highlight"),
+        "Selected Measure": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Selected Measure"),
+        "Playing Highlight": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Playing Highlight"),
+        "Next Playing Highlight": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Next Playing Highlight"),
+        "Sticking Display": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Sticking Display"),
+    }
+    return names.get(name, name)
+
+
+def _translatedStyleName(name):
+    names = {
+        "None": QtCore.QCoreApplication.translate("DBColourPicker", "None"),
+        "Dashed": QtCore.QCoreApplication.translate(
+            "DBColourPicker", "Dashed"),
+        "Solid": QtCore.QCoreApplication.translate("DBColourPicker", "Solid"),
+    }
+    return names.get(name, name)
+
+
 class ColouredItem(object):
     def __init__(self, backgroundColour, borderStyle, borderColour):
         self._borderStyle = None
@@ -265,7 +298,7 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
         for row, colour in enumerate(self._currentScheme.iterTextColours()):
             colourAttr = colour.colourAttrs
             label = QLabel(self.frame)
-            label.setText(colourAttr.longName)
+            label.setText(_translatedColourName(colourAttr.longName))
             label.setAlignment(QtCore.Qt.AlignRight)
             self.textGrid.addWidget(label, row + 1, 0, 1, 1)
             textButton = self._makeLineButton(colourAttr)
@@ -273,7 +306,7 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
         for row, colour in enumerate(self._currentScheme.iterAreaColours()):
             colourAttr = colour.colourAttrs
             label = QLabel(self.frame_2)
-            label.setText(colourAttr.longName)
+            label.setText(_translatedColourName(colourAttr.longName))
             label.setAlignment(QtCore.Qt.AlignRight)
             self.areaGrid.addWidget(label, row + 1, 0, 1, 1)
             if colourAttr.background:
@@ -304,7 +337,8 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
         }"""
         ss %= colour.getRgb()
         if colour.getRgb()[3] == 0:
-            button.setText("Transparent")
+            button.setText(QtCore.QCoreApplication.translate(
+                "DBColourPicker", "Transparent"))
         button.setStyleSheet(ss)
 
     def _makeColourSelector(self, button, colourAttr, colourType):
@@ -332,7 +366,7 @@ class DBColourPicker(QDialog, Ui_ColourPicker):
         combo = QComboBox(self)
         combo.setObjectName(colourAttr.attrName + "border_style")
         for lineStyle in STYLES:
-            combo.addItem(lineStyle)
+            combo.addItem(_translatedStyleName(lineStyle), lineStyle)
 
         def setLineStyle(newIndex):
             colour = colourAttr.getInstance(self._currentScheme)

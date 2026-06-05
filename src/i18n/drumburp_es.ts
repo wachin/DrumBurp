@@ -62,7 +62,7 @@
     <message>
         <location filename="../GUI/dbColours.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogo</translation>
+        <translation type="obsolete">Dialogo</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="161"/>
@@ -88,6 +88,79 @@
         <location filename="../GUI/dbColours.ui" line="209"/>
         <source>Border Colour</source>
         <translation>Color del borde</translation>
+    </message>
+    <message>
+        <location filename="../GUI/dbColours.ui" line="14"/>
+        <source>Edit Colours</source>
+        <translation>Editar colores</translation>
+    </message>
+</context>
+<context>
+    <name>DBColourPicker</name>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="40"/>
+        <source>Text</source>
+        <translation>Texto</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="41"/>
+        <source>New notes</source>
+        <translation>Notas nuevas</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="43"/>
+        <source>Notes to delete</source>
+        <translation>Notas para eliminar</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="45"/>
+        <source>Note Highlight</source>
+        <translation>Resaltado de nota</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="47"/>
+        <source>Time Highlight</source>
+        <translation>Resaltado de tiempo</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="49"/>
+        <source>Selected Measure</source>
+        <translation>Compás seleccionado</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="51"/>
+        <source>Playing Highlight</source>
+        <translation>Resaltado de reproducción</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="53"/>
+        <source>Next Playing Highlight</source>
+        <translation>Siguiente resaltado de reproducción</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="55"/>
+        <source>Sticking Display</source>
+        <translation>Visualización de digitación</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="63"/>
+        <source>None</source>
+        <translation>Ninguno</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="64"/>
+        <source>Dashed</source>
+        <translation>Discontinuo</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="66"/>
+        <source>Solid</source>
+        <translation>Sólido</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBColourPicker.py" line="340"/>
+        <source>Transparent</source>
+        <translation>Transparente</translation>
     </message>
 </context>
 <context>
@@ -4659,4 +4732,17 @@ Este es software libre y puede redistribuirlo bajo ciertas condiciones; consulte
     </message>
 </context>
 </TS>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
