@@ -10,6 +10,7 @@ SOURCES = src/DrumBurp.py \
           src/GUI/DBFonts.py \
           src/GUI/DBIcons.py \
           src/GUI/DBMidi.py \
+          src/GUI/DBSectionDisplay.py \
           src/GUI/DBFSM.py \
           src/GUI/LilypondExporter.py \
           src/GUI/QAlternateDialog.py \

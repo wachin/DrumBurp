@@ -227,44 +227,44 @@
 <context>
     <name>DrumBurp</name>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="268"/>
+        <location filename="../GUI/DBMainwindow.py" line="245"/>
         <source>Initializing MIDI...</source>
         <translation>Inicializando MIDI...</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="355"/>
+        <location filename="../GUI/DBMainwindow.py" line="332"/>
         <source>Undo %s</source>
         <translation>Deshacer %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="359"/>
+        <location filename="../GUI/DBMainwindow.py" line="336"/>
         <source>Redo %s</source>
         <translation>Rehacer %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="378"/>
+        <location filename="../GUI/DBMainwindow.py" line="355"/>
         <source>Welcome to %s v%s</source>
         <translation>Bienvenido a %s v%s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="384"/>
+        <location filename="../GUI/DBMainwindow.py" line="361"/>
         <source>Problem during startup</source>
         <translation>Problema al iniciar</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="384"/>
+        <location filename="../GUI/DBMainwindow.py" line="361"/>
         <source>Error opening files:
  %s</source>
         <translation>Error al abrir archivos:
  %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="394"/>
+        <location filename="../GUI/DBMainwindow.py" line="371"/>
         <source>&lt;b&gt;DrumBurp can check for updates.&lt;/b&gt;</source>
         <translation>&lt;b&gt;DrumBurp puede buscar actualizaciones.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="395"/>
+        <location filename="../GUI/DBMainwindow.py" line="372"/>
         <source>DrumBurp can automatically check for updates every time it starts, or you can manually check for a new version. Both options are available from the Help menu.
 
 When DrumBurp tries to check for an update it will try to access the internet. You may need to allow it access in order for the update check to work.</source>
@@ -273,37 +273,37 @@ When DrumBurp tries to check for an update it will try to access the internet. Y
 Cuando DrumBurp intenta buscar una actualizacion, intentara acceder a internet. Es posible que deba permitirle el acceso para que la verificacion funcione.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="405"/>
+        <location filename="../GUI/DBMainwindow.py" line="382"/>
         <source>Do not show this again</source>
         <translation>No mostrar esto de nuevo</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="407"/>
+        <location filename="../GUI/DBMainwindow.py" line="384"/>
         <source>Update Checks</source>
         <translation>Verificacion de actualizaciones</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="514"/>
+        <location filename="../GUI/DBMainwindow.py" line="491"/>
         <source>DrumBurp v%s - %s[*]</source>
         <translation>DrumBurp v%s - %s[*]</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="517"/>
+        <location filename="../GUI/DBMainwindow.py" line="494"/>
         <source>DrumBurp v%s - Untitled[*]</source>
         <translation>DrumBurp v%s - Sin titulo[*]</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="522"/>
+        <location filename="../GUI/DBMainwindow.py" line="499"/>
         <source>DrumBurp - Unsaved Changes</source>
         <translation>DrumBurp - Cambios sin guardar</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="522"/>
+        <location filename="../GUI/DBMainwindow.py" line="499"/>
         <source>Save unsaved changes?</source>
         <translation>Guardar los cambios sin guardar?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="532"/>
+        <location filename="../GUI/DBMainwindow.py" line="509"/>
         <source>DrumBurp could not save the file.
 
 Continue anyway? All unsaved changes will be lost!</source>
@@ -312,12 +312,12 @@ Continue anyway? All unsaved changes will be lost!</source>
 Continuar de todas formas? Todos los cambios sin guardar se perderan!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="537"/>
+        <location filename="../GUI/DBMainwindow.py" line="514"/>
         <source>Failed Save!</source>
         <translation>Error al guardar!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="599"/>
+        <location filename="../GUI/DBMainwindow.py" line="576"/>
         <source>Choose a DrumBurp file to open</source>
         <translation>Seleccione un archivo DrumBurp para abrir</translation>
     </message>
@@ -327,242 +327,242 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <translation type="obsolete">Archivos DrumBurp (*.brp)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="625"/>
+        <location filename="../GUI/DBMainwindow.py" line="602"/>
         <source>Successfully loaded %s</source>
         <translation>Cargado correctamente: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="643"/>
+        <location filename="../GUI/DBMainwindow.py" line="620"/>
         <source>Choose a DrumBurp file to save</source>
         <translation>Seleccione un archivo DrumBurp para guardar</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="665"/>
+        <location filename="../GUI/DBMainwindow.py" line="642"/>
         <source>Backup old file format?</source>
         <translation>Hacer copia de seguridad del formato antiguo?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="665"/>
+        <location filename="../GUI/DBMainwindow.py" line="642"/>
         <source>This score was loaded from an older file format. Would you like to make a backup of that file before overwriting?</source>
         <translation>Esta partitura fue cargada desde un formato de archivo antiguo. Desea hacer una copia de seguridad antes de sobreescribirla?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="684"/>
+        <location filename="../GUI/DBMainwindow.py" line="661"/>
         <source>Backup successful</source>
         <translation>Copia de seguridad exitosa</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="684"/>
+        <location filename="../GUI/DBMainwindow.py" line="661"/>
         <source>Old score backed up to %s</source>
         <translation>Partitura antigua respaldada en %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="687"/>
+        <location filename="../GUI/DBMainwindow.py" line="664"/>
         <source>Error backing up: %s</source>
         <translation>Error al hacer copia de seguridad: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="688"/>
+        <location filename="../GUI/DBMainwindow.py" line="665"/>
         <source>Backup failed</source>
         <translation>Error en la copia de seguridad</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="710"/>
+        <location filename="../GUI/DBMainwindow.py" line="687"/>
         <source>Successfully saved %s</source>
         <translation>Guardado correctamente: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="740"/>
+        <location filename="../GUI/DBMainwindow.py" line="717"/>
         <source>Created a new blank score</source>
         <translation>Se creo una nueva partitura en blanco</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="840"/>
+        <location filename="../GUI/DBMainwindow.py" line="817"/>
         <source>Select file to export text tab to</source>
         <translation>Seleccione el archivo para exportar la tablatura de texto</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="840"/>
+        <location filename="../GUI/DBMainwindow.py" line="817"/>
         <source>Text files (*.txt)</source>
         <translation>Archivos de texto (*.txt)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="850"/>
+        <location filename="../GUI/DBMainwindow.py" line="827"/>
         <source>Text generation failed!</source>
         <translation>Error al generar el texto!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="850"/>
+        <location filename="../GUI/DBMainwindow.py" line="827"/>
         <source>Could not generate text tab for this score!</source>
         <translation>No se pudo generar la tablatura de texto para esta partitura!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="857"/>
+        <location filename="../GUI/DBMainwindow.py" line="834"/>
         <source>Export failed!</source>
         <translation>Error al exportar!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="857"/>
+        <location filename="../GUI/DBMainwindow.py" line="834"/>
         <source>Could not export to %s</source>
         <translation>No se pudo exportar a %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="861"/>
+        <location filename="../GUI/DBMainwindow.py" line="838"/>
         <source>Successfully exported text tab to %s</source>
         <translation>Tablatura de texto exportada correctamente a %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="876"/>
+        <location filename="../GUI/DBMainwindow.py" line="853"/>
         <source>Failed to export text tab.</source>
         <translation>Error al exportar la tablatura de texto.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="924"/>
+        <location filename="../GUI/DBMainwindow.py" line="901"/>
         <source>Exported to PDF %s</source>
         <translation>Exportado a PDF: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="926"/>
+        <location filename="../GUI/DBMainwindow.py" line="903"/>
         <source>Could not export PDF to %s</source>
         <translation>No se pudo exportar el PDF a %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="937"/>
+        <location filename="../GUI/DBMainwindow.py" line="914"/>
         <source>Lilypond impossible</source>
         <translation>Exportacion a Lilypond imposible</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="937"/>
+        <location filename="../GUI/DBMainwindow.py" line="914"/>
         <source>Cannot export Lilypond for this score: %s</source>
         <translation>No se puede exportar a Lilypond esta partitura: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="941"/>
+        <location filename="../GUI/DBMainwindow.py" line="918"/>
         <source>Error generating Lilypond for this score: %s</source>
         <translation>Error al generar Lilypond para esta partitura: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="955"/>
+        <location filename="../GUI/DBMainwindow.py" line="932"/>
         <source>Choose a Lilypond input file to write to</source>
         <translation>Seleccione el archivo de entrada de Lilypond</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="966"/>
+        <location filename="../GUI/DBMainwindow.py" line="943"/>
         <source>Still exporting</source>
         <translation>Exportacion en progreso</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="966"/>
+        <location filename="../GUI/DBMainwindow.py" line="943"/>
         <source>Cannot export now - previous export is still in progress</source>
         <translation>No se puede exportar ahora - la exportacion anterior aun esta en progreso</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="978"/>
+        <location filename="../GUI/DBMainwindow.py" line="955"/>
         <source>Could not export Lilypond</source>
         <translation>No se pudo exportar a Lilypond</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="990"/>
+        <location filename="../GUI/DBMainwindow.py" line="967"/>
         <source>Successfully ran Lilypond on %s</source>
         <translation>Lilypond ejecutado correctamente en %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="992"/>
+        <location filename="../GUI/DBMainwindow.py" line="969"/>
         <source>Successfully exported Lilypond to %s</source>
         <translation>Exportado correctamente a Lilypond: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="994"/>
+        <location filename="../GUI/DBMainwindow.py" line="971"/>
         <source>Could not write Lilypond score to %s</source>
         <translation>No se pudo escribir la partitura Lilypond en %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="997"/>
+        <location filename="../GUI/DBMainwindow.py" line="974"/>
         <source>Could not run Lilypond on %s</source>
         <translation>No se pudo ejecutar Lilypond en %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1165"/>
+        <location filename="../GUI/DBMainwindow.py" line="1142"/>
         <source>Playback error</source>
         <translation>Error de reproduccion</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1165"/>
+        <location filename="../GUI/DBMainwindow.py" line="1142"/>
         <source>There are inconsistent repeat markings.</source>
         <translation>Hay marcas de repeticion inconsistentes.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1221"/>
+        <location filename="../GUI/DBMainwindow.py" line="1198"/>
         <source>Error generating MIDI!</source>
         <translation>Error al generar MIDI!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1237"/>
+        <location filename="../GUI/DBMainwindow.py" line="1214"/>
         <source>DrumBurp files (*.mid)</source>
         <translation>Archivos DrumBurp (*.mid)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1248"/>
+        <location filename="../GUI/DBMainwindow.py" line="1225"/>
         <source>File error</source>
         <translation>Error de archivo</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1248"/>
+        <location filename="../GUI/DBMainwindow.py" line="1225"/>
         <source>Error writing MIDI to file %s</source>
         <translation>Error al escribir MIDI en el archivo %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1412"/>
+        <location filename="../GUI/DBMainwindow.py" line="1389"/>
         <source>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</source>
         <translation>Lilypond es un programa para mostrar notacion musical. DrumBurp puede exportar archivos Lilypond y usar Lilypond para mostrar su partitura de bateria como partitura musical. Primero debe descargar e instalar Lilypond desde www.lilypond.org y configurar la ruta al programa lilypond en esta ventana.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1426"/>
+        <location filename="../GUI/DBMainwindow.py" line="1403"/>
         <source>Please select path to Lilypond executable</source>
         <translation>Seleccione la ruta al ejecutable de Lilypond</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1229"/>
+        <location filename="../GUI/DBMainwindow.py" line="1206"/>
         <source>Untitled</source>
         <translation>Sin titulo</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1221"/>
+        <location filename="../GUI/DBMainwindow.py" line="1198"/>
         <source>Failed to generate MIDI for this score: %s</source>
         <translation>Error al generar MIDI para esta partitura: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1236"/>
+        <location filename="../GUI/DBMainwindow.py" line="1213"/>
         <source>Export to MIDI</source>
         <translation>Exportar a MIDI</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1388"/>
+        <location filename="../GUI/DBMainwindow.py" line="1365"/>
         <source>Failed to get latest version info from www.whatang.org</source>
         <translation>No se pudo obtener la informacion de la ultima version desde www.whatang.org</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1391"/>
+        <location filename="../GUI/DBMainwindow.py" line="1368"/>
         <source>Check successful: You have the latest version of DrumBurp</source>
         <translation>Verificacion exitosa: tiene la ultima version de DrumBurp</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1026"/>
+        <location filename="../GUI/DBMainwindow.py" line="1003"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1049"/>
+        <location filename="../GUI/DBMainwindow.py" line="1026"/>
         <source>Language changed</source>
         <translation>Idioma cambiado</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1049"/>
+        <location filename="../GUI/DBMainwindow.py" line="1026"/>
         <source>The language will change the next time DrumBurp starts.</source>
         <translation>El idioma cambiara la proxima vez que DrumBurp se inicie.</translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1346"/>
+        <location filename="../GUI/DBMainwindow.py" line="1323"/>
         <source>%n Measure(s)</source>
         <translation>
             <numerusform>%n Compas</numerusform>
@@ -570,7 +570,7 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1348"/>
+        <location filename="../GUI/DBMainwindow.py" line="1325"/>
         <source>%n Staff(s)</source>
         <translation>
             <numerusform>%n Pentagrama</numerusform>
@@ -578,7 +578,7 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1350"/>
+        <location filename="../GUI/DBMainwindow.py" line="1327"/>
         <source>%n Page(s)</source>
         <translation>
             <numerusform>%n Pagina</numerusform>
@@ -586,59 +586,59 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         </translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="613"/>
+        <location filename="../GUI/DBMainwindow.py" line="590"/>
         <source>Unsupported file type</source>
         <translation>Tipo de archivo no soportado</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="613"/>
+        <location filename="../GUI/DBMainwindow.py" line="590"/>
         <source>DrumBurp can only open .brp score files.</source>
         <translation>DrumBurp solo puede abrir archivos de partitura .brp.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1141"/>
+        <location filename="../GUI/DBMainwindow.py" line="1118"/>
         <source>MIDI output: %s</source>
         <translation>Salida MIDI: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1144"/>
+        <location filename="../GUI/DBMainwindow.py" line="1121"/>
         <source>MIDI output unavailable</source>
         <translation>Salida MIDI no disponible</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1144"/>
+        <location filename="../GUI/DBMainwindow.py" line="1121"/>
         <source>Could not open MIDI output device:
 %s</source>
         <translation>No se pudo abrir el dispositivo de salida MIDI:
 %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1151"/>
+        <location filename="../GUI/DBMainwindow.py" line="1128"/>
         <source>No MIDI output devices found</source>
         <translation>No se encontraron dispositivos de salida MIDI</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="83"/>
+        <location filename="../GUI/DBSectionDisplay.py" line="25"/>
         <source>Intro</source>
-        <translation>Introduccion</translation>
+        <translation>Introducción</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="84"/>
+        <location filename="../GUI/DBSectionDisplay.py" line="26"/>
         <source>Verse</source>
         <translation>Verso</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="85"/>
+        <location filename="../GUI/DBSectionDisplay.py" line="27"/>
         <source>Chorus</source>
         <translation>Coro</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="86"/>
+        <location filename="../GUI/DBSectionDisplay.py" line="28"/>
         <source>Bridge</source>
         <translation>Puente</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="87"/>
+        <location filename="../GUI/DBSectionDisplay.py" line="29"/>
         <source>Outro</source>
         <translation>Final</translation>
     </message>
@@ -746,21 +746,21 @@ Si desea compartir la partitura que escribio, puede ser mas facil hacerlo como a
     <message>
         <location filename="../GUI/drumburp.ui" line="216"/>
         <source>Section navigator</source>
-        <translation>Navegador de secciones</translation>
+        <translation>Navegador de secciónes</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="219"/>
         <source>Quickly jump to a section of the score</source>
-        <translation>Saltar rapidamente a una seccion de la partitura</translation>
+        <translation>Saltar rapidamente a una sección de la partitura</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="222"/>
         <source>Section navigator
 
 Sections in the score are defined by a section end barline, and the title that appears before it. You can quickly jump to the beginning of any section defined in the current score by selecting it from this drop down box.</source>
-        <translation>Navegador de secciones
+        <translation>Navegador de secciónes
 
-Las secciones de la partitura se definen por una barra de fin de seccion y el titulo que aparece antes de ella. Puede saltar rapidamente al inicio de cualquier seccion definida en la partitura actual seleccionandola en este menu desplegable.</translation>
+Las secciónes de la partitura se definen por una barra de fin de sección y el titulo que aparece antes de ella. Puede saltar rapidamente al inicio de cualquier sección definida en la partitura actual seleccionandola en este menu desplegable.</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="243"/>
@@ -1161,42 +1161,42 @@ Lilypond es un sistema de tipografia musical basado en TeX disponible en lilypon
     <message>
         <location filename="../GUI/drumburp.ui" line="804"/>
         <source>Include a blank line after each section title</source>
-        <translation>Incluir una linea en blanco despues de cada titulo de seccion</translation>
+        <translation>Incluir una linea en blanco despues de cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="807"/>
         <source>Empty line after section title</source>
-        <translation>Linea en blanco despues del titulo de seccion</translation>
+        <translation>Linea en blanco despues del titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="823"/>
         <source>Include a blank line before each section title</source>
-        <translation>Incluir una linea en blanco antes de cada titulo de seccion</translation>
+        <translation>Incluir una linea en blanco antes de cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="826"/>
         <source>Empty line before section title</source>
-        <translation>Linea en blanco antes del titulo de seccion</translation>
+        <translation>Linea en blanco antes del titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="842"/>
         <source>Underline each section title</source>
-        <translation>Subrayar cada titulo de seccion</translation>
+        <translation>Subrayar cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="845"/>
         <source>Underline section titles with ~ characters</source>
-        <translation>Subrayar titulos de seccion con caracteres ~</translation>
+        <translation>Subrayar titulos de sección con caracteres ~</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="861"/>
         <source>Add square brackets around each section title</source>
-        <translation>Agregar corchetes alrededor de cada titulo de seccion</translation>
+        <translation>Agregar corchetes alrededor de cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="864"/>
         <source>Surround section titles with brackets</source>
-        <translation>Rodear titulos de seccion con corchetes</translation>
+        <translation>Rodear titulos de sección con corchetes</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="923"/>
@@ -1304,7 +1304,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>Hay 3 fuentes usadas para mostrar la partitura, y pueden configurarse en este dialogo.
 - La 'Fuente de notas' se usa para mostrar las notas en la partitura.
-- La 'Fuente de titulo de seccion' se usa para los titulos de seccion.
+- La 'Fuente de titulo de sección' se usa para los titulos de sección.
 - La 'Fuente de informacion de la cancion' se usa para el titulo, artista, autor y BPM.</translation>
     </message>
     <message>
@@ -1340,26 +1340,26 @@ La ventana de edicion usa esta configuracion para mostrar las notas en la partit
     <message>
         <location filename="../GUI/drumburp.ui" line="1258"/>
         <source>Change the font used to display section titles</source>
-        <translation>Cambiar la fuente usada para mostrar los titulos de seccion</translation>
+        <translation>Cambiar la fuente usada para mostrar los titulos de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1261"/>
         <source>Change the font used to display section titles
 
 The score editing window uses the font selected here to display the section titles in the score.</source>
-        <translation>Cambiar la fuente usada para mostrar los titulos de seccion
+        <translation>Cambiar la fuente usada para mostrar los titulos de sección
 
-La ventana de edicion de la partitura usa la fuente seleccionada aqui para mostrar los titulos de seccion.</translation>
+La ventana de edicion de la partitura usa la fuente seleccionada aqui para mostrar los titulos de sección.</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1266"/>
         <source>Section Title Font</source>
-        <translation>Fuente del titulo de seccion</translation>
+        <translation>Fuente del titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1373"/>
         <source>Size of section titles.</source>
-        <translation>Tamano de los titulos de seccion.</translation>
+        <translation>Tamano de los titulos de sección.</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1333"/>
@@ -2182,117 +2182,117 @@ p, li { white-space: pre-wrap; }
         <translation>Contraer todos los pulsos</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="6"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="15"/>
         <source>Quarter Notes</source>
         <translation>Negras</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="8"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="17"/>
         <source>8ths</source>
         <translation>Corcheas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="10"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="19"/>
         <source>Triplets</source>
         <translation>Tresillos</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="12"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="21"/>
         <source>Quintuplets</source>
         <translation>Quintillos</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="14"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="23"/>
         <source>Septuplets</source>
         <translation>Septillos</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="16"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="25"/>
         <source>16ths</source>
         <translation>Semicorcheas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="18"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="27"/>
         <source>Sparse 16ths</source>
         <translation>Semicorcheas espaciadas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="20"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="29"/>
         <source>16th Triplets</source>
         <translation>Tresillos de semicorcheas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="22"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="31"/>
         <source>Sparse 16th Triplets</source>
         <translation>Tresillos de semicorcheas espaciados</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="24"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="33"/>
         <source>16th Quintuplets</source>
         <translation>Quintillos de semicorcheas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="26"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="35"/>
         <source>16th Septuplets</source>
         <translation>Septillos de semicorcheas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="28"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="37"/>
         <source>32nds</source>
         <translation>Fusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="30"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="39"/>
         <source>Sparse 32nds</source>
         <translation>Fusas espaciadas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="32"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="41"/>
         <source>32nd Triplets</source>
         <translation>Tresillos de fusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="34"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="43"/>
         <source>Sparse 32nd Triplets</source>
         <translation>Tresillos de fusas espaciados</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="36"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="45"/>
         <source>32nd Quintuplets</source>
         <translation>Quintillos de fusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="38"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="47"/>
         <source>32nd Septuplets</source>
         <translation>Septillos de fusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="40"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="49"/>
         <source>64ths</source>
         <translation>Semifusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="42"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="51"/>
         <source>Sparse 64ths</source>
         <translation>Semifusas espaciadas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="44"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="53"/>
         <source>64th Triplets</source>
         <translation>Tresillos de semifusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="46"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="55"/>
         <source>Sparse 64th Triplets</source>
         <translation>Tresillos de semifusas espaciados</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="48"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="57"/>
         <source>64th Quintuplets</source>
         <translation>Quintillos de semifusas</translation>
     </message>
     <message>
-        <location filename="../GUI/DBCounterDisplay.py" line="50"/>
+        <location filename="../GUI/DBCounterDisplay.py" line="59"/>
         <source>64th Septuplets</source>
         <translation>Septillos de semifusas</translation>
     </message>
@@ -2473,174 +2473,174 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QMeasureContextMenu</name>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="239"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="241"/>
         <source>Really delete this staff?</source>
         <translation>Realmente desea eliminar este pentagrama?</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="240"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="242"/>
         <source>Delete Staff?</source>
         <translation>Eliminar pentagrama?</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="259"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="261"/>
         <source>Really delete this section?</source>
-        <translation>Realmente desea eliminar esta seccion?</translation>
+        <translation>Realmente desea eliminar esta sección?</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="260"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="262"/>
         <source>Delete Section?</source>
-        <translation>Eliminar seccion?</translation>
+        <translation>Eliminar sección?</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="285"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="287"/>
         <source>This will delete all empty trailing measures.
 Continue?</source>
         <translation>Esto eliminara todos los compases vacios al final.
 Continuar?</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="286"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="288"/>
         <source>Delete Empty Measures</source>
         <translation>Eliminar compases vacios</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="65"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="66"/>
         <source>Delete Alternate Ending</source>
         <translation>Eliminar final alternativo</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="68"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="69"/>
         <source>Add Alternate Ending</source>
         <translation>Agregar final alternativo</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="72"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="73"/>
         <source>Remove simile mark</source>
         <translation>Quitar marca simile</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="75"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="76"/>
         <source>Add simile mark</source>
         <translation>Agregar marca simile</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="79"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="80"/>
         <source>Remove simile marks</source>
         <translation>Quitar marcas simile</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="89"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="90"/>
         <source>Add %d bar simile mark</source>
         <translation>Agregar marca simile de %d compases</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="100"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="101"/>
         <source>Repeat note</source>
         <translation>Repetir nota</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="105"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="106"/>
         <source>Copy Selected Measures</source>
         <translation>Copiar compases seleccionados</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="108"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="109"/>
         <source>Paste Over Selected Measures</source>
         <translation>Pegar sobre compases seleccionados</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="111"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="112"/>
         <source>Fill Paste Selected Measures</source>
         <translation>Rellenar pegando compases seleccionados</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="116"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="117"/>
         <source>Copy Measure</source>
         <translation>Copiar compas</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="118"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="119"/>
         <source>Insert Measures From Clipboard</source>
         <translation>Insertar compases desde el portapapeles</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="127"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="128"/>
         <source>Insert Default Measure</source>
         <translation>Insertar compas predeterminado</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="129"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="130"/>
         <source>Insert...</source>
         <translation>Insertar...</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="130"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="131"/>
         <source>Default Measure After</source>
         <translation>Compas predeterminado despues</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="132"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="133"/>
         <source>Other Measures...</source>
         <translation>Otros compases...</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="134"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="135"/>
         <source>Section Copy</source>
-        <translation>Copiar seccion</translation>
+        <translation>Copiar sección</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="144"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="146"/>
         <source>Delete Selected Measures</source>
         <translation>Eliminar compases seleccionados</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="149"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="151"/>
         <source>Clear Selected Measures</source>
         <translation>Limpiar compases seleccionados</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="152"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="154"/>
         <source>Delete Measure</source>
         <translation>Eliminar compas</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="156"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="158"/>
         <source>Clear Measure</source>
         <translation>Limpiar compas</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="158"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="160"/>
         <source>Delete...</source>
         <translation>Eliminar...</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="159"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="161"/>
         <source>Section</source>
-        <translation>Seccion</translation>
+        <translation>Sección</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="162"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="164"/>
         <source>Empty Trailing Measures</source>
         <translation>Compases vacios al final</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="171"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="173"/>
         <source>Show Sticking Above</source>
         <translation>Mostrar digitacion arriba</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="177"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="179"/>
         <source>Show Sticking Below</source>
         <translation>Mostrar digitacion abajo</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="186"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="188"/>
         <source>Set new BPM</source>
         <translation>Definir nuevo BPM</translation>
     </message>
     <message>
-        <location filename="../GUI/QMeasureContextMenu.py" line="189"/>
+        <location filename="../GUI/QMeasureContextMenu.py" line="191"/>
         <source>Delete BPM change</source>
         <translation>Eliminar cambio de BPM</translation>
     </message>
@@ -2668,7 +2668,7 @@ Continuar?</translation>
     <message>
         <location filename="../GUI/QMeasureLineContextMenu.py" line="59"/>
         <source>Section End</source>
-        <translation>Fin de seccion</translation>
+        <translation>Fin de sección</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureLineContextMenu.py" line="66"/>
@@ -2925,12 +2925,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/asciiDialog.ui" line="87"/>
         <source>Underline each section title</source>
-        <translation>Subrayar cada titulo de seccion</translation>
+        <translation>Subrayar cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="90"/>
         <source>Underline section titles with ~ characters</source>
-        <translation>Subrayar titulos de seccion con caracteres ~</translation>
+        <translation>Subrayar titulos de sección con caracteres ~</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="100"/>
@@ -2965,22 +2965,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/asciiDialog.ui" line="152"/>
         <source>Include a blank line after each section title</source>
-        <translation>Incluir una linea en blanco despues de cada titulo de seccion</translation>
+        <translation>Incluir una linea en blanco despues de cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="155"/>
         <source>Empty line after section title</source>
-        <translation>Linea en blanco despues del titulo de seccion</translation>
+        <translation>Linea en blanco despues del titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="165"/>
         <source>Include a blank line before each section title</source>
-        <translation>Incluir una linea en blanco antes de cada titulo de seccion</translation>
+        <translation>Incluir una linea en blanco antes de cada titulo de sección</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="168"/>
         <source>Empty line before section title</source>
-        <translation>Linea en blanco antes del titulo de seccion</translation>
+        <translation>Linea en blanco antes del titulo de sección</translation>
     </message>
 </context>
 <context>
@@ -4602,32 +4602,32 @@ Este es software libre y puede redistribuirlo bajo ciertas condiciones; consulte
 <context>
     <name>newScoreDialog</name>
     <message>
-        <location filename="../GUI/newScoreDialog.ui" line="17"/>
+        <location filename="../GUI/newScoreDialog.ui" line="23"/>
         <source>New Score</source>
         <translation>Nueva partitura</translation>
     </message>
     <message>
-        <location filename="../GUI/newScoreDialog.ui" line="53"/>
+        <location filename="../GUI/newScoreDialog.ui" line="59"/>
         <source>The number of measures in the new score</source>
         <translation>El numero de compases en la nueva partitura</translation>
     </message>
     <message>
-        <location filename="../GUI/newScoreDialog.ui" line="37"/>
+        <location filename="../GUI/newScoreDialog.ui" line="43"/>
         <source>Number of measures</source>
         <translation>Numero de compases</translation>
     </message>
     <message>
-        <location filename="../GUI/newScoreDialog.ui" line="56"/>
+        <location filename="../GUI/newScoreDialog.ui" line="62"/>
         <source> measures</source>
         <translation> compases</translation>
     </message>
     <message>
-        <location filename="../GUI/newScoreDialog.ui" line="87"/>
+        <location filename="../GUI/newScoreDialog.ui" line="93"/>
         <source>The default measure count for the new score</source>
         <translation>El pulso predeterminado para la nueva partitura</translation>
     </message>
     <message>
-        <location filename="../GUI/newScoreDialog.ui" line="94"/>
+        <location filename="../GUI/newScoreDialog.ui" line="100"/>
         <source>Drum kit</source>
         <translation>Kit de bateria</translation>
     </message>
@@ -4635,7 +4635,7 @@ Este es software libre y puede redistribuirlo bajo ciertas condiciones; consulte
 <context>
     <name>parent</name>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="152"/>
+        <location filename="../GUI/DBMainwindow.py" line="129"/>
         <source>DrumBurp files (*.brp)</source>
         <translation>Archivos DrumBurp (*.brp)</translation>
     </message>
@@ -4659,3 +4659,4 @@ Este es software libre y puede redistribuirlo bajo ciertas condiciones; consulte
     </message>
 </context>
 </TS>
+

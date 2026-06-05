@@ -173,7 +173,7 @@ El navegador de secciones de la pestana **Editor de partituras**, dentro del
 grupo **Acciones**, muestra de forma bilingue los titulos estandar encontrados
 en una partitura:
 
-- **Intro (Introduccion)**
+- **Intro (Introducción)**
 - **Verse (Verso)**
 - **Chorus (Coro)**
 - **Bridge (Puente)**
@@ -182,7 +182,8 @@ en una partitura:
 Tambien reconoce variantes numeradas como **Verse 1 (Verso 1)**. Esta
 traduccion es solamente visual dentro del navegador: DrumBurp conserva el
 titulo original almacenado en el archivo `.brp` y no modifica titulos
-personalizados.
+personalizados. El mismo formato bilingue se usa en el submenu
+**Insertar -> Copiar sección**.
 
 ### Reproduccion MIDI en Windows con VirtualMIDISynth
 
@@ -439,3 +440,4 @@ LANGUAGE=es ./run-drumburp.sh
 5. Probar con `LANGUAGE=fr ./run-drumburp.sh`
 
 Consulte `ROADMAP_i18n.md` para el plan completo de i18n y el progreso.
+

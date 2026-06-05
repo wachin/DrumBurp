@@ -32,6 +32,7 @@ from GUI.DBCommands import (InsertMeasuresCommand,
                             SetStickingVisibility, SetNewBpmCommand)
 from GUI.QInsertMeasuresDialog import QInsertMeasuresDialog
 from GUI.DBFSMEvents import RepeatNotes
+from GUI.DBSectionDisplay import displaySectionTitle
 from Data import DBConstants
 
 
@@ -135,7 +136,8 @@ class QMeasureContextMenu(QMenuIgnoreCancelClick):
         sectionCopyMenu.setEnabled(self._score.numSections() > 0)
         for si, sectionTitle in enumerate(self._score.iterSections()):
             copyIt = lambda i = si: self._copySection(i)
-            sectionCopyMenu.addAction(sectionTitle, copyIt)
+            sectionCopyMenu.addAction(displaySectionTitle(sectionTitle),
+                                      copyIt)
         self.addSeparator()
 
     def _setupDeleteSection(self):

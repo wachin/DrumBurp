@@ -24,12 +24,11 @@ Created on 31 Jul 2010
 '''
 from io import BytesIO, StringIO
 import os
-import re
 import shutil
 import webbrowser
 
 from PyQt5.QtCore import QSettings, QTimer, QThread, pyqtSignal, pyqtSlot, Qt, \
-    QStandardPaths, QCoreApplication
+    QStandardPaths
 from PyQt5.QtGui import QFont
 from PyQt5.QtPrintSupport import QPrintPreviewDialog, QPrinterInfo, QPrinter
 from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QMessageBox,
@@ -52,6 +51,7 @@ from GUI.ui_drumburp import Ui_DrumBurpWindow
 from Notation import AsciiExport
 from Notation.lilypond import LilypondScore, LilypondProblem, findLilyPath
 import GUI.DBColourPicker as DBColourPicker
+from GUI.DBSectionDisplay import displaySectionTitle
 import GUI.DBIcons as DBIcons
 import GUI.DBMidi as DBMidi
 
@@ -68,29 +68,6 @@ def _dialogFilename(result):
 def _homeLocation():
     return (QStandardPaths.writableLocation(QStandardPaths.HomeLocation)
             or os.path.expanduser("~"))
-
-
-_STANDARD_SECTION_TITLE = re.compile(
-    r"^(Intro|Verse|Chorus|Bridge|Outro)(\s+\d+)?$")
-
-
-def _displaySectionTitle(title):
-    match = _STANDARD_SECTION_TITLE.match(title)
-    if match is None:
-        return title
-    stem, suffix = match.groups()
-    translatedStems = {
-        "Intro": QCoreApplication.translate("DrumBurp", "Intro"),
-        "Verse": QCoreApplication.translate("DrumBurp", "Verse"),
-        "Chorus": QCoreApplication.translate("DrumBurp", "Chorus"),
-        "Bridge": QCoreApplication.translate("DrumBurp", "Bridge"),
-        "Outro": QCoreApplication.translate("DrumBurp", "Outro"),
-    }
-    translatedStem = translatedStems[stem]
-    translatedTitle = translatedStem + (suffix or "")
-    if translatedTitle == title:
-        return title
-    return "%s (%s)" % (title, translatedTitle)
 
 
 def _settingsValue(settings, key, default=None, valueType=None):
@@ -1116,7 +1093,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self.sectionNavigator.blockSignals(True)
         self.sectionNavigator.clear()
         for sectionTitle in score.iterSections():
-            self.sectionNavigator.addItem(_displaySectionTitle(sectionTitle),
+            self.sectionNavigator.addItem(displaySectionTitle(sectionTitle),
                                           sectionTitle)
         self.sectionNavigator.blockSignals(False)
 

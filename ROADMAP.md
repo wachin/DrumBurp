@@ -133,6 +133,8 @@ Release checklist:
   are not truncated.
 - [x] Show bilingual translations for common section titles in the section
   navigator without modifying the titles stored in `.brp` files.
+- [x] Reuse bilingual section titles in the `Insert -> Section Copy` submenu.
+- [x] Correct the Spanish singular spelling `sección` in translated UI text.
 - [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new
   translatable strings.
 - [x] Compile updated `drumburp_en.qm` and `drumburp_es.qm`.
