@@ -131,6 +131,9 @@ Release checklist:
   selectors used when creating or editing scores.
 - [x] Widen the New Score dialog and count selector so bilingual rhythm names
   are not truncated.
+- [x] Widen the Complex Count dialog so longer translated labels fit better.
+- [x] Rebalance the Complex Count dialog columns so the count selector gets
+  more horizontal space than the beat list.
 - [x] Show bilingual translations for common section titles in the section
   navigator without modifying the titles stored in `.brp` files.
 - [x] Reuse bilingual section titles in the `Insert -> Section Copy` submenu.

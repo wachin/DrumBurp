@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>322</width>
-    <height>251</height>
+    <width>560</width>
+    <height>340</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>520</width>
+    <height>320</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Edit Complex Measure Count</string>
@@ -18,6 +24,24 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QListWidget" name="beatList">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>110</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>130</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>List of beats in the measure count</string>
        </property>
@@ -30,7 +54,10 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
        <item>
         <widget class="QPushButton" name="addButton">
          <property name="toolTip">
@@ -59,7 +86,13 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="countBox">
+       <widget class="QComboBox" name="countBox">
+         <property name="minimumSize">
+          <size>
+           <width>420</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="toolTip">
           <string>Count to use for the current beat</string>
          </property>
