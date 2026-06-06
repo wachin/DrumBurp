@@ -23,6 +23,7 @@ Created on 13 Mar 2011
 '''
 
 from GUI.QGraphicsListData import QGraphicsListData
+from GUI.DBDrumDisplay import displayDrumName
 
 
 class QKitData(QGraphicsListData):
@@ -31,7 +32,7 @@ class QKitData(QGraphicsListData):
     def _iterData(self):
         kit = self._qScore.score.drumKit
         for drum in reversed(kit):
-            yield "%-2s = %s" % (drum.abbr, drum.name)
+            yield "%-2s = %s" % (drum.abbr, displayDrumName(drum.name))
 
     def font(self):
         return self._props.noteFont

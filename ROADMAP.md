@@ -140,6 +140,8 @@ Release checklist:
 - [x] Correct the Spanish singular spelling `sección` in translated UI text.
 - [x] Translate the Edit Colours dialog, including dynamic element names and
   border-style selectors, without changing saved colour-scheme values.
+- [x] Show bilingual drum-kit and MIDI-note names in score keys and the kit
+  editor without changing saved score or kit data.
 - [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new
   translatable strings.
 - [x] Compile updated `drumburp_en.qm` and `drumburp_es.qm`.

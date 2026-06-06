@@ -30,6 +30,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (QDialog, QRadioButton, QFileDialog, QMessageBox,
                              QInputDialog, QDialogButtonBox)
 from GUI.ui_editKit import Ui_editKitDialog
+from GUI.DBDrumDisplay import displayDrumName, displayMidiNoteName
 from GUI.QDefaultKitManager import QDefaultKitManager
 import GUI.DBMidi as DBMidi
 from GUI.QNotationScene import QNotationScene
@@ -140,14 +141,15 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         for drumIndex, drum in enumerate(reversed(self._initialKit)):
             drum = copy.deepcopy(drum)
             self._currentKit.append(drum)
-            self.oldDrum.addItem(drum.name, userData=drumIndex)
+            self.oldDrum.addItem(displayDrumName(drum.name),
+                                 userData=drumIndex)
             self._oldLines[drum] = drumIndex
 
     @noSounds
     def _populate(self):
         self.kitTable.clear()
         for drum in self._currentKit:
-            self.kitTable.addItem(drum.name)
+            self.kitTable.addItem(displayDrumName(drum.name))
         self.kitTable.setCurrentRow(0)
         self._setDrumInfo()
         self._checkAbbrs()
@@ -186,7 +188,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         drum = Drum.makeSimple("New drum", "XX", "o")
         self._currentKit.append(drum)
         self._oldLines[drum] = -1
-        self.kitTable.addItem(drum.name)
+        self.kitTable.addItem(displayDrumName(drum.name))
         self.kitTable.setCurrentRow(len(self._currentKit) - 1)
         self._checkDrumButtons()
         self._checkAbbrs()
@@ -212,8 +214,10 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         idx = self._currentDrumIndex
         druma, drumb = self._currentKit[idx - 1], self._currentKit[idx]
         self._currentKit[idx - 1], self._currentKit[idx] = drumb, druma
-        self.kitTable.item(idx).setText(self._currentKit[idx].name)
-        self.kitTable.item(idx - 1).setText(self._currentKit[idx - 1].name)
+        self.kitTable.item(idx).setText(
+            displayDrumName(self._currentKit[idx].name))
+        self.kitTable.item(idx - 1).setText(
+            displayDrumName(self._currentKit[idx - 1].name))
         self.kitTable.setCurrentRow(idx - 1)
 
     @noSounds
@@ -221,8 +225,10 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         idx = self._currentDrumIndex
         druma, drumb = self._currentKit[idx], self._currentKit[idx + 1]
         self._currentKit[idx], self._currentKit[idx + 1] = drumb, druma
-        self.kitTable.item(idx).setText(self._currentKit[idx].name)
-        self.kitTable.item(idx + 1).setText(self._currentKit[idx + 1].name)
+        self.kitTable.item(idx).setText(
+            displayDrumName(self._currentKit[idx].name))
+        self.kitTable.item(idx + 1).setText(
+            displayDrumName(self._currentKit[idx + 1].name))
         self.kitTable.setCurrentRow(idx + 1)
 
     def _clearKit(self):
@@ -308,7 +314,8 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
     def _drumNameEdited(self):
         self._currentDrum.name = str(self.drumName.text())
         drumIndex = self._currentDrumIndex
-        self.kitTable.item(drumIndex).setText(self._currentDrum.name)
+        self.kitTable.item(drumIndex).setText(
+            displayDrumName(self._currentDrum.name))
 
     def _drumAbbrEdited(self):
         self._currentDrum.abbr = str(self.drumAbbr.text())
@@ -530,7 +537,8 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
 
     def _populateMidiCombo(self):
         for midiNote, midiName in _MIDIDATA:
-            self.midiNoteCombo.addItem(midiName, userData=midiNote)
+            self.midiNoteCombo.addItem(displayMidiNoteName(midiName),
+                                       userData=midiNote)
 
     def _checkNotationButtons(self):
         headData = self._currentHeadData

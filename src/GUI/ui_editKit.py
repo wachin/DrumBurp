@@ -16,7 +16,7 @@ import buttons_rc  # noqa: F401 — registra recursos :/buttons y :/heads
 class Ui_editKitDialog(object):
     def setupUi(self, editKitDialog):
         editKitDialog.setObjectName("editKitDialog")
-        editKitDialog.resize(1036, 689)
+        editKitDialog.resize(1116, 689)
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(editKitDialog)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -564,7 +564,7 @@ class Ui_editKitDialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.midiNoteCombo.sizePolicy().hasHeightForWidth())
         self.midiNoteCombo.setSizePolicy(sizePolicy)
-        self.midiNoteCombo.setMinimumSize(QtCore.QSize(201, 0))
+        self.midiNoteCombo.setMinimumSize(QtCore.QSize(300, 0))
         self.midiNoteCombo.setObjectName("midiNoteCombo")
         self.verticalLayout_5.addWidget(self.midiNoteCombo)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
@@ -596,8 +596,8 @@ class Ui_editKitDialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.effectsGroup.sizePolicy().hasHeightForWidth())
         self.effectsGroup.setSizePolicy(sizePolicy)
-        self.effectsGroup.setMinimumSize(QtCore.QSize(221, 99))
-        self.effectsGroup.setMaximumSize(QtCore.QSize(221, 1000))
+        self.effectsGroup.setMinimumSize(QtCore.QSize(300, 99))
+        self.effectsGroup.setMaximumSize(QtCore.QSize(300, 1000))
         self.effectsGroup.setObjectName("effectsGroup")
         self.gridLayout = QtWidgets.QGridLayout(self.effectsGroup)
         self.gridLayout.setObjectName("gridLayout")

@@ -164,6 +164,404 @@
     </message>
 </context>
 <context>
+    <name>DBDrumDisplay</name>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="21"/>
+        <source>Crash</source>
+        <translation>Crash</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="22"/>
+        <source>Crash Cymbal</source>
+        <translation>Crash Cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="116"/>
+        <source>Crash Cymbal 1</source>
+        <translation>Crash Cymbal 1</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="132"/>
+        <source>Crash Cymbal 2</source>
+        <translation>Crash Cymbal 2</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="28"/>
+        <source>Crash-ride cymbal</source>
+        <translation>Crash-ride cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="30"/>
+        <source>Crash cymbal</source>
+        <translation>Crash cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="32"/>
+        <source>Ride</source>
+        <translation>Ride</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="33"/>
+        <source>Ride Cymbal</source>
+        <translation>Ride Cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="35"/>
+        <source>HiHat</source>
+        <translation>HiHat</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="36"/>
+        <source>Hihat</source>
+        <translation>Hihat</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="37"/>
+        <source>Hi hat w/foot</source>
+        <translation>Hi hat w/foot</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="39"/>
+        <source>Hihat w/foot</source>
+        <translation>Hihat w/foot</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="41"/>
+        <source>Hi-Hat with foot</source>
+        <translation>Hi-Hat with foot</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="43"/>
+        <source>High hat foot</source>
+        <translation>High hat foot</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="45"/>
+        <source>Foot pedal</source>
+        <translation>Foot pedal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="47"/>
+        <source>Kick</source>
+        <translation>Kick</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="48"/>
+        <source>Bass Drum</source>
+        <translation>Bass Drum</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="90"/>
+        <source>Bass Drum 1</source>
+        <translation>Bass Drum 1</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="52"/>
+        <source>Bass Drum 2</source>
+        <translation>Bass Drum 2</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="54"/>
+        <source>Bass drum</source>
+        <translation>Bass drum</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="56"/>
+        <source>Snare</source>
+        <translation>Snare</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="57"/>
+        <source>Snare Drum</source>
+        <translation>Snare Drum</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="59"/>
+        <source>Second snare</source>
+        <translation>Second snare</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="118"/>
+        <source>High Tom</source>
+        <translation>High Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="63"/>
+        <source>Mid Tom</source>
+        <translation>Mid Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="65"/>
+        <source>Small Tom</source>
+        <translation>Small Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="67"/>
+        <source>Tom 1</source>
+        <translation>Tom 1</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="68"/>
+        <source>Tom 2</source>
+        <translation>Tom 2</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="69"/>
+        <source>Tom 3</source>
+        <translation>Tom 3</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="70"/>
+        <source>Tom 4</source>
+        <translation>Tom 4</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="71"/>
+        <source>Floor Tom</source>
+        <translation>Floor Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="73"/>
+        <source>Floor Tom 1</source>
+        <translation>Floor Tom 1</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="75"/>
+        <source>Floor Tom 2</source>
+        <translation>Floor Tom 2</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="77"/>
+        <source>Percussion Line 1</source>
+        <translation>Percussion Line 1</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="79"/>
+        <source>Percussion Line 2</source>
+        <translation>Percussion Line 2</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="81"/>
+        <source>Cymbal</source>
+        <translation>Cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="88"/>
+        <source>Acoustic Bass Drum</source>
+        <translation>Acoustic Bass Drum</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="92"/>
+        <source>Side Stick</source>
+        <translation>Side Stick</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="94"/>
+        <source>Acoustic Snare</source>
+        <translation>Acoustic Snare</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="96"/>
+        <source>Hand Clap</source>
+        <translation>Hand Clap</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="98"/>
+        <source>Electric Snare</source>
+        <translation>Electric Snare</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="100"/>
+        <source>Low Floor Tom</source>
+        <translation>Low Floor Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="102"/>
+        <source>Closed Hi Hat</source>
+        <translation>Closed Hi Hat</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="104"/>
+        <source>High Floor Tom</source>
+        <translation>High Floor Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="106"/>
+        <source>Pedal Hi Hat</source>
+        <translation>Pedal Hi Hat</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="108"/>
+        <source>Low Tom</source>
+        <translation>Low Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="110"/>
+        <source>Open Hi Hat</source>
+        <translation>Open Hi Hat</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="112"/>
+        <source>Low-Mid Tom</source>
+        <translation>Low-Mid Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="114"/>
+        <source>Hi-Mid Tom</source>
+        <translation>Hi-Mid Tom</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="120"/>
+        <source>Ride Cymbal 1</source>
+        <translation>Ride Cymbal 1</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="122"/>
+        <source>Chinese Cymbal</source>
+        <translation>Chinese Cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="124"/>
+        <source>Ride Bell</source>
+        <translation>Ride Bell</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="126"/>
+        <source>Tambourine</source>
+        <translation>Tambourine</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="128"/>
+        <source>Splash Cymbal</source>
+        <translation>Splash Cymbal</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="130"/>
+        <source>Cowbell</source>
+        <translation>Cowbell</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="134"/>
+        <source>Vibraslap</source>
+        <translation>Vibraslap</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="136"/>
+        <source>Ride Cymbal 2</source>
+        <translation>Ride Cymbal 2</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="138"/>
+        <source>Hi Bongo</source>
+        <translation>Hi Bongo</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="140"/>
+        <source>Low Bongo</source>
+        <translation>Low Bongo</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="142"/>
+        <source>Mute Hi Conga</source>
+        <translation>Mute Hi Conga</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="144"/>
+        <source>Open Hi Conga</source>
+        <translation>Open Hi Conga</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="146"/>
+        <source>Low Conga</source>
+        <translation>Low Conga</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="148"/>
+        <source>High Timbale</source>
+        <translation>High Timbale</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="150"/>
+        <source>Low Timbale</source>
+        <translation>Low Timbale</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="152"/>
+        <source>High Agogo</source>
+        <translation>High Agogo</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="154"/>
+        <source>Low Agogo</source>
+        <translation>Low Agogo</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="156"/>
+        <source>Cabasa</source>
+        <translation>Cabasa</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="158"/>
+        <source>Maracas</source>
+        <translation>Maracas</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="160"/>
+        <source>Short Whistle</source>
+        <translation>Short Whistle</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="162"/>
+        <source>Long Whistle</source>
+        <translation>Long Whistle</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="164"/>
+        <source>Short Guiro</source>
+        <translation>Short Guiro</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="166"/>
+        <source>Long Guiro</source>
+        <translation>Long Guiro</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="168"/>
+        <source>Claves</source>
+        <translation>Claves</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="170"/>
+        <source>Hi Wood Block</source>
+        <translation>Hi Wood Block</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="172"/>
+        <source>Low Wood Block</source>
+        <translation>Low Wood Block</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="174"/>
+        <source>Mute Cuica</source>
+        <translation>Mute Cuica</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="176"/>
+        <source>Open Cuica</source>
+        <translation>Open Cuica</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="178"/>
+        <source>Mute Triangle</source>
+        <translation>Mute Triangle</translation>
+    </message>
+    <message>
+        <location filename="../GUI/DBDrumDisplay.py" line="180"/>
+        <source>Open Triangle</source>
+        <translation>Open Triangle</translation>
+    </message>
+</context>
+<context>
     <name>DBInfoDialog</name>
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="35"/>
@@ -2468,12 +2866,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QEditKitDialog</name>
     <message>
-        <location filename="../GUI/QEditKitDialog.py" line="305"/>
+        <location filename="../GUI/QEditKitDialog.py" line="311"/>
         <source>Kit saved</source>
         <translation>Kit saved</translation>
     </message>
     <message>
-        <location filename="../GUI/QEditKitDialog.py" line="305"/>
+        <location filename="../GUI/QEditKitDialog.py" line="311"/>
         <source>Successfully saved drumkit</source>
         <translation>Successfully saved drumkit</translation>
     </message>
@@ -3125,72 +3523,72 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>complexCountDialog</name>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="14"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="20"/>
         <source>Edit Complex Measure Count</source>
         <translation>Edit Complex Measure Count</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="22"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="46"/>
         <source>List of beats in the measure count</source>
         <translation>List of beats in the measure count</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="37"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="64"/>
         <source>Add a new beat at the end of this count</source>
         <translation>Add a new beat at the end of this count</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="40"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="67"/>
         <source>Add Beat</source>
         <translation>Add Beat</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="47"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="74"/>
         <source>Delete the currently selected count</source>
         <translation>Delete the currently selected count</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="50"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="77"/>
         <source>Delete Beat</source>
         <translation>Delete Beat</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="57"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="84"/>
         <source>Count</source>
         <translation>Count</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="64"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="97"/>
         <source>Count to use for the current beat</source>
         <translation>Count to use for the current beat</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="71"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="104"/>
         <source>Ticks</source>
         <translation>Ticks</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="78"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="111"/>
         <source>How many ticks of the count should the current beat use?</source>
         <translation>How many ticks of the count should the current beat use?</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="102"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="135"/>
         <source>Preview of the measure count according to the current settings</source>
         <translation>Preview of the measure count according to the current settings</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="105"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="138"/>
         <source>Preview</source>
         <translation>Preview</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="120"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="153"/>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
     <message>
-        <location filename="../GUI/DBComplextCountDialog.ui" line="139"/>
+        <location filename="../GUI/DBComplextCountDialog.ui" line="172"/>
         <source>Reset the count to the original settings</source>
         <translation>Reset the count to the original settings</translation>
     </message>
@@ -5469,17 +5867,3 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 </TS>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

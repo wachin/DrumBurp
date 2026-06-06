@@ -7,6 +7,7 @@ SOURCES = src/DrumBurp.py \
           src/GUI/DBColourPicker.py \
           src/GUI/DBCommands.py \
           src/GUI/DBCounterDisplay.py \
+          src/GUI/DBDrumDisplay.py \
           src/GUI/DBFonts.py \
           src/GUI/DBIcons.py \
           src/GUI/DBMidi.py \
