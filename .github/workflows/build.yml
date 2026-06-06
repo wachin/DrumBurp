@@ -69,6 +69,7 @@ jobs:
         run: |
           lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
           lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
+          lrelease src/i18n/drumburp_de.ts -qm src/i18n/drumburp_de.qm
 
       - name: Run unit tests
         run: PYTHONPATH=src python3 -m unittest discover -s src/test
@@ -145,6 +146,7 @@ jobs:
         run: |
           lrelease src\i18n\drumburp_en.ts -qm src\i18n\drumburp_en.qm
           lrelease src\i18n\drumburp_es.ts -qm src\i18n\drumburp_es.qm
+          lrelease src\i18n\drumburp_de.ts -qm src\i18n\drumburp_de.qm
 
       - name: Build
         run: .\build\build_windows.ps1
@@ -225,6 +227,7 @@ jobs:
         run: |
           lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
           lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
+          lrelease src/i18n/drumburp_de.ts -qm src/i18n/drumburp_de.qm
 
       - name: Run unit tests
         run: PYTHONPATH=src python3 -m unittest discover -s src/test

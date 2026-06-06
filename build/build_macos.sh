@@ -23,7 +23,8 @@ if command -v lrelease >/dev/null 2>&1; then
     echo "Compiling translations..."
     lrelease "$workspace_root/src/i18n/drumburp_en.ts" -qm "$workspace_root/src/i18n/drumburp_en.qm"
     lrelease "$workspace_root/src/i18n/drumburp_es.ts" -qm "$workspace_root/src/i18n/drumburp_es.qm"
-elif [ ! -f "$workspace_root/src/i18n/drumburp_en.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_es.qm" ]; then
+    lrelease "$workspace_root/src/i18n/drumburp_de.ts" -qm "$workspace_root/src/i18n/drumburp_de.qm"
+elif [ ! -f "$workspace_root/src/i18n/drumburp_en.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_es.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_de.qm" ]; then
     echo "lrelease was not found and compiled .qm translation files are missing." >&2
     exit 1
 else
@@ -38,6 +39,7 @@ pyinstaller -w -D -y \
   --hidden-import=PyQt5.QtPrintSupport \
   --add-data "$workspace_root/src/i18n/drumburp_en.qm:i18n" \
   --add-data "$workspace_root/src/i18n/drumburp_es.qm:i18n" \
+  --add-data "$workspace_root/src/i18n/drumburp_de.qm:i18n" \
   --distpath "$dist_dir" \
   --specpath "$tmp_dir" \
   --workpath "$tmp_dir" \

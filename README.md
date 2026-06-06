@@ -383,8 +383,10 @@ src/i18n/
   i18n.py                 Translation loader (called at startup)
   drumburp_en.ts          English reference (source of truth)
   drumburp_es.ts          Spanish translation
+  drumburp_de.ts          German translation
   drumburp_en.qm          Compiled English binary
   drumburp_es.qm          Compiled Spanish binary
+  drumburp_de.qm          Compiled German binary
 ```
 
 ### Update strings after editing source code
@@ -396,12 +398,14 @@ pylupdate5 drumburp.pro
 # Recompile after translating
 lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
 lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
+lrelease src/i18n/drumburp_de.ts -qm src/i18n/drumburp_de.qm
 ```
 
 ### Translate using Qt Linguist GUI
 
 ```bash
 linguist src/i18n/drumburp_es.ts
+linguist src/i18n/drumburp_de.ts
 ```
 
 ### Test in a specific language
@@ -410,6 +414,10 @@ linguist src/i18n/drumburp_es.ts
 # Spanish
 LANGUAGE=es ./run-drumburp.sh
 ./run-drumburp.sh --language es
+
+# German
+LANGUAGE=de ./run-drumburp.sh
+./run-drumburp.sh --language de
 
 # Force English explicitly
 ./run-drumburp.sh --language en

@@ -44,6 +44,7 @@ $lrelease = Get-LRelease
 Write-Output "Compiling translations..."
 & $lrelease "$workspace_root\src\i18n\drumburp_en.ts" -qm "$workspace_root\src\i18n\drumburp_en.qm"
 & $lrelease "$workspace_root\src\i18n\drumburp_es.ts" -qm "$workspace_root\src\i18n\drumburp_es.qm"
+& $lrelease "$workspace_root\src\i18n\drumburp_de.ts" -qm "$workspace_root\src\i18n\drumburp_de.qm"
 
 & pyinstaller -w -D -y `
   --hidden-import=PyQt5.QtCore `
@@ -52,6 +53,7 @@ Write-Output "Compiling translations..."
   --hidden-import=PyQt5.QtPrintSupport `
   "--add-data=$workspace_root\src\i18n\drumburp_en.qm;i18n" `
   "--add-data=$workspace_root\src\i18n\drumburp_es.qm;i18n" `
+  "--add-data=$workspace_root\src\i18n\drumburp_de.qm;i18n" `
   --distpath "$workspace_root\build\dist" `
   --specpath "$workspace_root\build\tmp" `
   --workpath "$workspace_root\build\tmp" `

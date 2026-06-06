@@ -63,4 +63,5 @@ FORMS = src/GUI/DBComplextCountDialog.ui \
         src/Widgets/measureTabs.ui
 
 TRANSLATIONS = src/i18n/drumburp_en.ts \
-               src/i18n/drumburp_es.ts
+               src/i18n/drumburp_es.ts \
+               src/i18n/drumburp_de.ts

@@ -16,6 +16,7 @@ Translation files live in src/i18n/ (development) or in the i18n/
 subdirectory next to the frozen executable (PyInstaller builds):
     drumburp_en.qm
     drumburp_es.qm
+    drumburp_de.qm
     ...
 
 To force a specific language at runtime (useful for testing):
