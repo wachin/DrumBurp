@@ -40,6 +40,7 @@ _PERCUSSION_NOTE_OFF = _PERCUSSION_CHANNEL | _NOTE_OFF
 _PERCUSSION_CHOKE = _PERCUSSION_CHANNEL | _CHOKE
 _BUFSIZE = 1024
 _LATENCY = 1
+_PYGAME_MAX_EVENT_BATCH = 1024
 
 _FREQ = 44100  # audio CD quality
 _BITSIZE = -16  # unsigned 16 bit
@@ -54,6 +55,18 @@ _PYGAME_DRIVER = "pygame"
 _WINMM_DRIVER = "Windows MM"
 _SCHEDULER_INTERVAL_MS = 5
 _SCHEDULER_LOOKAHEAD_MS = 2
+_PREFERRED_OUTPUT_HINTS = (
+    "virtualmidisynth",
+    "fluidsynth",
+    "fluid synth",
+    "qsynth",
+    "synth input",
+    "timidity",
+)
+_LOW_PRIORITY_OUTPUT_HINTS = (
+    "midi through",
+    "qjackctl",
+)
 
 
 def _decodeMidiName(name):
@@ -246,7 +259,7 @@ class MidiOutput(QObject):
 
 
 class PygameOutput(MidiOutput):
-    supportsTimestamps = True
+    supportsTimestamps = False
 
     def __init__(self, parent=None):
         super(PygameOutput, self).__init__(parent)
@@ -256,12 +269,13 @@ class PygameOutput(MidiOutput):
         self._output = pygame.midi.Output(deviceId, _LATENCY, _BUFSIZE)
         self.write([[[_PERCUSSION_NOTE_ON, 38, 0], pygame.midi.time()]])
 
+    def abort(self):
+        # PortMidi's ALSA abort path only prints a warning; Qt scheduling
+        # keeps future events out of the pygame queue.
+        pass
+
     def close(self):
         if self._output is not None:
-            try:
-                self._output.abort()
-            except Exception:
-                pass
             try:
                 self._output.close()
             except Exception:
@@ -271,7 +285,8 @@ class PygameOutput(MidiOutput):
     def write(self, events):
         if self._output is None:
             raise RuntimeError("MIDI output is not open")
-        self._output.write(events)
+        for offset in range(0, len(events), _PYGAME_MAX_EVENT_BATCH):
+            self._output.write(events[offset:offset + _PYGAME_MAX_EVENT_BATCH])
 
 
 class WinMMOutput(MidiOutput):
@@ -371,24 +386,47 @@ class MidiDevice(object):
 _OUTPUT_DEVICES = []
 
 
+def _outputDevicePriority(device):
+    name = (device.name or "").lower()
+    if any(hint in name for hint in _PREFERRED_OUTPUT_HINTS):
+        return 0
+    if any(hint in name for hint in _LOW_PRIORITY_OUTPUT_HINTS):
+        return 2
+    return 1
+
+
+def _outputDeviceSortKey(device):
+    if _IS_WINDOWS:
+        name = device.name or ""
+        lowerName = name.lower()
+        return (0 if "virtualmidisynth" in lowerName else
+                1 if device.deviceId != _MIDI_MAPPER else 2,
+                lowerName)
+    return (_outputDevicePriority(device),
+            (device.name or "").lower(),
+            device.deviceId)
+
+
 def refreshOutputDevices():
     while _OUTPUT_DEVICES:
         _OUTPUT_DEVICES.pop()
     if _IS_WINDOWS:
         _OUTPUT_DEVICES.extend(list_winmm_output_ports())
-        _OUTPUT_DEVICES.sort(
-            key=lambda dev: (0 if "VirtualMIDISynth" in dev.name else
-                             1 if dev.deviceId != _MIDI_MAPPER else 2,
-                             dev.name))
+        _OUTPUT_DEVICES.sort(key=_outputDeviceSortKey)
         return
     try:
         deviceIds = iterDeviceIds()
     except RuntimeError:
         return
     for devId in deviceIds:
-        device = MidiDevice(devId)
+        try:
+            device = MidiDevice(devId)
+        except Exception as exc:
+            print("MIDI device unavailable on %s: %s" % (devId, exc))
+            continue
         if device.isOutput():
             _OUTPUT_DEVICES.append(device)
+    _OUTPUT_DEVICES.sort(key=_outputDeviceSortKey)
 
 
 def iterMidiDevices():
@@ -396,31 +434,32 @@ def iterMidiDevices():
 
 
 def _candidateOutputIds(preferred=None, fallback=True):
-    if _IS_WINDOWS:
-        if not _OUTPUT_DEVICES:
-            refreshOutputDevices()
-        if preferred is not None:
-            yield preferred
-            if not fallback:
-                return
-        for dev in _OUTPUT_DEVICES:
-            if dev.deviceId != preferred:
-                yield dev.deviceId
-        return
+    if not _OUTPUT_DEVICES:
+        refreshOutputDevices()
+    usedPorts = set()
     if preferred is not None:
         if preferred != -1:
+            usedPorts.add(preferred)
             yield preferred
         if not fallback:
             return
+    if _IS_WINDOWS:
+        for dev in _OUTPUT_DEVICES:
+            if dev.deviceId not in usedPorts:
+                usedPorts.add(dev.deviceId)
+                yield dev.deviceId
+        return
     defaultId = getDefaultId()
-    if defaultId != -1 and defaultId != preferred:
+    defaultDevice = next(
+        (dev for dev in _OUTPUT_DEVICES if dev.deviceId == defaultId), None)
+    if (defaultId != -1 and defaultId not in usedPorts and
+            defaultDevice is not None and _outputDevicePriority(defaultDevice) == 0):
+        usedPorts.add(defaultId)
         yield defaultId
-    for devId in iterDeviceIds():
-        if devId in (preferred, defaultId):
-            continue
-        name, unusedIsIn, isOut, unusedIsOpen = getDeviceInfo(devId)
-        if isOut and name is not None:
-            yield devId
+    for dev in _OUTPUT_DEVICES:
+        if dev.deviceId not in usedPorts:
+            usedPorts.add(dev.deviceId)
+            yield dev.deviceId
 
 
 def _openOutput(preferred=None, fallback=True):
@@ -445,7 +484,10 @@ def _deviceName(deviceId):
     if _IS_WINDOWS:
         name = _winmm_device_name(deviceId)
         return name if name is not None else deviceId
-    name, unusedIsIn, unusedIsOut, unusedIsOpen = getDeviceInfo(deviceId)
+    try:
+        name, unusedIsIn, unusedIsOut, unusedIsOpen = getDeviceInfo(deviceId)
+    except Exception:
+        return deviceId
     return name
 
 
@@ -466,6 +508,13 @@ def _midi_time():
     if _HAS_PYGAME and not _IS_WINDOWS:
         return pygame.midi.time()
     return int(round(time.perf_counter() * 1000))
+
+
+def _stopTimer(timer):
+    try:
+        timer.stop()
+    except RuntimeError:
+        pass
 
 
 from Data.DBConstants import MIDITICKSPERBEAT
@@ -654,10 +703,10 @@ class _midi(QObject):
                 self.timer.timeout.emit()
                 return
         if self._playbackEventIndex >= len(self._playbackEvents):
-            self._playbackTimer.stop()
+            _stopTimer(self._playbackTimer)
 
     def _stopOutputScheduler(self):
-        self._playbackTimer.stop()
+        _stopTimer(self._playbackTimer)
         self._playbackEvents = []
         self._playbackEventIndex = 0
         self._playbackStartTime = 0
@@ -674,20 +723,27 @@ class _midi(QObject):
 
     def shutUp(self):
         if self._musicPlaying:
-            self.timer.stop()
+            _stopTimer(self.timer)
             self._measureDetails = []
-            self._measureTimer.stop()
+            _stopTimer(self._measureTimer)
             self._stopOutputScheduler()
             self.highlightMeasure.emit(-1, -1)
             if self._midiOut:
-                _closeOutput(self._midiOut)
-                self._midiOut = None
-            if self._port is not None and self._port != -1:
-                self._port, self._midiOut = _openOutput(self._port)
+                if self._midiOut.supportsTimestamps:
+                    _closeOutput(self._midiOut)
+                    self._midiOut = None
+                    if self._port is not None and self._port != -1:
+                        self._port, self._midiOut = _openOutput(self._port)
+                else:
+                    try:
+                        self._midiOut.abort()
+                    except Exception:
+                        pass
             self._musicPlaying = False
 
     def cleanup(self):
         self._stopOutputScheduler()
+        self._musicPlaying = False
         if self._midiOut is not None:
             _closeOutput(self._midiOut)
             self._midiOut = None

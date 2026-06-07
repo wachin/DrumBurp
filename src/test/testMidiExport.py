@@ -59,6 +59,52 @@ class TestMidiExport(unittest.TestCase):
         self.assertEqual(events[0], [[0x99, 38, 96], 1500])
         self.assertEqual(events[1], [[0x99, 38, 96], 2500])
 
+    def testPygameOutputChunksLargeEventLists(self):
+        class FakeOutput(object):
+            def __init__(self):
+                self.batches = []
+
+            def write(self, events):
+                self.batches.append(list(events))
+
+        output = DBMidi.PygameOutput()
+        fakeOutput = FakeOutput()
+        output._output = fakeOutput
+        events = [
+            [[0x99, 38, 96], index]
+            for index in range(DBMidi._PYGAME_MAX_EVENT_BATCH * 2 + 3)
+        ]
+
+        output.write(events)
+
+        self.assertFalse(output.supportsTimestamps)
+        self.assertEqual([len(batch) for batch in fakeOutput.batches],
+                         [1024, 1024, 3])
+
+    @unittest.skipIf(platform.system() == "Windows",
+                     "Linux PortMidi device priority is not used on Windows")
+    def testCandidateOutputIdsPreferSynthOverMidiThrough(self):
+        oldDevices = list(DBMidi._OUTPUT_DEVICES)
+        oldGetDefaultId = DBMidi.getDefaultId
+        try:
+            DBMidi._OUTPUT_DEVICES[:] = [
+                DBMidi.MidiDevice(0, "Midi Through Port-0"),
+                DBMidi.MidiDevice(2, "qjackctl"),
+                DBMidi.MidiDevice(3, "Synth input port (5919:0)"),
+            ]
+            DBMidi._OUTPUT_DEVICES.sort(key=DBMidi._outputDeviceSortKey)
+            DBMidi.getDefaultId = lambda: 0
+
+            candidates = list(DBMidi._candidateOutputIds())
+
+            self.assertEqual(candidates[0], 3)
+            self.assertEqual(
+                list(DBMidi._candidateOutputIds(preferred=0, fallback=False)),
+                [0])
+        finally:
+            DBMidi._OUTPUT_DEVICES[:] = oldDevices
+            DBMidi.getDefaultId = oldGetDefaultId
+
 
 if __name__ == "__main__":
     unittest.main()
