@@ -2,6 +2,7 @@ import os
 import platform
 import unittest
 from io import BytesIO
+from unittest import mock
 
 os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
 
@@ -81,6 +82,34 @@ class TestMidiExport(unittest.TestCase):
         self.assertEqual([len(batch) for batch in fakeOutput.batches],
                          [1024, 1024, 3])
 
+    @unittest.skipUnless(DBMidi._HAS_PYGAME,
+                         "pygame mixer output requires pygame")
+    def testPygameMixerOutputPlaysMidiData(self):
+        calls = []
+
+        def fakeStop():
+            calls.append(("stop",))
+
+        def fakeLoad(data, namehint=None):
+            calls.append(("load", data.read(4), namehint))
+
+        def fakePlay():
+            calls.append(("play",))
+
+        output = DBMidi.PygameMixerOutput()
+
+        with mock.patch.object(DBMidi.pygame.mixer.music, "stop", fakeStop), \
+                mock.patch.object(DBMidi.pygame.mixer.music, "load", fakeLoad), \
+                mock.patch.object(DBMidi.pygame.mixer.music, "play", fakePlay):
+            output.open(DBMidi._PYGAME_MIXER_DEVICE_ID)
+            output.playMidiData(b"MThd\x00\x00\x00\x06")
+
+        self.assertEqual(calls, [
+            ("stop",),
+            ("load", b"MThd", "mid"),
+            ("play",),
+        ])
+
     @unittest.skipIf(platform.system() == "Windows",
                      "Linux PortMidi device priority is not used on Windows")
     def testCandidateOutputIdsPreferSynthOverMidiThrough(self):
@@ -101,6 +130,30 @@ class TestMidiExport(unittest.TestCase):
             self.assertEqual(
                 list(DBMidi._candidateOutputIds(preferred=0, fallback=False)),
                 [0])
+        finally:
+            DBMidi._OUTPUT_DEVICES[:] = oldDevices
+            DBMidi.getDefaultId = oldGetDefaultId
+
+    @unittest.skipIf(platform.system() == "Windows",
+                     "Linux pygame mixer output is not used on Windows")
+    def testCandidateOutputIdsUsePygameMixerBeforeMidiThrough(self):
+        oldDevices = list(DBMidi._OUTPUT_DEVICES)
+        oldGetDefaultId = DBMidi.getDefaultId
+        try:
+            DBMidi._OUTPUT_DEVICES[:] = [
+                DBMidi.MidiDevice(0, "Midi Through Port-0"),
+                DBMidi.MidiDevice(
+                    DBMidi._PYGAME_MIXER_DEVICE_ID,
+                    DBMidi._PYGAME_MIXER_DEVICE_NAME,
+                    DBMidi._PYGAME_MIXER_DRIVER),
+            ]
+            DBMidi._OUTPUT_DEVICES.sort(key=DBMidi._outputDeviceSortKey)
+            DBMidi.getDefaultId = lambda: 0
+
+            candidates = list(DBMidi._candidateOutputIds())
+
+            self.assertEqual(candidates[0], DBMidi._PYGAME_MIXER_DEVICE_ID)
+            self.assertEqual(candidates[1], 0)
         finally:
             DBMidi._OUTPUT_DEVICES[:] = oldDevices
             DBMidi.getDefaultId = oldGetDefaultId

@@ -24,6 +24,7 @@ Created on 17 Sep 2011
 '''
 import copy
 import ctypes
+from io import BytesIO
 import platform
 from ctypes import wintypes
 
@@ -52,6 +53,9 @@ FLAM_VOLUME_CONSTANT = 2
 DRAG_TIME_CONSTANT = 96
 _IS_WINDOWS = platform.system() == "Windows"
 _PYGAME_DRIVER = "pygame"
+_PYGAME_MIXER_DRIVER = "pygame mixer"
+_PYGAME_MIXER_DEVICE_ID = -2
+_PYGAME_MIXER_DEVICE_NAME = "Pygame MIDI Player"
 _WINMM_DRIVER = "Windows MM"
 _SCHEDULER_INTERVAL_MS = 5
 _SCHEDULER_LOOKAHEAD_MS = 2
@@ -239,6 +243,8 @@ class BackendManager(object):
             drivers.append(_WINMM_DRIVER)
         if _HAS_PYGAME:
             drivers.append(_PYGAME_DRIVER)
+            if not _IS_WINDOWS:
+                drivers.append(_PYGAME_MIXER_DRIVER)
         return drivers
 
 
@@ -287,6 +293,43 @@ class PygameOutput(MidiOutput):
             raise RuntimeError("MIDI output is not open")
         for offset in range(0, len(events), _PYGAME_MAX_EVENT_BATCH):
             self._output.write(events[offset:offset + _PYGAME_MAX_EVENT_BATCH])
+
+
+class PygameMixerOutput(MidiOutput):
+    supportsTimestamps = False
+    playsMidiFiles = True
+
+    def __init__(self, parent=None):
+        super(PygameMixerOutput, self).__init__(parent)
+        self._midiData = None
+
+    def open(self, deviceId):
+        if deviceId != _PYGAME_MIXER_DEVICE_ID:
+            raise RuntimeError("Invalid pygame mixer device ID")
+        self._midiData = None
+
+    def close(self):
+        self.abort()
+        self._midiData = None
+
+    def abort(self):
+        try:
+            pygame.mixer.music.stop()
+        except Exception:
+            pass
+
+    def write(self, events):
+        pass
+
+    def playMidiData(self, midiData):
+        self.abort()
+        self._midiData = BytesIO(midiData)
+        try:
+            pygame.mixer.music.load(self._midiData, "mid")
+        except TypeError:
+            self._midiData.seek(0, 0)
+            pygame.mixer.music.load(self._midiData)
+        pygame.mixer.music.play()
 
 
 class WinMMOutput(MidiOutput):
@@ -378,7 +421,7 @@ class MidiDevice(object):
         return self._isOutput
 
     def isOpen(self):
-        if self.driver == _WINMM_DRIVER:
+        if self.driver in (_WINMM_DRIVER, _PYGAME_MIXER_DRIVER):
             return False
         return getDeviceInfo(self.deviceId)[3]
 
@@ -426,6 +469,11 @@ def refreshOutputDevices():
             continue
         if device.isOutput():
             _OUTPUT_DEVICES.append(device)
+    if _HAS_PYGAME:
+        _OUTPUT_DEVICES.append(MidiDevice(
+            _PYGAME_MIXER_DEVICE_ID,
+            _PYGAME_MIXER_DEVICE_NAME,
+            _PYGAME_MIXER_DRIVER))
     _OUTPUT_DEVICES.sort(key=_outputDeviceSortKey)
 
 
@@ -468,6 +516,8 @@ def _openOutput(preferred=None, fallback=True):
         try:
             if _IS_WINDOWS:
                 midiOut = WinMMOutput()
+            elif port == _PYGAME_MIXER_DEVICE_ID:
+                midiOut = PygameMixerOutput()
             else:
                 midiOut = PygameOutput()
             midiOut.open(port)
@@ -484,6 +534,8 @@ def _deviceName(deviceId):
     if _IS_WINDOWS:
         name = _winmm_device_name(deviceId)
         return name if name is not None else deviceId
+    if deviceId == _PYGAME_MIXER_DEVICE_ID:
+        return _PYGAME_MIXER_DEVICE_NAME
     try:
         name, unusedIsIn, unusedIsOut, unusedIsOpen = getDeviceInfo(deviceId)
     except Exception:
@@ -653,15 +705,20 @@ class _midi(QObject):
                 baseTime += times[-1]
                 self._measureDetails.append((measureIndex, baseTime))
             self._measureDetails.reverse()
-            notes, unusedBaseTicks = _calculateMidiTimes(measureList, score)
-            startTime = _midi_time()
-            events = _makeOutputEvents(notes, startTime)
             self._songStart = time.perf_counter()
             self._musicPlaying = True
-            if self._midiOut.supportsTimestamps:
-                self._midiOut.write(events)
+            if getattr(self._midiOut, "playsMidiFiles", False):
+                midi = BytesIO()
+                exportMidi(measureList, score, midi)
+                self._midiOut.playMidiData(midi.getvalue())
             else:
-                self._scheduleOutputEvents(events, startTime)
+                notes, unusedBaseTicks = _calculateMidiTimes(measureList, score)
+                startTime = _midi_time()
+                events = _makeOutputEvents(notes, startTime)
+                if self._midiOut.supportsTimestamps:
+                    self._midiOut.write(events)
+                else:
+                    self._scheduleOutputEvents(events, startTime)
         except Exception as exc:
             global HAS_MIDI
             print("MIDI playback failed: %s" % exc)
