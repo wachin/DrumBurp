@@ -619,6 +619,19 @@ PyQt5 installation. If it fails, check:
 python -c "import pathlib, PyQt5; print(pathlib.Path(PyQt5.__file__).parent / 'Qt5' / 'bin')"
 ```
 
+The script also searches common Qt install roots on Windows:
+
+- `QTDIR`
+- `C:\Qt`
+- `%USERPROFILE%\Qt`
+
+For the full Windows Qt setup, including the required online installer and the
+reason a Qt desktop kit is needed in addition to Qt Creator, see:
+
+```text
+docs/windows-qt-lrelease.md
+```
+
 ### NSIS Is Not Found
 
 Check:

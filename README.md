@@ -227,7 +227,8 @@ py -3.11 -m pip install -r build\requirements-windows.txt
 
 The Windows installer build also requires PowerShell 7, Chocolatey, NSIS, Git
 for Windows, and GitHub CLI. See `ROADMAP_Win_Workflow.md` for the detailed
-Windows validation workflow.
+Windows validation workflow. For the Qt translation tool (`lrelease.exe`) on
+Windows, see `docs/windows-qt-lrelease.md`.
 
 ### Manual GitHub Actions validation
 
@@ -403,6 +404,9 @@ lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
 lrelease src/i18n/drumburp_de.ts -qm src/i18n/drumburp_de.qm
 lrelease src/i18n/drumburp_zh_TW.ts -qm src/i18n/drumburp_zh_TW.qm
 ```
+
+On Windows, see `docs/windows-qt-lrelease.md` for the Qt Creator/Qt installer
+requirements and how `build/build_windows.ps1` locates `lrelease.exe`.
 
 ### Translate using Qt Linguist GUI
 
