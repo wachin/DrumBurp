@@ -49,6 +49,9 @@ def main():
     app.setOrganizationName("Whatang Software")
     app.setOrganizationDomain("whatang.org")
     app.setApplicationName(APPNAME)
+    theme_mode = QSettings().value("ThemeMode", "auto", type=str)
+    from GUI.DBTheme import apply_theme
+    apply_theme(app, theme_mode)
 
     # Determine language: CLI flag > QSettings > LANGUAGE env var > system locale.
     # QSettings must be read after setOrganizationName/setApplicationName.

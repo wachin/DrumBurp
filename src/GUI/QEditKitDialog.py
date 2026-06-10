@@ -26,7 +26,7 @@ import copy
 import os
 import string  # IGNORE:deprecated-module
 from PyQt5.QtCore import QStandardPaths
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import (QDialog, QRadioButton, QFileDialog, QMessageBox,
                              QInputDialog, QDialogButtonBox)
 from GUI.ui_editKit import Ui_editKitDialog
@@ -42,7 +42,6 @@ _KIT_FILE_EXT = ".dbk"
 _KIT_FILTER = "DrumBurp kits (*%s)" % _KIT_FILE_EXT
 
 _BAD_ABBR_COLOR = QColor("red")
-_GOOD_ABBR_COLOR = QColor("black")
 
 
 def _itemDataToInt(value):
@@ -325,6 +324,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
         # Check that there is not more than one drum with the same
         # abbreviation. If there is, highlight them and disable the OK button
         # and accept action.
+        good_abbr_color = self.palette().color(QPalette.Text)
         drumIndicesByAbbr = {}
         for index, drum in enumerate(self._currentKit):
             if drum.abbr not in drumIndicesByAbbr:
@@ -338,7 +338,7 @@ class QEditKitDialog(QDialog, Ui_editKitDialog):
                     self.kitTable.item(index).setForeground(_BAD_ABBR_COLOR)
             else:
                 for index in indices:
-                    self.kitTable.item(index).setForeground(_GOOD_ABBR_COLOR)
+                    self.kitTable.item(index).setForeground(good_abbr_color)
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(ok)
         self.saveButton.setEnabled(ok)
         return ok

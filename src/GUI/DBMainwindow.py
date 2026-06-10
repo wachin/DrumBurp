@@ -22,6 +22,7 @@ Created on 31 Jul 2010
 @author: Mike Thomas
 
 '''
+import copy
 from io import BytesIO, StringIO
 import os
 import shutil
@@ -29,7 +30,7 @@ import webbrowser
 
 from PyQt5.QtCore import QSettings, QTimer, QThread, pyqtSignal, pyqtSlot, Qt, \
     QStandardPaths
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QColor
 from PyQt5.QtPrintSupport import QPrintPreviewDialog, QPrinterInfo, QPrinter
 from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QMessageBox,
                              QWhatsThis, QLabel, QFrame, QAction, QActionGroup)
@@ -54,6 +55,8 @@ import GUI.DBColourPicker as DBColourPicker
 from GUI.DBSectionDisplay import displaySectionTitle
 import GUI.DBIcons as DBIcons
 import GUI.DBMidi as DBMidi
+from GUI.DBTheme import (THEME_AUTO, THEME_DARK, THEME_LIGHT,
+                         normalise_theme_mode, apply_theme)
 
 
 # pylint:disable=too-many-instance-attributes,too-many-public-methods
@@ -223,6 +226,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if windowState:
             self.restoreState(windowState)
         self._readColours(settings)
+        self._baseColourScheme = copy.deepcopy(self.colourScheme)
         self.statusbar.addPermanentWidget(QFrame())
         self.availableNotesLabel = QLabel()
         self.availableNotesLabel.setMinimumWidth(250)
@@ -231,6 +235,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self.statusbar.addPermanentWidget(self._infoBar)
         self._initializeState()
         self._buildLanguageMenu()
+        self._buildThemeMenu()
         self.setSections()
         self._versionThread = VersionCheckThread()
         self._versionThread.finished.connect(self._finishedVersionCheck)
@@ -244,6 +249,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             _settingsValue(settings, "CheckOnStartup", False, bool))
         self.statusbar.showMessage(self.tr("Initializing MIDI..."))
         self.setEnabled(False)
+        self._applyThemeToViews()
 
     def _connectSignals(self, props, scene):
         # Connect signals
@@ -550,7 +556,8 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             event.ignore()
 
     def _writeColours(self, settings):
-        for colour in self.colourScheme.iterColours():
+        scheme = getattr(self, "_baseColourScheme", self.colourScheme)
+        for colour in scheme.iterColours():
             colourRef = colour.colourAttrs.attrName
             settings.setValue("Colours/" + colourRef, colour.toString())
 
@@ -561,6 +568,36 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
                 continue
             col = _settingsValue(settings, "Colours/" + colourRef, "", str)
             colour.fromString(col)
+
+    @staticmethod
+    def _darkenColourScheme(base_scheme):
+        scheme = copy.deepcopy(base_scheme)
+        scheme.text.borderColour = QColor("#f1f3f4")
+        scheme.potential.borderColour = QColor("#8ab4f8")
+        scheme.delete.borderColour = QColor("#ff8a80")
+        scheme.noteHighlight.backgroundColour = QColor("#5f4b00")
+        scheme.noteHighlight.borderColour = QColor("#fdd663")
+        scheme.timeHighlight.borderColour = QColor("#8ab4f8")
+        scheme.selectedMeasure.backgroundColour = QColor("#2b3445")
+        scheme.selectedMeasure.borderColour = QColor("#7aa2f7")
+        scheme.playingHighlight.borderColour = QColor("#81c995")
+        scheme.nextPlayingHighlight.borderColour = QColor("#fdd663")
+        scheme.sticking.backgroundColour = QColor("#24272d")
+        scheme.sticking.borderColour = QColor("#9aa0a6")
+        return scheme
+
+    def _refreshColourSchemeForTheme(self, actual_mode):
+        base_scheme = getattr(self, "_baseColourScheme", None)
+        if base_scheme is None:
+            return
+        if actual_mode == THEME_DARK:
+            self.colourScheme = self._darkenColourScheme(base_scheme)
+        else:
+            self.colourScheme = copy.deepcopy(base_scheme)
+        if self.scoreScene is not None:
+            self.scoreScene.recolor()
+            self.scoreScene.update()
+        self.scoreView.viewport().update()
 
     @pyqtSlot()
     def on_actionFitInWindow_triggered(self):
@@ -987,6 +1024,11 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         "it": "Italiano",
         "ja": "日本語",
     }
+    _THEME_LABELS = {
+        THEME_AUTO: "Auto",
+        THEME_LIGHT: "Light",
+        THEME_DARK: "Dark",
+    }
 
     def _buildLanguageMenu(self):
         """Build the Language submenu under Help from available .qm files."""
@@ -1028,6 +1070,63 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self,
             self.tr("Language changed"),
             self.tr("The language will change the next time DrumBurp starts."))
+
+    def _buildThemeMenu(self):
+        settings = self._makeQSettings()
+        current_mode = normalise_theme_mode(
+            _settingsValue(settings, "ThemeMode", THEME_AUTO, str))
+        theme_menu = self.menuView_2.addMenu(self.tr("Theme"))
+        theme_group = QActionGroup(self)
+        theme_group.setExclusive(True)
+        for mode in (THEME_AUTO, THEME_LIGHT, THEME_DARK):
+            action = QAction(self.tr(self._THEME_LABELS[mode]), self)
+            action.setCheckable(True)
+            action.setChecked(mode == current_mode)
+            action.setData(mode)
+            action.triggered.connect(
+                lambda checked, m=mode: self._selectTheme(m))
+            theme_group.addAction(action)
+            theme_menu.addAction(action)
+
+    def _selectTheme(self, theme_mode):
+        settings = self._makeQSettings()
+        settings.setValue("ThemeMode", theme_mode)
+        settings.sync()
+        actual_mode = apply_theme(self.app, theme_mode)
+        self._applyThemeToViews(actual_mode)
+
+    @property
+    def app(self):
+        from PyQt5.QtWidgets import QApplication
+        return QApplication.instance()
+
+    def _applyThemeToViews(self, actual_mode=None):
+        if actual_mode is None:
+            actual_mode = self.app.property("drumburpThemeMode") or THEME_LIGHT
+        self._refreshColourSchemeForTheme(actual_mode)
+        paper_colour = QColor("#17191d") if actual_mode == THEME_DARK else QColor("#ffffff")
+        if self.scoreScene is not None:
+            self.scoreScene.setBackgroundBrush(paper_colour)
+        if self._lilyScene is not None:
+            self._lilyScene.setBackgroundBrush(paper_colour)
+        if actual_mode == THEME_DARK:
+            view_bg = "#202124"
+            border = "#3a3d41"
+            self.scoreView.setStyleSheet(
+                "QGraphicsView#scoreView {"
+                " background-color: %s; border: 1px solid %s; }" %
+                (view_bg, border))
+            self.lilyPreview.setStyleSheet(
+                "QGraphicsView#lilyPreview {"
+                " background-color: %s; border: 1px solid %s; }" %
+                (view_bg, border))
+            self.textExportPreview.setStyleSheet(
+                "QPlainTextEdit#textExportPreview {"
+                " background-color: #1e1e1e; color: #e6e6e6; }")
+        else:
+            self.scoreView.setStyleSheet("")
+            self.lilyPreview.setStyleSheet("")
+            self.textExportPreview.setStyleSheet("")
 
     @pyqtSlot()
     def on_actionWhatsThis_triggered(self):
@@ -1378,12 +1477,12 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
 
     @pyqtSlot()
     def on_actionEditColours_triggered(self):
-        dialog = DBColourPicker.DBColourPicker(self.colourScheme, self)
+        dialog = DBColourPicker.DBColourPicker(self._baseColourScheme, self)
         if not dialog.exec():
             return
-        self.colourScheme = dialog.getColourScheme()
-        self.scoreView.update()
-        self.scoreScene.recolor()
+        self._baseColourScheme = dialog.getColourScheme()
+        actual_mode = self.app.property("drumburpThemeMode") or THEME_LIGHT
+        self._refreshColourSchemeForTheme(actual_mode)
 
     def checkLilypondPath(self, existing=None):
         if not existing and not self.lilyPath:
