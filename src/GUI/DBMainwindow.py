@@ -29,11 +29,12 @@ import shutil
 import webbrowser
 
 from PyQt5.QtCore import QSettings, QTimer, QThread, pyqtSignal, pyqtSlot, Qt, \
-    QStandardPaths
-from PyQt5.QtGui import QFont, QColor
+    QStandardPaths, QSize
+from PyQt5.QtGui import QFont, QColor, QIcon, QImage, QPixmap
 from PyQt5.QtPrintSupport import QPrintPreviewDialog, QPrinterInfo, QPrinter
 from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QMessageBox,
-                             QWhatsThis, QLabel, QFrame, QAction, QActionGroup)
+                             QWhatsThis, QLabel, QFrame, QAction, QActionGroup,
+                             QToolBar)
 
 from DBVersion import APPNAME, DB_VERSION, doesNewerVersionExist
 from Data import FontOptions
@@ -227,6 +228,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self.restoreState(windowState)
         self._readColours(settings)
         self._baseColourScheme = copy.deepcopy(self.colourScheme)
+        self._originalActionIcons = {}
         self.statusbar.addPermanentWidget(QFrame())
         self.availableNotesLabel = QLabel()
         self.availableNotesLabel.setMinimumWidth(250)
@@ -598,6 +600,61 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self.scoreScene.recolor()
             self.scoreScene.update()
         self.scoreView.viewport().update()
+
+    @staticmethod
+    def _iconForDarkMode(icon):
+        dark_icon = QIcon()
+        sizes = icon.availableSizes() or [QSize(16, 16),
+                                          QSize(22, 22),
+                                          QSize(24, 24),
+                                          QSize(32, 32)]
+        modes = (QIcon.Normal, QIcon.Active, QIcon.Selected, QIcon.Disabled)
+        states = (QIcon.Off, QIcon.On)
+        for size in sizes:
+            for mode in modes:
+                for state in states:
+                    pixmap = icon.pixmap(size, mode, state)
+                    if pixmap.isNull():
+                        continue
+                    image = pixmap.toImage().convertToFormat(
+                        QImage.Format_ARGB32)
+                    for y_pos in range(image.height()):
+                        for x_pos in range(image.width()):
+                            colour = image.pixelColor(x_pos, y_pos)
+                            if colour.alpha() == 0:
+                                continue
+                            red = colour.red()
+                            green = colour.green()
+                            blue = colour.blue()
+                            max_channel = max(red, green, blue)
+                            min_channel = min(red, green, blue)
+                            luminance = ((red * 299) + (green * 587) + (blue * 114)) // 1000
+                            if max_channel - min_channel < 40 and luminance < 180:
+                                shade = 235 if mode != QIcon.Disabled else 140
+                                colour.setRgb(shade, shade, shade, colour.alpha())
+                            elif luminance < 70:
+                                boost = 1.7 if mode != QIcon.Disabled else 1.2
+                                colour.setRgb(min(255, int(red * boost)),
+                                              min(255, int(green * boost)),
+                                              min(255, int(blue * boost)),
+                                              colour.alpha())
+                            image.setPixelColor(x_pos, y_pos, colour)
+                    dark_icon.addPixmap(QPixmap.fromImage(image), mode, state)
+        return dark_icon if not dark_icon.isNull() else icon
+
+    def _applyThemeToActionIcons(self, actual_mode):
+        for toolbar in self.findChildren(QToolBar):
+            for action in toolbar.actions():
+                icon = action.icon()
+                if icon.isNull():
+                    continue
+                key = id(action)
+                if key not in self._originalActionIcons:
+                    self._originalActionIcons[key] = icon
+                if actual_mode == THEME_DARK:
+                    action.setIcon(self._iconForDarkMode(self._originalActionIcons[key]))
+                else:
+                    action.setIcon(self._originalActionIcons[key])
 
     @pyqtSlot()
     def on_actionFitInWindow_triggered(self):
@@ -1104,6 +1161,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if actual_mode is None:
             actual_mode = self.app.property("drumburpThemeMode") or THEME_LIGHT
         self._refreshColourSchemeForTheme(actual_mode)
+        self._applyThemeToActionIcons(actual_mode)
         paper_colour = QColor("#17191d") if actual_mode == THEME_DARK else QColor("#ffffff")
         if self.scoreScene is not None:
             self.scoreScene.setBackgroundBrush(paper_colour)
