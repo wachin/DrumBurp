@@ -384,9 +384,11 @@ src/i18n/
   drumburp_en.ts          English reference (source of truth)
   drumburp_es.ts          Spanish translation
   drumburp_de.ts          German translation
+  drumburp_zh_TW.ts       Traditional Chinese translation
   drumburp_en.qm          Compiled English binary
   drumburp_es.qm          Compiled Spanish binary
   drumburp_de.qm          Compiled German binary
+  drumburp_zh_TW.qm       Compiled Traditional Chinese binary
 ```
 
 ### Update strings after editing source code
@@ -399,6 +401,7 @@ pylupdate5 drumburp.pro
 lrelease src/i18n/drumburp_en.ts -qm src/i18n/drumburp_en.qm
 lrelease src/i18n/drumburp_es.ts -qm src/i18n/drumburp_es.qm
 lrelease src/i18n/drumburp_de.ts -qm src/i18n/drumburp_de.qm
+lrelease src/i18n/drumburp_zh_TW.ts -qm src/i18n/drumburp_zh_TW.qm
 ```
 
 ### Translate using Qt Linguist GUI
@@ -406,6 +409,7 @@ lrelease src/i18n/drumburp_de.ts -qm src/i18n/drumburp_de.qm
 ```bash
 linguist src/i18n/drumburp_es.ts
 linguist src/i18n/drumburp_de.ts
+linguist src/i18n/drumburp_zh_TW.ts
 ```
 
 ### Test in a specific language
@@ -418,6 +422,10 @@ LANGUAGE=es ./run-drumburp.sh
 # German
 LANGUAGE=de ./run-drumburp.sh
 ./run-drumburp.sh --language de
+
+# Traditional Chinese
+LANGUAGE=zh_TW ./run-drumburp.sh
+./run-drumburp.sh --language zh_TW
 
 # Force English explicitly
 ./run-drumburp.sh --language en

@@ -24,7 +24,8 @@ if command -v lrelease >/dev/null 2>&1; then
     lrelease "$workspace_root/src/i18n/drumburp_en.ts" -qm "$workspace_root/src/i18n/drumburp_en.qm"
     lrelease "$workspace_root/src/i18n/drumburp_es.ts" -qm "$workspace_root/src/i18n/drumburp_es.qm"
     lrelease "$workspace_root/src/i18n/drumburp_de.ts" -qm "$workspace_root/src/i18n/drumburp_de.qm"
-elif [ ! -f "$workspace_root/src/i18n/drumburp_en.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_es.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_de.qm" ]; then
+    lrelease "$workspace_root/src/i18n/drumburp_zh_TW.ts" -qm "$workspace_root/src/i18n/drumburp_zh_TW.qm"
+elif [ ! -f "$workspace_root/src/i18n/drumburp_en.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_es.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_de.qm" ] || [ ! -f "$workspace_root/src/i18n/drumburp_zh_TW.qm" ]; then
     echo "lrelease was not found and compiled .qm translation files are missing." >&2
     exit 1
 else
@@ -40,6 +41,7 @@ pyinstaller -w -D -y \
   --add-data "$workspace_root/src/i18n/drumburp_en.qm:i18n" \
   --add-data "$workspace_root/src/i18n/drumburp_es.qm:i18n" \
   --add-data "$workspace_root/src/i18n/drumburp_de.qm:i18n" \
+  --add-data "$workspace_root/src/i18n/drumburp_zh_TW.qm:i18n" \
   --distpath "$dist_dir" \
   --specpath "$tmp_dir" \
   --workpath "$tmp_dir" \

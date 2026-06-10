@@ -22,6 +22,7 @@ Created on 17 Apr 2011
 @author: Mike Thomas
 '''
 from GUI.ui_dbStartup import Ui_dbStartup
+from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import QDialog
 
 
@@ -31,3 +32,13 @@ class DBStartupDialog(QDialog, Ui_dbStartup):
         self.setupUi(self)
         self.setWindowTitle(self.tr("Welcome to DrumBurp v") + version)
         self.buttonBox.button(self.buttonBox.Ok).setFocus()
+        settings = QSettings()
+        self.hideOnStartupCheckBox.setChecked(
+            bool(settings.value("HideStartupDialog", False, type=bool)))
+
+    def accept(self):
+        settings = QSettings()
+        settings.setValue("HideStartupDialog",
+                          self.hideOnStartupCheckBox.isChecked())
+        settings.sync()
+        super(DBStartupDialog, self).accept()

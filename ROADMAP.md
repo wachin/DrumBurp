@@ -144,6 +144,8 @@ Release checklist:
   editor without changing saved score or kit data.
 - [x] Add a first German (`de`) translation file and include it in local and
   GitHub Actions build packaging.
+- [x] Add a first Traditional Chinese (`zh_TW`) translation file and include
+  it in local and GitHub Actions build packaging.
 - [x] Update `drumburp_en.ts` and `drumburp_es.ts` after adding new
   translatable strings.
 - [x] Compile updated `drumburp_en.qm` and `drumburp_es.qm`.

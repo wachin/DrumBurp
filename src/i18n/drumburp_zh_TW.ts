@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en" sourcelanguage="en">
+<TS version="2.1" language="zh_TW" sourcelanguage="en">
 <context>
     <name>AlternateDialog</name>
     <message>
         <location filename="../GUI/alternateRepeats.ui" line="14"/>
         <source>Alternate Repeats</source>
-        <translation>Alternate Repeats</translation>
+        <translation>替代反覆</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeats.ui" line="22"/>
         <source>Enter alternate repeat information:</source>
-        <translation>Enter alternate repeat information:</translation>
+        <translation>輸入替代反覆資訊：</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeats.ui" line="29"/>
         <source>Add a new repeat</source>
-        <translation>Add a new repeat</translation>
+        <translation>新增新的反覆</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeats.ui" line="32"/>
         <source>Add</source>
-        <translation>Add</translation>
+        <translation>新增</translation>
     </message>
 </context>
 <context>
@@ -34,27 +34,27 @@
     <message>
         <location filename="../GUI/alternateRepeatWidget.ui" line="23"/>
         <source>Repeat number</source>
-        <translation>Repeat number</translation>
+        <translation>反覆編號</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeatWidget.ui" line="42"/>
         <source>Repeat number range end</source>
-        <translation>Repeat number range end</translation>
+        <translation>反覆範圍結束編號</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeatWidget.ui" line="64"/>
         <source>Range of repeat numbers?</source>
-        <translation>Range of repeat numbers?</translation>
+        <translation>反覆編號範圍？</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeatWidget.ui" line="67"/>
         <source>Range?</source>
-        <translation>Range?</translation>
+        <translation>範圍？</translation>
     </message>
     <message>
         <location filename="../GUI/alternateRepeatWidget.ui" line="90"/>
         <source>Delete this repeat</source>
-        <translation>Delete this repeat</translation>
+        <translation>刪除此反覆</translation>
     </message>
 </context>
 <context>
@@ -62,37 +62,37 @@
     <message>
         <location filename="../GUI/dbColours.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="obsolete">Dialog</translation>
+        <translation type="obsolete">對話方塊</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="161"/>
         <source>Element</source>
-        <translation>Element</translation>
+        <translation>元素</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="86"/>
         <source>Text Colour</source>
-        <translation>Text Colour</translation>
+        <translation>文字顏色</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="177"/>
         <source>Background Colour</source>
-        <translation>Background Colour</translation>
+        <translation>背景顏色</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="193"/>
         <source>Border Style</source>
-        <translation>Border Style</translation>
+        <translation>邊框樣式</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="209"/>
         <source>Border Colour</source>
-        <translation>Border Colour</translation>
+        <translation>邊框顏色</translation>
     </message>
     <message>
         <location filename="../GUI/dbColours.ui" line="14"/>
         <source>Edit Colours</source>
-        <translation>Edit Colours</translation>
+        <translation>編輯顏色</translation>
     </message>
 </context>
 <context>
@@ -100,67 +100,67 @@
     <message>
         <location filename="../GUI/DBColourPicker.py" line="40"/>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation>文字</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="41"/>
         <source>New notes</source>
-        <translation>New notes</translation>
+        <translation>新音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="43"/>
         <source>Notes to delete</source>
-        <translation>Notes to delete</translation>
+        <translation>待刪除音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="45"/>
         <source>Note Highlight</source>
-        <translation>Note Highlight</translation>
+        <translation>音符高亮</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="47"/>
         <source>Time Highlight</source>
-        <translation>Time Highlight</translation>
+        <translation>時間高亮</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="49"/>
         <source>Selected Measure</source>
-        <translation>Selected Measure</translation>
+        <translation>選取的小節</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="51"/>
         <source>Playing Highlight</source>
-        <translation>Playing Highlight</translation>
+        <translation>播放高亮</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="53"/>
         <source>Next Playing Highlight</source>
-        <translation>Next Playing Highlight</translation>
+        <translation>下一個播放高亮</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="55"/>
         <source>Sticking Display</source>
-        <translation>Sticking Display</translation>
+        <translation>手法顯示</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="63"/>
         <source>None</source>
-        <translation>None</translation>
+        <translation>無</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="64"/>
         <source>Dashed</source>
-        <translation>Dashed</translation>
+        <translation>虛線</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="66"/>
         <source>Solid</source>
-        <translation>Solid</translation>
+        <translation>實線</translation>
     </message>
     <message>
         <location filename="../GUI/DBColourPicker.py" line="340"/>
         <source>Transparent</source>
-        <translation>Transparent</translation>
+        <translation>透明</translation>
     </message>
 </context>
 <context>
@@ -168,132 +168,132 @@
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="21"/>
         <source>Crash</source>
-        <translation>Crash</translation>
+        <translation>碎音鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="22"/>
         <source>Crash Cymbal</source>
-        <translation>Crash Cymbal</translation>
+        <translation>碎音鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="116"/>
         <source>Crash Cymbal 1</source>
-        <translation>Crash Cymbal 1</translation>
+        <translation>碎音鈸 1</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="132"/>
         <source>Crash Cymbal 2</source>
-        <translation>Crash Cymbal 2</translation>
+        <translation>碎音鈸 2</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="28"/>
         <source>Crash-ride cymbal</source>
-        <translation>Crash-ride cymbal</translation>
+        <translation>Crash-Ride 鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="30"/>
         <source>Crash cymbal</source>
-        <translation>Crash cymbal</translation>
+        <translation>碎音鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="32"/>
         <source>Ride</source>
-        <translation>Ride</translation>
+        <translation>Ride 鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="33"/>
         <source>Ride Cymbal</source>
-        <translation>Ride Cymbal</translation>
+        <translation>Ride 鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="35"/>
         <source>HiHat</source>
-        <translation>HiHat</translation>
+        <translation>Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="36"/>
         <source>Hihat</source>
-        <translation>Hihat</translation>
+        <translation>Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="37"/>
         <source>Hi hat w/foot</source>
-        <translation>Hi hat w/foot</translation>
+        <translation>腳踩 Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="39"/>
         <source>Hihat w/foot</source>
-        <translation>Hihat w/foot</translation>
+        <translation>腳踩 Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="41"/>
         <source>Hi-Hat with foot</source>
-        <translation>Hi-Hat with foot</translation>
+        <translation>腳踩 Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="43"/>
         <source>High hat foot</source>
-        <translation>High hat foot</translation>
+        <translation>Hi-Hat 腳踏板</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="45"/>
         <source>Foot pedal</source>
-        <translation>Foot pedal</translation>
+        <translation>腳踏板</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="47"/>
         <source>Kick</source>
-        <translation>Kick</translation>
+        <translation>大鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="48"/>
         <source>Bass Drum</source>
-        <translation>Bass Drum</translation>
+        <translation>大鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="90"/>
         <source>Bass Drum 1</source>
-        <translation>Bass Drum 1</translation>
+        <translation>大鼓 1</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="52"/>
         <source>Bass Drum 2</source>
-        <translation>Bass Drum 2</translation>
+        <translation>大鼓 2</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="54"/>
         <source>Bass drum</source>
-        <translation>Bass drum</translation>
+        <translation>大鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="56"/>
         <source>Snare</source>
-        <translation>Snare</translation>
+        <translation>小鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="57"/>
         <source>Snare Drum</source>
-        <translation>Snare Drum</translation>
+        <translation>小鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="59"/>
         <source>Second snare</source>
-        <translation>Second snare</translation>
+        <translation>第二小鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="118"/>
         <source>High Tom</source>
-        <translation>High Tom</translation>
+        <translation>高音 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="63"/>
         <source>Mid Tom</source>
-        <translation>Mid Tom</translation>
+        <translation>中音 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="65"/>
         <source>Small Tom</source>
-        <translation>Small Tom</translation>
+        <translation>小 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="67"/>
@@ -318,182 +318,182 @@
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="71"/>
         <source>Floor Tom</source>
-        <translation>Floor Tom</translation>
+        <translation>落地 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="73"/>
         <source>Floor Tom 1</source>
-        <translation>Floor Tom 1</translation>
+        <translation>落地 Tom 1</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="75"/>
         <source>Floor Tom 2</source>
-        <translation>Floor Tom 2</translation>
+        <translation>落地 Tom 2</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="77"/>
         <source>Percussion Line 1</source>
-        <translation>Percussion Line 1</translation>
+        <translation>打擊線 1</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="79"/>
         <source>Percussion Line 2</source>
-        <translation>Percussion Line 2</translation>
+        <translation>打擊線 2</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="81"/>
         <source>Cymbal</source>
-        <translation>Cymbal</translation>
+        <translation>鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="88"/>
         <source>Acoustic Bass Drum</source>
-        <translation>Acoustic Bass Drum</translation>
+        <translation>原聲大鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="92"/>
         <source>Side Stick</source>
-        <translation>Side Stick</translation>
+        <translation>邊擊</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="94"/>
         <source>Acoustic Snare</source>
-        <translation>Acoustic Snare</translation>
+        <translation>原聲小鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="96"/>
         <source>Hand Clap</source>
-        <translation>Hand Clap</translation>
+        <translation>拍手</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="98"/>
         <source>Electric Snare</source>
-        <translation>Electric Snare</translation>
+        <translation>電子小鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="100"/>
         <source>Low Floor Tom</source>
-        <translation>Low Floor Tom</translation>
+        <translation>低音落地 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="102"/>
         <source>Closed Hi Hat</source>
-        <translation>Closed Hi Hat</translation>
+        <translation>閉合 Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="104"/>
         <source>High Floor Tom</source>
-        <translation>High Floor Tom</translation>
+        <translation>高音落地 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="106"/>
         <source>Pedal Hi Hat</source>
-        <translation>Pedal Hi Hat</translation>
+        <translation>踏板 Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="108"/>
         <source>Low Tom</source>
-        <translation>Low Tom</translation>
+        <translation>低音 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="110"/>
         <source>Open Hi Hat</source>
-        <translation>Open Hi Hat</translation>
+        <translation>開放 Hi-Hat</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="112"/>
         <source>Low-Mid Tom</source>
-        <translation>Low-Mid Tom</translation>
+        <translation>中低音 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="114"/>
         <source>Hi-Mid Tom</source>
-        <translation>Hi-Mid Tom</translation>
+        <translation>中高音 Tom</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="120"/>
         <source>Ride Cymbal 1</source>
-        <translation>Ride Cymbal 1</translation>
+        <translation>Ride 鈸 1</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="122"/>
         <source>Chinese Cymbal</source>
-        <translation>Chinese Cymbal</translation>
+        <translation>中國鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="124"/>
         <source>Ride Bell</source>
-        <translation>Ride Bell</translation>
+        <translation>Ride 鈸鈴</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="126"/>
         <source>Tambourine</source>
-        <translation>Tambourine</translation>
+        <translation>手鼓</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="128"/>
         <source>Splash Cymbal</source>
-        <translation>Splash Cymbal</translation>
+        <translation>Splash 鈸</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="130"/>
         <source>Cowbell</source>
-        <translation>Cowbell</translation>
+        <translation>牛鈴</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="134"/>
         <source>Vibraslap</source>
-        <translation>Vibraslap</translation>
+        <translation>顫擊板</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="136"/>
         <source>Ride Cymbal 2</source>
-        <translation>Ride Cymbal 2</translation>
+        <translation>Ride 鈸 2</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="138"/>
         <source>Hi Bongo</source>
-        <translation>Hi Bongo</translation>
+        <translation>高音 Bongo</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="140"/>
         <source>Low Bongo</source>
-        <translation>Low Bongo</translation>
+        <translation>低音 Bongo</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="142"/>
         <source>Mute Hi Conga</source>
-        <translation>Mute Hi Conga</translation>
+        <translation>悶音高音 Conga</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="144"/>
         <source>Open Hi Conga</source>
-        <translation>Open Hi Conga</translation>
+        <translation>開放高音 Conga</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="146"/>
         <source>Low Conga</source>
-        <translation>Low Conga</translation>
+        <translation>低音 Conga</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="148"/>
         <source>High Timbale</source>
-        <translation>High Timbale</translation>
+        <translation>高音 Timbale</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="150"/>
         <source>Low Timbale</source>
-        <translation>Low Timbale</translation>
+        <translation>低音 Timbale</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="152"/>
         <source>High Agogo</source>
-        <translation>High Agogo</translation>
+        <translation>高音 Agogo</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="154"/>
         <source>Low Agogo</source>
-        <translation>Low Agogo</translation>
+        <translation>低音 Agogo</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="156"/>
@@ -503,27 +503,27 @@
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="158"/>
         <source>Maracas</source>
-        <translation>Maracas</translation>
+        <translation>沙鈴</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="160"/>
         <source>Short Whistle</source>
-        <translation>Short Whistle</translation>
+        <translation>短哨</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="162"/>
         <source>Long Whistle</source>
-        <translation>Long Whistle</translation>
+        <translation>長哨</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="164"/>
         <source>Short Guiro</source>
-        <translation>Short Guiro</translation>
+        <translation>短 Guiro</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="166"/>
         <source>Long Guiro</source>
-        <translation>Long Guiro</translation>
+        <translation>長 Guiro</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="168"/>
@@ -533,32 +533,32 @@
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="170"/>
         <source>Hi Wood Block</source>
-        <translation>Hi Wood Block</translation>
+        <translation>高音木魚</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="172"/>
         <source>Low Wood Block</source>
-        <translation>Low Wood Block</translation>
+        <translation>低音木魚</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="174"/>
         <source>Mute Cuica</source>
-        <translation>Mute Cuica</translation>
+        <translation>悶音 Cuica</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="176"/>
         <source>Open Cuica</source>
-        <translation>Open Cuica</translation>
+        <translation>開放 Cuica</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="178"/>
         <source>Mute Triangle</source>
-        <translation>Mute Triangle</translation>
+        <translation>悶音三角鐵</translation>
     </message>
     <message>
         <location filename="../GUI/DBDrumDisplay.py" line="180"/>
         <source>Open Triangle</source>
-        <translation>Open Triangle</translation>
+        <translation>開放三角鐵</translation>
     </message>
 </context>
 <context>
@@ -576,7 +576,7 @@
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="49"/>
         <source>PyQt4 u2192 PyQt5 Port</source>
-        <translation type="obsolete">PyQt4 -&gt; PyQt5 Port</translation>
+        <translation type="obsolete">PyQt4 u2192 PyQt5 Port</translation>
     </message>
     <message>
         <location filename="../GUI/DBInfoDialog.py" line="53"/>
@@ -604,7 +604,7 @@
     <message>
         <location filename="../GUI/DBStartupDialog.py" line="33"/>
         <source>Welcome to DrumBurp v</source>
-        <translation>Welcome to DrumBurp v</translation>
+        <translation>歡迎使用 DrumBurp v</translation>
     </message>
 </context>
 <context>
@@ -612,12 +612,12 @@
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="14"/>
         <source>Default Kit Manager</source>
-        <translation>Default Kit Manager</translation>
+        <translation>預設鼓組管理員</translation>
     </message>
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="20"/>
         <source>Available default kits</source>
-        <translation>Available default kits</translation>
+        <translation>可用的預設鼓組</translation>
     </message>
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="23"/>
@@ -637,7 +637,7 @@
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="44"/>
         <source>Save New</source>
-        <translation>Save New</translation>
+        <translation>另存為預設</translation>
     </message>
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="51"/>
@@ -652,7 +652,7 @@
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="57"/>
         <source>Overwrite</source>
-        <translation>Overwrite</translation>
+        <translation>覆寫</translation>
     </message>
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="64"/>
@@ -667,7 +667,7 @@
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="70"/>
         <source>Delete</source>
-        <translation>Delete</translation>
+        <translation>刪除</translation>
     </message>
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="90"/>
@@ -682,7 +682,7 @@
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="96"/>
         <source>Load</source>
-        <translation>Load</translation>
+        <translation>載入</translation>
     </message>
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="103"/>
@@ -692,7 +692,7 @@
     <message>
         <location filename="../GUI/defaultKitManager.ui" line="106"/>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -700,7 +700,7 @@
     <message>
         <location filename="../GUI/DBMainwindow.py" line="245"/>
         <source>Initializing MIDI...</source>
-        <translation>Initializing MIDI...</translation>
+        <translation>正在初始化 MIDI...</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="332"/>
@@ -720,7 +720,7 @@
     <message>
         <location filename="../GUI/DBMainwindow.py" line="361"/>
         <source>Problem during startup</source>
-        <translation>Problem during startup</translation>
+        <translation>啟動時發生問題</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="361"/>
@@ -766,12 +766,12 @@ When DrumBurp tries to check for an update it will try to access the internet. Y
     <message>
         <location filename="../GUI/DBMainwindow.py" line="499"/>
         <source>DrumBurp - Unsaved Changes</source>
-        <translation>DrumBurp - Unsaved Changes</translation>
+        <translation>DrumBurp - 未儲存的變更</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="499"/>
         <source>Save unsaved changes?</source>
-        <translation>Save unsaved changes?</translation>
+        <translation>要儲存未儲存的變更嗎？</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="509"/>
@@ -790,22 +790,22 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="576"/>
         <source>Choose a DrumBurp file to open</source>
-        <translation>Choose a DrumBurp file to open</translation>
+        <translation>選擇要開啟的 DrumBurp 檔案</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="544"/>
         <source>DrumBurp files (*.brp)</source>
-        <translation type="obsolete">DrumBurp files (*.brp)</translation>
+        <translation type="obsolete">DrumBurp 檔案 (*.brp)</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="602"/>
         <source>Successfully loaded %s</source>
-        <translation>Successfully loaded %s</translation>
+        <translation>成功載入 %s</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="620"/>
         <source>Choose a DrumBurp file to save</source>
-        <translation>Choose a DrumBurp file to save</translation>
+        <translation>選擇要儲存的 DrumBurp 檔案</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="642"/>
@@ -840,12 +840,12 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="687"/>
         <source>Successfully saved %s</source>
-        <translation>Successfully saved %s</translation>
+        <translation>成功儲存 %s</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="717"/>
         <source>Created a new blank score</source>
-        <translation>Created a new blank score</translation>
+        <translation>已建立新的空白樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="817"/>
@@ -855,7 +855,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="817"/>
         <source>Text files (*.txt)</source>
-        <translation>Text files (*.txt)</translation>
+        <translation>文字檔 (*.txt)</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="827"/>
@@ -870,7 +870,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="834"/>
         <source>Export failed!</source>
-        <translation>Export failed!</translation>
+        <translation>匯出失敗！</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="834"/>
@@ -890,7 +890,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="901"/>
         <source>Exported to PDF %s</source>
-        <translation>Exported to PDF %s</translation>
+        <translation>已匯出 PDF %s</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="903"/>
@@ -955,7 +955,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1143"/>
         <source>Playback error</source>
-        <translation>Playback error</translation>
+        <translation>播放錯誤</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1143"/>
@@ -975,7 +975,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1226"/>
         <source>File error</source>
-        <translation>File error</translation>
+        <translation>檔案錯誤</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1226"/>
@@ -995,7 +995,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1207"/>
         <source>Untitled</source>
-        <translation>Untitled</translation>
+        <translation>未命名</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1199"/>
@@ -1005,7 +1005,7 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1214"/>
         <source>Export to MIDI</source>
-        <translation>Export to MIDI</translation>
+        <translation>匯出為 MIDI</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1366"/>
@@ -1020,98 +1020,95 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1004"/>
         <source>Language</source>
-        <translation>Language</translation>
+        <translation>語言</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1027"/>
         <source>Language changed</source>
-        <translation>Language changed</translation>
+        <translation>語言已變更</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1027"/>
         <source>The language will change the next time DrumBurp starts.</source>
-        <translation>The language will change the next time DrumBurp starts.</translation>
+        <translation>DrumBurp 將在下次啟動時套用新的語言。</translation>
     </message>
     <message numerus="yes">
         <location filename="../GUI/DBMainwindow.py" line="1324"/>
         <source>%n Measure(s)</source>
         <translation>
-            <numerusform>%n Measure</numerusform>
-            <numerusform>%n Measures</numerusform>
+            <numerusform>%n 小節</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../GUI/DBMainwindow.py" line="1326"/>
         <source>%n Staff(s)</source>
         <translation>
-            <numerusform>%n Staff</numerusform>
-            <numerusform>%n Staffs</numerusform>
+            <numerusform>%n 譜表</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../GUI/DBMainwindow.py" line="1328"/>
         <source>%n Page(s)</source>
         <translation>
-            <numerusform>%n Page</numerusform>
-            <numerusform>%n Pages</numerusform>
+            <numerusform>%n 頁</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="590"/>
         <source>Unsupported file type</source>
-        <translation>Unsupported file type</translation>
+        <translation>不支援的檔案類型</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="590"/>
         <source>DrumBurp can only open .brp score files.</source>
-        <translation>DrumBurp can only open .brp score files.</translation>
+        <translation>DrumBurp 只能開啟 .brp 樂譜檔案。</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1119"/>
         <source>MIDI output: %s</source>
-        <translation>MIDI output: %s</translation>
+        <translation>MIDI 輸出：%s</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1122"/>
         <source>MIDI output unavailable</source>
-        <translation>MIDI output unavailable</translation>
+        <translation>MIDI 輸出無法使用</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1122"/>
         <source>Could not open MIDI output device:
 %s</source>
-        <translation>Could not open MIDI output device:
+        <translation>無法開啟 MIDI 輸出裝置：
 %s</translation>
     </message>
     <message>
         <location filename="../GUI/DBMainwindow.py" line="1129"/>
         <source>No MIDI output devices found</source>
-        <translation>No MIDI output devices found</translation>
+        <translation>找不到 MIDI 輸出裝置</translation>
     </message>
     <message>
         <location filename="../GUI/DBSectionDisplay.py" line="25"/>
         <source>Intro</source>
-        <translation>Intro</translation>
+        <translation>前奏</translation>
     </message>
     <message>
         <location filename="../GUI/DBSectionDisplay.py" line="26"/>
         <source>Verse</source>
-        <translation>Verse</translation>
+        <translation>主歌</translation>
     </message>
     <message>
         <location filename="../GUI/DBSectionDisplay.py" line="27"/>
         <source>Chorus</source>
-        <translation>Chorus</translation>
+        <translation>副歌</translation>
     </message>
     <message>
         <location filename="../GUI/DBSectionDisplay.py" line="28"/>
         <source>Bridge</source>
-        <translation>Bridge</translation>
+        <translation>橋段</translation>
     </message>
     <message>
         <location filename="../GUI/DBSectionDisplay.py" line="29"/>
         <source>Outro</source>
-        <translation>Outro</translation>
+        <translation>尾奏</translation>
     </message>
 </context>
 <context>
@@ -1124,12 +1121,12 @@ Continue anyway? All unsaved changes will be lost!</translation>
     <message>
         <location filename="../GUI/drumburp.ui" line="60"/>
         <source>Score Editor</source>
-        <translation>Score Editor</translation>
+        <translation>樂譜編輯器</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="81"/>
         <source>Actions</source>
-        <translation>Actions</translation>
+        <translation>操作</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="96"/>
@@ -1202,7 +1199,7 @@ Selecting this option will try to print the score to whatever printer you choose
     <message>
         <location filename="../GUI/drumburp.ui" line="188"/>
         <source>Export to PDF</source>
-        <translation>Export to PDF</translation>
+        <translation>匯出為 PDF</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1720"/>
@@ -1240,12 +1237,12 @@ Sections in the score are defined by a section end barline, and the title that a
     <message>
         <location filename="../GUI/drumburp.ui" line="243"/>
         <source>Score Properties</source>
-        <translation>Score Properties</translation>
+        <translation>樂譜屬性</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="261"/>
         <source>Page size</source>
-        <translation>Page size</translation>
+        <translation>頁面大小</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="264"/>
@@ -1274,7 +1271,7 @@ The page size determines the number of pages used by the current font size and s
     <message>
         <location filename="../GUI/drumburp.ui" line="292"/>
         <source>Score width</source>
-        <translation>Score width</translation>
+        <translation>樂譜寬度</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="295"/>
@@ -1301,7 +1298,7 @@ However, when you print, or export to PDF/ASCII, you might want the width to be 
     <message>
         <location filename="../GUI/drumburp.ui" line="335"/>
         <source>Inter-staff distance</source>
-        <translation>Inter-staff distance</translation>
+        <translation>系統間距</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="338"/>
@@ -1320,7 +1317,7 @@ Each staff in the score is placed by DrumBurp with a certain amount of space sep
     <message>
         <location filename="../GUI/drumburp.ui" line="374"/>
         <source>Default count</source>
-        <translation>Default count</translation>
+        <translation>預設拍點</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="377"/>
@@ -1344,7 +1341,7 @@ A score has a default measure count: this is the count that is given to new meas
     <message>
         <location filename="../GUI/drumburp.ui" line="1164"/>
         <source>Fonts</source>
-        <translation>Fonts</translation>
+        <translation>字型</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="401"/>
@@ -1384,12 +1381,12 @@ To select a measure/measures, click and drag: selected measures can be copy/past
     <message>
         <location filename="../GUI/drumburp.ui" line="473"/>
         <source>Lilypond Output</source>
-        <translation>Lilypond Output</translation>
+        <translation>Lilypond 輸出</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="479"/>
         <source>Lilypond Options</source>
-        <translation>Lilypond Options</translation>
+        <translation>Lilypond 選項</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="485"/>
@@ -1449,7 +1446,7 @@ To select a measure/measures, click and drag: selected measures can be copy/past
     <message>
         <location filename="../GUI/drumburp.ui" line="533"/>
         <source>Export to Lilypond</source>
-        <translation>Export to Lilypond</translation>
+        <translation>匯出至 Lilypond</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="536"/>
@@ -1476,12 +1473,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="787"/>
         <source>Export</source>
-        <translation>Export</translation>
+        <translation>匯出</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="559"/>
         <source>Number of Lilypond pages</source>
-        <translation>Number of Lilypond pages</translation>
+        <translation>Lilypond 頁數</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="562"/>
@@ -1511,12 +1508,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="590"/>
         <source>Path</source>
-        <translation>Path</translation>
+        <translation>路徑</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="601"/>
         <source>Lilypond export size</source>
-        <translation>Lilypond export size</translation>
+        <translation>Lilypond 匯出大小</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="604"/>
@@ -1561,7 +1558,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="685"/>
         <source>First</source>
-        <translation>First</translation>
+        <translation>第一頁</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="692"/>
@@ -1576,7 +1573,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="701"/>
         <source>Previous</source>
-        <translation>Previous</translation>
+        <translation>上一頁</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="711"/>
@@ -1591,7 +1588,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="717"/>
         <source>Refresh</source>
-        <translation>Refresh</translation>
+        <translation>重新整理</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="724"/>
@@ -1606,7 +1603,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="733"/>
         <source>Next</source>
-        <translation>Next</translation>
+        <translation>下一頁</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="740"/>
@@ -1621,17 +1618,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="749"/>
         <source>Last</source>
-        <translation>Last</translation>
+        <translation>最後一頁</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="764"/>
         <source>Text Export</source>
-        <translation>Text Export</translation>
+        <translation>文字匯出</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="770"/>
         <source>Text Options</source>
-        <translation>Text Options</translation>
+        <translation>文字選項</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="778"/>
@@ -1686,27 +1683,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="923"/>
         <source>Operations on the DrumBurp Score</source>
-        <translation>Operations on the DrumBurp Score</translation>
+        <translation>DrumBurp 樂譜操作</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1573"/>
         <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <translation>(&amp;F)檔案</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="930"/>
         <source>Recently opened scores</source>
-        <translation>Recently opened scores</translation>
+        <translation>最近開啟的樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="933"/>
         <source>Open recently visited scores</source>
-        <translation>Open recently visited scores</translation>
+        <translation>開啟最近使用的樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="936"/>
         <source>&amp;Recent Scores...</source>
-        <translation>&amp;Recent Scores...</translation>
+        <translation>(&amp;R)最近的樂譜...</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="956"/>
@@ -1716,57 +1713,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="959"/>
         <source>&amp;Score</source>
-        <translation>&amp;Score</translation>
+        <translation>(&amp;S)樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="974"/>
         <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+        <translation>(&amp;E)編輯</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1764"/>
         <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
+        <translation>(&amp;H)說明</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1000"/>
         <source>&amp;View</source>
-        <translation>&amp;View</translation>
+        <translation>(&amp;V)檢視</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1004"/>
         <source>Tool Bars...</source>
-        <translation>Tool Bars...</translation>
+        <translation>工具列...</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1977"/>
         <source>&amp;MIDI</source>
-        <translation>&amp;MIDI</translation>
+        <translation>(&amp;M)MIDI</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1020"/>
         <source>Select MIDI out</source>
-        <translation>Select MIDI out</translation>
+        <translation>選擇 MIDI 輸出</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1048"/>
         <source>File</source>
-        <translation>File</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1075"/>
         <source>Display</source>
-        <translation>Display</translation>
+        <translation>顯示</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1103"/>
         <source>Help</source>
-        <translation>Help</translation>
+        <translation>說明</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1135"/>
         <source>Score Fonts</source>
-        <translation>Score Fonts</translation>
+        <translation>樂譜字型</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1138"/>
@@ -1829,7 +1826,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="1191"/>
         <source>Note Font</source>
-        <translation>Note Font</translation>
+        <translation>音符字型</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1223"/>
@@ -1853,7 +1850,7 @@ The score editing window uses the font selected here to display the section titl
     <message>
         <location filename="../GUI/drumburp.ui" line="1266"/>
         <source>Section Title Font</source>
-        <translation>Section Title Font</translation>
+        <translation>段落標題字型</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1373"/>
@@ -1877,22 +1874,22 @@ The score editing window uses the font selected here to display the score inform
     <message>
         <location filename="../GUI/drumburp.ui" line="1341"/>
         <source>Song Information Font</source>
-        <translation>Song Information Font</translation>
+        <translation>歌曲資訊字型</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1407"/>
         <source>MIDI ToolBar</source>
-        <translation>MIDI ToolBar</translation>
+        <translation>MIDI 工具列</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1427"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Quit</translation>
+        <translation>(&amp;Q)結束</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1433"/>
         <source>Quit DrumBurp</source>
-        <translation>Quit DrumBurp</translation>
+        <translation>結束 DrumBurp</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1436"/>
@@ -1902,22 +1899,22 @@ The score editing window uses the font selected here to display the score inform
     <message>
         <location filename="../GUI/drumburp.ui" line="1445"/>
         <source>&amp;New</source>
-        <translation>&amp;New</translation>
+        <translation>(&amp;N)新增</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1448"/>
         <source>New</source>
-        <translation>New</translation>
+        <translation>新增</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1451"/>
         <source>New Score</source>
-        <translation>New Score</translation>
+        <translation>新樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1454"/>
         <source>Create a new blank score</source>
-        <translation>Create a new blank score</translation>
+        <translation>建立新的空白樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1457"/>
@@ -1940,17 +1937,17 @@ You'll be asked how you want the new score set up, then it will appear in the ed
     <message>
         <location filename="../GUI/drumburp.ui" line="1473"/>
         <source>&amp;Open</source>
-        <translation>&amp;Open</translation>
+        <translation>(&amp;O)開啟</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1476"/>
         <source>Open Score</source>
-        <translation>Open Score</translation>
+        <translation>開啟樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1479"/>
         <source>Load a saved DrumBurp score</source>
-        <translation>Load a saved DrumBurp score</translation>
+        <translation>載入已儲存的 DrumBurp 樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1482"/>
@@ -1973,12 +1970,12 @@ You'll then be asked to pick a .brp file from your hard drive. DrumBurp will try
     <message>
         <location filename="../GUI/drumburp.ui" line="1498"/>
         <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+        <translation>(&amp;S)儲存</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1501"/>
         <source>Save this DrumBurp score</source>
-        <translation>Save this DrumBurp score</translation>
+        <translation>儲存此 DrumBurp 樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1504"/>
@@ -1997,12 +1994,12 @@ If you've previously saved this score, any new changes will be written to the sa
     <message>
         <location filename="../GUI/drumburp.ui" line="1518"/>
         <source>Save &amp;As</source>
-        <translation>Save &amp;As</translation>
+        <translation>另存新檔(&amp;A)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1521"/>
         <source>Save this DrumBurp score with a new name</source>
-        <translation>Save this DrumBurp score with a new name</translation>
+        <translation>以新名稱儲存此 DrumBurp 樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1524"/>
@@ -2016,12 +2013,12 @@ If you've saved this score before, and you now want to save it to a different fi
     <message>
         <location filename="../GUI/drumburp.ui" line="1535"/>
         <source>&amp;Export ASCII</source>
-        <translation>&amp;Export ASCII</translation>
+        <translation>匯出 ASCII(&amp;E)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1538"/>
         <source>Write an ASCII representation of this score to a file</source>
-        <translation>Write an ASCII representation of this score to a file</translation>
+        <translation>將此樂譜的 ASCII 表示寫入檔案</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1541"/>
@@ -2043,7 +2040,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="1559"/>
         <source>Choose &amp;Fonts...</source>
-        <translation>Choose &amp;Fonts...</translation>
+        <translation>選擇字型(&amp;F)...</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1562"/>
@@ -2063,12 +2060,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="1588"/>
         <source>Fit &amp;Window</source>
-        <translation>Fit &amp;Window</translation>
+        <translation>符合視窗(&amp;W)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1591"/>
         <source>Fit score in window</source>
-        <translation>Fit score in window</translation>
+        <translation>讓樂譜符合視窗</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1606"/>
@@ -2088,12 +2085,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="1632"/>
         <source>&amp;Print</source>
-        <translation>&amp;Print</translation>
+        <translation>列印(&amp;P)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1638"/>
         <source>Print this score</source>
-        <translation>Print this score</translation>
+        <translation>列印此樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1646"/>
@@ -2127,12 +2124,12 @@ Get a little more help on any DrumBurp element. Select this option then click on
     <message>
         <location filename="../GUI/drumburp.ui" line="1678"/>
         <source>&amp;Undo</source>
-        <translation>&amp;Undo</translation>
+        <translation>復原(&amp;U)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1684"/>
         <source>Undo the last action</source>
-        <translation>Undo the last action</translation>
+        <translation>復原上一個動作</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1687"/>
@@ -2142,12 +2139,12 @@ Get a little more help on any DrumBurp element. Select this option then click on
     <message>
         <location filename="../GUI/drumburp.ui" line="1696"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Redo</translation>
+        <translation>重做(&amp;R)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1702"/>
         <source>Redo the last undone action</source>
-        <translation>Redo the last undone action</translation>
+        <translation>重做上一個復原的動作</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1705"/>
@@ -2157,22 +2154,22 @@ Get a little more help on any DrumBurp element. Select this option then click on
     <message>
         <location filename="../GUI/drumburp.ui" line="1714"/>
         <source>E&amp;xport PDF</source>
-        <translation>E&amp;xport PDF</translation>
+        <translation>匯出 PDF(&amp;X)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1717"/>
         <source>Export PDF</source>
-        <translation>Export PDF</translation>
+        <translation>匯出 PDF</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1734"/>
         <source>&amp;About DrumBurp</source>
-        <translation>&amp;About DrumBurp</translation>
+        <translation>關於 DrumBurp(&amp;A)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1737"/>
         <source>About DrumBurp</source>
-        <translation>About DrumBurp</translation>
+        <translation>關於 DrumBurp</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1740"/>
@@ -2186,7 +2183,7 @@ Tells you some info about where DrumBurp comes from and how it is made.</transla
     <message>
         <location filename="../GUI/drumburp.ui" line="1750"/>
         <source>&amp;Print &amp;&amp; Export</source>
-        <translation>&amp;Print &amp;&amp; Export</translation>
+        <translation>列印與匯出(&amp;P)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1756"/>
@@ -2201,12 +2198,12 @@ Tells you some info about where DrumBurp comes from and how it is made.</transla
     <message>
         <location filename="../GUI/drumburp.ui" line="1785"/>
         <source>Show &amp;Empty Lines</source>
-        <translation>Show &amp;Empty Lines</translation>
+        <translation>顯示空白行(&amp;E)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1788"/>
         <source>Show or hide empty lines in the score.</source>
-        <translation>Show or hide empty lines in the score.</translation>
+        <translation>顯示或隱藏樂譜中的空白行。</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1791"/>
@@ -2224,12 +2221,12 @@ Drums which are &quot;locked&quot; in the drum kit definition are never hidden.<
     <message>
         <location filename="../GUI/drumburp.ui" line="1807"/>
         <source>Show &amp;Drum Key</source>
-        <translation>Show &amp;Drum Key</translation>
+        <translation>顯示鼓組圖例(&amp;D)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1813"/>
         <source>Show/Hide Drum Key</source>
-        <translation>Show/Hide Drum Key</translation>
+        <translation>顯示/隱藏鼓組圖例</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1816"/>
@@ -2243,12 +2240,12 @@ The drum key appears at the top of the score and shows the abbreviations and ful
     <message>
         <location filename="../GUI/drumburp.ui" line="1833"/>
         <source>Show &amp;Score Info</source>
-        <translation>Show &amp;Score Info</translation>
+        <translation>顯示樂譜資訊(&amp;S)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1836"/>
         <source>Show/Hide score info</source>
-        <translation>Show/Hide score info</translation>
+        <translation>顯示/隱藏樂譜資訊</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1839"/>
@@ -2271,12 +2268,12 @@ If you just want to hide individual items in the score information, double-click
     <message>
         <location filename="../GUI/drumburp.ui" line="1861"/>
         <source>Show &amp;Beat Count</source>
-        <translation>Show &amp;Beat Count</translation>
+        <translation>顯示拍點計數(&amp;B)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1864"/>
         <source>Show/hide the beat count below measures</source>
-        <translation>Show/hide the beat count below measures</translation>
+        <translation>顯示/隱藏小節下方的拍點計數</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1867"/>
@@ -2290,22 +2287,22 @@ The beat count appears underneath each measure in the score. If you want to save
     <message>
         <location filename="../GUI/drumburp.ui" line="1878"/>
         <source>Fit &amp;Page</source>
-        <translation>Fit &amp;Page</translation>
+        <translation>符合頁面(&amp;P)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1881"/>
         <source>Fit score to page</source>
-        <translation>Fit score to page</translation>
+        <translation>讓樂譜符合頁面</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1908"/>
         <source>Play &amp;Score</source>
-        <translation>Play &amp;Score</translation>
+        <translation>播放樂譜(&amp;S)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1914"/>
         <source>Play this score through MIDI</source>
-        <translation>Play this score through MIDI</translation>
+        <translation>透過 MIDI 播放此樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1917"/>
@@ -2331,12 +2328,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="1938"/>
         <source>&amp;Mute MIDI</source>
-        <translation>&amp;Mute MIDI</translation>
+        <translation>MIDI 靜音(&amp;M)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1944"/>
         <source>Enable/disable note audio</source>
-        <translation>Enable/disable note audio</translation>
+        <translation>啟用/停用音符聲音</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1947"/>
@@ -2350,12 +2347,12 @@ When a note is added to the score, a sound is played to indicate the note that w
     <message>
         <location filename="../GUI/drumburp.ui" line="1958"/>
         <source>E&amp;xport MIDI</source>
-        <translation>E&amp;xport MIDI</translation>
+        <translation>匯出 MIDI(&amp;X)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1964"/>
         <source>Export this score to a MIDI file</source>
-        <translation>Export this score to a MIDI file</translation>
+        <translation>將此樂譜匯出為 MIDI 檔案</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="1967"/>
@@ -2374,7 +2371,7 @@ The score you've created can be written out to a MIDI file. You can then use thi
     <message>
         <location filename="../GUI/drumburp.ui" line="1996"/>
         <source>&amp;Loop Selected Measures</source>
-        <translation>&amp;Loop Selected Measures</translation>
+        <translation>循環播放選取小節(&amp;L)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2002"/>
@@ -2393,7 +2390,7 @@ Plays back the currently selected measures in a constant loop: once the measures
     <message>
         <location filename="../GUI/drumburp.ui" line="2020"/>
         <source>Play Selected Measures &amp;Once</source>
-        <translation>Play Selected Measures &amp;Once</translation>
+        <translation>播放選取小節一次(&amp;O)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2026"/>
@@ -2412,7 +2409,7 @@ Plays the currently selected measures back through MIDI. To stop playback, click
     <message>
         <location filename="../GUI/drumburp.ui" line="2040"/>
         <source>&amp;Copy Measures</source>
-        <translation>&amp;Copy Measures</translation>
+        <translation>複製小節(&amp;C)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2046"/>
@@ -2427,7 +2424,7 @@ Plays the currently selected measures back through MIDI. To stop playback, click
     <message>
         <location filename="../GUI/drumburp.ui" line="2058"/>
         <source>&amp;Paste Measures</source>
-        <translation>&amp;Paste Measures</translation>
+        <translation>貼上小節(&amp;P)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2061"/>
@@ -2442,7 +2439,7 @@ Plays the currently selected measures back through MIDI. To stop playback, click
     <message>
         <location filename="../GUI/drumburp.ui" line="2069"/>
         <source>C&amp;lear Measures</source>
-        <translation>C&amp;lear Measures</translation>
+        <translation>清除小節(&amp;L)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2075"/>
@@ -2457,7 +2454,7 @@ Plays the currently selected measures back through MIDI. To stop playback, click
     <message>
         <location filename="../GUI/drumburp.ui" line="2087"/>
         <source>&amp;Delete Measures</source>
-        <translation>&amp;Delete Measures</translation>
+        <translation>刪除小節(&amp;D)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2093"/>
@@ -2472,7 +2469,7 @@ Plays the currently selected measures back through MIDI. To stop playback, click
     <message>
         <location filename="../GUI/drumburp.ui" line="2105"/>
         <source>&amp;Fill Paste Measures</source>
-        <translation>&amp;Fill Paste Measures</translation>
+        <translation>填滿貼上小節(&amp;F)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2111"/>
@@ -2487,22 +2484,22 @@ Plays the currently selected measures back through MIDI. To stop playback, click
     <message>
         <location filename="../GUI/drumburp.ui" line="2123"/>
         <source>&amp;Online Manual</source>
-        <translation>&amp;Online Manual</translation>
+        <translation>線上手冊(&amp;O)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2129"/>
         <source>Open the Online Manual in a web browser</source>
-        <translation>Open the Online Manual in a web browser</translation>
+        <translation>在網頁瀏覽器中開啟線上手冊</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2138"/>
         <source>Export &amp;Lilypond</source>
-        <translation>Export &amp;Lilypond</translation>
+        <translation>匯出 Lilypond(&amp;L)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2141"/>
         <source>Export Lilypond</source>
-        <translation>Export Lilypond</translation>
+        <translation>匯出 Lilypond</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2144"/>
@@ -2529,42 +2526,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/drumburp.ui" line="2158"/>
         <source>Check for updates now</source>
-        <translation>Check for updates now</translation>
+        <translation>立即檢查更新</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2166"/>
         <source>Check for updates on startup</source>
-        <translation>Check for updates on startup</translation>
+        <translation>啟動時檢查更新</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2181"/>
         <source>Show Measure Indexes</source>
-        <translation>Show Measure Indexes</translation>
+        <translation>顯示小節索引</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2190"/>
         <source>Show/Hide Measure Indexes</source>
-        <translation>Show/Hide Measure Indexes</translation>
+        <translation>顯示/隱藏小節索引</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2199"/>
         <source>Edit &amp;Colours</source>
-        <translation>Edit &amp;Colours</translation>
+        <translation>編輯色彩(&amp;C)</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2202"/>
         <source>Edit the colours DrumBurp uses</source>
-        <translation>Edit the colours DrumBurp uses</translation>
+        <translation>編輯 DrumBurp 使用的色彩</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2207"/>
         <source>Refresh Device List</source>
-        <translation>Refresh Device List</translation>
+        <translation>重新整理裝置清單</translation>
     </message>
     <message>
         <location filename="../GUI/drumburp.ui" line="2216"/>
         <source>Refresh MIDI device list</source>
-        <translation>Refresh MIDI device list</translation>
+        <translation>重新整理 MIDI 裝置清單</translation>
     </message>
 </context>
 <context>
@@ -2572,7 +2569,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/dbInfo.ui" line="14"/>
         <source>DrumBurp Information</source>
-        <translation>DrumBurp Information</translation>
+        <translation>DrumBurp 資訊</translation>
     </message>
     <message>
         <location filename="../GUI/dbInfo.ui" line="39"/>
@@ -2582,7 +2579,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/dbInfo.ui" line="55"/>
         <source>Contact Details</source>
-        <translation>Contact Details</translation>
+        <translation>聯絡資訊</translation>
     </message>
     <message>
         <location filename="../GUI/dbInfo.ui" line="71"/>
@@ -2600,7 +2597,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/dbInfo.ui" line="97"/>
         <source>Technologies</source>
-        <translation>Technologies</translation>
+        <translation>技術</translation>
     </message>
     <message>
         <location filename="../GUI/dbInfo.ui" line="116"/>
@@ -2618,7 +2615,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/dbInfo.ui" line="136"/>
         <source>License</source>
-        <translation>License</translation>
+        <translation>授權</translation>
     </message>
     <message>
         <location filename="../GUI/dbInfo.ui" line="159"/>
@@ -2636,7 +2633,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/dbInfo.ui" line="257"/>
         <source>Cost</source>
-        <translation>Cost</translation>
+        <translation>費用</translation>
     </message>
     <message>
         <location filename="../GUI/dbInfo.ui" line="286"/>
@@ -2649,22 +2646,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="14"/>
         <source>Insert Measures</source>
-        <translation>Insert Measures</translation>
+        <translation>插入小節</translation>
     </message>
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="38"/>
         <source>Number of measures to insert</source>
-        <translation>Number of measures to insert</translation>
+        <translation>要插入的小節數</translation>
     </message>
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="25"/>
         <source>Number of measures</source>
-        <translation>Number of measures</translation>
+        <translation>小節數</translation>
     </message>
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="74"/>
         <source>Insert Measures...</source>
-        <translation>Insert Measures...</translation>
+        <translation>插入小節...</translation>
     </message>
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="87"/>
@@ -2674,7 +2671,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="90"/>
         <source>Before</source>
-        <translation>Before</translation>
+        <translation>之前</translation>
     </message>
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="100"/>
@@ -2684,7 +2681,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="103"/>
         <source>After</source>
-        <translation>After</translation>
+        <translation>之後</translation>
     </message>
     <message>
         <location filename="../GUI/insertMeasuresDialog.ui" line="125"/>
@@ -2697,137 +2694,137 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/QCountContextMenu.py" line="46"/>
         <source>Edit Measure Count</source>
-        <translation>Edit Measure Count</translation>
+        <translation>編輯小節拍點</translation>
     </message>
     <message>
         <location filename="../GUI/QCountContextMenu.py" line="48"/>
         <source>Measure Count</source>
-        <translation>Measure Count</translation>
+        <translation>小節拍點</translation>
     </message>
     <message>
         <location filename="../GUI/QCountContextMenu.py" line="52"/>
         <source>Contract Count</source>
-        <translation>Contract Count</translation>
+        <translation>收合拍點</translation>
     </message>
     <message>
         <location filename="../GUI/QCountContextMenu.py" line="56"/>
         <source>Contract All Counts</source>
-        <translation>Contract All Counts</translation>
+        <translation>收合全部拍點</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="15"/>
         <source>Quarter Notes</source>
-        <translation>Quarter Notes</translation>
+        <translation>四分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="17"/>
         <source>8ths</source>
-        <translation>8ths</translation>
+        <translation>八分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="19"/>
         <source>Triplets</source>
-        <translation>Triplets</translation>
+        <translation>三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="21"/>
         <source>Quintuplets</source>
-        <translation>Quintuplets</translation>
+        <translation>五連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="23"/>
         <source>Septuplets</source>
-        <translation>Septuplets</translation>
+        <translation>七連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="25"/>
         <source>16ths</source>
-        <translation>16ths</translation>
+        <translation>十六分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="27"/>
         <source>Sparse 16ths</source>
-        <translation>Sparse 16ths</translation>
+        <translation>稀疏十六分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="29"/>
         <source>16th Triplets</source>
-        <translation>16th Triplets</translation>
+        <translation>十六分三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="31"/>
         <source>Sparse 16th Triplets</source>
-        <translation>Sparse 16th Triplets</translation>
+        <translation>稀疏十六分三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="33"/>
         <source>16th Quintuplets</source>
-        <translation>16th Quintuplets</translation>
+        <translation>十六分五連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="35"/>
         <source>16th Septuplets</source>
-        <translation>16th Septuplets</translation>
+        <translation>十六分七連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="37"/>
         <source>32nds</source>
-        <translation>32nds</translation>
+        <translation>三十二分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="39"/>
         <source>Sparse 32nds</source>
-        <translation>Sparse 32nds</translation>
+        <translation>稀疏三十二分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="41"/>
         <source>32nd Triplets</source>
-        <translation>32nd Triplets</translation>
+        <translation>三十二分三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="43"/>
         <source>Sparse 32nd Triplets</source>
-        <translation>Sparse 32nd Triplets</translation>
+        <translation>稀疏三十二分三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="45"/>
         <source>32nd Quintuplets</source>
-        <translation>32nd Quintuplets</translation>
+        <translation>三十二分五連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="47"/>
         <source>32nd Septuplets</source>
-        <translation>32nd Septuplets</translation>
+        <translation>三十二分七連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="49"/>
         <source>64ths</source>
-        <translation>64ths</translation>
+        <translation>六十四分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="51"/>
         <source>Sparse 64ths</source>
-        <translation>Sparse 64ths</translation>
+        <translation>稀疏六十四分音符</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="53"/>
         <source>64th Triplets</source>
-        <translation>64th Triplets</translation>
+        <translation>六十四分三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="55"/>
         <source>Sparse 64th Triplets</source>
-        <translation>Sparse 64th Triplets</translation>
+        <translation>稀疏六十四分三連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="57"/>
         <source>64th Quintuplets</source>
-        <translation>64th Quintuplets</translation>
+        <translation>六十四分五連音</translation>
     </message>
     <message>
         <location filename="../GUI/DBCounterDisplay.py" line="59"/>
         <source>64th Septuplets</source>
-        <translation>64th Septuplets</translation>
+        <translation>六十四分七連音</translation>
     </message>
 </context>
 <context>
@@ -2835,7 +2832,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="109"/>
         <source>Kit name</source>
-        <translation>Kit name</translation>
+        <translation>鼓組名稱</translation>
     </message>
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="109"/>
@@ -2845,22 +2842,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="115"/>
         <source>Duplicate kit name!</source>
-        <translation>Duplicate kit name!</translation>
+        <translation>重複的鼓組名稱！</translation>
     </message>
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="115"/>
         <source>That kit name already exists.</source>
-        <translation>That kit name already exists.</translation>
+        <translation>該鼓組名稱已存在。</translation>
     </message>
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="134"/>
         <source>Default kit</source>
-        <translation>Default kit</translation>
+        <translation>預設鼓組</translation>
     </message>
     <message>
         <location filename="../GUI/QDefaultKitManager.py" line="134"/>
         <source>Cannot overwrite default kits!</source>
-        <translation>Cannot overwrite default kits!</translation>
+        <translation>不能覆寫預設鼓組！</translation>
     </message>
 </context>
 <context>
@@ -2868,12 +2865,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/QEditKitDialog.py" line="311"/>
         <source>Kit saved</source>
-        <translation>Kit saved</translation>
+        <translation>鼓組已儲存</translation>
     </message>
     <message>
         <location filename="../GUI/QEditKitDialog.py" line="311"/>
         <source>Successfully saved drumkit</source>
-        <translation>Successfully saved drumkit</translation>
+        <translation>成功儲存鼓組</translation>
     </message>
 </context>
 <context>
@@ -2899,7 +2896,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/QLilypondPreview.py" line="92"/>
         <source>Export failed!</source>
-        <translation>Export failed!</translation>
+        <translation>匯出失敗！</translation>
     </message>
     <message>
         <location filename="../GUI/QLilypondPreview.py" line="92"/>
@@ -2944,12 +2941,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/QLilypondPreview.py" line="183"/>
         <source>Preview</source>
-        <translation>Preview</translation>
+        <translation>預覽</translation>
     </message>
     <message>
         <location filename="../GUI/QLilypondPreview.py" line="139"/>
         <source>Refresh</source>
-        <translation>Refresh</translation>
+        <translation>重新整理</translation>
     </message>
 </context>
 <context>
@@ -3040,22 +3037,22 @@ Continue?</translation>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="66"/>
         <source>Delete Alternate Ending</source>
-        <translation>Delete Alternate Ending</translation>
+        <translation>刪除反覆結尾</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="69"/>
         <source>Add Alternate Ending</source>
-        <translation>Add Alternate Ending</translation>
+        <translation>新增反覆結尾</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="73"/>
         <source>Remove simile mark</source>
-        <translation>Remove simile mark</translation>
+        <translation>移除反覆記號</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="76"/>
         <source>Add simile mark</source>
-        <translation>Add simile mark</translation>
+        <translation>新增反覆記號</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="80"/>
@@ -3070,7 +3067,7 @@ Continue?</translation>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="101"/>
         <source>Repeat note</source>
-        <translation>Repeat note</translation>
+        <translation>重複音符</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="106"/>
@@ -3090,37 +3087,37 @@ Continue?</translation>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="117"/>
         <source>Copy Measure</source>
-        <translation>Copy Measure</translation>
+        <translation>複製小節</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="119"/>
         <source>Insert Measures From Clipboard</source>
-        <translation>Insert Measures From Clipboard</translation>
+        <translation>從剪貼簿插入小節</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="128"/>
         <source>Insert Default Measure</source>
-        <translation>Insert Default Measure</translation>
+        <translation>插入預設小節</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="130"/>
         <source>Insert...</source>
-        <translation>Insert...</translation>
+        <translation>插入...</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="131"/>
         <source>Default Measure After</source>
-        <translation>Default Measure After</translation>
+        <translation>在之後插入預設小節</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="133"/>
         <source>Other Measures...</source>
-        <translation>Other Measures...</translation>
+        <translation>其他小節...</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="135"/>
         <source>Section Copy</source>
-        <translation>Section Copy</translation>
+        <translation>複製段落</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="146"/>
@@ -3135,17 +3132,17 @@ Continue?</translation>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="154"/>
         <source>Delete Measure</source>
-        <translation>Delete Measure</translation>
+        <translation>刪除小節</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="158"/>
         <source>Clear Measure</source>
-        <translation>Clear Measure</translation>
+        <translation>清空小節</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="160"/>
         <source>Delete...</source>
-        <translation>Delete...</translation>
+        <translation>刪除...</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="161"/>
@@ -3160,17 +3157,17 @@ Continue?</translation>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="173"/>
         <source>Show Sticking Above</source>
-        <translation>Show Sticking Above</translation>
+        <translation>在上方顯示手法</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="179"/>
         <source>Show Sticking Below</source>
-        <translation>Show Sticking Below</translation>
+        <translation>在下方顯示手法</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="188"/>
         <source>Set new BPM</source>
-        <translation>Set new BPM</translation>
+        <translation>設定新的 BPM</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureContextMenu.py" line="191"/>
@@ -3196,22 +3193,22 @@ Continue?</translation>
     <message>
         <location filename="../GUI/QMeasureLineContextMenu.py" line="52"/>
         <source>Repeat End</source>
-        <translation>Repeat End</translation>
+        <translation>反覆結束</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureLineContextMenu.py" line="59"/>
         <source>Section End</source>
-        <translation>Section End</translation>
+        <translation>段落結束</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureLineContextMenu.py" line="66"/>
         <source>Line Break</source>
-        <translation>Line Break</translation>
+        <translation>換行</translation>
     </message>
     <message>
         <location filename="../GUI/QMeasureLineContextMenu.py" line="77"/>
         <source>Set repeat count</source>
-        <translation>Set repeat count</translation>
+        <translation>設定反覆次數</translation>
     </message>
 </context>
 <context>
@@ -3295,7 +3292,7 @@ Continue?</translation>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="40"/>
         <source>Title</source>
-        <translation>Title</translation>
+        <translation>標題</translation>
     </message>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="80"/>
@@ -3305,7 +3302,7 @@ Continue?</translation>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="50"/>
         <source>Artist</source>
-        <translation>Artist</translation>
+        <translation>演出者</translation>
     </message>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="87"/>
@@ -3315,7 +3312,7 @@ Continue?</translation>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="60"/>
         <source>Tabbed by</source>
-        <translation>Tabbed by</translation>
+        <translation>製譜者</translation>
     </message>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="67"/>
@@ -3340,17 +3337,17 @@ Continue?</translation>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="122"/>
         <source>8ths</source>
-        <translation>8ths</translation>
+        <translation>八分音符</translation>
     </message>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="127"/>
         <source>16ths</source>
-        <translation>16ths</translation>
+        <translation>十六分音符</translation>
     </message>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="132"/>
         <source>32nds</source>
-        <translation>32nds</translation>
+        <translation>三十二分音符</translation>
     </message>
     <message>
         <location filename="../GUI/scorePropertiesDialog.ui" line="200"/>
@@ -3383,7 +3380,7 @@ Continue?</translation>
     <message>
         <location filename="../Data/ScoreMetaData.py" line="47"/>
         <source>Untitled</source>
-        <translation>Untitled</translation>
+        <translation>未命名</translation>
     </message>
     <message>
         <location filename="../Data/ScoreMetaData.py" line="48"/>
@@ -3472,12 +3469,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/asciiDialog.ui" line="100"/>
         <source>Export the drum kit key</source>
-        <translation>Export the drum kit key</translation>
+        <translation>匯出鼓組圖例</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="103"/>
         <source>Drum kit key</source>
-        <translation>Drum kit key</translation>
+        <translation>鼓組圖例</translation>
     </message>
     <message>
         <location filename="../GUI/asciiDialog.ui" line="113"/>
@@ -3540,7 +3537,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="67"/>
         <source>Add Beat</source>
-        <translation>Add Beat</translation>
+        <translation>新增拍</translation>
     </message>
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="74"/>
@@ -3550,12 +3547,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="77"/>
         <source>Delete Beat</source>
-        <translation>Delete Beat</translation>
+        <translation>刪除拍</translation>
     </message>
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="84"/>
         <source>Count</source>
-        <translation>Count</translation>
+        <translation>拍點</translation>
     </message>
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="97"/>
@@ -3580,7 +3577,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="138"/>
         <source>Preview</source>
-        <translation>Preview</translation>
+        <translation>預覽</translation>
     </message>
     <message>
         <location filename="../GUI/DBComplextCountDialog.ui" line="153"/>
@@ -4970,17 +4967,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/dbStartup.ui" line="14"/>
         <source>Welcome to DrumBurp</source>
-        <translation>Welcome to DrumBurp</translation>
+        <translation>歡迎使用 DrumBurp</translation>
     </message>
     <message>
         <location filename="../GUI/dbStartup.ui" line="20"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;DrumBurp Copyright (C) 2011-16 Michael Thomas&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;This program comes with ABSOLUTELY NO WARRANTY; for details see the &lt;span style=&quot; font-weight:600;&quot;&gt;Help&amp;gt;About DrumBurp&lt;/span&gt; menu item. This is free software, and you are welcome to redistribute it under certain conditions; see the licensing information in &lt;span style=&quot; font-weight:600;&quot;&gt;Help&amp;gt;About DrumBurp&lt;/span&gt; for details.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Support and further licensing information is available at &lt;a href=&quot;http://www.whatang.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;www.whatang.org&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;DrumBurp Copyright (C) 2011-16 Michael Thomas&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;This program comes with ABSOLUTELY NO WARRANTY; for details see the &lt;span style=&quot; font-weight:600;&quot;&gt;Help&amp;gt;About DrumBurp&lt;/span&gt; menu item. This is free software, and you are welcome to redistribute it under certain conditions; see the licensing information in &lt;span style=&quot; font-weight:600;&quot;&gt;Help&amp;gt;About DrumBurp&lt;/span&gt; for details.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Support and further licensing information is available at &lt;a href=&quot;http://www.whatang.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;www.whatang.org&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;DrumBurp Copyright (C) 2011-16 Michael Thomas&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;本程式不提供任何形式的保固；詳情請參閱 &lt;span style=&quot; font-weight:600;&quot;&gt;說明&amp;gt;About DrumBurp&lt;/span&gt; 選單項目。這是自由軟體，歡迎在特定條件下重新散布；授權資訊詳見 &lt;span style=&quot; font-weight:600;&quot;&gt;說明&amp;gt;About DrumBurp&lt;/span&gt;。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;支援與更多授權資訊可在 &lt;a href=&quot;http://www.whatang.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;www.whatang.org&lt;/span&gt;&lt;/a&gt; 取得。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../GUI/dbStartup.ui" line="36"/>
         <source>Do not show this again</source>
-        <translation>Do not show this again</translation>
+        <translation>不再顯示</translation>
     </message>
 </context>
 <context>
@@ -4988,7 +4985,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="14"/>
         <source>Edit Drum Kit</source>
-        <translation>Edit Drum Kit</translation>
+        <translation>編輯鼓組</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="24"/>
@@ -4998,7 +4995,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="27"/>
         <source>Drums</source>
-        <translation>Drums</translation>
+        <translation>鼓件</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="56"/>
@@ -5128,7 +5125,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="523"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>名稱</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="548"/>
@@ -5143,7 +5140,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="564"/>
         <source>Abbreviation</source>
-        <translation>Abbreviation</translation>
+        <translation>縮寫</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="592"/>
@@ -5163,7 +5160,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="617"/>
         <source>Convert from existing drum?</source>
-        <translation>Convert from existing drum?</translation>
+        <translation>從現有鼓件轉換？</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="645"/>
@@ -5178,7 +5175,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="709"/>
         <source>Note Heads</source>
-        <translation>Note Heads</translation>
+        <translation>音頭</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="717"/>
@@ -5198,7 +5195,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="772"/>
         <source>Shortcut</source>
-        <translation>Shortcut</translation>
+        <translation>快捷鍵</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="782"/>
@@ -5408,7 +5405,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1186"/>
         <source>Lilypond Notation</source>
-        <translation>Lilypond Notation</translation>
+        <translation>Lilypond 記譜</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1234"/>
@@ -5508,7 +5505,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1397"/>
         <source>Effect</source>
-        <translation>Effect</translation>
+        <translation>效果</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1452"/>
@@ -5558,7 +5555,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1455"/>
         <source>Head</source>
-        <translation>Head</translation>
+        <translation>音頭</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1546"/>
@@ -5568,7 +5565,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1495"/>
         <source>Sound</source>
-        <translation>Sound</translation>
+        <translation>聲音</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1522"/>
@@ -5578,7 +5575,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1549"/>
         <source>Play sound effects</source>
-        <translation>Play sound effects</translation>
+        <translation>播放音效</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1568"/>
@@ -5588,7 +5585,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1571"/>
         <source>MIDI Note</source>
-        <translation>MIDI Note</translation>
+        <translation>MIDI 音符</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1589"/>
@@ -5608,7 +5605,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1606"/>
         <source>Volume</source>
-        <translation>Volume</translation>
+        <translation>音量</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1616"/>
@@ -5633,7 +5630,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1692"/>
         <source>Effects</source>
-        <translation>Effects</translation>
+        <translation>效果</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1698"/>
@@ -5643,7 +5640,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1701"/>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation>普通</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1711"/>
@@ -5653,7 +5650,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1714"/>
         <source>Accent</source>
-        <translation>Accent</translation>
+        <translation>重音</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1734"/>
@@ -5663,7 +5660,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1737"/>
         <source>Ghost</source>
-        <translation>Ghost</translation>
+        <translation>幽靈音</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1744"/>
@@ -5673,7 +5670,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1747"/>
         <source>Choke</source>
-        <translation>Choke</translation>
+        <translation>悶音</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1754"/>
@@ -5683,7 +5680,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1757"/>
         <source>Flam</source>
-        <translation>Flam</translation>
+        <translation>裝飾擊</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1764"/>
@@ -5693,7 +5690,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/editKit.ui" line="1767"/>
         <source>Drag</source>
-        <translation>Drag</translation>
+        <translation>拖音</translation>
     </message>
     <message>
         <location filename="../GUI/editKit.ui" line="1809"/>
@@ -5749,7 +5746,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../Widgets/measureTabs.ui" line="60"/>
         <source>Simple Count</source>
-        <translation>Simple Count</translation>
+        <translation>簡單拍點</translation>
     </message>
     <message>
         <location filename="../Widgets/measureTabs.ui" line="181"/>
@@ -5764,7 +5761,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../Widgets/measureTabs.ui" line="122"/>
         <source>Beats</source>
-        <translation>Beats</translation>
+        <translation>拍</translation>
     </message>
     <message>
         <location filename="../Widgets/measureTabs.ui" line="159"/>
@@ -5794,7 +5791,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../Widgets/measureTabs.ui" line="223"/>
         <source>Edit Count</source>
-        <translation>Edit Count</translation>
+        <translation>編輯拍點</translation>
     </message>
     <message>
         <location filename="../Widgets/measureTabs.ui" line="284"/>
@@ -5804,7 +5801,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../Widgets/measureTabs.ui" line="287"/>
         <source>Preview</source>
-        <translation>Preview</translation>
+        <translation>預覽</translation>
     </message>
     <message>
         <location filename="../Widgets/measureTabs.ui" line="293"/>
@@ -5817,7 +5814,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/newScoreDialog.ui" line="23"/>
         <source>New Score</source>
-        <translation>New Score</translation>
+        <translation>新樂譜</translation>
     </message>
     <message>
         <location filename="../GUI/newScoreDialog.ui" line="59"/>
@@ -5827,7 +5824,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/newScoreDialog.ui" line="43"/>
         <source>Number of measures</source>
-        <translation>Number of measures</translation>
+        <translation>小節數</translation>
     </message>
     <message>
         <location filename="../GUI/newScoreDialog.ui" line="62"/>
@@ -5850,7 +5847,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/DBMainwindow.py" line="129"/>
         <source>DrumBurp files (*.brp)</source>
-        <translation>DrumBurp files (*.brp)</translation>
+        <translation>DrumBurp 檔案 (*.brp)</translation>
     </message>
 </context>
 <context>
@@ -5858,7 +5855,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../GUI/repeatCountDialog.ui" line="14"/>
         <source>Set repeat count</source>
-        <translation>Set repeat count</translation>
+        <translation>設定反覆次數</translation>
     </message>
     <message>
         <location filename="../GUI/repeatCountDialog.ui" line="61"/>

@@ -64,4 +64,5 @@ FORMS = src/GUI/DBComplextCountDialog.ui \
 
 TRANSLATIONS = src/i18n/drumburp_en.ts \
                src/i18n/drumburp_es.ts \
-               src/i18n/drumburp_de.ts
+               src/i18n/drumburp_de.ts \
+               src/i18n/drumburp_zh_TW.ts

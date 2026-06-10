@@ -602,7 +602,7 @@
 <context>
     <name>DBStartupDialog</name>
     <message>
-        <location filename="../GUI/DBStartupDialog.py" line="32"/>
+        <location filename="../GUI/DBStartupDialog.py" line="33"/>
         <source>Welcome to DrumBurp v</source>
         <translation>Bienvenido a DrumBurp v</translation>
     </message>
@@ -953,87 +953,87 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <translation>No se pudo ejecutar Lilypond en %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1142"/>
+        <location filename="../GUI/DBMainwindow.py" line="1143"/>
         <source>Playback error</source>
         <translation>Error de reproduccion</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1142"/>
+        <location filename="../GUI/DBMainwindow.py" line="1143"/>
         <source>There are inconsistent repeat markings.</source>
         <translation>Hay marcas de repeticion inconsistentes.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1198"/>
+        <location filename="../GUI/DBMainwindow.py" line="1199"/>
         <source>Error generating MIDI!</source>
         <translation>Error al generar MIDI!</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1214"/>
+        <location filename="../GUI/DBMainwindow.py" line="1215"/>
         <source>DrumBurp files (*.mid)</source>
         <translation>Archivos DrumBurp (*.mid)</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1225"/>
+        <location filename="../GUI/DBMainwindow.py" line="1226"/>
         <source>File error</source>
         <translation>Error de archivo</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1225"/>
+        <location filename="../GUI/DBMainwindow.py" line="1226"/>
         <source>Error writing MIDI to file %s</source>
         <translation>Error al escribir MIDI en el archivo %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1389"/>
+        <location filename="../GUI/DBMainwindow.py" line="1390"/>
         <source>Lilypond is a program for displaying music notation. DrumBurp can export Lilypond files and use Lilypond to display your drum score as sheet music. First you must download and install Lilypond from www.lilypond.org and set the path to the lilypond program in this window.</source>
         <translation>Lilypond es un programa para mostrar notacion musical. DrumBurp puede exportar archivos Lilypond y usar Lilypond para mostrar su partitura de bateria como partitura musical. Primero debe descargar e instalar Lilypond desde www.lilypond.org y configurar la ruta al programa lilypond en esta ventana.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1403"/>
+        <location filename="../GUI/DBMainwindow.py" line="1404"/>
         <source>Please select path to Lilypond executable</source>
         <translation>Seleccione la ruta al ejecutable de Lilypond</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1206"/>
+        <location filename="../GUI/DBMainwindow.py" line="1207"/>
         <source>Untitled</source>
         <translation>Sin titulo</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1198"/>
+        <location filename="../GUI/DBMainwindow.py" line="1199"/>
         <source>Failed to generate MIDI for this score: %s</source>
         <translation>Error al generar MIDI para esta partitura: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1213"/>
+        <location filename="../GUI/DBMainwindow.py" line="1214"/>
         <source>Export to MIDI</source>
         <translation>Exportar a MIDI</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1365"/>
+        <location filename="../GUI/DBMainwindow.py" line="1366"/>
         <source>Failed to get latest version info from www.whatang.org</source>
         <translation>No se pudo obtener la informacion de la ultima version desde www.whatang.org</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1368"/>
+        <location filename="../GUI/DBMainwindow.py" line="1369"/>
         <source>Check successful: You have the latest version of DrumBurp</source>
         <translation>Verificacion exitosa: tiene la ultima version de DrumBurp</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1003"/>
+        <location filename="../GUI/DBMainwindow.py" line="1004"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1026"/>
+        <location filename="../GUI/DBMainwindow.py" line="1027"/>
         <source>Language changed</source>
         <translation>Idioma cambiado</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1026"/>
+        <location filename="../GUI/DBMainwindow.py" line="1027"/>
         <source>The language will change the next time DrumBurp starts.</source>
         <translation>El idioma cambiara la proxima vez que DrumBurp se inicie.</translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1323"/>
+        <location filename="../GUI/DBMainwindow.py" line="1324"/>
         <source>%n Measure(s)</source>
         <translation>
             <numerusform>%n Compas</numerusform>
@@ -1041,7 +1041,7 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1325"/>
+        <location filename="../GUI/DBMainwindow.py" line="1326"/>
         <source>%n Staff(s)</source>
         <translation>
             <numerusform>%n Pentagrama</numerusform>
@@ -1049,7 +1049,7 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../GUI/DBMainwindow.py" line="1327"/>
+        <location filename="../GUI/DBMainwindow.py" line="1328"/>
         <source>%n Page(s)</source>
         <translation>
             <numerusform>%n Pagina</numerusform>
@@ -1067,24 +1067,24 @@ Continuar de todas formas? Todos los cambios sin guardar se perderan!</translati
         <translation>DrumBurp solo puede abrir archivos de partitura .brp.</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1118"/>
+        <location filename="../GUI/DBMainwindow.py" line="1119"/>
         <source>MIDI output: %s</source>
         <translation>Salida MIDI: %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1121"/>
+        <location filename="../GUI/DBMainwindow.py" line="1122"/>
         <source>MIDI output unavailable</source>
         <translation>Salida MIDI no disponible</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1121"/>
+        <location filename="../GUI/DBMainwindow.py" line="1122"/>
         <source>Could not open MIDI output device:
 %s</source>
         <translation>No se pudo abrir el dispositivo de salida MIDI:
 %s</translation>
     </message>
     <message>
-        <location filename="../GUI/DBMainwindow.py" line="1128"/>
+        <location filename="../GUI/DBMainwindow.py" line="1129"/>
         <source>No MIDI output devices found</source>
         <translation>No se encontraron dispositivos de salida MIDI</translation>
     </message>
@@ -4239,6 +4239,11 @@ p, li { white-space: pre-wrap; }
 Este programa se distribuye SIN NINGUNA GARANTIA; para mas detalles consulte el menu Ayuda &gt; Licencia.
 
 Este es software libre y puede redistribuirlo bajo ciertas condiciones; consulte el menu Ayuda &gt; Licencia para mas detalles.</translation>
+    </message>
+    <message>
+        <location filename="../GUI/dbStartup.ui" line="36"/>
+        <source>Do not show this again</source>
+        <translation>No mostrar esto de nuevo</translation>
     </message>
 </context>
 <context>

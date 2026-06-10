@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_dbStartup(object):
     def setupUi(self, dbStartup):
         dbStartup.setObjectName("dbStartup")
-        dbStartup.resize(771, 335)
+        dbStartup.resize(820, 380)
         self.verticalLayout = QtWidgets.QVBoxLayout(dbStartup)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(dbStartup)
@@ -23,6 +23,9 @@ class Ui_dbStartup(object):
         self.label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
+        self.hideOnStartupCheckBox = QtWidgets.QCheckBox(dbStartup)
+        self.hideOnStartupCheckBox.setObjectName("hideOnStartupCheckBox")
+        self.verticalLayout.addWidget(self.hideOnStartupCheckBox)
         self.buttonBox = QtWidgets.QDialogButtonBox(dbStartup)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Ok)
@@ -38,3 +41,4 @@ class Ui_dbStartup(object):
         _translate = QtCore.QCoreApplication.translate
         dbStartup.setWindowTitle(_translate("dbStartup", "Welcome to DrumBurp"))
         self.label.setText(_translate("dbStartup", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">DrumBurp Copyright (C) 2011-16 Michael Thomas</span></p><p><br/></p><p>This program comes with ABSOLUTELY NO WARRANTY; for details see the <span style=\" font-weight:600;\">Help&gt;About DrumBurp</span> menu item. This is free software, and you are welcome to redistribute it under certain conditions; see the licensing information in <span style=\" font-weight:600;\">Help&gt;About DrumBurp</span> for details.</p><p><br/></p><p>Support and further licensing information is available at <a href=\"http://www.whatang.org\"><span style=\" text-decoration: underline; color:#0000ff;\">www.whatang.org</span></a></p></body></html>"))
+        self.hideOnStartupCheckBox.setText(_translate("dbStartup", "Do not show this again"))

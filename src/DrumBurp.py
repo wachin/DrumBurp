@@ -29,6 +29,7 @@ from DBVersion import APPNAME, DB_VERSION
 
 def main():
     import ctypes
+    from PyQt5.QtCore import QSettings
     parser = argparse.ArgumentParser()
     parser.add_argument('--virgin', action='store_true')
     parser.add_argument('--pyinstaller-test', action='store_true')
@@ -68,9 +69,15 @@ def main():
     import GUI.DBStartupDialog
     GUI.DBIcons.initialiseIcons()
     GUI.DBFonts.initialiseFonts()
-    splash = GUI.DBStartupDialog.DBStartupDialog(DB_VERSION)
     app.setWindowIcon(GUI.DBIcons.getIcon("drumburp"))
-    splash.exec()
+    startupSettings = QSettings()
+    hideStartupDialog = startupSettings.value("HideStartupDialog", False,
+                                              type=bool)
+    if opts.virgin:
+        hideStartupDialog = False
+    if not hideStartupDialog:
+        splash = GUI.DBStartupDialog.DBStartupDialog(DB_VERSION)
+        splash.exec()
     mainWindow = GUI.DBMainwindow.DrumBurp(fakeStartup=opts.virgin,
                                            filename=filename)
     mainWindow.setWindowTitle("DrumBurp v" + DB_VERSION)

@@ -982,6 +982,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         "es": "Español",
         "fr": "Français",
         "de": "Deutsch",
+        "zh_TW": "繁體中文",
         "pt": "Português",
         "it": "Italiano",
         "ja": "日本語",
