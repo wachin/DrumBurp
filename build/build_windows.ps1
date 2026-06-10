@@ -35,7 +35,28 @@ function Get-LRelease {
         return "$qt_tools_lrelease"
     }
 
-    throw "Could not find lrelease. Install qt5-tools or make sure Qt tools are on PATH."
+    $searchRoots = @()
+    if ($env:QTDIR) {
+        $searchRoots += $env:QTDIR
+    }
+    $searchRoots += "C:\Qt"
+    if ($env:USERPROFILE) {
+        $searchRoots += (Join-Path $env:USERPROFILE "Qt")
+    }
+
+    foreach ($root in ($searchRoots | Select-Object -Unique)) {
+        if (!(Test-Path $root)) {
+            continue
+        }
+        $matches = Get-ChildItem -Path $root -Recurse -Filter lrelease.exe `
+                                 -ErrorAction SilentlyContinue | `
+            Sort-Object FullName -Descending
+        if ($matches) {
+            return $matches[0].FullName
+        }
+    }
+
+    throw "Could not find lrelease. Install Qt translation tools, add lrelease to PATH, or install a Qt desktop kit under C:\Qt."
 }
 
 $lrelease = Get-LRelease
