@@ -39,6 +39,45 @@
     <file>Icons/format-text-bold.png</file>
     <file>Icons/process-stop.png</file>
     <file>Icons/system-log-out.png</file>
+    <file>Icons/dark/preferences-desktop-locale.png</file>
+    <file>Icons/dark/preferences-desktop-font.png</file>
+    <file>Icons/dark/accessories-calculator.png</file>
+    <file>Icons/dark/go-home.png</file>
+    <file>Icons/dark/lilypond-icon.png</file>
+    <file>Icons/dark/book.png</file>
+    <file>Icons/dark/arrow-repeat.png</file>
+    <file>Icons/dark/arrow-repeat-once.png</file>
+    <file>Icons/dark/midi</file>
+    <file>Icons/dark/audio-volume-medium.png</file>
+    <file>Icons/dark/audio-volume-muted.png</file>
+    <file>Icons/dark/media-playback-start.png</file>
+    <file>Icons/dark/media-playback-stop.png</file>
+    <file>Icons/dark/gplv3-88x31.png</file>
+    <file>Icons/dark/fit-page</file>
+    <file>Icons/dark/1299814882_Black_Numbered-List.png</file>
+    <file>Icons/dark/applications-multimedia.png</file>
+    <file>Icons/dark/video-display.png</file>
+    <file>Icons/dark/1299815323_HAL-9000 Brain Room Key.png</file>
+    <file>Icons/dark/pdf.png</file>
+    <file>Icons/dark/view-refresh.png</file>
+    <file>Icons/dark/drumburp.png</file>
+    <file>Icons/dark/audio-x-generic.png</file>
+    <file>Icons/dark/help-browser.png</file>
+    <file>Icons/dark/folder.png</file>
+    <file>Icons/dark/edit-delete.png</file>
+    <file>Icons/dark/document-new.png</file>
+    <file>Icons/dark/document-open.png</file>
+    <file>Icons/dark/document-print.png</file>
+    <file>Icons/dark/document-save.png</file>
+    <file>Icons/dark/document-save-as.png</file>
+    <file>Icons/dark/edit-copy.png</file>
+    <file>Icons/dark/edit-paste.png</file>
+    <file>Icons/dark/edit-redo.png</file>
+    <file>Icons/dark/edit-undo.png</file>
+    <file>Icons/dark/format-justify-fill.png</file>
+    <file>Icons/dark/format-text-bold.png</file>
+    <file>Icons/dark/process-stop.png</file>
+    <file>Icons/dark/system-log-out.png</file>
   </qresource>
   <qresource prefix="fonts">
     <file alias="montserrat.ttf">fonts/Montserrat-Regular.ttf</file>

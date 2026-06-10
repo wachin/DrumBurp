@@ -22,25 +22,61 @@ Created on 23 Jan 2011
 @author: Mike Thomas
 '''
 
-import os
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-from PyQt5 import QtGui
+from GUI.DBTheme import THEME_DARK, THEME_LIGHT
 
-_ICON_DIR = os.path.join(os.path.dirname(__file__), "Icons")
+_ICON_RESOURCE_PREFIX = ":/Icons/Icons"
+_DARK_ICON_RESOURCE_PREFIX = ":/Icons/Icons/dark"
 
-_ICON_CACHE = {"drumburp": "drumburp",
-               "repeat": "view-refresh",
-               "score": "audio-x-generic",
-               "copy": "edit-copy",
-               "paste": "edit-paste",
-               "delete": "edit-delete"}
+_ICON_NAME_MAP = {"drumburp": "drumburp.png",
+                  "repeat": "view-refresh.png",
+                  "score": "audio-x-generic.png",
+                  "copy": "edit-copy.png",
+                  "paste": "edit-paste.png",
+                  "delete": "edit-delete.png"}
+
+_ICON_CACHE = {}
+
+
+def _currentThemeMode():
+    app = QtWidgets.QApplication.instance()
+    if app is None:
+        return THEME_LIGHT
+    return app.property("drumburpThemeMode") or THEME_LIGHT
+
+
+def _resourcePath(filename, theme_mode):
+    if theme_mode == THEME_DARK:
+        dark_path = "%s/%s" % (_DARK_ICON_RESOURCE_PREFIX, filename)
+        if QtCore.QFile.exists(dark_path):
+            return dark_path
+    return "%s/%s" % (_ICON_RESOURCE_PREFIX, filename)
+
+
+def _cacheKey(off_filename, on_filename, theme_mode):
+    return (off_filename, on_filename, theme_mode)
 
 
 def initialiseIcons():
-    for iconName, iconLocation in _ICON_CACHE.items():
-        iconPath = os.path.join(_ICON_DIR, iconLocation + ".png")
-        _ICON_CACHE[iconName] = QtGui.QIcon(iconPath)
+    _ICON_CACHE.clear()
 
 
-def getIcon(iconName):
-    return _ICON_CACHE[iconName.lower()]
+def buildIcon(off_filename, on_filename=None, theme_mode=None):
+    app = QtWidgets.QApplication.instance()
+    if app is None:
+        return QtGui.QIcon()
+    theme_mode = theme_mode or _currentThemeMode()
+    key = _cacheKey(off_filename, on_filename, theme_mode)
+    if key in _ICON_CACHE:
+        return _ICON_CACHE[key]
+    icon = QtGui.QIcon(_resourcePath(off_filename, theme_mode))
+    if on_filename is not None:
+        icon.addFile(_resourcePath(on_filename, theme_mode),
+                     state=QtGui.QIcon.On)
+    _ICON_CACHE[key] = icon
+    return icon
+
+
+def getIcon(iconName, theme_mode=None):
+    return buildIcon(_ICON_NAME_MAP[iconName.lower()], theme_mode=theme_mode)

@@ -29,12 +29,11 @@ import shutil
 import webbrowser
 
 from PyQt5.QtCore import QSettings, QTimer, QThread, pyqtSignal, pyqtSlot, Qt, \
-    QStandardPaths, QSize
-from PyQt5.QtGui import QFont, QColor, QIcon, QImage, QPixmap
+    QStandardPaths
+from PyQt5.QtGui import QFont, QColor
 from PyQt5.QtPrintSupport import QPrintPreviewDialog, QPrinterInfo, QPrinter
 from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QMessageBox,
-                             QWhatsThis, QLabel, QFrame, QAction, QActionGroup,
-                             QToolBar)
+                             QWhatsThis, QLabel, QFrame, QAction, QActionGroup)
 
 from DBVersion import APPNAME, DB_VERSION, doesNewerVersionExist
 from Data import FontOptions
@@ -149,6 +148,50 @@ class FakeQSettings(object):
 
 class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
     exporterDone = pyqtSignal(str)
+    _WIDGET_ICON_SPECS = {
+        "FitWindowButton": ("video-display.png", None),
+        "FitPageButton": ("fit-page", None),
+        "PrintScoreButton": ("document-print.png", None),
+        "PrintPdfButton": ("pdf.png", None),
+        "fontsButton": ("preferences-desktop-font.png", None),
+        "exportLilypondButton": ("lilypond-icon.png", None),
+        "lilypondPathButton": ("lilypond-icon.png", None),
+        "textExportButton": ("format-text-bold.png", None),
+    }
+    _ACTION_ICON_SPECS = {
+        "actionQuit": ("system-log-out.png", None),
+        "actionNew": ("document-new.png", None),
+        "actionLoad": ("document-open.png", None),
+        "actionSave": ("document-save.png", None),
+        "actionSaveAs": ("document-save-as.png", None),
+        "actionExportASCII": ("format-text-bold.png", None),
+        "actionDisplayOptionsIsVisible": ("preferences-desktop-font.png", None),
+        "actionFitInWindow": ("video-display.png", None),
+        "actionPrint": ("document-print.png", None),
+        "actionWhatsThis": ("help-browser.png", None),
+        "actionUndo": ("edit-undo.png", None),
+        "actionRedo": ("edit-redo.png", None),
+        "actionExportPDF": ("pdf.png", None),
+        "actionAboutDrumBurp": ("drumburp.png", None),
+        "actionShowEmptyLines": ("format-justify-fill.png", None),
+        "actionShowDrumKey": ("1299815323_HAL-9000 Brain Room Key.png", None),
+        "actionShowScoreInfo": ("applications-multimedia.png", None),
+        "actionShowBeatCount": ("1299814882_Black_Numbered-List.png", None),
+        "actionFitPage": ("fit-page", None),
+        "actionPlayScore": ("media-playback-start.png", "media-playback-stop.png"),
+        "actionMuteNotes": ("audio-volume-medium.png", "audio-volume-muted.png"),
+        "actionExportMIDI": ("midi", None),
+        "actionLoopBars": ("arrow-repeat.png", "media-playback-stop.png"),
+        "actionPlayOnce": ("arrow-repeat-once.png", "media-playback-stop.png"),
+        "actionCopyMeasures": ("edit-copy.png", None),
+        "actionPasteMeasures": ("edit-paste.png", None),
+        "actionDeleteMeasures": ("edit-delete.png", None),
+        "actionFillPasteMeasures": ("edit-paste.png", None),
+        "actionOnlineManual": ("book.png", None),
+        "actionExportLilypond": ("lilypond-icon.png", None),
+        "actionShowMeasureCounts": ("accessories-calculator.png", None),
+        "actionEditColours": ("preferences-desktop-locale.png", None),
+    }
 
     def __init__(self, parent=None, fakeStartup=False, filename=None):
         self._fakeStartup = fakeStartup
@@ -228,7 +271,6 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self.restoreState(windowState)
         self._readColours(settings)
         self._baseColourScheme = copy.deepcopy(self.colourScheme)
-        self._originalActionIcons = {}
         self.statusbar.addPermanentWidget(QFrame())
         self.availableNotesLabel = QLabel()
         self.availableNotesLabel.setMinimumWidth(250)
@@ -246,6 +288,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self.setAcceptDrops(True)
         self._midiInitThread = DBMidi.MidiInit(self)
         self._midiInitThread.finished.connect(self._midiInitFinished)
+        self._applyNamedIcons()
         QTimer.singleShot(0, lambda: self._startUp(erroredFiles))
         self.actionCheckOnStartup.setChecked(
             _settingsValue(settings, "CheckOnStartup", False, bool))
@@ -601,60 +644,35 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             self.scoreScene.update()
         self.scoreView.viewport().update()
 
-    @staticmethod
-    def _iconForDarkMode(icon):
-        dark_icon = QIcon()
-        sizes = icon.availableSizes() or [QSize(16, 16),
-                                          QSize(22, 22),
-                                          QSize(24, 24),
-                                          QSize(32, 32)]
-        modes = (QIcon.Normal, QIcon.Active, QIcon.Selected, QIcon.Disabled)
-        states = (QIcon.Off, QIcon.On)
-        for size in sizes:
-            for mode in modes:
-                for state in states:
-                    pixmap = icon.pixmap(size, mode, state)
-                    if pixmap.isNull():
-                        continue
-                    image = pixmap.toImage().convertToFormat(
-                        QImage.Format_ARGB32)
-                    for y_pos in range(image.height()):
-                        for x_pos in range(image.width()):
-                            colour = image.pixelColor(x_pos, y_pos)
-                            if colour.alpha() == 0:
-                                continue
-                            red = colour.red()
-                            green = colour.green()
-                            blue = colour.blue()
-                            max_channel = max(red, green, blue)
-                            min_channel = min(red, green, blue)
-                            luminance = ((red * 299) + (green * 587) + (blue * 114)) // 1000
-                            if max_channel - min_channel < 40 and luminance < 180:
-                                shade = 235 if mode != QIcon.Disabled else 140
-                                colour.setRgb(shade, shade, shade, colour.alpha())
-                            elif luminance < 70:
-                                boost = 1.7 if mode != QIcon.Disabled else 1.2
-                                colour.setRgb(min(255, int(red * boost)),
-                                              min(255, int(green * boost)),
-                                              min(255, int(blue * boost)),
-                                              colour.alpha())
-                            image.setPixelColor(x_pos, y_pos, colour)
-                    dark_icon.addPixmap(QPixmap.fromImage(image), mode, state)
-        return dark_icon if not dark_icon.isNull() else icon
+    def _setNamedIcon(self, widget_name, off_filename, on_filename=None,
+                      theme_mode=None):
+        widget = getattr(self, widget_name, None)
+        if widget is None:
+            return
+        widget.setIcon(DBIcons.buildIcon(off_filename, on_filename, theme_mode))
 
-    def _applyThemeToActionIcons(self, actual_mode):
-        for toolbar in self.findChildren(QToolBar):
-            for action in toolbar.actions():
-                icon = action.icon()
-                if icon.isNull():
-                    continue
-                key = id(action)
-                if key not in self._originalActionIcons:
-                    self._originalActionIcons[key] = icon
-                if actual_mode == THEME_DARK:
-                    action.setIcon(self._iconForDarkMode(self._originalActionIcons[key]))
-                else:
-                    action.setIcon(self._originalActionIcons[key])
+    def _applyNamedIcons(self, actual_mode=None):
+        if actual_mode is None:
+            actual_mode = self.app.property("drumburpThemeMode") or THEME_LIGHT
+        self.setWindowIcon(DBIcons.getIcon("drumburp", actual_mode))
+        for widget_name, (off_filename, on_filename) in self._WIDGET_ICON_SPECS.items():
+            self._setNamedIcon(widget_name, off_filename, on_filename,
+                               actual_mode)
+        for action_name, (off_filename, on_filename) in self._ACTION_ICON_SPECS.items():
+            self._setNamedIcon(action_name, off_filename, on_filename,
+                               actual_mode)
+        self.menuRecentScores.setIcon(
+            DBIcons.buildIcon("folder.png", theme_mode=actual_mode))
+        self.tabWidget.setTabIcon(
+            self.tabWidget.indexOf(self.textTab),
+            DBIcons.buildIcon("drumburp.png", theme_mode=actual_mode))
+        self.tabWidget.setTabIcon(
+            self.tabWidget.indexOf(self.lilypondTab),
+            DBIcons.buildIcon("lilypond-icon.png", theme_mode=actual_mode))
+        self.tabWidget.setTabIcon(
+            self.tabWidget.indexOf(self.textExportTab),
+            DBIcons.buildIcon("format-text-bold.png", theme_mode=actual_mode))
+        self.updateRecentFiles()
 
     @pyqtSlot()
     def on_actionFitInWindow_triggered(self):
@@ -1161,7 +1179,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         if actual_mode is None:
             actual_mode = self.app.property("drumburpThemeMode") or THEME_LIGHT
         self._refreshColourSchemeForTheme(actual_mode)
-        self._applyThemeToActionIcons(actual_mode)
+        self._applyNamedIcons(actual_mode)
         paper_colour = QColor("#17191d") if actual_mode == THEME_DARK else QColor("#ffffff")
         if self.scoreScene is not None:
             self.scoreScene.setBackgroundBrush(paper_colour)
