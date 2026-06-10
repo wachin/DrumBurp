@@ -28,7 +28,6 @@ or:
 
 import os
 import sys
-import xml.etree.ElementTree as ET
 from PyQt5.QtCore import QTranslator, QCoreApplication, QLibraryInfo
 
 # The translator instances — kept alive for the lifetime of the app.
@@ -49,64 +48,18 @@ def _i18n_dir():
     return os.path.dirname(os.path.abspath(__file__))
 
 
-def _translation_paths(language):
-    """Return the candidate .qm and .ts paths for a language code."""
-    base = os.path.join(_i18n_dir(), "drumburp_%s" % language)
-    return base + ".qm", base + ".ts"
+def _translation_path(language):
+    """Return the candidate .qm path for a language code."""
+    return os.path.join(_i18n_dir(), "drumburp_%s.qm" % language)
 
 
 def _pick_translation(candidates):
-    """Pick the best translation file for the requested candidates.
-
-    Preference order:
-    1. A newer .ts file (useful during development before running lrelease)
-    2. A compiled .qm file
-    3. A .ts file if no .qm exists
-    """
+    """Pick the first available compiled .qm translation."""
     for candidate in candidates:
-        qm_path, ts_path = _translation_paths(candidate)
-        has_qm = os.path.exists(qm_path)
-        has_ts = os.path.exists(ts_path)
-        if has_ts and (not has_qm or
-                       os.path.getmtime(ts_path) > os.path.getmtime(qm_path)):
-            return candidate, "ts", ts_path
-        if has_qm:
-            return candidate, "qm", qm_path
-        if has_ts:
-            return candidate, "ts", ts_path
-    return None, None, None
-
-
-class _TsTranslator(QTranslator):
-    """Minimal TS-file translator for development-time fallback."""
-
-    def __init__(self, ts_path, parent=None):
-        super().__init__(parent)
-        self._messages = {}
-        self._load_messages(ts_path)
-
-    def _load_messages(self, ts_path):
-        tree = ET.parse(ts_path)
-        root = tree.getroot()
-        for context in root.findall("context"):
-            name = context.findtext("name") or ""
-            if not name:
-                continue
-            for message in context.findall("message"):
-                source = message.findtext("source") or ""
-                translation = message.find("translation")
-                if not source or translation is None:
-                    continue
-                text = translation.text or ""
-                if not text:
-                    continue
-                self._messages[(name, source)] = text
-
-    def isEmpty(self):
-        return not self._messages
-
-    def translate(self, context, sourceText, disambiguation=None, n=-1):
-        return self._messages.get((context, sourceText), "")
+        qm_path = _translation_path(candidate)
+        if os.path.exists(qm_path):
+            return candidate, qm_path
+    return None, None
 
 
 def install_translator(app, language=None):
@@ -143,21 +96,14 @@ def install_translator(app, language=None):
         if upper_language not in candidates:
             candidates.append(upper_language)
 
-    selected_language, translation_kind, translation_path = _pick_translation(
-        candidates)
+    selected_language, translation_path = _pick_translation(candidates)
     if translation_path is None:
         return None  # No translation available — fall back to English.
 
-    if translation_kind == "ts":
-        _translator = _TsTranslator(translation_path, app)
-        if _translator.isEmpty():
-            return None
-        QCoreApplication.installTranslator(_translator)
-    else:
-        _translator = QTranslator(app)
-        if not _translator.load(translation_path):
-            return None
-        QCoreApplication.installTranslator(_translator)
+    _translator = QTranslator(app)
+    if not _translator.load(translation_path):
+        return None
+    QCoreApplication.installTranslator(_translator)
 
     # Also load Qt's own built-in translation for standard widgets
     # (QDialogButtonBox buttons: OK, Cancel, etc.)

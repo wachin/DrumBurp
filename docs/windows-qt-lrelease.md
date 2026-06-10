@@ -125,6 +125,19 @@ and updates the `.qm` files, then `lrelease.exe` was found successfully.
   problem is usually file locking, antivirus scanning, or a stale process, not
   a missing Qt installation.
 
+## Practical Recommendation Before Building On Windows
+
+Before running the Windows build, it is a good idea to:
+
+1. Close DrumBurp.
+2. Close Qt Creator and Qt Linguist.
+3. Close Explorer if it is open in the repository folder.
+4. Delete `build\tmp` and `build\dist` if they exist.
+5. Run the build again.
+
+This helps avoid file-locking problems while `lrelease`, PyInstaller, or NSIS
+are rewriting files inside the repository.
+
 ## Related Files
 
 - `build/build_windows.ps1`
