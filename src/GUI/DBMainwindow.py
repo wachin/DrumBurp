@@ -674,6 +674,51 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             DBIcons.buildIcon("format-text-bold.png", theme_mode=actual_mode))
         self.updateRecentFiles()
 
+    def _linkColour(self):
+        return self.palette().color(self.palette().Link).name()
+
+    def _setLilypondHelpText(self):
+        link_colour = self._linkColour()
+        self.exportLilypondButton.setWhatsThis(
+            self.tr(
+                "<html><head/><body>"
+                "<p>Export this score to a Lilypond file, and run Lilypond "
+                "on it.</p>"
+                "<p><br/></p>"
+                "<p>Lilypond is a TeX based music typesetting system "
+                "available from <a href=\"http://www.lilypond.org\">"
+                "<span style=\" text-decoration: underline; color:%s;\">"
+                "lilypond.org</span></a>. DrumBurp can export its scores "
+                "to the Lilypond input format, and run Lilypond on them to "
+                "generate beautiful notation as output.</p>"
+                "</body></html>") % link_colour)
+        self.lilypondPathButton.setWhatsThis(
+            self.tr(
+                "<html><head/><body>"
+                "<p>DrumBurp uses "
+                "<a href=\"https://www.lilypond.org\">"
+                "<span style=\" text-decoration: underline; color:%s;\">"
+                "Lilypond</span></a> to generate beautiful notation.</p>"
+                "<p><br/></p>"
+                "<p>To use this feature, you must install Lilypond and tell "
+                "DrumBurp where to find it. Use this button to set the path "
+                "to the Lilypond executable. This will be in the usr/bin "
+                "directory of the Lilypond installation, and it will be "
+                "called lilypond.exe on Windows, or lilypond on Linux.</p>"
+                "</body></html>") % link_colour)
+        self.actionExportLilypond.setWhatsThis(
+            self.tr(
+                "<html><head/><body>"
+                "<p>Export this score to a Lilypond file.</p>"
+                "<p><br/></p>"
+                "<p>Lilypond is a TeX based music typesetting system "
+                "available from <a href=\"http://www.lilypond.org\">"
+                "<span style=\" text-decoration: underline; color:%s;\">"
+                "lilypond.org</span></a>. DrumBurp can export its scores "
+                "to the Lilypond input format. Run Lilypond on the resulting "
+                "files to have your score set in notation rather than as "
+                "tab.</p></body></html>") % link_colour)
+
     @pyqtSlot()
     def on_actionFitInWindow_triggered(self):
         widthInPixels = self.scoreView.width()
@@ -1180,6 +1225,7 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
             actual_mode = self.app.property("drumburpThemeMode") or THEME_LIGHT
         self._refreshColourSchemeForTheme(actual_mode)
         self._applyNamedIcons(actual_mode)
+        self._setLilypondHelpText()
         paper_colour = QColor("#17191d") if actual_mode == THEME_DARK else QColor("#ffffff")
         if self.scoreScene is not None:
             self.scoreScene.setBackgroundBrush(paper_colour)

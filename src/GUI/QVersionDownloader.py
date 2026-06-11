@@ -32,7 +32,23 @@ class QVersionDownloader(QDialog, Ui_VersionDownloader):
     def __init__(self, newer=None, parent=None):
         super(QVersionDownloader, self).__init__(parent=parent)
         self.setupUi(self)
+        self._applyRichText()
         QTimer.singleShot(0, lambda: self._download(newer))
+
+    def _linkColour(self):
+        return self.palette().color(self.palette().Link).name()
+
+    def _applyRichText(self):
+        link_colour = self._linkColour()
+        self.message.setOpenExternalLinks(True)
+        self.resultLabel.setOpenExternalLinks(True)
+        self.message.setText(
+            "<html><head/><body><p><span style=\" font-size:8pt;\">"
+            "Contacting </span><a href=\"http://www.whatang.org\">"
+            "<span style=\" text-decoration: underline; color:%s;\">"
+            "www.whatang.org</span></a><span style=\" font-size:8pt;\"> "
+            "to detect latest version. Please wait...</span></p>"
+            "</body></html>" % link_colour)
 
     def _download(self, newer):
         if newer is None:
@@ -50,7 +66,10 @@ class QVersionDownloader(QDialog, Ui_VersionDownloader):
                                      '<span>')
         else:
             newer = ".".join(str(v) for v in newer)
-            self.resultLabel.setText('<span style="color:#183080;"><b>'
+            self.resultLabel.setText('<span><b>'
                                      "DrumBurp version %s is now available "
                                      "from <a href='http://www.whatang.org'>"
-                                     "www.whatang.org</a></b></span>" % newer)
+                                     "<span style='text-decoration: underline; "
+                                     "color:%s;'>www.whatang.org</span></a>"
+                                     "</b></span>" %
+                                     (newer, self._linkColour()))
