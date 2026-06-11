@@ -22,8 +22,9 @@ Created on 17 Apr 2011
 @author: Mike Thomas
 '''
 
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import QSize, pyqtSlot
 from PyQt5.QtWidgets import QDialog
+from GUI import DBIcons
 from GUI.ui_dbInfo import Ui_InfoDialog
 from GUI.DBLicense import DBLicenseDialog
 
@@ -32,12 +33,18 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
     def __init__(self, version, parent=None):
         super(DBInfoDialog, self).__init__(parent)
         self.setupUi(self)
+        self._applyThemeIcons()
         self.setWindowTitle(self.tr("DrumBurp v%s Information") % version)
         text = str(self.copyrightLabel.text())
         text += ' ' + self.tr("This is version %s.") % version
         self.copyrightLabel.setText(text)
         self._setTechnologiesText()
         self._addPortCredit()
+
+    def _applyThemeIcons(self):
+        self.label_2.setPixmap(DBIcons.buildIcon("drumburp.png").pixmap(48, 48))
+        self.licenseButton.setIcon(DBIcons.buildIcon("gplv3-88x31.png"))
+        self.licenseButton.setIconSize(QSize(44, 16))
 
     def _setTechnologiesText(self):
         """Set the Technologies label text so it is picked up by tr()."""
