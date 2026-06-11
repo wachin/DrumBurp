@@ -38,7 +38,9 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         text = str(self.copyrightLabel.text())
         text += ' ' + self.tr("This is version %s.") % version
         self.copyrightLabel.setText(text)
+        self._setContactDetailsText()
         self._setTechnologiesText()
+        self._setLicenseText()
         self._addPortCredit()
 
     def _applyThemeIcons(self):
@@ -46,19 +48,66 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         self.licenseButton.setIcon(DBIcons.buildIcon("gplv3-88x31.png"))
         self.licenseButton.setIconSize(QSize(44, 16))
 
+    def _linkColour(self):
+        return self.palette().color(self.palette().Link).name()
+
+    def _setContactDetailsText(self):
+        from PyQt5.QtCore import Qt
+        link_colour = self._linkColour()
+        self.label_3.setTextFormat(Qt.RichText)
+        self.label_3.setOpenExternalLinks(True)
+        self.label_3.setWordWrap(True)
+        self.label_3.setText(
+            '<p style="font-size:8pt;">'
+            + self.tr('For more information go to ')
+            + '<a href="http://www.whatang.org">'
+            + '<span style="text-decoration: underline; color:%s;">'
+            % link_colour
+            + 'www.whatang.org</span></a>'
+            + self.tr(' or email ')
+            + '<a href="mailto:drumburp@whatang.org">'
+            + '<span style="text-decoration: underline; color:%s;">'
+            % link_colour
+            + 'drumburp@whatang.org</span></a>.'
+            + '</p>'
+        )
+
     def _setTechnologiesText(self):
         """Set the Technologies label text so it is picked up by tr()."""
         from PyQt5.QtCore import Qt
+        link_colour = self._linkColour()
         self.label_4.setTextFormat(Qt.RichText)
         self.label_4.setOpenExternalLinks(True)
         self.label_4.setWordWrap(True)
         self.label_4.setText(
             '<p style="font-size:8pt;">'
             + self.tr(
-                'DrumBurp is built using '
-                '<a href="http://www.python.org">Python</a> 3, '
-                '<a href="http://www.riverbankcomputing.co.uk">PyQt</a> 5 '
-                'and <a href="http://www.pygame.org">PyGame</a>.')
+                'DrumBurp is built using ')
+            + '<a href="http://www.python.org">'
+            + '<span style="text-decoration: underline; color:%s;">Python</span></a> 3, '
+            % link_colour
+            + '<a href="http://www.riverbankcomputing.co.uk">'
+            + '<span style="text-decoration: underline; color:%s;">PyQt</span></a> 5 '
+            % link_colour
+            + self.tr('and ')
+            + '<a href="http://www.pygame.org">'
+            + '<span style="text-decoration: underline; color:%s;">PyGame</span></a>.'
+            % link_colour
+            + '</p>'
+        )
+
+    def _setLicenseText(self):
+        from PyQt5.QtCore import Qt
+        link_colour = self._linkColour()
+        self.label_5.setTextFormat(Qt.RichText)
+        self.label_5.setOpenExternalLinks(True)
+        self.label_5.setWordWrap(True)
+        self.label_5.setText(
+            '<p style="font-size:8pt;">'
+            + self.tr('DrumBurp is issued under the ')
+            + '<a href="http://www.gnu.org/licenses/gpl.html">'
+            + '<span style="text-decoration: underline; color:%s;">GNU GPLv3</span></a>.'
+            % link_colour
             + '</p>'
         )
 
@@ -77,9 +126,11 @@ class DBInfoDialog(QDialog, Ui_InfoDialog):
         label_info = QLabel(
             '<p style="font-size:8pt;">'
             + self.tr('Ported to Python 3 and PyQt5 by '
-                      'Washington Indacochea Delgado '
-                      '(<a href="mailto:linuxfrontier@proton.me">'
-                      'linuxfrontier@proton.me</a>).')
+                      'Washington Indacochea Delgado ')
+            + '(<a href="mailto:linuxfrontier@proton.me">'
+            + '<span style="text-decoration: underline; color:%s;">'
+            % self._linkColour()
+            + 'linuxfrontier@proton.me</span></a>).'
             + '</p>'
         )
         label_info.setTextFormat(Qt.RichText)
