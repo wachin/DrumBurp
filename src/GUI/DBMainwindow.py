@@ -25,6 +25,7 @@ Created on 31 Jul 2010
 import copy
 from io import BytesIO, StringIO
 import os
+import sys
 import shutil
 import webbrowser
 
@@ -400,7 +401,33 @@ class DrumBurp(QMainWindow, Ui_DrumBurpWindow):
         self.lastLilyPage.clicked.connect(self._lilyScene.lastPage)
 
     def _startUp(self, erroredFiles):
-        self._midiInitThread.start()
+        # macOS workaround:
+        #
+        # pygame/SDL MIDI initialization crashes on macOS when executed
+        # from the background MidiInit thread:
+        #
+        #   EXC_BAD_INSTRUCTION (SIGILL)
+        #   Crashed Thread: MidiInit
+        #
+        # The crash was reproduced on macOS Big Sur 11.7.1 using:
+        #   Python 3.12
+        #   PyQt5 5.15.11
+        #   pygame 2.5.2 and 2.6.1
+        #
+        # Initializing MIDI from the main thread avoids the crash.
+        #
+        # If future testing confirms that threaded MIDI initialization
+        # works correctly on macOS, this workaround may be removed.
+        #
+        # Added by Washington Indacochea Delgado
+        # 2026-06-12
+
+        if sys.platform == "darwin":
+            DBMidi._initialize()
+            self._midiInitFinished()
+        else:
+            self._midiInitThread.start()
+
         self._doUpdateSplashScreen()
         self.scoreView.startUp()
         self.updateStatus(self.tr("Welcome to %s v%s") % (APPNAME, DB_VERSION))
