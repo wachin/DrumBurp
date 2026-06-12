@@ -137,7 +137,7 @@ python3 src/DrumBurp.py
 
 ---
 
-## Run in Ubuntu Studio
+## Run in Ubuntu Studio 26.04
 
 Tested on:
 
@@ -145,38 +145,61 @@ Tested on:
 
 ### MIDI playback with JACK and Qsynth
 
-DrumBurp from source has been tested successfully with:
+DrumBurp has been tested successfully with:
 
-* JACK (via QjackCtl)
+* JACK (managed by QjackCtl)
 * Qsynth
-* General MIDI SoundFont
+* General MIDI SoundFonts
 
-Important: the startup order matters.
+### Important
 
-The following sequence works correctly:
+The startup order matters.
 
-1. Start **QjackCtl**.
-2. Verify that the JACK server is running.
-3. Start **Qsynth**.
+The following procedure has been tested successfully:
+
+1. Launch **QjackCtl**.
+2. Verify that the JACK server is running (Ubuntu Studio 26.04 usually starts JACK automatically, so pressing the **Start** button may not be necessary).
+3. Launch **Qsynth**.
 4. Load a General MIDI SoundFont.
-5. Click **Start** in Qsynth if needed.
+5. Start Qsynth if it is not already running.
 6. Launch DrumBurp.
-7. Open a score.
+7. Open a drum score.
 8. Press **Play**.
 
-MIDI playback should now work correctly.
+MIDI playback should work correctly.
 
-### Known issue
+### Known limitation
 
-The following startup order was tested and did **not** work reliably:
+The following startup order was tested and did **not** work correctly:
 
-1. Start Qsynth.
-2. Start QjackCtl.
+1. Launch Qsynth.
+2. Launch QjackCtl.
 3. Launch DrumBurp.
 
-When Qsynth is started before JACK is available, DrumBurp may fail to play MIDI correctly.
+In this scenario DrumBurp may fail to produce MIDI sound because Qsynth was started before a working JACK server connection was available.
 
-For best results, always start JACK first and then start Qsynth.
+For reliable operation, always start JACK (QjackCtl) before starting Qsynth. Restart the machine.
+
+### Troubleshooting
+
+If DrumBurp starts but produces no sound:
+
+1. Verify that JACK is running.
+2. Verify that Qsynth is running.
+3. Verify that a SoundFont is loaded in Qsynth.
+4. In DrumBurp select:
+
+```text
+MIDI -> Refresh Device List
+```
+
+5. Then select:
+
+```text
+MIDI -> Select MIDI out
+```
+
+and choose the Qsynth MIDI output device.
 
 ---
 
@@ -186,7 +209,7 @@ For best results, always start JACK first and then start Qsynth.
 
 ## Linux MIDI with JACK with a SoundFont synth
 
-On Linux, DrumBurp sends MIDI through the available MIDI backend. If you not use UbuntuStudio or not use AV Linux, and you can want a better sound quality, is possible to use an external synth such as Qsynth (not tested FluidSynth, TiMidity, or another JACK/ALSA MIDI target). To do this your Linux Operative System need a Kernel Real Time and enabled JACK, you can follow this tutorial to setup all need (the tutorial are in spanish, use an translator):
+On Linux, DrumBurp sends MIDI through the available MIDI backend. If your Linux distribution does not provide a preconfigured audio production environment such as Ubuntu Studio or AV Linux, you can use JACK together with Qsynth and a General MIDI SoundFont. To do this your Linux Operative System need a Kernel Real Time and enabled JACK, you can follow this tutorial to setup all need (the tutorial are in spanish, use an translator):
 
 **Cómo instalar y usar Jack Audio Connection Kit JACK + Ardour y sus plugins con un Kernel Tiempo Real en MX Linux, Debian**  
 [https://facilitarelsoftwarelibre.blogspot.com/2020/10/instalar-realtime-kernel-en-mx-linux.html](https://facilitarelsoftwarelibre.blogspot.com/2020/10/instalar-realtime-kernel-en-mx-linux.html)    
