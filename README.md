@@ -48,6 +48,22 @@ user is less time writing, more time drumming.
 Fork of [DrumBurp](https://github.com/Whatang/DrumBurp) by Washington Indacochea Delgado.  
 Complete port from PyQt4/Python 2 to PyQt5/Python 3
 
+### Platform status
+
+|           Platform            |          Status           |
+| ----------------------------- | ------------------------- |
+| Linux                         | Tested                    |
+| Windows 10/11                 | Tested                    |
+| macOS Big Sur 11.7.x          | Tested                    |
+| GitHub Actions macOS 15 Intel | Build + Smoke Test Passed |
+
+### Tested Linux distributions
+
+- Debian 12
+- MX Linux 23
+- Ubuntu 26.04
+- Ubuntu Studio 26.04
+
 ---
 
 📖 **[Full manual → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**
@@ -118,6 +134,76 @@ Or run:
 export PYTHONPATH="$PWD/src"
 python3 src/DrumBurp.py
 ```
+
+---
+
+## Run in Ubuntu Studio
+
+Tested on:
+
+* [Ubuntu Studio 26.04](https://ubuntustudio.org/)
+
+### MIDI playback with JACK and Qsynth
+
+DrumBurp from source has been tested successfully with:
+
+* JACK (via QjackCtl)
+* Qsynth
+* General MIDI SoundFont
+
+Important: the startup order matters.
+
+The following sequence works correctly:
+
+1. Start **QjackCtl**.
+2. Verify that the JACK server is running.
+3. Start **Qsynth**.
+4. Load a General MIDI SoundFont.
+5. Click **Start** in Qsynth if needed.
+6. Launch DrumBurp.
+7. Open a score.
+8. Press **Play**.
+
+MIDI playback should now work correctly.
+
+### Known issue
+
+The following startup order was tested and did **not** work reliably:
+
+1. Start Qsynth.
+2. Start QjackCtl.
+3. Launch DrumBurp.
+
+When Qsynth is started before JACK is available, DrumBurp may fail to play MIDI correctly.
+
+For best results, always start JACK first and then start Qsynth.
+
+---
+
+## Run in AV Linux
+
+---
+
+## Linux MIDI with JACK with a SoundFont synth
+
+On Linux, DrumBurp sends MIDI through the available MIDI backend. If you not use UbuntuStudio or not use AV Linux, and you can want a better sound quality, is possible to use an external synth such as Qsynth (not tested FluidSynth, TiMidity, or another JACK/ALSA MIDI target). To do this your Linux Operative System need a Kernel Real Time and enabled JACK, you can follow this tutorial to setup all need (the tutorial are in spanish, use an translator):
+
+**Cómo instalar y usar Jack Audio Connection Kit JACK + Ardour y sus plugins con un Kernel Tiempo Real en MX Linux, Debian**  
+[https://facilitarelsoftwarelibre.blogspot.com/2020/10/instalar-realtime-kernel-en-mx-linux.html](https://facilitarelsoftwarelibre.blogspot.com/2020/10/instalar-realtime-kernel-en-mx-linux.html)    
+
+Typical JACK/SoundFont workflow:
+
+1. Start JACK.
+2. Start Qsynth or FluidSynth and load a General MIDI SoundFont.
+3. Open DrumBurp.
+4. Use `MIDI -> Refresh Device List` if the synth was started after DrumBurp.
+5. Choose the synth from `MIDI -> Select MIDI out`.
+6. Play the score.
+
+DrumBurp does not manage SoundFont files itself; the external synth owns that
+part of the setup.
+
+---
 
 # Run on Windows 10
 
@@ -255,49 +341,177 @@ Optional features:
 
 # Run on macOS
 
-These instructions are intended for testing DrumBurp from source on macOS.
-Install Python first, for example with Homebrew:
+These instructions are intended for running DrumBurp from source on macOS.
+
+## Tested macOS versions
+
+DrumBurp has been successfully tested on:
+
+* macOS Big Sur 11.7.x (Intel)
+* Python 3.12.9
+* PyQt5 5.15.11
+* pygame 2.5.2
+
+In addition, the GitHub Actions continuous integration workflow successfully builds and smoke-tests DrumBurp on:
+
+* macOS 15 (Intel runner)
+* Python 3.11
+
+## Install Python
+
+Do not rely on Apple's bundled Python.
+
+Download and install Python from:
+
+[https://www.python.org/downloads/macos/](https://www.python.org/downloads/macos/)
+
+Recommended versions:
+
+* Python 3.11.x (recommended for release builds and PyInstaller)
+* Python 3.12.x (tested successfully)
+
+Python 3.13 is tested by the automated unit tests in GitHub Actions.
+
+Python 3.14 has not yet been tested and is currently not recommended.
+
+Verify the installation:
 
 ```bash
-brew install python
+python3 --version
 ```
 
-From the repository root, create a virtual environment and install the Python
-packages:
+## Optional: install Git
+
+If Git is not installed, first install Homebrew:
+
+[https://brew.sh/](https://brew.sh/)
+
+Then install Git:
+
+```bash
+brew install git
+```
+
+Verify:
+
+```bash
+git --version
+```
+
+## Install DrumBurp dependencies
+
+From the repository root:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
+
 python3 -m pip install --upgrade pip
 python3 -m pip install PyQt5 PyQt5-sip pygame
 ```
 
-Run DrumBurp:
+### Important: Always use `python3` command on macOS.
+
+Do not use the command `python`, because some macOS installations still provide
+an older system Python that may not be compatible with DrumBurp.
+
+## Run DrumBurp
 
 ```bash
 export PYTHONPATH="$PWD/src"
 python3 src/DrumBurp.py
 ```
 
-After installing the dependencies, you can also launch DrumBurp by
-double-clicking `run-drumburp.command` in the repository folder. If macOS says
-the launcher is not executable, run this once from Terminal:
+After installing the dependencies, you can also launch DrumBurp by double-clicking:
+
+```text
+run-drumburp.command
+```
+
+If macOS says the launcher is not executable, run:
 
 ```bash
 chmod +x run-drumburp.command
 ```
+
+## Leaving the virtual environment
+
+When you are finished using DrumBurp, you can leave the virtual environment by running:
+
+```bash
+deactivate
+```
+
+Your Terminal prompt should return to normal and the `(.venv)` prefix will disappear.
+
+## Running DrumBurp again later
+
+You only need to create the virtual environment once.
+
+The next time you want to run DrumBurp, open a Terminal in the repository folder and activate the existing environment:
+
+```bash
+cd ~/Dev/DrumBurp
+source .venv/bin/activate
+```
+
+Then launch DrumBurp:
+
+```bash
+export PYTHONPATH="$PWD/src"
+python3 src/DrumBurp.py
+```
+
+You do **not** need to run:
+
+```bash
+python3 -m venv .venv
+```
+
+again unless:
+
+* you deleted the `.venv` folder,
+* you installed a different Python version,
+* or the environment became corrupted.
+
+## Updating dependencies later
+
+If the project requirements change in a future version, activate the virtual environment and run:
+
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install PyQt5 PyQt5-sip pygame
+```
+
+or install the updated requirements file if one is provided.
+
+## Checking that the virtual environment is active
+
+When the environment is active, your prompt will usually look similar to:
+
+```text
+(.venv) username@computer DrumBurp %
+```
+
+The `(.venv)` prefix indicates that Python packages will be installed inside the DrumBurp environment rather than system-wide.
+
+
+## Notes
+
+* MIDI playback has been tested successfully on macOS Big Sur 11.7.x.
+* DrumBurp uses pygame for MIDI playback on macOS.
+* If playback is silent, verify that macOS has an available audio/MIDI output device.
+* Exporting a `.mid` file is a useful way to verify MIDI generation.
+
 
 Optional features:
 
 - **LilyPond/PDF export:** install LilyPond for macOS from
   `https://lilypond.org/`, then set the path to the `lilypond` executable
   inside DrumBurp's Lilypond options.
-- **MIDI playback:** DrumBurp uses `pygame`, not JACK or TiMidity directly. If
-  DrumBurp starts but playback is silent, check that macOS has an available
-  MIDI/audio output device and try exporting a `.mid` file to verify that MIDI
-  generation is working.
+- **MIDI playback:** DrumBurp uses `pygame`. If   DrumBurp starts but playback is silent, check that macOS has an available  MIDI/audio output device and try exporting a `.mid` file to verify that MIDI generation is working.
 
-## MIDI playback
+# MIDI playback
 
 DrumBurp produces MIDI sound through the native Windows Multimedia API (`winmm`)
 on Windows and through `pygame` on other platforms. On Windows, this allows
@@ -305,28 +519,9 @@ playback through MIDI output devices such as VirtualMIDISynth, Microsoft GS
 Wavetable Synth, or other Windows MIDI ports. DrumBurp does not load SoundFonts
 itself; external synths such as VirtualMIDISynth handle that.
 
-### Linux MIDI with JACK or a SoundFont synth
-
-On Linux, DrumBurp sends MIDI through the available MIDI backend instead of
-loading SoundFonts internally. If the computer does not have a hardware or
-software MIDI synth already connected, use an external synth such as Qsynth,
-FluidSynth, TiMidity, or another JACK/ALSA MIDI target.
-
-Typical JACK/SoundFont workflow:
-
-1. Start JACK if your audio setup uses it.
-2. Start Qsynth or FluidSynth and load a General MIDI SoundFont.
-3. Open DrumBurp.
-4. Use `MIDI -> Refresh Device List` if the synth was started after DrumBurp.
-5. Choose the synth from `MIDI -> Select MIDI out`.
-6. Play the score.
-
-DrumBurp does not manage SoundFont files itself; the external synth owns that
-part of the setup.
-
 ---
 
-## What changed from the original
+# What changed from the original
 
 - Complete port from PyQt4 to PyQt5: all imports, signals, slots and resources
 - Port from Python 2 to Python 3: integer division, `base64`, comparisons, `exec()`, etc.
@@ -341,10 +536,10 @@ part of the setup.
 
 See `migration_report_pyqt5.md` for the full technical details.
 
-📖 **[Manual completo → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**  
-🐛 **[Reportar problemas](https://github.com/wachin/DrumBurp/issues)**
+📖 **[Tutorial → GitHub Wiki](https://github.com/wachin/DrumBurp/wiki)**  
+🐛 **[Bugs report](https://github.com/wachin/DrumBurp/issues)**
 
-## License
+# License
 
 DrumBurp is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -365,18 +560,18 @@ See the file `COPYING.txt` for the full text of the GNU GPL.
 
 ---
 
-## Internationalization (i18n) — for developers
+# Internationalization (i18n) — for developers
 
 DrumBurp supports multiple languages via Qt Linguist and `.qm` translation files.
 
-### Install required tools
+## Install required tools
 
 ```bash
 sudo apt install pyqt5-dev-tools qttools5-dev-tools
 # provides: pylupdate5, lrelease, linguist
 ```
 
-### Translation files
+## Translation files
 
 ```
 drumburp.pro              Qt project file — lists all source files for pylupdate5
