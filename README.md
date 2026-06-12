@@ -276,7 +276,7 @@ Run DrumBurp:
 
 ```bash
 export PYTHONPATH="$PWD/src"
-python src/DrumBurp.py
+python3 src/DrumBurp.py
 ```
 
 After installing the dependencies, you can also launch DrumBurp by
