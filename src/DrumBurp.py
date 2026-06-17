@@ -33,11 +33,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--virgin', action='store_true')
     parser.add_argument('--pyinstaller-test', action='store_true')
+    parser.add_argument('--smoke-test', action='store_true')
     parser.add_argument('--language', dest='language', default=None,
                         help='Force a specific UI language (e.g. es, fr, de)')
     parser.add_argument('filename', nargs='?')
     opts = parser.parse_args()
-    if opts.pyinstaller_test:
+    if opts.pyinstaller_test or opts.smoke_test:
         sys.exit(0)
     filename = opts.filename
     myappid = 'Whatang.DrumBurp'

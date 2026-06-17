@@ -75,7 +75,7 @@ Lo que hay que instalar depende del sistema operativo:
 
 Versiones de Python recomendadas:
 
-- Usa Python 3.11 x64 para builds de release y empaquetado con PyInstaller.
+- Usa Python 3.11 x64 para builds de release y generacion de paquetes.
 - Python 3.13 tambien se prueba para ejecutar desde codigo fuente y para la
   suite de pruebas.
 
@@ -111,11 +111,11 @@ dependencias:
 
 ```powershell
 py -m pip install --upgrade pip
-py -m pip install PyQt5 PyQt5-sip pygame
+py -m pip install PyQt5 PyQt5-sip
 ```
 
-En Windows, `pygame` queda como soporte de reserva, pero la reproduccion MIDI
-principal usa el backend nativo WinMM de Windows.
+En Windows, la reproduccion MIDI principal usa el backend nativo WinMM de
+Windows.
 
 Despues de instalar las dependencias, puedes iniciar DrumBurp haciendo doble clic
 en `run-drumburp.bat`.
@@ -292,10 +292,12 @@ $env:PYTHONPATH = "$PWD\src"
 py -m unittest discover -s src\test
 ```
 
-Tambien se puede usar el lanzador para una prueba rapida:
+Tambien se puede usar el lanzador para una prueba rapida. El indicador antiguo
+`--pyinstaller-test` sigue funcionando por compatibilidad, pero el nombre
+neutral recomendado es `--smoke-test`:
 
 ```powershell
-.\run-drumburp.bat --pyinstaller-test
+.\run-drumburp.bat --smoke-test
 ```
 
 ### Entorno de build en Windows
@@ -308,7 +310,7 @@ py -3.11 -m pip install --upgrade pip
 py -3.11 -m pip install -r build\requirements-windows.txt
 ```
 
-El build del instalador de Windows tambien requiere PowerShell 7, Chocolatey,
+El build del instalador de Windows usa Nuitka junto con NSIS. Tambien requiere PowerShell 7, Chocolatey,
 NSIS, Git for Windows y GitHub CLI. Consulta `ROADMAP_Win_Workflow.md` para el
 flujo detallado de validacion en Windows.
 
@@ -448,4 +450,3 @@ LANGUAGE=de ./run-drumburp.sh
 5. Probar con `LANGUAGE=fr ./run-drumburp.sh`
 
 Consulte `ROADMAP_i18n.md` para el plan completo de i18n y el progreso.
-

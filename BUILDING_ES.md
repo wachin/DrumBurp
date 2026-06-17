@@ -47,7 +47,7 @@ Es la receta principal de GitHub Actions. Le dice a GitHub:
 Contiene los scripts usados por el workflow:
 
 - `build/build_linux.sh` crea el binario Linux con PyInstaller.
-- `build/build_windows.ps1` crea la carpeta Windows con PyInstaller y luego el
+- `build/build_windows.ps1` crea la carpeta Windows con Nuitka y luego el
   instalador `.exe` con NSIS.
 - `build/build_macos.sh` crea `DrumBurp.app` con PyInstaller y lo empaqueta en
   un `.zip`.
@@ -228,7 +228,7 @@ Se ejecuta en `ubuntu-latest`.
 Descarga `db_linux` y ejecuta:
 
 ```bash
-DrumBurp --pyinstaller-test
+DrumBurp --smoke-test
 ```
 
 Esto comprueba que el binario arranca lo suficiente como para importar sus
@@ -251,7 +251,7 @@ Se ejecuta en `windows-latest`.
 Descarga el instalador, lo instala silenciosamente y ejecuta:
 
 ```cmd
-DrumBurp.exe --pyinstaller-test
+DrumBurp.exe --smoke-test
 ```
 
 ### `build_macos`
@@ -272,7 +272,7 @@ Se ejecuta en `macos-15-intel`.
 Descarga el `.zip`, lo descomprime y ejecuta:
 
 ```bash
-DrumBurp.app/Contents/MacOS/DrumBurp --pyinstaller-test
+DrumBurp.app/Contents/MacOS/DrumBurp --smoke-test
 ```
 
 ### `release`
@@ -321,7 +321,7 @@ paquete `.deb`, `.rpm`, AppImage ni Flatpak.
 
 ### Windows genera un instalador
 
-Windows usa PyInstaller para crear la aplicacion y NSIS para crear un instalador
+Windows usa Nuitka para crear la aplicacion y NSIS para crear un instalador
 `.exe`. Ese instalador crea accesos directos y desinstalador.
 
 ## Construir localmente

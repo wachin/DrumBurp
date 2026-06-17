@@ -28,9 +28,47 @@ At the end of this validation, the following should be confirmed:
 - [ ] `build/install_windows.ps1` installs the required tools.
 - [x] `build/build_windows.ps1` creates the installer.
 - [x] The installer can be installed silently.
-- [x] `DrumBurp.exe --pyinstaller-test` works.
+- [x] `DrumBurp.exe --smoke-test` works.
 - [x] GitHub Actions generates the `db_windows` artifact.
 - [ ] A `vX.Y.Z` tag can publish the installer in a GitHub Release.
+
+## Completed: Windows Build Migrated from PyInstaller to Nuitka
+
+The official Windows build now uses Nuitka to create the standalone application
+folder and NSIS to create the installer.
+
+Changed files:
+
+- `build/build_windows.ps1`
+- `build/requirements-windows.txt`
+- `.github/workflows/build.yml`
+- `build/DrumBurp.nsi`
+- `src/DrumBurp.py`
+- `src/i18n/i18n.py`
+
+What changed:
+
+- `build/build_windows.ps1` now runs `python -m nuitka` instead of
+  `pyinstaller`.
+- The Nuitka build uses `--standalone`, `--enable-plugin=pyqt5`,
+  `--windows-console-mode=disable`, and the DrumBurp `.ico` file.
+- Windows product metadata is passed to Nuitka so the generated executable has
+  proper file properties.
+- Compiled translations are included with `--include-data-dir=src\i18n=i18n`.
+- `src/i18n/i18n.py` now supports both PyInstaller's `_MEIPASS` layout and
+  Nuitka's standalone layout where `i18n/` lives next to the executable.
+- `--smoke-test` was added as the neutral test flag. `--pyinstaller-test`
+  remains accepted as a backward-compatible alias.
+- The GitHub Actions Windows smoke test now runs `DrumBurp.exe --smoke-test`.
+
+The Windows build still produces the same public installer name:
+
+```text
+build\output\DrumBurp-X.Y.Z.0-setup.exe
+```
+
+Linux and macOS are unchanged by this migration and may continue using their
+existing platform scripts.
 
 ## Completed: Windows MIDI Playback
 
@@ -86,12 +124,12 @@ What each requirement is used for:
 - Git for Windows provides the `git` command used to clone the repository,
   inspect changes, create commits, switch branches, and push code to GitHub.
 - Python 3.11 x64 is the Python runtime used to install DrumBurp's dependencies,
-  run tests, and build the Windows executable with PyInstaller.
+  run tests, and build the Windows executable with Nuitka.
 - PowerShell 7 provides the `pwsh` command used to run and validate the Windows
   build scripts in a modern, cross-platform PowerShell environment.
 - Chocolatey provides the `choco` command used by the Windows install script to
   install external build tools such as NSIS and runtime dependencies.
-- NSIS provides `makensis.exe`, which packages the PyInstaller output into the
+- NSIS provides `makensis.exe`, which packages the Nuitka output into the
   final Windows installer, for example `DrumBurp-X.Y.Z.0-setup.exe`.
 - GitHub CLI provides the `gh` command used to inspect GitHub Actions runs,
   download build artifacts, inspect logs, and manage release-related GitHub
@@ -188,7 +226,7 @@ Read ROADMAP_Win_Workflow.md and validate the DrumBurp Windows build.
 First inspect git status, then validate PowerShell syntax with pwsh, install
 dependencies if needed, run build/install_windows.ps1 and build/build_windows.ps1,
 install the generated .exe into a temporary folder, and run
-DrumBurp.exe --pyinstaller-test. Do not delete unrelated changes.
+DrumBurp.exe --smoke-test. Do not delete unrelated changes.
 ```
 
 ## Step 1: Inspect Repository State
@@ -284,8 +322,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ## Step 5: Install Build Dependencies
 
 - [ ] Run `build/install_windows.ps1` successfully from an elevated/admin PowerShell.
-- [x] Confirm that `PyQt5` and `pygame` import correctly.
-- [x] Confirm that `pyinstaller` responds.
+- [x] Confirm that `PyQt5` imports correctly.
+- [x] Confirm that `python -m nuitka --version` responds.
 - [x] Confirm that `makensis` responds.
 - [x] If `makensis` is not in `PATH`, locate `makensis.exe`.
 
@@ -298,8 +336,8 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File .\build\install_windows.ps1
 Verify tools:
 
 ```powershell
-python -c "import PyQt5, pygame; print('Python deps OK')"
-pyinstaller --version
+python -c "import PyQt5; print('Python deps OK')"
+python -m nuitka --version
 makensis /VERSION
 ```
 
@@ -343,7 +381,7 @@ Get-ChildItem .\build\output\*.exe
 ## Step 7: Test the Local Installer
 
 - [x] Install the `.exe` into a temporary folder.
-- [x] Run `DrumBurp.exe --pyinstaller-test`.
+- [x] Run `DrumBurp.exe --smoke-test`.
 - [x] Confirm that the exit code is `0`.
 
 Use a temporary folder so a real installation is not touched:
@@ -355,7 +393,7 @@ $installDir = Join-Path $env:TEMP "DrumBurp-test-install"
 
 Remove-Item $installDir -Recurse -Force -ErrorAction SilentlyContinue
 Start-Process -FilePath $installer -ArgumentList "/S", "/D=$installDir" -Wait
-& "$installDir\DrumBurp\DrumBurp.exe" --pyinstaller-test
+& "$installDir\DrumBurp\DrumBurp.exe" --smoke-test
 ```
 
 Expected result: the command exits with code `0`.
@@ -458,7 +496,7 @@ Confirmed manual validation:
 - [x] Run URL: `https://github.com/wachin/DrumBurp/actions/runs/26842100756`
 - [x] Windows Build passed.
 - [x] Windows Smoke Test installed the generated NSIS installer and ran
-  `DrumBurp.exe --pyinstaller-test`.
+  `DrumBurp.exe --smoke-test`.
 - [x] Linux Build and Linux Smoke Test passed.
 - [x] macOS Build and macOS Smoke Test passed.
 - [x] Release job was skipped, as expected, because the run was not triggered by
@@ -480,7 +518,7 @@ validated locally:
 - Python 3.11 x64
 - Chocolatey
 - NSIS
-- PyInstaller and the Windows Python requirements
+- Nuitka and the Windows Python requirements
 - Qt translation tools that provide `lrelease`
 
 Do not rely on a developer's local NSIS or Chocolatey installation for GitHub
@@ -547,7 +585,7 @@ C:\D\DrumBurp-Dev\DrumBurp\artifacts\db_windows\DrumBurp-1.1.3.0-setup.exe
 
 The downloaded artifact was also tested by the GitHub Actions Windows Smoke
 Test in run `26842100756`, which installed the NSIS installer and ran
-`DrumBurp.exe --pyinstaller-test` successfully.
+`DrumBurp.exe --smoke-test` successfully.
 
 The local `artifacts/` directory is ignored by Git because it only contains
 downloaded validation outputs.
@@ -606,7 +644,6 @@ Close and reopen the terminal.
 Open PowerShell as administrator and repeat:
 
 ```powershell
-choco install vcredist2008
 choco install nsis
 ```
 
@@ -650,14 +687,14 @@ $env:PATH = "C:\Program Files (x86)\NSIS;$env:PATH"
 ### Opening `build\DrumBurp.nsi` Directly Fails
 
 `build\DrumBurp.nsi` is not meant to be compiled directly from the `build`
-directory. It expects the PyInstaller output layout created by
+directory. It expects the Windows build output layout created by
 `build\build_windows.ps1`.
 
 The build script does this before running NSIS:
 
 - Copies `COPYING.txt` into `build\dist`.
 - Copies `build\DrumBurp.nsi` into `build\dist`.
-- Ensures `build\dist\DrumBurp` exists from the PyInstaller build.
+- Ensures `build\dist\DrumBurp` exists from the Nuitka standalone build.
 - Changes the working directory to `build\dist`.
 - Runs `makensis.exe build\dist\DrumBurp.nsi`.
 
@@ -721,7 +758,7 @@ At the end, report a summary with:
 - [x] whether the PowerShell scripts parsed correctly
 - [x] whether `build_windows.ps1` generated the installer
 - [x] exact path to the local installer
-- [x] result of `DrumBurp.exe --pyinstaller-test`
+- [x] result of `DrumBurp.exe --smoke-test`
 - [x] link to the GitHub Actions run
 - [x] whether `db_windows` was downloaded and tested
 - [x] any error with relevant logs

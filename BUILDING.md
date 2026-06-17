@@ -49,7 +49,7 @@ This is the main GitHub Actions workflow. It tells GitHub:
 The `build/` directory contains the scripts used by the workflow:
 
 - `build/build_linux.sh` builds the Linux binary with PyInstaller.
-- `build/build_windows.ps1` builds the Windows PyInstaller output and packages
+- `build/build_windows.ps1` builds the Windows Nuitka output and packages
   it into an NSIS installer.
 - `build/build_macos.sh` builds `DrumBurp.app` with PyInstaller and packages it
   into a `.zip`.
@@ -229,7 +229,7 @@ Runs on `ubuntu-latest`.
 Downloads `db_linux` and runs:
 
 ```bash
-DrumBurp --pyinstaller-test
+DrumBurp --smoke-test
 ```
 
 This checks that the PyInstaller binary starts far enough to import the main
@@ -237,24 +237,23 @@ application modules.
 
 ### `build_windows`
 
-Runs on `windows-latest`.
+Runs on `windows-2025`.
 
 1. Checks out the source code.
 2. Installs Python 3.11 x64.
-3. Installs the MSVC 2008 redistributable.
-4. Installs NSIS.
-5. Installs Python dependencies from `build/requirements-windows.txt`.
-6. Adds PyQt5's Qt tools directory to `PATH`.
-7. Compiles `.qm` translation files.
-8. Runs `build/build_windows.ps1`.
-9. Uploads the installer as the `db_windows` artifact.
+3. Installs NSIS.
+4. Installs Python dependencies from `build/requirements-windows.txt`.
+5. Adds PyQt5's Qt tools directory to `PATH`.
+6. Compiles `.qm` translation files.
+7. Runs `build/build_windows.ps1`.
+8. Uploads the installer as the `db_windows` artifact.
 
 ### `test_windows`
 
 Downloads the installer, installs it silently, and runs:
 
 ```cmd
-DrumBurp.exe --pyinstaller-test
+DrumBurp.exe --smoke-test
 ```
 
 ### `build_macos`
@@ -275,7 +274,7 @@ Runs on `macos-15-intel`.
 Downloads the `.zip`, extracts it, and runs:
 
 ```bash
-DrumBurp.app/Contents/MacOS/DrumBurp --pyinstaller-test
+DrumBurp.app/Contents/MacOS/DrumBurp --smoke-test
 ```
 
 ### `release`
@@ -322,7 +321,7 @@ create a `.deb`, `.rpm`, AppImage, or Flatpak.
 
 ### Windows Creates an Installer
 
-Windows uses PyInstaller to create the application directory and NSIS to create
+Windows uses Nuitka to create the application directory and NSIS to create
 an `.exe` installer. The installer creates shortcuts and an uninstaller.
 
 ## Local Builds

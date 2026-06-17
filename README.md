@@ -94,7 +94,7 @@ What still has to be installed depends on the operating system:
 
 Recommended Python versions:
 
-- Use Python 3.11 x64 for release builds and PyInstaller packaging.
+- Use Python 3.11 x64 for release builds and package generation.
 - Python 3.13 is also tested for running from source and for the unit test
   suite.
 
@@ -245,17 +245,15 @@ The Windows package names are:
 - `PyQt5` — Qt GUI bindings; includes Qt modules such as `QtWidgets`,
   `QtPrintSupport` and `QtMultimedia`
 - `PyQt5-sip` — support package used by PyQt5
-- `pygame` — MIDI fallback support; Windows playback uses the native WinMM
-  backend
-- `pywin32` — Windows support package used by the build environment
-- `pyinstaller` — only needed to build a standalone `.exe`
-- `pylint` — only needed for development checks
+- `qt5-tools` — provides Qt tooling such as `lrelease.exe`
+- `nuitka` — used to build the official Windows standalone `.exe`
+- `ordered-set` and `zstandard` — recommended Nuitka build helpers
 
 If you only want to test the program from source, this smaller install is
 usually enough:
 
 ```powershell
-py -m pip install PyQt5 PyQt5-sip pygame
+py -m pip install PyQt5 PyQt5-sip
 ```
 
 After installing the dependencies, you can launch DrumBurp by double-clicking
@@ -318,10 +316,12 @@ $env:PYTHONPATH = "$PWD\src"
 py -m unittest discover -s src\test
 ```
 
-The same launcher can be used for a quick smoke test:
+The same launcher can be used for a quick smoke test. The older
+`--pyinstaller-test` flag is still accepted for compatibility, but
+`--smoke-test` is the preferred neutral name:
 
 ```powershell
-.\run-drumburp.bat --pyinstaller-test
+.\run-drumburp.bat --smoke-test
 ```
 
 ### Windows build environment
@@ -334,7 +334,7 @@ py -3.11 -m pip install --upgrade pip
 py -3.11 -m pip install -r build\requirements-windows.txt
 ```
 
-The Windows installer build also requires PowerShell 7, Chocolatey, NSIS, Git
+The Windows installer build uses Nuitka plus NSIS. It also requires PowerShell 7, Chocolatey, NSIS, Git
 for Windows, and GitHub CLI. See `ROADMAP_Win_Workflow.md` for the detailed
 Windows validation workflow. For the Qt translation tool (`lrelease.exe`) on
 Windows, see `docs/windows-qt-lrelease.md`.
@@ -390,7 +390,7 @@ Download and install Python from:
 
 Recommended versions:
 
-* Python 3.11.x (recommended for release builds and PyInstaller)
+* Python 3.11.x (recommended for release builds and package generation)
 * Python 3.12.x (tested successfully)
 
 Python 3.13 is tested by the automated unit tests in GitHub Actions.

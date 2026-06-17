@@ -12,8 +12,8 @@ DrumBurp internationalisation (i18n) loader.
 Call install_translator(app) once, right after creating QApplication,
 to load the correct .qm file for the current system locale.
 
-Translation files live in src/i18n/ (development) or in the i18n/
-subdirectory next to the frozen executable (PyInstaller builds):
+Translation files live in src/i18n/ during development. Frozen builds keep
+them in the bundled i18n directory:
     drumburp_en.qm
     drumburp_es.qm
     drumburp_de.qm
@@ -38,12 +38,15 @@ _qt_translator = None
 def _i18n_dir():
     """Return the directory that contains the .qm files.
 
-    Works both in development (src/i18n/) and when frozen by PyInstaller
-    (i18n/ next to the executable, bundled via --add-data).
+    Works in development, PyInstaller builds, and Nuitka standalone builds.
     """
     if getattr(sys, 'frozen', False):
-        # PyInstaller sets sys._MEIPASS to the temp extraction directory.
-        return os.path.join(sys._MEIPASS, 'i18n')
+        # PyInstaller sets sys._MEIPASS. Nuitka standalone keeps data next to
+        # the executable. Check both layouts so the runtime is packager-neutral.
+        bundle_root = getattr(sys, '_MEIPASS', None)
+        if bundle_root:
+            return os.path.join(bundle_root, 'i18n')
+        return os.path.join(os.path.dirname(sys.executable), 'i18n')
     # Development: same directory as this file.
     return os.path.dirname(os.path.abspath(__file__))
 

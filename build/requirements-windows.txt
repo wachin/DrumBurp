@@ -1,7 +1,6 @@
-pyinstaller
 PyQt5
 PyQt5-sip
 qt5-tools
-pygame
-pylint
-pywin32
+nuitka>=2.6
+ordered-set>=4.1.0
+zstandard>=0.23.0
